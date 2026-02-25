@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Salesforce Record Page Prototype</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <style>
+        /* ===== SCOPE & RESET ===== */
+        html, body { margin:0; padding:0; background:#f3f3f3; }
+        .slds-scope { font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+
+        /* ===== GLOBAL HEADER (matches Lightning Experience) ===== */
+        .eq-global-header {
+            background: #032D60;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 9000;
+        }
+        .eq-global-header .eq-waffle {
+            display: grid;
+            grid-template-columns: repeat(3,5px);
+            gap: 2px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+        .eq-waffle span { width:5px; height:5px; background:rgba(255,255,255,.7); border-radius:1px; }
+        .eq-global-header .eq-app-name {
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: .03em;
+            margin-right: 1.5rem;
+        }
+        .eq-search-box {
+            flex:1;
+            max-width: 400px;
+            position: relative;
+        }
+        .eq-search-box input {
+            width:100%;
+            padding: 0.375rem 0.75rem 0.375rem 2rem;
+            border:none;
+            border-radius: 0.25rem;
+            background: rgba(255,255,255,.16);
+            color:#fff;
+            font-size: 0.8125rem;
+        }
+        .eq-search-box input::placeholder { color: rgba(255,255,255,.5); }
+        .eq-search-box::before {
+            content:"🔍";
+            position:absolute;
+            left:0.5rem;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:0.75rem;
+            opacity:.5;
+        }
+        .eq-header-actions {
+            margin-left:auto;
+            display:flex;
+            align-items:center;
+            gap:1rem;
+        }
+        .eq-header-actions button {
+            background:none; border:none; color:rgba(255,255,255,.7); cursor:pointer; font-size:1rem;
+        }
+        .eq-avatar {
+            width:28px; height:28px; border-radius:50%; background:#5B9BD5;
+            color:#fff; display:flex; align-items:center; justify-content:center;
+            font-size:0.6875rem; font-weight:700;
+        }
+
+        /* ===== CONTEXT BAR / OBJECT TABS ===== */
+        .eq-context-bar {
+            background: #fff;
+            border-bottom: 3px solid #1B96FF;
+            display: flex;
+            align-items: stretch;
+            height: 40px;
+            padding: 0 0.5rem;
+        }
+        .eq-object-tab {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: #3E3E3C;
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+            transition: border-color .15s, color .15s;
+            white-space: nowrap;
+        }
+        .eq-object-tab:hover { color: #1B96FF; background: #F3F3F3; }
+        .eq-object-tab.is-active {
+            color: #1B96FF;
+            border-bottom-color: #1B96FF;
+            font-weight: 700;
+        }
+        .eq-object-tab .tab-icon {
+            width:18px; height:18px; border-radius:3px;
+            display:inline-flex; align-items:center; justify-content:center;
+            margin-right:0.375rem; font-size:0.625rem; color:#fff;
+        }
+
+        /* ===== CONTROL BAR ===== */
+        .eq-control-bar {
+            background: #FAFAF9;
+            border-bottom: 1px solid #DDDBDA;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.75rem;
+        }
+        .eq-control-bar label { font-weight:600; color:#3E3E3C; margin-right:0.25rem; }
+        .eq-toggle {
+            position:relative; display:inline-block; width:36px; height:18px;
+            background:#DDDBDA; border-radius:9px; cursor:pointer; transition:.2s;
+        }
+        .eq-toggle.is-on { background:#1B96FF; }
+        .eq-toggle::after {
+            content:''; position:absolute; top:2px; left:2px;
+            width:14px; height:14px; background:#fff; border-radius:50%; transition:.2s;
+        }
+        .eq-toggle.is-on::after { left:20px; }
+        .eq-story-banner {
+            flex:1;
+            background: linear-gradient(90deg, #FFB75D 0%, #FF8A00 100%);
+            color: #1A1A1A;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.6875rem;
+            text-align: center;
+        }
+
+        /* ===== HIGHLIGHTS PANEL ===== */
+        .eq-highlights-panel {
+            background: #fff;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid #DDDBDA;
+        }
+        .eq-highlights-top {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .eq-record-icon {
+            width: 36px; height: 36px;
+            border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1rem;
+        }
+        .eq-record-name {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: #080707;
+        }
+        .eq-record-type {
+            font-size: 0.6875rem;
+            color: #706E6B;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+        .eq-highlights-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0 1.5rem;
+        }
+        .eq-hl-field { padding: 0.25rem 0; }
+        .eq-hl-label {
+            font-size: 0.6875rem;
+            color: #706E6B;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+        }
+        .eq-hl-value { font-size: 0.8125rem; color: #080707; font-weight: 400; }
+        .eq-header-btns {
+            margin-left: auto;
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        /* ===== THREE COLUMN LAYOUT ===== */
+        .eq-record-body {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr 1fr;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            max-width: 1600px;
+        }
+        @media (max-width:1200px) { .eq-record-body { grid-template-columns: 1fr 1fr; } }
+        @media (max-width:768px) { .eq-record-body { grid-template-columns: 1fr; } }
+
+        /* ===== FORM ELEMENT (record detail) ===== */
+        .eq-field-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #3E3E3C;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            padding: 0.625rem 0.75rem 0.25rem;
+            border-bottom: 1px solid #DDDBDA;
+            margin-bottom: 0;
+        }
+        .eq-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        .eq-detail-grid .slds-form-element {
+            padding: 0.375rem 0.75rem;
+            border-bottom: 1px solid #F3F3F3;
+        }
+        .eq-detail-grid .slds-form-element:hover { background: #F3F3F3; }
+        .eq-detail-grid .slds-form-element__label {
+            font-size: 0.6875rem;
+            color: #706E6B;
+            margin-bottom: 0;
+            padding-bottom: 0.0625rem;
+        }
+        .eq-detail-grid .slds-form-element__static {
+            font-size: 0.8125rem;
+            color: #080707;
+            min-height: 1.25rem;
+        }
+        .eq-detail-grid .slds-form-element__static a {
+            color: #0070D2;
+            text-decoration: none;
+        }
+        .eq-detail-grid .slds-form-element__static a:hover { text-decoration: underline; }
+        .eq-full-width { grid-column: 1 / -1; }
+
+        /* ===== AGENTFORCE CARD ===== */
+        .eq-agentforce {
+            background: linear-gradient(135deg, #F5EEFF 0%, #EEF4FF 100%);
+            border: 1px solid #D8B4FE;
+            border-radius: 0.5rem;
+            padding: 0.625rem 0.75rem;
+            margin: 0.5rem 0;
+        }
+        .eq-agentforce-hdr {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #5A2D82;
+            margin-bottom: 0.25rem;
+        }
+        .eq-agentforce-desc { font-size: 0.6875rem; color: #444; margin-bottom: 0.375rem; }
+        .eq-agentforce-btn {
+            background: #7C3AED;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.25rem 0.625rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .eq-agentforce-btn:hover { background: #6D28D9; }
+        .eq-agentforce-time {
+            font-size: 0.625rem;
+            color: #706E6B;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== TIMELINE ===== */
+        .eq-timeline-item {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F3F3F3;
+        }
+        .eq-timeline-icon {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.625rem; color: #fff; flex-shrink:0;
+        }
+        .eq-timeline-date { font-size: 0.6875rem; color: #706E6B; }
+        .eq-timeline-title { font-size: 0.8125rem; font-weight: 600; color: #080707; }
+        .eq-timeline-note { font-size: 0.75rem; color: #444; }
+
+        /* ===== RELATED LIST TABLE ===== */
+        .eq-related-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+        .eq-related-table th {
+            background: #FAFAF9;
+            text-align: left;
+            padding: 0.375rem 0.5rem;
+            font-weight: 600;
+            color: #706E6B;
+            text-transform: uppercase;
+            font-size: 0.625rem;
+            letter-spacing: .04em;
+            border-bottom: 1px solid #DDDBDA;
+        }
+        .eq-related-table td {
+            padding: 0.375rem 0.5rem;
+            border-bottom: 1px solid #F3F3F3;
+            color: #3E3E3C;
+        }
+        .eq-related-table a { color: #0070D2; text-decoration:none; }
+        .eq-related-table a:hover { text-decoration: underline; }
+
+        /* ===== PATH ===== */
+        .eq-path {
+            display: flex;
+            gap: 2px;
+            margin: 0.5rem 0;
+        }
+        .eq-path-step {
+            flex: 1;
+            padding: 0.375rem 0.5rem;
+            text-align: center;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #3E3E3C;
+            background: #ECEBEA;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%);
+        }
+        .eq-path-step:first-child { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%); }
+        .eq-path-step.is-complete { background: #2E844A; color: #fff; }
+        .eq-path-step.is-current { background: #0070D2; color: #fff; }
+
+        /* ===== ANNOTATION OVERLAYS ===== */
+        .eq-anno {
+            display: none;
+            font-size: 0.625rem;
+            background: #FFECD2;
+            border: 1px solid #FF8A00;
+            border-radius: 3px;
+            padding: 0.125rem 0.375rem;
+            color: #8B4513;
+            font-weight: 600;
+            margin: 0.25rem 0;
+        }
+        .show-annotations .eq-anno { display: block; }
+
+        /* ===== DATA STORY BANNER ===== */
+        .eq-story-block {
+            display: none;
+            background: #FFFAF0;
+            border-left: 4px solid #FF8A00;
+            padding: 0.5rem 0.75rem;
+            margin: 0.5rem 0;
+            font-size: 0.75rem;
+            color: #3E3E3C;
+            line-height: 1.4;
+        }
+        .show-story .eq-story-block { display: block; }
+        .eq-story-block strong { color: #8B4513; }
+
+        /* ===== STATUS BADGES ===== */
+        .eq-badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+        }
+        .eq-badge--success { background:#D4EDDA; color:#1C6B4A; }
+        .eq-badge--warning { background:#FFF3CD; color:#856404; }
+        .eq-badge--error { background:#F8D7DA; color:#721C24; }
+        .eq-badge--info { background:#D1ECF1; color:#0C5460; }
+
+        /* ===== OBJECT VIEW VISIBILITY ===== */
+        .eq-object-view { display: none; }
+        .eq-object-view.is-visible { display: block; }
+
+        /* ===== BEFORE/AFTER COMPARISON ===== */
+        .eq-comparison-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.6);
+            z-index: 9500;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        .eq-comparison-overlay.is-visible { display: flex; justify-content: center; align-items: flex-start; }
+        .eq-comparison-panel {
+            background: #fff;
+            border-radius: 8px;
+            max-width: 1100px;
+            width: 100%;
+            padding: 2rem;
+        }
+        .eq-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .eq-before-col { border: 2px solid #EA001E; border-radius:8px; padding:1rem; }
+        .eq-after-col { border: 2px solid #2E844A; border-radius:8px; padding:1rem; }
+        .eq-before-col h3 { color: #EA001E; }
+        .eq-after-col h3 { color: #2E844A; }
+        .eq-before-field {
+            padding: 0.25rem 0.5rem;
+            border-bottom: 1px solid #F3F3F3;
+            font-size: 0.6875rem;
+            color: #706E6B;
+        }
+        .eq-metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: #FAFAF9;
+            border-radius: 4px;
+            margin: 0.25rem 0;
+            font-size: 0.8125rem;
+        }
+    </style>
+</head>
+<body>
+<div class="slds-scope" id="app">
+
+    <!-- ============================== -->
+    <!-- GLOBAL HEADER                  -->
+    <!-- ============================== -->
+    <header class="eq-global-header" role="banner">
+        <div class="eq-waffle" aria-label="App Launcher"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="eq-app-name">Equinix CRM</span>
+        <div class="eq-search-box">
+            <input type="search" placeholder="Search Salesforce..." aria-label="Search Salesforce">
+        </div>
+        <div class="eq-header-actions">
+            <button aria-label="Setup">&#9881;</button>
+            <button aria-label="Notifications">&#128276;</button>
+            <div class="eq-avatar" title="Ryder Booth">RB</div>
+        </div>
+    </header>
+
+    <!-- ============================== -->
+    <!-- CONTEXT BAR (OBJECT TABS)      -->
+    <!-- ============================== -->
+    <nav class="eq-context-bar slds-context-bar" role="tablist" aria-label="Object Navigation">
+        <button class="eq-object-tab is-active" role="tab" aria-selected="true" data-view="account">
+            <span class="tab-icon" style="background:#7F8DE1;">&#9733;</span> Accounts
+        </button>
+        <button class="eq-object-tab" role="tab" aria-selected="false" data-view="contact">
+            <span class="tab-icon" style="background:#A094ED;">&#9734;</span> Contacts
+        </button>
+        <button class="eq-object-tab" role="tab" aria-selected="false" data-view="opportunity">
+            <span class="tab-icon" style="background:#FCB95B;">&#9679;</span> Opportunities
+        </button>
+        <button class="eq-object-tab" role="tab" aria-selected="false" data-view="order">
+            <span class="tab-icon" style="background:#4BC076;">&#9632;</span> Orders
+        </button>
+        <button class="eq-object-tab" role="tab" aria-selected="false" data-view="case">
+            <span class="tab-icon" style="background:#F2726D;">&#9650;</span> Cases
+        </button>
+    </nav>
+
+    <!-- ============================== -->
+    <!-- CONTROL BAR                    -->
+    <!-- ============================== -->
+    <div class="eq-control-bar">
+        <label>Annotations</label>
+        <div class="eq-toggle" id="toggleAnnotations" role="switch" aria-checked="false" aria-label="Toggle design annotations" tabindex="0"></div>
+        <label>Data Story</label>
+        <div class="eq-toggle" id="toggleStory" role="switch" aria-checked="false" aria-label="Toggle Monty Python data story" tabindex="0"></div>
+        <label>Before / After</label>
+        <div class="eq-toggle" id="toggleComparison" role="switch" aria-checked="false" aria-label="Toggle before-after comparison" tabindex="0"></div>
+        <div class="eq-story-banner">&#127917; Equinix Design System v0.1 — Monty Python Edition</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!--  ACCOUNT VIEW: The Knights Who Say Ni Ltd                    -->
+    <!-- ============================================================ -->
+    <div class="eq-object-view is-visible" id="view-account">
+
+        <!-- HIGHLIGHTS PANEL -->
+        <div class="eq-highlights-panel">
+            <div class="eq-highlights-top">
+                <div class="eq-record-icon" style="background:#7F8DE1;" aria-hidden="true">&#9733;</div>
+                <div>
+                    <div class="eq-record-type">Account</div>
+                    <div class="eq-record-name">The Knights Who Say Ni Ltd</div>
+                </div>
+                <div class="eq-header-btns">
+                    <button class="slds-button slds-button_neutral">Following</button>
+                    <button class="slds-button slds-button_neutral">Edit</button>
+                    <button class="slds-button slds-button_neutral">Change Owner</button>
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions" title="More Actions">&#8942;</button>
+                </div>
+            </div>
+            <div class="eq-highlights-fields">
+                <div class="eq-hl-field"><div class="eq-hl-label">Annual Revenue</div><div class="eq-hl-value">$4,200,000</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Industry</div><div class="eq-hl-value">Shrubbery &amp; Landscaping</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Account Owner</div><div class="eq-hl-value"><a href="#">The Black Knight</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Phone</div><div class="eq-hl-value">+44 20 NI-NI-NIII</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Customer Segmentation</div><div class="eq-hl-value">Mid-Market – Growth</div></div>
+            </div>
+            <div class="eq-anno">&#9432; Highlights Panel — max 5 fields. Shows compact layout fields from the record. First thing a user sees. Must answer: "Is this the right record? What's the status?"</div>
+        </div>
+
+        <!-- DATA STORY -->
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 1: "We Are the Knights Who Say... Ni!"</strong><br>
+            The Knights Who Say Ni Ltd began as a humble shrubbery procurement operation in the forests of ancient Britain. Their Head Knight demanded a very specific thing from every traveler who passed through: "A shrubbery! One that looks nice. And not too expensive." Over time, the Knights diversified into professional services — specifically, helping organizations find exactly the right thing they didn't know they needed. Their latest venture: migrating their entire shrubbery catalog to a cloud-hosted platform, which naturally requires colocation services. The Black Knight, their famously persistent Security Director ("It's just a flesh wound!"), manages the relationship. He has never, not once, allowed a vendor to pass without a fight.<br><br>
+            <strong>&#127793; Design discussion:</strong> This Account record is the hub. The three-column layout needs to answer three questions instantly: <em>Who is this customer?</em> (left), <em>What's happening with them right now?</em> (center), and <em>What else should I know?</em> (right). If a rep has to scroll or click to another page to answer any of those, we've failed.
+        </div>
+
+        <!-- THREE-COLUMN BODY -->
+        <div class="eq-record-body">
+
+            <!-- ===== LEFT: Record Details ===== -->
+            <div class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <h2 class="slds-card__header-title slds-text-heading_small slds-truncate">Record Details</h2>
+                </div>
+                <div class="slds-card__body">
+                    <div class="eq-anno">&#9432; LEFT COLUMN — Required fields + key business info. This is the "reference" column. Users scan here to confirm record identity and core attributes. Organized by field section matching the Page Layout in Setup.</div>
+
+                    <!-- Account Information Section -->
+                    <div class="eq-field-section-title">Account Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Account Name</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">The Knights Who Say Ni Ltd</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Account Number</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">ACC-00031415</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Account Owner</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Black Knight</a></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Account Source</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Traveler Referral</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Active</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Active</span></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Internal Account</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Ni!</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Industry</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Shrubbery &amp; Landscaping</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Industry Sector</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Botanical Commerce</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Industry Vertical</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Sacred Foliage Supply Chain</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Enterprise Vertical</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Enchanted Forest Operations</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Annual Revenue</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">$4,200,000</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Employees</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">47 Knights (and 1 limbless guard)</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Customer Segmentation – CRO</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Mid-Market – Growth</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Customer Segmentation – GTM</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Acquire</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Buyer Attributes</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Demands Shrubberies; Easily Offended by "It"</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Customer Success Manager</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">Roger the Shrubber</a></div></div>
+                        </div>
+                    </div>
+
+                    <!-- DUNS Information Section -->
+                    <div class="eq-field-section-title">DUNS / Data Enrichment</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">DUNS Number</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">NI-NI-NI-001</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">DUNS Source</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">D&amp;B (via The Old Man from Scene 24)</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">MDM ID</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">MDM-KWSN-00047</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">NAICS Code</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">444220 (Nursery &amp; Garden)</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Global Ultimate DUNS</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">NI-NI-NI-001</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Domestic Ultimate DUNS</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">The Knights Who Until Recently Said Ni Holdings</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Address Section -->
+                    <div class="eq-field-section-title">Address Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">HQ Address</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">The Dark Forest<br>Just Past the Swamp Castle, Turn Left at the Gorge of Eternal Peril<br>England</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Phone</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">+44 20 NI-NI-NIII</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Fax</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">We no longer say Fax. We now say "Ekke Ekke Ekke Ptang Zoo Boing"</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_horizontal">
+                            <span class="slds-form-element__label">Website</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">www.knightswhosayni.co.uk</a></div></div>
+                        </div>
+                    </div>
+
+                    <div class="eq-field-section-title">Description</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width" style="padding:0.5rem 0.75rem;">
+                            <span class="slds-form-element__label">Description</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Forest-dwelling collective specializing in shrubbery procurement and traveler toll collection. Recently pivoted to cloud services after discovering that saying "Ni" at servers doesn't actually improve uptime. Currently migrating their shrubbery catalog (147,000 SKUs) to a hosted platform. Require colocation for their "Shrubbery-as-a-Service" offering. Note: Do NOT say the word "it" during account reviews.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CENTER: Activity + Context ===== -->
+            <div>
+                <div class="eq-anno">&#9432; CENTER COLUMN — "What's happening now?" Activity timeline, engagement path, and contextual intelligence. This is the action column — the most dynamic content lives here.</div>
+
+                <!-- Engagement Path -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Engagement Path</h2>
+                    </div>
+                    <div class="slds-card__body" style="padding:0.5rem 0.75rem;">
+                        <div class="eq-path">
+                            <div class="eq-path-step is-complete">Traveler</div>
+                            <div class="eq-path-step is-complete">Shrubbery Delivered</div>
+                            <div class="eq-path-step is-current">Customer</div>
+                            <div class="eq-path-step">Knights Who Now Say Ekke Ekke</div>
+                            <div class="eq-path-step">Strategic Partner</div>
+                        </div>
+                        <div class="eq-anno">&#9432; Path component — shows account lifecycle stage. Equinix-specific stages reflecting the customer journey from prospect to strategic partner.</div>
+                    </div>
+                </div>
+
+                <!-- Activity Timeline -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Activity Timeline</h2>
+                        <div style="margin-left:auto;">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">Log a Call</button>
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Task</button>
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Event</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-story-block">
+                            <strong>&#128218; The Timeline tells the story:</strong> When The Black Knight opens this Account, the timeline should immediately show what's been happening — the Head Knight's demand for a second shrubbery (slightly higher so you get a two-level effect with a little path running down the middle), the migration kickoff, and the ongoing dispute about whether coconut halves count as server hardware. No swivel-chairing to Siebel. It's all right here.
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#26ADE4;">&#9993;</div>
+                            <div>
+                                <div class="eq-timeline-date">Today, 2:45 PM</div>
+                                <div class="eq-timeline-title">Email: "We Want... ANOTHER Shrubbery!"</div>
+                                <div class="eq-timeline-note">The Head Knight emailed demanding a second colocation cabinet, "only slightly higher, so we get a nice two-level effect with a little path running down the middle." Also requesting a herring-shaped network topology.</div>
+                            </div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#F2726D;">&#9742;</div>
+                            <div>
+                                <div class="eq-timeline-date">Yesterday, 11:22 AM</div>
+                                <div class="eq-timeline-title">Call: The Black Knight Disputes Access Policy</div>
+                                <div class="eq-timeline-note">"None shall pass!" — The Black Knight objected to the new IBX security badge policy. After losing the argument (and metaphorically, both arms), he agreed it was "just a scratch" and accepted the terms.</div>
+                            </div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#4BC076;">&#10003;</div>
+                            <div>
+                                <div class="eq-timeline-date">3 days ago</div>
+                                <div class="eq-timeline-title">Task Completed: Shrubbery Catalog Migration — Phase 1</div>
+                                <div class="eq-timeline-note">Successfully migrated 47,000 of 147,000 shrubbery SKUs to the hosted platform. Roger the Shrubber confirmed data integrity: "They're all very nice, and not too expensive."</div>
+                            </div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#FCB95B;">&#9733;</div>
+                            <div>
+                                <div class="eq-timeline-date">1 week ago</div>
+                                <div class="eq-timeline-title">Opportunity Created: Ni Colocation Migration</div>
+                                <div class="eq-timeline-note">New opportunity for $580K. 4 cabinets + Fabric ports to host the Shrubbery-as-a-Service platform. The Head Knight insists the cabinets be "arranged in a nice path with a little fence."</div>
+                            </div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#F2726D;">&#9888;</div>
+                            <div>
+                                <div class="eq-timeline-date">2 weeks ago</div>
+                                <div class="eq-timeline-title">Case Filed: CS-4523 — "Someone Said 'It'"</div>
+                                <div class="eq-timeline-note">A support agent accidentally said the word "it" on a call with the Head Knight. The entire organization went into distress. Status: Resolved (after bringing a nice shrubbery as apology).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agentforce: Center column -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#10024; Agentforce: Account Intelligence</div>
+                    <div class="eq-agentforce-desc">Generate an AI-powered account summary including health signals, shrubbery satisfaction scores, open demands, and recommended next offerings across all related records.</div>
+                    <button class="eq-agentforce-btn">&#129302; Generate Account Summary</button>
+                    <div class="eq-agentforce-time">Replaces ~15 min of manual research across CRM, Siebel, and email</div>
+                    <div class="eq-anno">&#9432; AGENTFORCE TOUCHPOINT — This is high-value: reps currently spend 10-20 min compiling account context from multiple systems. This agent reads across Opportunities, Cases, Activities, and Orders to produce a single brief. ROI: ~$45/use at avg. rep cost.</div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9888;&#65039; Agentforce: Churn Risk Prediction</div>
+                    <div class="eq-agentforce-desc">Analyze shrubbery delivery cadence, "Ni!" frequency, case volume, and engagement patterns to flag at-risk accounts before they demand a herring.</div>
+                    <button class="eq-agentforce-btn">&#129302; Run Risk Analysis</button>
+                    <div class="eq-agentforce-time">Replaces ~20 min CSM analysis; early warning 90 days before renewal</div>
+                </div>
+            </div>
+
+            <!-- ===== RIGHT: Related Lists + Quick Actions ===== -->
+            <div>
+                <div class="eq-anno">&#9432; RIGHT COLUMN — Related records and quick actions. This is the "what else?" column. Related contacts, open opps, active orders, cases. Everything a rep needs without leaving the record.</div>
+
+                <!-- Related Contacts -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Contacts (4)</h2>
+                        <button class="slds-button slds-button_neutral" style="margin-left:auto;font-size:0.6875rem;">New Contact</button>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table" role="grid" aria-label="Related Contacts">
+                            <thead><tr><th scope="col">Name</th><th scope="col">Title</th><th scope="col">Phone</th></tr></thead>
+                            <tbody>
+                                <tr><td><a href="#">The Head Knight</a></td><td>CEO / Chief Ni Officer</td><td>+44 NI NI NI</td></tr>
+                                <tr><td><a href="#">The Black Knight</a></td><td>Security Director</td><td>+44 TIS-A-SCRATCH</td></tr>
+                                <tr><td><a href="#">Roger the Shrubber</a></td><td>VP Shrubbery Operations</td><td>+44 20 7946 0003</td></tr>
+                                <tr><td><a href="#">The Green Knight</a></td><td>Dir. of Sustainability</td><td>+44 20 7946 0004</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Open Opportunities -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Open Opportunities (2)</h2>
+                        <button class="slds-button slds-button_neutral" style="margin-left:auto;font-size:0.6875rem;">New Opportunity</button>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table" role="grid" aria-label="Open Opportunities">
+                            <thead><tr><th scope="col">Opportunity</th><th scope="col">Amount</th><th scope="col">Stage</th><th scope="col">Close</th></tr></thead>
+                            <tbody>
+                                <tr><td><a href="#">Ni Colocation Migration</a></td><td>$580,000</td><td><span class="eq-badge eq-badge--info">Qualification</span></td><td>Aug 2026</td></tr>
+                                <tr><td><a href="#">Second Shrubbery (Slightly Higher)</a></td><td>$120,000</td><td><span class="eq-badge eq-badge--warning">Negotiation</span></td><td>Apr 2026</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Active Orders -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Active Orders (1)</h2>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table" role="grid" aria-label="Active Orders">
+                            <thead><tr><th scope="col">Order #</th><th scope="col">Status</th><th scope="col">MRC</th></tr></thead>
+                            <tbody>
+                                <tr><td><a href="#">ORD-2026-NI1</a></td><td><span class="eq-badge eq-badge--success">Active</span></td><td>$24,500/mo</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Open Cases -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Open Cases (2)</h2>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table" role="grid" aria-label="Open Cases">
+                            <thead><tr><th scope="col">Case #</th><th scope="col">Subject</th><th scope="col">Priority</th></tr></thead>
+                            <tbody>
+                                <tr><td><a href="#">CS-4523</a></td><td>Someone Said "It" on a Support Call</td><td><span class="eq-badge eq-badge--error">High</span></td></tr>
+                                <tr><td><a href="#">CS-4525</a></td><td>Herring Not Compatible with Network Rack</td><td><span class="eq-badge eq-badge--warning">Medium</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Account Team -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <h2 class="slds-card__header-title slds-text-heading_small">Account Team</h2>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table" role="grid" aria-label="Account Team">
+                            <thead><tr><th scope="col">Member</th><th scope="col">Role</th></tr></thead>
+                            <tbody>
+                                <tr><td><a href="#">The Black Knight</a></td><td>Account Executive (will not let deals pass)</td></tr>
+                                <tr><td><a href="#">Roger the Shrubber</a></td><td>Customer Success Manager</td></tr>
+                                <tr><td><a href="#">Tim the Enchanter</a></td><td>Solutions Architect</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Agentforce: Draft Outreach -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9993; Agentforce: Draft Outreach</div>
+                    <div class="eq-agentforce-desc">Generate a personalized email or call script. WARNING: Agent has been trained to never say the word "it" when composing messages for this account.</div>
+                    <button class="eq-agentforce-btn">&#129302; Draft Email to The Head Knight</button>
+                    <div class="eq-agentforce-time">Saves ~8 min per personalized outreach</div>
+                </div>
+            </div>
+        </div><!-- /eq-record-body -->
+    </div><!-- /view-account -->
+
+
+    <!-- ============================================================ -->
+    <!--  CONTACT VIEW: Sir Lancelot the Brave                       -->
+    <!-- ============================================================ -->
+    <div class="eq-object-view" id="view-contact">
+        <div class="eq-highlights-panel">
+            <div class="eq-highlights-top">
+                <div class="eq-record-icon" style="background:#A094ED;" aria-hidden="true">&#9734;</div>
+                <div>
+                    <div class="eq-record-type">Contact</div>
+                    <div class="eq-record-name">Sir Robin the Not-Quite-So-Brave-as-Sir-Lancelot</div>
+                </div>
+                <div class="eq-header-btns">
+                    <button class="slds-button slds-button_neutral">Edit</button>
+                    <button class="slds-button slds-button_neutral">Clone</button>
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">&#8942;</button>
+                </div>
+            </div>
+            <div class="eq-highlights-fields">
+                <div class="eq-hl-field"><div class="eq-hl-label">Account</div><div class="eq-hl-value"><a href="#">The Knights Who Say Ni Ltd</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Title</div><div class="eq-hl-value">VP Strategic Retreat Planning</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Email</div><div class="eq-hl-value"><a href="#">robin@bravelyranaway.co.uk</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Phone</div><div class="eq-hl-value">+44 20 RUN-AWAY</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Department</div><div class="eq-hl-value">Tactical Withdrawal</div></div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 2: "Brave Sir Robin Ran Away..."</strong><br>
+            Sir Robin is the Knights Who Say Ni's primary procurement contact. His minstrels follow him everywhere, composing ballads about his negotiations: "Bravely bold Sir Robin rode forth from Camelot... when danger reared its ugly head, he bravely turned his tail and fled." Despite this reputation, Robin actually closes more deals than anyone — because he's the first to suggest compromise. Before the redesign, Robin had to check Salesforce for the account, Siebel for the order history, then email for the latest minstrel performance reviews. He called it "the retreat from context" and it took him ~14 minutes per prep. He would have run away sooner, but he couldn't find the exit button.<br><br>
+            <strong>&#127793; Design discussion:</strong> The Contact record answers: <em>Who is this person, what do they care about, and what have we done with them recently?</em> Left column = identity and role. Center = engagement history and patterns. Right = account context, open deals, and related records. Robin needs to see all of this without swivel-chairing between three systems.
+        </div>
+
+        <div class="eq-record-body">
+            <!-- LEFT: Contact Details -->
+            <div class="slds-card">
+                <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Contact Details</h2></div>
+                <div class="slds-card__body">
+                    <div class="eq-field-section-title">Contact Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">First Name</span><div class="slds-form-element__control"><div class="slds-form-element__static">Sir Robin</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Last Name</span><div class="slds-form-element__control"><div class="slds-form-element__static">the Not-Quite-So-Brave-as-Sir-Lancelot</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Job Title</span><div class="slds-form-element__control"><div class="slds-form-element__static">VP Strategic Retreat Planning</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Job Function</span><div class="slds-form-element__control"><div class="slds-form-element__static">Tactical Withdrawal &amp; Procurement</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Department</span><div class="slds-form-element__control"><div class="slds-form-element__static">Tactical Withdrawal</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Department Group</span><div class="slds-form-element__control"><div class="slds-form-element__static">Revenue (when not retreating)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Email</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">robin@bravelyranaway.co.uk</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Phone</span><div class="slds-form-element__control"><div class="slds-form-element__static">+44 20 RUN-AWAY</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Mobile</span><div class="slds-form-element__control"><div class="slds-form-element__static">+44 7700 FLEE-99</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Lead Source</span><div class="slds-form-element__control"><div class="slds-form-element__static">Retreated Into Our Booth at PeerFest 2024</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contact Owner</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Black Knight</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Language</span><div class="slds-form-element__control"><div class="slds-form-element__static">English (with occasional whimpering)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Disposition</span><div class="slds-form-element__control"><div class="slds-form-element__static">Active (but ready to flee at any moment)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Minstrel Count</span><div class="slds-form-element__control"><div class="slds-form-element__static">3 (they insist on following)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Preferred Meeting Format</span><div class="slds-form-element__control"><div class="slds-form-element__static">Near an exit</div></div></div>
+                    </div>
+                    <div class="eq-field-section-title">Mailing Address</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width"><span class="slds-form-element__label">Mailing Address</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Chicken-Shaped Cottage<br>3 Bravely Running Lane, Near the Dark Forest<br>Camelot, England (but often not there)</div></div></div>
+                    </div>
+                    <div class="eq-field-section-title">Notes</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width" style="padding:0.5rem 0.75rem;">
+                            <span class="slds-form-element__label">Description</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Primary procurement contact for the Knights Who Say Ni account. Despite being known for "bravely running away," Robin is actually the most responsive contact on the account — he replies to emails within minutes (mostly because he's always looking at his phone to avoid eye contact with danger). His minstrels occasionally CC themselves on emails and add unsolicited musical commentary. Do NOT mention the Three-Headed Knight incident.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER: Activity -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Activity Timeline</h2></div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#26ADE4;">&#9993;</div>
+                            <div><div class="eq-timeline-date">Today, 3:15 PM</div><div class="eq-timeline-title">Email: "RE: Shrubbery-as-a-Service Cabinet Layout"</div><div class="eq-timeline-note">"I'm not entirely sure about the three-headed server configuration. Could we perhaps go with something... less intimidating? A nice single-headed server, perhaps? One that doesn't look at you funny?" Attached: revised_rack_layout_no_scary_bits_v3.pdf</div></div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#F2726D;">&#9742;</div>
+                            <div><div class="eq-timeline-date">Yesterday, 11:00 AM</div><div class="eq-timeline-title">Call: Budget Sign-Off (Almost)</div><div class="eq-timeline-note">Robin was about to approve the PO when he heard a loud noise from the server room. He bravely... rescheduled. His minstrels later confirmed via voicemail: "When the budget form was placed before him, brave Sir Robin turned about, and gallantly he chickened out." Follow-up scheduled for Thursday.</div></div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#4BC076;">&#128197;</div>
+                            <div><div class="eq-timeline-date">Next Thursday</div><div class="eq-timeline-title">Meeting: PO Signing Ceremony (Take 3)</div><div class="eq-timeline-note">Third attempt at getting Robin to sign the purchase order. The Head Knight has mandated attendance. Roger the Shrubber will bring a calming arrangement of ferns. Meeting room booked with two exits per Robin's request.</div></div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#FCB95B;">&#9733;</div>
+                            <div><div class="eq-timeline-date">Last week</div><div class="eq-timeline-title">Site Visit: LD5 Tour (Departed Early)</div><div class="eq-timeline-note">Robin toured the LD5 facility but left when he saw the "High Voltage" warning signs. His minstrels stayed behind and gave the data center a 4-star review on their ballad blog.</div></div>
+                        </div>
+                        <div class="eq-timeline-item">
+                            <div class="eq-timeline-icon" style="background:#F2726D;">&#9888;</div>
+                            <div><div class="eq-timeline-date">2 weeks ago</div><div class="eq-timeline-title">Incident: Three-Headed Sales Pitch</div><div class="eq-timeline-note">Three sales engineers simultaneously tried to present to Robin. He was overwhelmed and retreated to the lobby. Lesson learned: assign a single point of contact for this contact. One head at a time.</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9993; Agentforce: Personalized Outreach</div>
+                    <div class="eq-agentforce-desc">Draft a gentle, non-threatening email for Robin. Agent trained to avoid alarming language, mentions of danger, or questions about the Three-Headed Knight. Tone: reassuring, with clear escape routes mentioned.</div>
+                    <button class="eq-agentforce-btn">&#129302; Draft Reassuring Outreach</button>
+                    <div class="eq-agentforce-time">Saves ~5 min per personalized message</div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#128200; Agentforce: Engagement Analytics</div>
+                    <div class="eq-agentforce-desc">Analyze Robin's response patterns (fastest responder on the account — 2.3 min avg), optimal contact windows (mornings, when he's still brave), and retreat triggers to avoid.</div>
+                    <button class="eq-agentforce-btn">&#129302; Analyze Engagement</button>
+                    <div class="eq-agentforce-time">Saves ~8 min manual research</div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Related -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Related Opportunities (2)</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Opportunity</th><th>Amount</th><th>Stage</th></tr></thead>
+                        <tbody>
+                            <tr><td><a href="#">Ni Colocation Migration</a></td><td>$580K</td><td><span class="eq-badge eq-badge--info">Qualification</span></td></tr>
+                            <tr><td><a href="#">Second Shrubbery (Slightly Higher)</a></td><td>$120K</td><td><span class="eq-badge eq-badge--warning">Negotiation</span></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Related Cases (1)</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Case</th><th>Subject</th><th>Status</th></tr></thead>
+                        <tbody><tr><td><a href="#">CS-4525</a></td><td>Herring Not Compatible with Network Rack</td><td><span class="eq-badge eq-badge--warning">In Progress</span></td></tr></tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Campaign History</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Campaign</th><th>Status</th><th>Date</th></tr></thead>
+                        <tbody>
+                            <tr><td>PeerFest 2025 — EMEA (left early)</td><td>Partially Attended</td><td>Nov 2025</td></tr>
+                            <tr><td>Q4 "Brave New Cloud" Webinar</td><td>Registered (didn't show)</td><td>Oct 2025</td></tr>
+                            <tr><td>Minstrel-Sponsored Lunch &amp; Learn</td><td>Attended (minstrels sang)</td><td>Sep 2025</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Minstrel Notes</h2></div>
+                    <div class="slds-card__body slds-card__body_inner" style="padding:0.75rem; font-style:italic; color:#706E6B; font-size:0.8125rem;">
+                        "He was not in the least bit scared to be mashed into a pulp, or to have his eyes gouged out and his elbows broken... but brave Sir Robin, he was not at all afraid to approve the PO in nasty ways... brave, brave, brave Sir Robin."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /view-contact -->
+
+
+    <!-- ============================================================ -->
+    <!--  OPPORTUNITY VIEW: Holy Grail Data Center Expansion          -->
+    <!-- ============================================================ -->
+    <div class="eq-object-view" id="view-opportunity">
+        <div class="eq-highlights-panel">
+            <div class="eq-highlights-top">
+                <div class="eq-record-icon" style="background:#FCB95B;" aria-hidden="true">&#9679;</div>
+                <div>
+                    <div class="eq-record-type">Opportunity</div>
+                    <div class="eq-record-name">The Quest for the Holy Colocation (Second Shrubbery Included)</div>
+                </div>
+                <div class="eq-header-btns">
+                    <button class="slds-button slds-button_brand">Mark Stage as Complete</button>
+                    <button class="slds-button slds-button_neutral">Edit</button>
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">&#8942;</button>
+                </div>
+            </div>
+            <div class="eq-highlights-fields">
+                <div class="eq-hl-field"><div class="eq-hl-label">Account</div><div class="eq-hl-value"><a href="#">The Knights Who Say Ni Ltd</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Amount</div><div class="eq-hl-value">$580,000</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Close Date</div><div class="eq-hl-value">Aug 15, 2026</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Stage</div><div class="eq-hl-value"><span class="eq-badge eq-badge--warning">Negotiation / Shrubbery Appraisal</span></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Probability</div><div class="eq-hl-value">65% (drops to 0% if someone says "it")</div></div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 3: "We Demand... A Colocation!"</strong><br>
+            The Head Knight has issued a formal demand: the Knights Who Say Ni require a proper colocation facility to host their Shrubbery-as-a-Service platform (147,000 SKUs of shrubberies, ranging from "quite nice" to "very nice indeed"). The deal started when Roger the Shrubber discovered that their current on-premises servers — kept in a damp cave and guarded by the Black Knight — couldn't handle the traffic from their "Ni!" API endpoint (which receives 4 million requests per day from terrified travelers). Tim the Enchanter has been brought in as technical evaluator: "Look at the bones of your current infrastructure! LOOK AT THE BONES!" The French (a competing colo provider) have been catapulting insults and livestock from the next meeting room, but The Head Knight remains loyal — provided we deliver a shrubbery with the proposal.<br><br>
+            <strong>&#127793; Design discussion:</strong> The Opportunity record is the deal cockpit. Left column = deal terms and pricing. Center = sales path + activity timeline (what happened, what's next). Right = products, the team, and competitive intel. The Path component at the top is critical — it shows where we are in the quest at a glance. Every rep should be able to walk into a call with context in 30 seconds.
+        </div>
+
+        <div class="eq-record-body">
+            <div class="slds-card">
+                <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Opportunity Details</h2></div>
+                <div class="slds-card__body">
+                    <div class="eq-field-section-title">Deal Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Opportunity Name</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Quest for the Holy Colocation (Second Shrubbery Included)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Amount</span><div class="slds-form-element__control"><div class="slds-form-element__static">$580,000 (includes shrubbery delivery fee)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Close Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Aug 15, 2026 (or when the second shrubbery is approved)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Stage</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Negotiation / Shrubbery Appraisal</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Probability</span><div class="slds-form-element__control"><div class="slds-form-element__static">65%</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Type</span><div class="slds-form-element__control"><div class="slds-form-element__static">New Deployment (with Shrubbery)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Lead Source</span><div class="slds-form-element__control"><div class="slds-form-element__static">Demand from Head Knight (non-negotiable)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Opportunity Owner</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Black Knight</a> ("None shall pass without closing this deal")</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Forecast Category</span><div class="slds-form-element__control"><div class="slds-form-element__static">Best Case (unless someone says "it")</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Primary IBX</span><div class="slds-form-element__control"><div class="slds-form-element__static">LD5 (London) — "The Castle of Aaaargh"</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Next Step</span><div class="slds-form-element__control"><div class="slds-form-element__static">Deliver first shrubbery to The Head Knight; get Robin to sign PO (attempt #3)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Shrubbery Requirements</span><div class="slds-form-element__control"><div class="slds-form-element__static">One nice one, and a second slightly higher for a two-level effect with a path</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Deal Risk</span><div class="slds-form-element__control"><div class="slds-form-element__static">Someone might say "it" during the contract review</div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <!-- Sales Path -->
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">The Quest Path</h2></div>
+                    <div class="slds-card__body" style="padding:0.5rem 0.75rem;">
+                        <div class="eq-path">
+                            <div class="eq-path-step is-complete">Demand Received (Ni!)</div>
+                            <div class="eq-path-step is-complete">Shrubbery Delivered</div>
+                            <div class="eq-path-step is-complete">Proposal Accepted</div>
+                            <div class="eq-path-step is-current">Second Shrubbery Review</div>
+                            <div class="eq-path-step">Closed Won (Ekke Ekke!)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Activity</h2></div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#F2726D;">&#9742;</div><div><div class="eq-timeline-date">Yesterday</div><div class="eq-timeline-title">Call: Pricing Negotiation with The Head Knight</div><div class="eq-timeline-note">"We want... a shrubbery! And also 15% off the first-year MRC. And ANOTHER shrubbery! One that looks nice. And not too expensive. And then you must cut down the mightiest tree in the forest with... a herring!" Took 45 minutes to get back to actual pricing.</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#26ADE4;">&#9993;</div><div><div class="eq-timeline-date">3 days ago</div><div class="eq-timeline-title">Email: Revised SOW (Shrubbery-Compliant Version)</div><div class="eq-timeline-note">Sent updated statement of work with the shrubbery delivery clause added to Section 4.2.1. Roger the Shrubber reviewed and confirmed the botanical specifications are accurate. "It's a nice shrubbery, and not too expensive."</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#4BC076;">&#10003;</div><div><div class="eq-timeline-date">1 week ago</div><div class="eq-timeline-title">Task: Tim the Enchanter Completes Technical Review</div><div class="eq-timeline-note">"LOOK AT THE BONES of their current infrastructure! Their servers are held together with coconut shells! They NEED this migration!" Tim approved LD5 power/cooling for the Shrubbery-as-a-Service platform. Also set fire to the whiteboard (again).</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#FCB95B;">&#9733;</div><div><div class="eq-timeline-date">2 weeks ago</div><div class="eq-timeline-title">Robin Almost Signed (But Bravely Ran Away)</div><div class="eq-timeline-note">Sir Robin had the pen in hand when a fire alarm went off in the building (Tim testing enchantments next door). Robin retreated. His minstrels later sang: "When the PO was put before him, brave Sir Robin turned about..."</div></div></div>
+                    </div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#128203; Agentforce: Quest Summary for Call Prep</div>
+                    <div class="eq-agentforce-desc">Generate a concise deal brief covering the full quest history, all knight stakeholders, shrubbery requirements, competitive catapult activity from The French, and recommended talking points. WARNING: Agent is trained to never say "it."</div>
+                    <button class="eq-agentforce-btn">&#129302; Generate Quest Brief</button>
+                    <div class="eq-agentforce-time">Saves ~10 min before every customer call</div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#127919; Agentforce: Suggest Next Steps</div>
+                    <div class="eq-agentforce-desc">Based on the current quest stage, shrubbery appraisal status, and historical patterns from similar won quests, recommend the best next actions. Current suggestion: "Bring a nicer shrubbery."</div>
+                    <button class="eq-agentforce-btn">&#129302; Get Recommendations</button>
+                    <div class="eq-agentforce-time">Saves ~6 min; improves win rate by surfacing winning quest patterns</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Products (4)</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Product</th><th>Qty</th><th>MRC</th></tr></thead>
+                        <tbody>
+                            <tr><td>IBX Colocation — LD5 Cabinet ("Shrubbery Racks")</td><td>4</td><td>$18,000/mo</td></tr>
+                            <tr><td>Equinix Fabric — 10Gbps Port (Ni! API Gateway)</td><td>2</td><td>$2,400/mo</td></tr>
+                            <tr><td>Equinix Metal — Reserved (Enchanter-Grade)</td><td>2</td><td>$14,000/mo</td></tr>
+                            <tr><td>Shrubbery Delivery &amp; Installation (one-time)</td><td>2</td><td>$1,200 NRC</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Contact Roles</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Contact</th><th>Role</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td><a href="#">The Head Knight</a></td><td>Economic Buyer</td><td>Says "Ni!" when displeased</td></tr>
+                            <tr><td><a href="#">Sir Robin</a></td><td>Procurement (Champion?)</td><td>Will sign... eventually</td></tr>
+                            <tr><td><a href="#">Tim the Enchanter</a></td><td>Technical Evaluator</td><td>Sets things on fire</td></tr>
+                            <tr><td><a href="#">Roger the Shrubber</a></td><td>Shrubbery Compliance</td><td>Validates botanical specs</td></tr>
+                            <tr><td><a href="#">The Black Knight</a></td><td>Account Executive</td><td>"None shall pass" without approval</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Competitors</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Competitor</th><th>Strengths</th><th>Weakness</th><th>Tactic</th></tr></thead>
+                        <tbody>
+                            <tr><td>The French (Digital Realty)</td><td>Lower price per cab</td><td>No interconnection; rude</td><td>Catapulting cows at our proposals</td></tr>
+                            <tr><td>Castle Anthrax (CoreSite)</td><td>Attractive sales team</td><td>"It's too perilous!"</td><td>Excessive hospitality</td></tr>
+                            <tr><td>Swamp Castle DC (QTS)</td><td>Resilient (keeps rebuilding)</td><td>Sinks into the swamp</td><td>Fourth data center on same site</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /view-opportunity -->
+
+
+    <!-- ============================================================ -->
+    <!--  ORDER VIEW: ORD-2026-001                                    -->
+    <!-- ============================================================ -->
+    <div class="eq-object-view" id="view-order">
+        <div class="eq-highlights-panel">
+            <div class="eq-highlights-top">
+                <div class="eq-record-icon" style="background:#4BC076;" aria-hidden="true">&#9632;</div>
+                <div>
+                    <div class="eq-record-type">Order</div>
+                    <div class="eq-record-name">ORD-2026-NI1 — The Sacred Order of Shrubbery Hosting</div>
+                </div>
+                <div class="eq-header-btns">
+                    <button class="slds-button slds-button_neutral">Edit</button>
+                    <button class="slds-button slds-button_neutral">Activate</button>
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">&#8942;</button>
+                </div>
+            </div>
+            <div class="eq-highlights-fields">
+                <div class="eq-hl-field"><div class="eq-hl-label">Account</div><div class="eq-hl-value"><a href="#">The Knights Who Say Ni Ltd</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Status</div><div class="eq-hl-value"><span class="eq-badge eq-badge--success">Active (and Pure)</span></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Order MRC</div><div class="eq-hl-value">$24,500/mo</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Contract Term</div><div class="eq-hl-value">36 months (or one quest, whichever is longer)</div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Billing Contact</div><div class="eq-hl-value"><a href="#">Sir Galahad the Pure</a></div></div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 4: "I Seek Only the Purest Purchase Orders"</strong><br>
+            Sir Galahad the Pure handles all procurement for the Knights Who Say Ni. He approaches every purchase order with an almost spiritual dedication to accuracy. When the Castle Anthrax sales team tried to lure him with aggressive discounting and "special offers," he nearly succumbed — "It's not a very good deal, is it? I mean, I could stay a while..." — but Sir Lancelot burst in and dragged him back to proper vendor evaluation. The existing order covers their initial deployment: 2 cabs in LD5 plus Fabric ports for the Shrubbery-as-a-Service beta. In the old Salesforce system, this order had 138 fields spread across 5+ screens. Galahad had to open Siebel to see the billing details, then back to Salesforce for the line items, then into a spreadsheet for the rack layout. He called it "the temptation of swivel-chairing."<br><br>
+            <strong>&#127793; Design discussion:</strong> Orders are the most field-heavy object at Equinix. Left = order terms and contract details. Center = fulfillment status and provisioning timeline. Right = line items and billing. Key question: <em>which of these 138 fields do users actually need vs. which are system-only audit trails?</em> We propose categorizing every field into: Required, Reference, Audit Trail, System-only — and only showing the first two by default.
+        </div>
+
+        <div class="eq-record-body">
+            <div class="slds-card">
+                <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Order Details</h2></div>
+                <div class="slds-card__body">
+                    <div class="eq-field-section-title">Order Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Order Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">ORD-2026-NI1</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">BAN Account Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">BAN-KWSN-NI-001</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Active (Pure &amp; Untempted)</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Order Start Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Mar 1, 2026</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Term</span><div class="slds-form-element__control"><div class="slds-form-element__static">36 months</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract End Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Feb 28, 2029</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Credit Hold</span><div class="slds-form-element__control"><div class="slds-form-element__static">No (Galahad's credit is pure)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Bill To Contact</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">Sir Galahad the Pure</a> ("I seek only the purest invoices")</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Customer Project Manager</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">Roger the Shrubber</a> (ensures shrubberies arrive with the cabinets)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">COM Support</span><div class="slds-form-element__control"><div class="slds-form-element__static">Premium (The Head Knight demanded it)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Commercial Solutions</span><div class="slds-form-element__control"><div class="slds-form-element__static">Colocation + Interconnection + Shrubbery Hosting</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Purity Score</span><div class="slds-form-element__control"><div class="slds-form-element__static">97% (lost 3% when Galahad glanced at Castle Anthrax pricing)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Herring Compliance</span><div class="slds-form-element__control"><div class="slds-form-element__static">N/A (herrings not yet supported in rack mount format)</div></div></div>
+                    </div>
+                    <div class="eq-field-section-title">Billing Address</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width"><span class="slds-form-element__label">Billing Address</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Dark Forest, Just Past the Swamp Castle<br>Turn Left at the Gorge of Eternal Peril<br>England (attn: Sir Galahad the Pure, Accounts Payable)</div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Fulfillment Status</h2></div>
+                    <div class="slds-card__body" style="padding:0.5rem 0.75rem;">
+                        <div class="eq-path">
+                            <div class="eq-path-step is-complete">Shrubbery Submitted</div>
+                            <div class="eq-path-step is-complete">PO Purified by Galahad</div>
+                            <div class="eq-path-step is-complete">Provisioning (Ni!)</div>
+                            <div class="eq-path-step is-current">Active</div>
+                            <div class="eq-path-step">Renewal / Second Shrubbery</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Order Activity</h2></div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#4BC076;">&#10003;</div><div><div class="eq-timeline-date">Mar 2026</div><div class="eq-timeline-title">Order Activated — "The Purest Activation"</div><div class="eq-timeline-note">All line items provisioned and live. LD5: 2 cabs + 2 Fabric ports. Sir Galahad personally inspected each cable and declared them "pure and untainted by vendor lock-in." A small shrubbery was placed beside Cabinet A as per contract clause 4.2.1.</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#26ADE4;">&#9993;</div><div><div class="eq-timeline-date">Feb 2026</div><div class="eq-timeline-title">Email: Invoice Purity Check</div><div class="eq-timeline-note">Galahad reviewed the first invoice with a fine-tooth comb: "This line item for 'Miscellaneous Charges' — what is that? It's not very pure, is it? I demand itemization!" Resolved after breaking $47.50 into 3 sub-items.</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#FCB95B;">&#9888;</div><div><div class="eq-timeline-date">Jan 2026</div><div class="eq-timeline-title">Provisioning Delay: Herring Incident</div><div class="eq-timeline-note">Installation was delayed 2 days when Roger the Shrubber attempted to mount a herring in Rack B as a "network topology enhancement." The NOC team gently explained that herrings are not RJ45-compatible.</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#F2726D;">&#9742;</div><div><div class="eq-timeline-date">Dec 2025</div><div class="eq-timeline-title">Call: Castle Anthrax Temptation</div><div class="eq-timeline-note">Galahad received a call from Castle Anthrax offering 40% discount on switching providers. He was tempted — "Let me face the peril!" — but The Black Knight intervened: "None shall pass to another vendor!" Order remained intact.</div></div></div>
+                    </div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#128196; Agentforce: Auto-Populate from Quote</div>
+                    <div class="eq-agentforce-desc">Automatically create an Order with line items from an approved Quote, mapping products, quantities, shrubbery specifications, and pricing. Includes Galahad's purity seal of approval workflow.</div>
+                    <button class="eq-agentforce-btn">&#129302; Create Pure Order from Quote</button>
+                    <div class="eq-agentforce-time">Saves ~15 min of manual data entry per order</div>
+                </div>
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#128176; Agentforce: Price Validation</div>
+                    <div class="eq-agentforce-desc">Cross-check order pricing against current rate cards, approved shrubbery discounts, and contract terms. Flag anything that isn't "pure" before activation. Automatically rejects Castle Anthrax competitive offers.</div>
+                    <button class="eq-agentforce-btn">&#129302; Validate Pricing Purity</button>
+                    <div class="eq-agentforce-time">Saves ~8 min; prevents impure billing</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Order Line Items (3)</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Product</th><th>IBX</th><th>Qty</th><th>MRC</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>Colocation Cabinet — Full ("Shrubbery Rack A")</td><td>LD5</td><td>1</td><td>$9,000</td><td><span class="eq-badge eq-badge--success">Active</span></td></tr>
+                            <tr><td>Colocation Cabinet — Full ("Shrubbery Rack B")</td><td>LD5</td><td>1</td><td>$9,000</td><td><span class="eq-badge eq-badge--success">Active (herring removed)</span></td></tr>
+                            <tr><td>Equinix Fabric — 10G Port (Ni! API Gateway)</td><td>LD5</td><td>2</td><td>$6,500</td><td><span class="eq-badge eq-badge--success">Active</span></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Related Cases</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Case</th><th>Subject</th><th>Priority</th></tr></thead>
+                        <tbody>
+                            <tr><td><a href="#">CS-4525</a></td><td>Herring Not Compatible with Network Rack</td><td><span class="eq-badge eq-badge--warning">Medium</span></td></tr>
+                            <tr><td><a href="#">CS-4523</a></td><td>Someone Said "It" on a Support Call</td><td><span class="eq-badge eq-badge--error">High (resolved)</span></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Shrubbery Inventory</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Item</th><th>Location</th><th>Condition</th></tr></thead>
+                        <tbody>
+                            <tr><td>Shrubbery #1 (nice, not too expensive)</td><td>LD5 — Cage 12, beside Rack A</td><td><span class="eq-badge eq-badge--success">Thriving</span></td></tr>
+                            <tr><td>Shrubbery #2 (slightly higher, two-level)</td><td>Pending delivery per OPP</td><td><span class="eq-badge eq-badge--info">On Order</span></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /view-order -->
+
+
+    <!-- ============================================================ -->
+    <!--  CASE VIEW: CS-4521                                          -->
+    <!-- ============================================================ -->
+    <div class="eq-object-view" id="view-case">
+        <div class="eq-highlights-panel">
+            <div class="eq-highlights-top">
+                <div class="eq-record-icon" style="background:#F2726D;" aria-hidden="true">&#9650;</div>
+                <div>
+                    <div class="eq-record-type">Case</div>
+                    <div class="eq-record-name">CS-4525: The Herring Is Not RJ45-Compatible</div>
+                </div>
+                <div class="eq-header-btns">
+                    <button class="slds-button slds-button_neutral">Edit</button>
+                    <button class="slds-button slds-button_neutral">Close Case</button>
+                    <button class="slds-button slds-button_neutral">Escalate</button>
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">&#8942;</button>
+                </div>
+            </div>
+            <div class="eq-highlights-fields">
+                <div class="eq-hl-field"><div class="eq-hl-label">Account</div><div class="eq-hl-value"><a href="#">The Knights Who Say Ni Ltd</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Priority</div><div class="eq-hl-value"><span class="eq-badge eq-badge--warning">Medium (but feels High to the customer)</span></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Status</div><div class="eq-hl-value"><span class="eq-badge eq-badge--warning">In Progress</span></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Contact</div><div class="eq-hl-value"><a href="#">Roger the Shrubber</a></div></div>
+                <div class="eq-hl-field"><div class="eq-hl-label">Opened</div><div class="eq-hl-value">Feb 20, 2026</div></div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 5: "You Must Cut Down the Mightiest Tree in the Forest With... a Herring!"</strong><br>
+            Roger the Shrubber, VP of Shrubbery Operations at the Knights Who Say Ni, attempted to install a herring in Rack B at the LD5 facility. The Head Knight had insisted that the network topology be "herring-shaped" and Roger interpreted this literally. He arrived at the data center with an actual herring and attempted to mount it between the two Fabric ports. The NOC team intercepted the situation, but not before Roger had unplugged a fiber patch cable to "make room for the herring." This caused a brief connectivity blip on the Ni! API (47 seconds of downtime, 12,000 failed "Ni!" requests). The Bridge Keeper — our senior support engineer — is now working the case. He has a policy of asking three questions before allowing any resolution to pass.<br><br>
+            <strong>&#127793; Design discussion:</strong> The Case record is about speed to resolution. Left = case details, SLA timers, and severity context. Center = the communication thread and resolution progress. Right = knowledge articles, related assets, and Agentforce suggestions. A support agent needs everything on one screen — no swivel-chairing to Siebel for asset info, then back to Salesforce for the case notes, then to email for the customer thread.
+        </div>
+
+        <div class="eq-record-body">
+            <div class="slds-card">
+                <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Case Details</h2></div>
+                <div class="slds-card__body">
+                    <div class="eq-field-section-title">Case Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Case Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">CS-4525</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Subject</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Herring Is Not RJ45-Compatible — Unauthorized Rack Insertion</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contact Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">Roger the Shrubber</a> (very sorry about the herring)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Priority</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Medium</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">In Progress (herring removed, fiber re-patched)</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Type</span><div class="slds-form-element__control"><div class="slds-form-element__static">Physical Infrastructure — Unauthorized Equipment</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Origin</span><div class="slds-form-element__control"><div class="slds-form-element__static">NOC Alert (fish detected in cage)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Case Owner</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">The Bridge Keeper</a> (asks three questions before resolving)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Related Order</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">ORD-2026-NI1</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">IBX</span><div class="slds-form-element__control"><div class="slds-form-element__static">LD5 — Cage 12, Rack B</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">SLA Deadline</span><div class="slds-form-element__control"><div class="slds-form-element__static">Feb 22, 2026 — 5:00 PM GMT</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Downtime Impact</span><div class="slds-form-element__control"><div class="slds-form-element__static">47 seconds; 12,000 failed Ni! API requests</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Root Cause</span><div class="slds-form-element__control"><div class="slds-form-element__static">Customer placed herring in rack; unplugged fiber patch cable</div></div></div>
+                    </div>
+                    <div class="eq-field-section-title">Description</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width" style="padding:0.5rem 0.75rem;">
+                            <span class="slds-form-element__label">Description</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Customer's VP of Shrubbery Operations (Roger the Shrubber) entered LD5 Cage 12 at 14:23 GMT with what NOC cameras confirmed was a North Atlantic herring. He attempted to mount the herring between Fabric ports FAB-LD5-NI1 and FAB-LD5-NI2, stating he was "implementing the Head Knight's herring-shaped network topology." During the attempt, he disconnected fiber patch cable FPC-LD5-C12-007, causing 47 seconds of downtime on the Ni! API endpoint. The herring has been removed and is currently in the NOC break room refrigerator. Roger has been reminded that only Equinix-approved equipment may be rack-mounted. He is "very sorry about the herring."</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Case History</h2></div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#4BC076;">&#10003;</div><div><div class="eq-timeline-date">Today, 11:00 AM</div><div class="eq-timeline-title">Fiber Patch Cable Re-Connected</div><div class="eq-timeline-note">FPC-LD5-C12-007 re-patched and tested. Full connectivity restored. Light levels normal. No herring residue on fiber ends (confirmed via microscope inspection).</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#F2726D;">&#9888;</div><div><div class="eq-timeline-date">Today, 9:30 AM</div><div class="eq-timeline-title">The Bridge Keeper's Three Questions</div><div class="eq-timeline-note">Before approving the resolution, The Bridge Keeper asked Roger three questions: 1) "What is your name?" ("Roger the Shrubber"), 2) "What is your quest?" ("To arrange the most beautiful server rack in all the land"), 3) "What is the airspeed velocity of an unladen herring?" ("I... I don't know that — AAUGH!" *call dropped*). Resolution approved anyway.</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#26ADE4;">&#9993;</div><div><div class="eq-timeline-date">Yesterday, 4:00 PM</div><div class="eq-timeline-title">Email to Customer: Herring Retrieval Options</div><div class="eq-timeline-note">"Dear Roger — the herring has been removed from Rack B and is being stored in our NOC break room refrigerator. You may retrieve it during standard smart-hands hours (M-F, 9-5). Please do not attempt to mount any additional marine life in the facility. Regards, The Bridge Keeper."</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#F2726D;">&#9742;</div><div><div class="eq-timeline-date">Feb 20, 2:30 PM</div><div class="eq-timeline-title">Inbound Call: Roger the Shrubber</div><div class="eq-timeline-note">"I'm terribly sorry about the herring. The Head Knight was very specific — he said the topology must be 'herring-shaped.' I thought he meant... well... I'm not a network engineer, I'm a shrubber! Can I at least have my herring back? It was a very nice herring."</div></div></div>
+                        <div class="eq-timeline-item"><div class="eq-timeline-icon" style="background:#FCB95B;">&#9733;</div><div><div class="eq-timeline-date">Feb 20, 2:23 PM</div><div class="eq-timeline-title">NOC Alert: Unauthorized Object in Cage 12</div><div class="eq-timeline-note">Environmental sensor triggered — unusual humidity increase in Rack B vicinity. NOC camera review revealed customer contact inserting marine life into server rack. Security dispatched. Fiber disconnect confirmed at 14:23:47 GMT.</div></div></div>
+                    </div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#128218; Agentforce: Suggest Resolution</div>
+                    <div class="eq-agentforce-desc">Search knowledge base for similar "unauthorized equipment" cases. Current top suggestion: KB-0042 "Non-Standard Objects Found in Customer Cages — Response Procedure." Also flagged: KB-0099 "Dealing with Unusual Customer Interpretations of Network Topology Terms."</div>
+                    <button class="eq-agentforce-btn">&#129302; Find Resolution</button>
+                    <div class="eq-agentforce-time">Saves ~12 min research; resolves 40% of cases on first suggestion</div>
+                </div>
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9993; Agentforce: Draft Customer Response</div>
+                    <div class="eq-agentforce-desc">Generate a professional response that diplomatically explains why herrings cannot be rack-mounted while maintaining the customer relationship. Tone: firm but understanding of shrubbery professionals working outside their domain.</div>
+                    <button class="eq-agentforce-btn">&#129302; Draft Diplomatic Response</button>
+                    <div class="eq-agentforce-time">Saves ~6 min per response; ensures consistent tone</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Knowledge Articles</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Article</th><th>Relevance</th></tr></thead>
+                        <tbody>
+                            <tr><td><a href="#">KB-0042: Non-Standard Objects in Customer Cages</a></td><td><span class="eq-badge eq-badge--success">98%</span></td></tr>
+                            <tr><td><a href="#">KB-0099: Customer Misinterpretation of Technical Terms</a></td><td><span class="eq-badge eq-badge--success">94%</span></td></tr>
+                            <tr><td><a href="#">KB-1247: Fiber Patch Cable Reconnection Procedure</a></td><td><span class="eq-badge eq-badge--info">87%</span></td></tr>
+                            <tr><td><a href="#">KB-0666: Acceptable vs. Unacceptable Rack-Mount Items (with illustrations)</a></td><td><span class="eq-badge eq-badge--info">79%</span></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Related Assets</h2></div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <table class="eq-related-table"><thead><tr><th>Asset</th><th>Type</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>FAB-LD5-NI1</td><td>Fabric Port</td><td><span class="eq-badge eq-badge--success">Active (restored)</span></td></tr>
+                            <tr><td>FAB-LD5-NI2</td><td>Fabric Port</td><td><span class="eq-badge eq-badge--success">Active</span></td></tr>
+                            <tr><td>FPC-LD5-C12-007</td><td>Fiber Patch Cable</td><td><span class="eq-badge eq-badge--success">Re-patched (herring-free)</span></td></tr>
+                            <tr><td>1x North Atlantic Herring</td><td>Unauthorized Equipment</td><td><span class="eq-badge eq-badge--warning">In NOC refrigerator</span></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Preventive Actions</h2></div>
+                    <div class="slds-card__body slds-card__body_inner" style="padding:0.75rem; font-size:0.8125rem; color:#3E3E3C;">
+                        <strong>Recommended:</strong> Add "No Marine Life" clause to customer smart-hands agreement. Update Roger the Shrubber's access permissions to require escort for Rack B. Schedule brief training session: "Network Topology: Metaphors vs. Literal Interpretations."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /view-case -->
+
+
+    <!-- ============================================================ -->
+    <!--  BEFORE / AFTER COMPARISON OVERLAY                           -->
+    <!-- ============================================================ -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">&#10060; Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">175–225</strong></div>
+                    <div class="eq-metric-row"><span>Action buttons per page</span><strong style="color:#EA001E;">190–203</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">3–5</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">600–686</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#EA001E;">8–12 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check (swivel chair)</span><strong style="color:#EA001E;">3 (SF + Siebel + Email)</strong></div>
+                    <div class="eq-metric-row"><span>Object count</span><strong style="color:#EA001E;">800+ → 160 (in progress)</strong></div>
+                    <div style="margin-top:1rem;">
+                        <p style="font-size:0.75rem; font-weight:600; color:#706E6B; margin-bottom:0.5rem;">Sample fields (Account — scrolled off screen):</p>
+                        <div class="eq-before-field">DUNS Enrichment Date</div>
+                        <div class="eq-before-field">Domestic Ultimate DUNS Number</div>
+                        <div class="eq-before-field">Global Ultimate DUNS Number</div>
+                        <div class="eq-before-field">DUNS Assignment Date</div>
+                        <div class="eq-before-field">Industry Sub-Sector</div>
+                        <div class="eq-before-field">Lead Sub-Source Last</div>
+                        <div class="eq-before-field">Legacy Record Id</div>
+                        <div class="eq-before-field">Inactive Status Date</div>
+                        <div class="eq-before-field">... and 80+ more fields</div>
+                    </div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">&#9989; After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">4–6 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Primary action buttons</span><strong style="color:#2E844A;">3–5 + overflow menu</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">&lt; 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Details | Activity | Related</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#2E844A;">30 sec – 2 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check</span><strong style="color:#2E844A;">1 (Salesforce only)</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce touchpoints</span><strong style="color:#2E844A;">2–3 per object</strong></div>
+                    <div style="margin-top:1rem;">
+                        <p style="font-size:0.75rem; font-weight:600; color:#706E6B; margin-bottom:0.5rem;">Layout principle:</p>
+                        <p style="font-size:0.75rem; color:#3E3E3C; line-height:1.5;">
+                            <strong>Left:</strong> Record identity + required fields (who/what)<br>
+                            <strong>Center:</strong> Activity timeline + path + Agentforce (what's happening)<br>
+                            <strong>Right:</strong> Related lists + quick actions (what else matters)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /slds-scope -->
+
+<!-- ============================== -->
+<!-- JAVASCRIPT                     -->
+<!-- ============================== -->
+<script>
+(function() {
+    'use strict';
+
+    // Tab switching
+    const tabs = document.querySelectorAll('.eq-object-tab');
+    const views = document.querySelectorAll('.eq-object-view');
+
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            var target = this.getAttribute('data-view');
+            tabs.forEach(function(t) { t.classList.remove('is-active'); t.setAttribute('aria-selected','false'); });
+            views.forEach(function(v) { v.classList.remove('is-visible'); });
+            this.classList.add('is-active');
+            this.setAttribute('aria-selected','true');
+            var view = document.getElementById('view-' + target);
+            if (view) view.classList.add('is-visible');
+        });
+    });
+
+    // Toggle: Annotations
+    var annoToggle = document.getElementById('toggleAnnotations');
+    annoToggle.addEventListener('click', function() {
+        this.classList.toggle('is-on');
+        var isOn = this.classList.contains('is-on');
+        this.setAttribute('aria-checked', isOn);
+        document.getElementById('app').classList.toggle('show-annotations', isOn);
+    });
+
+    // Toggle: Data Story
+    var storyToggle = document.getElementById('toggleStory');
+    storyToggle.addEventListener('click', function() {
+        this.classList.toggle('is-on');
+        var isOn = this.classList.contains('is-on');
+        this.setAttribute('aria-checked', isOn);
+        document.getElementById('app').classList.toggle('show-story', isOn);
+    });
+
+    // Toggle: Before/After
+    var compToggle = document.getElementById('toggleComparison');
+    compToggle.addEventListener('click', function() {
+        this.classList.toggle('is-on');
+        var isOn = this.classList.contains('is-on');
+        this.setAttribute('aria-checked', isOn);
+        document.getElementById('comparisonOverlay').classList.toggle('is-visible', isOn);
+    });
+
+    // Keyboard support for toggles
+    [annoToggle, storyToggle, compToggle].forEach(function(toggle) {
+        toggle.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); this.click(); }
+        });
+    });
+})();
+</script>
+</body>
+</html>
