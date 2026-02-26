@@ -265,6 +265,355 @@
 
 
   // ====================================================================
+  // SALES PATH — Guided Stage-Gate Component (Oppo-27)
+  // ====================================================================
+  /**
+   * Renders a full sales path with expandable stage-gate panels.
+   * Reusable across any object that has a staged workflow.
+   *
+   * @param {Object} cfg
+   * @param {string} [cfg.target]       — DOM id (default: "eq-path")
+   * @param {string} [cfg.advanceLabel] — Button text (default: "Mark as Current Stage")
+   * @param {boolean}[cfg.autoExpand]   — Open current stage on load (default: true)
+   * @param {Array}  cfg.stages         — Array of stage objects:
+   *   {
+   *     id:       string,          — unique id (used for panel id: "path-detail-{id}")
+   *     label:    string,          — display name
+   *     status:   'complete'|'current'|'incomplete',
+   *     exitCriteria: [{text: string, done: boolean}],
+   *     keyFields:    [{label: string, value: string, badge?: string}],
+   *     guidance:     [string],
+   *     advanceBtn?:  {label: string, disabled: boolean, icon?: string}
+   *   }
+   */
+  EQ.renderPath = function(cfg) {
+    var target = document.getElementById(cfg.target || 'eq-path');
+    if (!target) return;
+
+    var advLabel = cfg.advanceLabel || 'Mark as Current Stage';
+    var autoExpand = cfg.autoExpand !== false;
+
+    // — Build path nav tabs —
+    var navItems = cfg.stages.map(function(s) {
+      var cls = 'slds-path__item';
+      if (s.status === 'complete') cls += ' slds-is-complete';
+      else if (s.status === 'current') cls += ' slds-is-current';
+      else cls += ' slds-is-incomplete';
+      return '<li class="' + cls + '" role="presentation" data-path-detail="path-detail-' + esc(s.id) + '">' +
+        '<a class="slds-path__link" role="tab" tabindex="-1" href="#"><span class="slds-path__title">' + esc(s.label) + '</span></a></li>';
+    }).join('');
+
+    var pathNav = '<div class="slds-path"><div class="slds-grid slds-path__track">' +
+      '<div class="slds-grid slds-path__scroller-container"><div class="slds-path__scroller" role="application">' +
+      '<ul class="slds-path__nav" role="tablist">' + navItems + '</ul></div></div>' +
+      '<div class="slds-grid slds-path__action"><button class="slds-button slds-button_brand slds-path__mark-complete">' +
+      '<svg class="slds-button__icon slds-button__icon_left" aria-hidden="true"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>' +
+      esc(advLabel) + '</button></div></div></div>';
+
+    // — Build detail panels —
+    var panels = cfg.stages.map(function(s) {
+      // Progress calc
+      var total = s.exitCriteria ? s.exitCriteria.length : 0;
+      var done = 0;
+      if (s.exitCriteria) s.exitCriteria.forEach(function(c) { if (c.done) done++; });
+      var pct = total ? Math.round((done / total) * 100) : 0;
+      var barColor = pct === 100 ? '#2E844A' : (pct > 0 ? '#F28B00' : '#E5E5E5');
+
+      // Exit criteria list
+      var criteriaTitle = s.status === 'incomplete' ? 'Conversion Checklist' : 'Exit Criteria';
+      var criteriaHtml = '';
+      if (s.exitCriteria && s.exitCriteria.length) {
+        criteriaHtml = s.exitCriteria.map(function(c) {
+          var liCls = c.done ? ' class="is-done"' : '';
+          var chkCls = c.done ? 'eq-exit-check is-done' : 'eq-exit-check';
+          return '<li' + liCls + '><div class="' + chkCls + '"></div><span>' + esc(c.text) + '</span></li>';
+        }).join('');
+      }
+
+      // Key fields
+      var fieldsHtml = '';
+      if (s.keyFields && s.keyFields.length) {
+        fieldsHtml = s.keyFields.map(function(f) {
+          var val = f.badge
+            ? '<span class="eq-badge eq-badge--' + esc(f.badge) + '">' + esc(f.value) + '</span>'
+            : esc(f.value);
+          if (f.required) val = '<span style="color:#EA001E;">' + esc(f.value) + '</span>';
+          return '<dl class="eq-path-detail-field"><dt>' + esc(f.label) + '</dt><dd>' + val + '</dd></dl>';
+        }).join('');
+      }
+
+      // Guidance list
+      var guidanceHtml = '';
+      if (s.guidance && s.guidance.length) {
+        guidanceHtml = s.guidance.map(function(g) {
+          return '<li>' + esc(g) + '</li>';
+        }).join('');
+      }
+
+      // Advance button (optional)
+      var advBtnHtml = '';
+      if (s.advanceBtn) {
+        var remaining = total - done;
+        var noteText = remaining > 0
+          ? remaining + ' exit criteria remaining before this stage can close'
+          : 'Complete all items above to close this opportunity';
+        var btnCls = s.advanceBtn.disabled ? 'slds-button slds-button_neutral' : 'slds-button slds-button_brand';
+        var iconKey = s.advanceBtn.icon || (s.advanceBtn.disabled ? 'lock' : 'check');
+        advBtnHtml = '<div class="eq-path-advance-btn">' +
+          '<span class="eq-advance-note">' + esc(noteText) + '</span>' +
+          '<button class="' + btnCls + '"' + (s.advanceBtn.disabled ? ' disabled' : '') + '>' +
+          '<svg class="slds-button__icon slds-button__icon_left" aria-hidden="true" style="width:14px;height:14px;">' +
+          '<use href="assets/icons/utility-sprite/svg/symbols.svg#' + iconKey + '"></use></svg>' +
+          esc(s.advanceBtn.label) + '</button></div>';
+      }
+
+      return '<div id="path-detail-' + esc(s.id) + '" class="eq-path-detail" data-stage="' + esc(s.label) + '">' +
+        '<div class="eq-path-stage-header">' +
+          '<span class="eq-path-stage-name">' + esc(s.label) + ' — ' + esc(criteriaTitle) + '</span>' +
+          '<div class="eq-path-stage-progress">' +
+            '<span class="eq-progress-label">' + done + ' of ' + total + ' complete</span>' +
+            '<div class="eq-path-progress-bar"><div class="eq-path-progress-fill" style="width:' + pct + '%; background:' + barColor + ';"></div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="eq-path-detail-body">' +
+          '<div><h3 class="eq-path-detail-title">' + esc(criteriaTitle) + '</h3><ul class="eq-exit-criteria">' + criteriaHtml + '</ul></div>' +
+          '<div><h3 class="eq-path-detail-title">Key Fields</h3><div class="eq-path-detail-grid">' + fieldsHtml + '</div></div>' +
+          '<div><h3 class="eq-path-detail-title">Guidance for Success</h3><ul class="eq-path-detail-list">' + guidanceHtml + '</ul></div>' +
+        '</div>' +
+        advBtnHtml +
+      '</div>';
+    }).join('');
+
+    // — Mobile toggle (collapsed by default, visible < 768px) —
+    var mobileToggle = '<button class="eq-path-mobile-toggle" aria-expanded="false" aria-label="Show sales path">' +
+      '<svg class="slds-button__icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor;margin-right:6px;">' +
+      '<use href="assets/icons/utility-sprite/svg/symbols.svg#routing_offline"></use></svg>' +
+      '<span class="eq-path-mobile-label">Sales Path</span>' +
+      '<svg class="slds-button__icon eq-path-chevron" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;margin-left:auto;">' +
+      '<use href="assets/icons/utility-sprite/svg/symbols.svg#chevrondown"></use></svg></button>';
+
+    target.innerHTML = mobileToggle +
+      '<div class="eq-path-wrapper">' + pathNav + panels + '</div>';
+
+    // — Wire mobile toggle —
+    var toggle = target.querySelector('.eq-path-mobile-toggle');
+    var wrapper = target.querySelector('.eq-path-wrapper');
+    if (toggle && wrapper) {
+      toggle.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !expanded);
+        wrapper.classList.toggle('eq-path-wrapper--open');
+      });
+    }
+
+    // — Auto-expand current stage —
+    if (autoExpand) {
+      setTimeout(function() {
+        var currentItem = target.querySelector('.slds-is-current[data-path-detail]');
+        if (currentItem) {
+          var panelId = currentItem.getAttribute('data-path-detail');
+          var panel = document.getElementById(panelId);
+          if (panel) {
+            panel.classList.add('is-visible');
+            currentItem.classList.add('eq-path-expanded');
+          }
+        }
+      }, 400);
+    }
+  };
+
+
+  // ====================================================================
+  // NEW OPPORTUNITY MODAL (Oppo-464)
+  // ====================================================================
+  /**
+   * Renders and opens a "New Opportunity" creation modal.
+   * Designed to be triggered from the Account page's Opportunities related list.
+   *
+   * @param {Object} [cfg]
+   * @param {string} [cfg.accountName] — Pre-fill account name
+   * @param {string} [cfg.accountId]   — Link back to account
+   */
+  EQ.newOpportunityModal = function(cfg) {
+    cfg = cfg || {};
+
+    // Remove existing modal if any
+    var existing = document.getElementById('eq-new-oppo-modal');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'eq-new-oppo-modal';
+    overlay.className = 'eq-modal-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-label', 'New Opportunity');
+
+    overlay.innerHTML =
+      '<div class="eq-modal">' +
+        '<div class="eq-modal-header">' +
+          '<h2>New Opportunity</h2>' +
+          '<button class="eq-modal-close" aria-label="Close">&times;</button>' +
+        '</div>' +
+        '<div class="eq-modal-body">' +
+          '<form id="eq-new-oppo-form" novalidate>' +
+            '<div class="eq-modal-section-title">Opportunity Information</div>' +
+            '<div class="eq-modal-grid">' +
+              _field('Opportunity Name', 'oppo-name', 'text', '', true) +
+              _field('Account Name', 'oppo-account', 'text', esc(cfg.accountName || ''), false, true) +
+              _field('Lead Source', 'oppo-lead-source', 'select', '', true, false,
+                ['-- Select --','Web','Partner Referral','Phone Inquiry','Purchased List','Event','Trade Show','Employee Referral','Other']) +
+              _field('Transaction Type', 'oppo-txn-type', 'select', '', true, false,
+                ['-- Select --','New Business','Expansion','Renewal','Add-On','Migration']) +
+              _field('IBX Country', 'oppo-ibx-country', 'select', '', true, false,
+                ['-- Select --','United States','United Kingdom','Germany','Netherlands','Japan','Singapore','Australia','Brazil','Hong Kong','France']) +
+              _field('Close Date', 'oppo-close-date', 'date', '', true) +
+            '</div>' +
+            '<div class="eq-modal-section-title">Stage &amp; Forecast</div>' +
+            '<div class="eq-modal-grid">' +
+              _field('Stage', 'oppo-stage', 'text', '1 Qualify Opportunity', false, true) +
+              _field('Probability (%)', 'oppo-probability', 'number', '20', false, true) +
+              _field('Forecast Category', 'oppo-forecast', 'text', 'Omitted', false, true) +
+              _field('Opportunity Currency', 'oppo-currency', 'text', 'USD \u2013 U.S. Dollar', false, true) +
+              _field('Opportunity Type', 'oppo-type', 'text', 'New Business', false, true) +
+            '</div>' +
+            '<div class="eq-modal-section-title">Description</div>' +
+            '<div class="eq-modal-full">' +
+              '<textarea id="oppo-description" class="eq-modal-input" rows="3" placeholder="Optional description..."></textarea>' +
+            '</div>' +
+          '</form>' +
+        '</div>' +
+        '<div class="eq-modal-footer">' +
+          '<button class="slds-button slds-button_neutral eq-modal-cancel">Cancel</button>' +
+          '<button class="slds-button slds-button_brand eq-modal-save">Save</button>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    // Show with animation
+    requestAnimationFrame(function() { overlay.classList.add('is-open'); });
+
+    // — Wire close —
+    function closeModal() {
+      overlay.classList.remove('is-open');
+      setTimeout(function() { overlay.remove(); }, 250);
+    }
+    overlay.querySelector('.eq-modal-close').addEventListener('click', closeModal);
+    overlay.querySelector('.eq-modal-cancel').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    // — Wire save with validation —
+    overlay.querySelector('.eq-modal-save').addEventListener('click', function() {
+      var form = document.getElementById('eq-new-oppo-form');
+      var valid = true;
+
+      // Clear previous errors
+      form.querySelectorAll('.eq-field-error').forEach(function(el) { el.remove(); });
+      form.querySelectorAll('.eq-modal-input.is-error').forEach(function(el) { el.classList.remove('is-error'); });
+
+      // Validate required fields
+      var required = [
+        {id:'oppo-name', label:'Opportunity Name'},
+        {id:'oppo-lead-source', label:'Lead Source'},
+        {id:'oppo-txn-type', label:'Transaction Type'},
+        {id:'oppo-ibx-country', label:'IBX Country'},
+        {id:'oppo-close-date', label:'Close Date'}
+      ];
+      required.forEach(function(r) {
+        var el = document.getElementById(r.id);
+        if (!el) return;
+        var val = el.value.trim();
+        if (!val || val === '-- Select --') {
+          el.classList.add('is-error');
+          var err = document.createElement('span');
+          err.className = 'eq-field-error';
+          err.textContent = r.label + ' is required';
+          el.parentNode.appendChild(err);
+          valid = false;
+        }
+      });
+
+      // Validate close date is future
+      var dateEl = document.getElementById('oppo-close-date');
+      if (dateEl && dateEl.value) {
+        var d = new Date(dateEl.value);
+        if (d <= new Date()) {
+          dateEl.classList.add('is-error');
+          var err = document.createElement('span');
+          err.className = 'eq-field-error';
+          err.textContent = 'Close Date must be a future date';
+          dateEl.parentNode.appendChild(err);
+          valid = false;
+        }
+      }
+
+      if (!valid) return;
+
+      // Simulate success
+      closeModal();
+      if (typeof EQ.showToast === 'function') {
+        EQ.showToast('Opportunity "' + document.getElementById('oppo-name').value + '" was created.', 'success');
+      } else {
+        // Inline toast fallback
+        var toast = document.createElement('div');
+        toast.className = 'eq-toast eq-toast--success';
+        toast.innerHTML = '<span>Opportunity "' + esc(document.getElementById('oppo-name').value) + '" was created.</span>';
+        document.body.appendChild(toast);
+        requestAnimationFrame(function() { toast.classList.add('is-visible'); });
+        setTimeout(function() { toast.classList.remove('is-visible'); setTimeout(function() { toast.remove(); }, 300); }, 4000);
+      }
+    });
+  };
+
+  // — Modal field helper —
+  function _field(label, id, type, defaultVal, required, readonly, options) {
+    var reqMark = required ? '<abbr class="slds-required" title="required">*</abbr> ' : '';
+    var inputHtml = '';
+
+    if (type === 'select' && options) {
+      var opts = options.map(function(o) {
+        return '<option' + (o === defaultVal ? ' selected' : '') + '>' + esc(o) + '</option>';
+      }).join('');
+      inputHtml = '<select id="' + id + '" class="eq-modal-input"' + (readonly ? ' disabled' : '') + '>' + opts + '</select>';
+    } else if (type === 'date') {
+      inputHtml = '<input id="' + id + '" type="date" class="eq-modal-input" value="' + esc(defaultVal) + '"' + (readonly ? ' readonly' : '') + '>';
+    } else if (type === 'number') {
+      inputHtml = '<input id="' + id + '" type="number" class="eq-modal-input" value="' + esc(defaultVal) + '" min="0" max="100"' + (readonly ? ' readonly' : '') + '>';
+    } else {
+      inputHtml = '<input id="' + id + '" type="text" class="eq-modal-input" value="' + esc(defaultVal) + '"' + (readonly ? ' readonly' : '') + '>';
+    }
+
+    return '<div class="eq-modal-field">' +
+      '<label for="' + id + '" class="eq-modal-label">' + reqMark + esc(label) + '</label>' +
+      inputHtml +
+    '</div>';
+  }
+
+
+  // ====================================================================
+  // TOAST NOTIFICATION
+  // ====================================================================
+  EQ.showToast = function(message, type) {
+    type = type || 'info';
+    var toast = document.createElement('div');
+    toast.className = 'eq-toast eq-toast--' + type;
+    toast.innerHTML = '<span>' + esc(message) + '</span>' +
+      '<button class="eq-toast-close" aria-label="Close">&times;</button>';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function() { toast.classList.add('is-visible'); });
+    toast.querySelector('.eq-toast-close').addEventListener('click', function() {
+      toast.classList.remove('is-visible');
+      setTimeout(function() { toast.remove(); }, 300);
+    });
+    setTimeout(function() {
+      toast.classList.remove('is-visible');
+      setTimeout(function() { toast.remove(); }, 300);
+    }, 5000);
+  };
+
+
+  // ====================================================================
   // UTILITY
   // ====================================================================
   function esc(s) {

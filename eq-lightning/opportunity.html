@@ -20,194 +20,8 @@
             <strong>🥬 Design discussion:</strong> The Opportunity record is the deal cockpit. Left column = deal terms and pricing. Center = sales path + activity timeline (what happened, what's next). Right = products, the team, and competitive intel. The Path component at the top is critical — it shows where we are in the quest at a glance. Every rep should be able to walk into a call with context in 30 seconds.
         </div>
 
-        <!-- SALES PATH -->
-        <div class="slds-path">
-            <div class="slds-grid slds-path__track">
-                <div class="slds-grid slds-path__scroller-container">
-                    <div class="slds-path__scroller" role="application">
-                        <ul class="slds-path__nav" role="tablist">
-                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-discovery">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Discovery</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-qualify">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Qualify Opportunity</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-develop">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Develop Solution</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-validate">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Validate Requirements</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="path-detail-propose">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Propose &amp; Negotiate</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-closed">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Closed</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="slds-grid slds-path__action">
-                    <button class="slds-button slds-button_brand slds-path__mark-complete">
-                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                            <use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
-                        </svg>
-                        Mark as Current Stage
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- PATH DETAIL PANELS — Real Equinix Opportunity Stages -->
-        <div id="path-detail-discovery" class="eq-path-detail">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div>
-                    <h3 class="eq-path-detail-title">Key Fields</h3>
-                    <div class="eq-path-detail-grid">
-                        <dl class="eq-path-detail-field"><dt>Account Name</dt><dd>The Knights Who Say Ni Ltd</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Close Date</dt><dd>Aug 15, 2026</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Amount</dt><dd>$580,000</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Opportunity Owner</dt><dd>The Black Knight</dd></dl>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
-                    <ul class="eq-path-detail-list">
-                        <li>Identify all stakeholders and their roles in the buying process</li>
-                        <li>Understand the customer's current infrastructure and pain points</li>
-                        <li>Document technical requirements (cabinets, power, connectivity)</li>
-                        <li>Confirm budget authority and procurement timeline</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="path-detail-qualify" class="eq-path-detail">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div>
-                    <h3 class="eq-path-detail-title">Key Fields</h3>
-                    <div class="eq-path-detail-grid">
-                        <dl class="eq-path-detail-field"><dt>Budget Confirmed</dt><dd>Yes</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Decision Maker</dt><dd>The Head Knight (CEO)</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Competition</dt><dd>The French (Digital Realty)</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Timeline</dt><dd>Q3 2026</dd></dl>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
-                    <ul class="eq-path-detail-list">
-                        <li>Validate BANT criteria (Budget, Authority, Need, Timeline)</li>
-                        <li>Map the competitive landscape and differentiate</li>
-                        <li>Confirm the opportunity aligns with strategic account goals</li>
-                        <li>Identify potential blockers early (legal, procurement, technical)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="path-detail-develop" class="eq-path-detail">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div>
-                    <h3 class="eq-path-detail-title">Key Fields</h3>
-                    <div class="eq-path-detail-grid">
-                        <dl class="eq-path-detail-field"><dt>Solution Architecture</dt><dd>4x cabinets, LD5</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Products</dt><dd>IBX Colo + Equinix Fabric</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Power Requirements</dt><dd>8kW per cabinet</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>SA Assigned</dt><dd>Tim the Enchanter</dd></dl>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
-                    <ul class="eq-path-detail-list">
-                        <li>Complete technical design with Solutions Architect</li>
-                        <li>Document power, cooling, and connectivity requirements</li>
-                        <li>Confirm IBX location availability and capacity</li>
-                        <li>Build ROI narrative tailored to customer priorities</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="path-detail-validate" class="eq-path-detail">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div>
-                    <h3 class="eq-path-detail-title">Key Fields</h3>
-                    <div class="eq-path-detail-grid">
-                        <dl class="eq-path-detail-field"><dt>Technical Validation</dt><dd>Complete</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>SLA Requirements</dt><dd>99.999% uptime</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Security Review</dt><dd>Passed</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Reference Provided</dt><dd>Yes (King of Swamp Castle)</dd></dl>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
-                    <ul class="eq-path-detail-list">
-                        <li>Complete technical proof-of-concept or reference site visit</li>
-                        <li>Address all security and compliance requirements</li>
-                        <li>Get written confirmation of solution fit from technical team</li>
-                        <li>Ensure all stakeholders have signed off on the approach</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="path-detail-propose" class="eq-path-detail">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div>
-                    <h3 class="eq-path-detail-title">Key Fields</h3>
-                    <div class="eq-path-detail-grid">
-                        <dl class="eq-path-detail-field"><dt>Contract Term</dt><dd>36 months</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Pricing Submitted</dt><dd>Feb 10, 2026</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Legal Review</dt><dd>In Progress</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>PO Status</dt><dd>In Process</dd></dl>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
-                    <ul class="eq-path-detail-list">
-                        <li>Submit formal proposal with pricing and contract terms</li>
-                        <li>Negotiate terms with legal and procurement teams</li>
-                        <li>Address any remaining competitive concerns</li>
-                        <li>Confirm PO timeline and signature authority</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="path-detail-closed" class="eq-path-detail">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div>
-                    <h3 class="eq-path-detail-title">Key Fields</h3>
-                    <div class="eq-path-detail-grid">
-                        <dl class="eq-path-detail-field"><dt>Close Date</dt><dd>Actual close date</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Win/Loss Reason</dt><dd>Required</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Contract Executed</dt><dd>Required for Won</dd></dl>
-                        <dl class="eq-path-detail-field"><dt>Delivery Handoff</dt><dd>Required for Won</dd></dl>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
-                    <ul class="eq-path-detail-list">
-                        <li>Ensure contract is fully executed before marking Closed Won</li>
-                        <li>Document win/loss reasons for pipeline analytics</li>
-                        <li>Schedule delivery kickoff within 5 business days</li>
-                        <li>Plan QBR cadence with customer success team</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <!-- SALES PATH — rendered by EQ.renderPath() -->
+        <div id="eq-path"></div>
 
         <!-- MAIN RECORD BODY -->
         <div class="eq-record-body">
@@ -610,6 +424,137 @@
 <script src="eq-nav.js"></script>
 
 <script>
+// Initialize sales path (Oppo-27 guided workflow)
+EQ.renderPath({
+  stages: [
+    { id:'discovery', label:'Discovery', status:'complete',
+      exitCriteria: [
+        {text:'Identify all stakeholders and buying roles', done:true},
+        {text:'Document current infrastructure and pain points', done:true},
+        {text:'Capture technical requirements (cabinets, power, connectivity)', done:true},
+        {text:'Confirm budget authority and procurement timeline', done:true}
+      ],
+      keyFields: [
+        {label:'Account Name', value:'The Knights Who Say Ni Ltd'},
+        {label:'Close Date', value:'Aug 15, 2026'},
+        {label:'Amount', value:'$580,000'},
+        {label:'Opportunity Owner', value:'The Black Knight'}
+      ],
+      guidance: [
+        'Use discovery call template to structure first meeting',
+        'Map org chart \u2014 who influences, who decides, who signs',
+        'Ask about existing vendor relationships and contract end dates',
+        'Quantify the cost of their current pain (downtime, latency, etc.)'
+      ]
+    },
+    { id:'qualify', label:'Qualify Opportunity', status:'complete',
+      exitCriteria: [
+        {text:'BANT validated (Budget, Authority, Need, Timeline)', done:true},
+        {text:'Competitive landscape mapped', done:true},
+        {text:'Opportunity aligned with strategic account plan', done:true},
+        {text:'Potential blockers identified (legal, procurement, technical)', done:true},
+        {text:'Executive sponsor confirmed', done:true}
+      ],
+      keyFields: [
+        {label:'Budget Confirmed', value:'Yes'},
+        {label:'Decision Maker', value:'The Head Knight (CEO)'},
+        {label:'Competition', value:'The French (Digital Realty)'},
+        {label:'Timeline', value:'Q3 2026'}
+      ],
+      guidance: [
+        'Score the opportunity using the Equinix qualification matrix',
+        'Get verbal commitment to evaluate Equinix as a finalist',
+        'Understand the customer\'s decision process and timeline',
+        'Identify 2-3 differentiators vs. each named competitor'
+      ]
+    },
+    { id:'develop', label:'Develop Solution', status:'complete',
+      exitCriteria: [
+        {text:'Solutions Architect assigned and engaged', done:true},
+        {text:'Technical design document completed', done:true},
+        {text:'IBX location and capacity confirmed', done:true},
+        {text:'ROI / business case delivered to customer', done:true}
+      ],
+      keyFields: [
+        {label:'Solution Architecture', value:'4x cabinets, LD5'},
+        {label:'Products', value:'IBX Colo + Equinix Fabric'},
+        {label:'Power Requirements', value:'8kW per cabinet'},
+        {label:'SA Assigned', value:'Tim the Enchanter'}
+      ],
+      guidance: [
+        'Schedule joint technical workshop with customer engineering',
+        'Confirm cross-connect and fabric requirements in writing',
+        'Model 3-year TCO comparison vs. competitors',
+        'Get SA to sign off on design feasibility before proposal'
+      ]
+    },
+    { id:'validate', label:'Validate Requirements', status:'complete',
+      exitCriteria: [
+        {text:'Technical proof-of-concept or reference visit completed', done:true},
+        {text:'Security and compliance requirements addressed', done:true},
+        {text:'Written confirmation of solution fit from technical team', done:true},
+        {text:'All stakeholders signed off on approach', done:true}
+      ],
+      keyFields: [
+        {label:'Technical Validation', value:'Complete'},
+        {label:'SLA Requirements', value:'99.999% uptime'},
+        {label:'Security Review', value:'Passed'},
+        {label:'Reference Provided', value:'Yes (King of Swamp Castle)'}
+      ],
+      guidance: [
+        'Arrange reference call with similar-profile customer',
+        'Walk compliance team through Equinix certifications',
+        'Get "thumbs up" email from technical evaluator',
+        'Confirm no new requirements have emerged since design'
+      ]
+    },
+    { id:'propose', label:'Propose & Negotiate', status:'current',
+      exitCriteria: [
+        {text:'Formal proposal with pricing submitted', done:true},
+        {text:'Contract terms sent to customer legal', done:true},
+        {text:'Legal review and redline completed', done:false},
+        {text:'Final pricing approved by deal desk', done:false},
+        {text:'PO received or verbal commit to sign', done:false}
+      ],
+      keyFields: [
+        {label:'Contract Term', value:'36 months'},
+        {label:'Pricing Submitted', value:'Feb 10, 2026'},
+        {label:'Legal Review', value:'In Progress', badge:'warning'},
+        {label:'PO Status', value:'In Process', badge:'warning'}
+      ],
+      guidance: [
+        'Stay in weekly contact with procurement during legal review',
+        'Pre-negotiate discount authority with your deal desk before customer asks',
+        'Prepare a "last look" competitive counter if needed',
+        'Line up delivery team so provisioning starts day 1 after signature'
+      ],
+      advanceBtn: {label:'Advance to Closed', disabled:true, icon:'lock'}
+    },
+    { id:'closed', label:'Closed', status:'incomplete',
+      exitCriteria: [
+        {text:'Contract fully executed (both parties signed)', done:false},
+        {text:'Win/Loss reason documented', done:false},
+        {text:'Delivery kickoff scheduled (within 5 business days)', done:false},
+        {text:'Customer Success team assigned and briefed', done:false},
+        {text:'QBR cadence agreed with customer', done:false}
+      ],
+      keyFields: [
+        {label:'Close Date', value:'\u2014'},
+        {label:'Win/Loss Reason', value:'Required', required:true},
+        {label:'Contract Executed', value:'Required for Won', required:true},
+        {label:'Delivery Handoff', value:'Required for Won', required:true}
+      ],
+      guidance: [
+        'Don\'t mark Closed Won until contract is countersigned',
+        'Win/loss data drives forecast accuracy \u2014 be specific',
+        'Warm handoff to delivery: share the full deal brief, not just the order',
+        'First QBR within 90 days sets the renewal trajectory'
+      ],
+      advanceBtn: {label:'Mark Closed Won', disabled:true, icon:'check'}
+    }
+  ]
+});
+
 // Initialize header and activity tabs using eq-components
 EQ.renderHeader({
   objectType: 'opportunity',

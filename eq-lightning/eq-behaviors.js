@@ -321,7 +321,7 @@
         var target = document.getElementById(targetId);
         if (!target) return;
 
-        // Close all other panels
+        // Close all other panels (with transition)
         var allPanels = document.querySelectorAll('.eq-path-detail.is-visible');
         allPanels.forEach(function(panel) {
           if (panel.id !== targetId) panel.classList.remove('is-visible');
@@ -329,8 +329,28 @@
 
         // Toggle this panel
         target.classList.toggle('is-visible');
+
+        // Highlight the active path step
+        pathItems.forEach(function(pi) { pi.classList.remove('eq-path-expanded'); });
+        if (target.classList.contains('is-visible')) {
+          item.classList.add('eq-path-expanded');
+        }
       });
     });
+
+    // Auto-open the current stage on page load
+    var currentStep = document.querySelector('.slds-path__item.slds-is-current[data-path-detail]');
+    if (currentStep) {
+      var targetId = currentStep.getAttribute('data-path-detail');
+      var target = document.getElementById(targetId);
+      if (target) {
+        // Small delay so the transition is visible
+        setTimeout(function() {
+          target.classList.add('is-visible');
+          currentStep.classList.add('eq-path-expanded');
+        }, 400);
+      }
+    }
   }
 
   // ====================================================================
