@@ -343,7 +343,7 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
 /* ---- Path track: toggle icon + chevrons + advance button ---- */
 .eq-path-track {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 0;
     background: #fff;
     border: 1px solid #DDDBDA;
@@ -351,11 +351,10 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     padding: 0;
 }
 
-/* Circle-arrow collapse/expand toggle — LEFT of the path */
+/* Circle-arrow collapse/expand toggle — LEFT of the path, same height as chevrons */
 .eq-path-collapse-btn {
     flex-shrink: 0;
     width: 36px;
-    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -489,14 +488,12 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     font-size: 0.75rem;
 }
 
-/* ---- Path detail wrapper — slides open below the path ---- */
+/* ---- Path detail wrapper — toggles open/closed below the path ---- */
 .eq-path-wrapper {
-    overflow: hidden;
-    max-height: 600px;
-    transition: max-height 0.25s ease;
+    /* no overflow hidden or max-height — let content flow naturally */
 }
 .eq-path-wrapper.is-collapsed {
-    max-height: 0;
+    display: none;
 }
 
 /* ---- Detail panel ---- */
