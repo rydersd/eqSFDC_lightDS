@@ -271,17 +271,24 @@
    * Renders a full sales path with expandable stage-gate panels.
    * Reusable across any object that has a staged workflow.
    *
+   * Exit criteria display ACTUAL FIELD VALUES (not just checkboxes) so
+   * reps can see real data without scrolling the full record detail.
+   *
    * @param {Object} cfg
    * @param {string} [cfg.target]       — DOM id (default: "eq-path")
    * @param {string} [cfg.advanceLabel] — Button text (default: "Mark as Current Stage")
    * @param {boolean}[cfg.autoExpand]   — Open current stage on load (default: true)
    * @param {Array}  cfg.stages         — Array of stage objects:
    *   {
-   *     id:       string,          — unique id (used for panel id: "path-detail-{id}")
-   *     label:    string,          — display name
+   *     id:       string,
+   *     label:    string,
    *     status:   'complete'|'current'|'incomplete',
-   *     exitCriteria: [{text: string, done: boolean}],
-   *     keyFields:    [{label: string, value: string, badge?: string}],
+   *     exitCriteria: [{
+   *       label: string,           — field label (e.g. "Budget Confirmed")
+   *       value: string,           — field value (e.g. "Yes" or "$580,000")
+   *       done:  boolean,          — whether this criterion is met
+   *       badge?: string           — optional badge style (success, warning, info, error)
+   *     }],
    *     guidance:     [string],
    *     advanceBtn?:  {label: string, disabled: boolean, icon?: string}
    *   }
@@ -317,28 +324,32 @@
       var done = 0;
       if (s.exitCriteria) s.exitCriteria.forEach(function(c) { if (c.done) done++; });
       var pct = total ? Math.round((done / total) * 100) : 0;
-      var barColor = pct === 100 ? '#2E844A' : (pct > 0 ? '#F28B00' : '#E5E5E5');
+      var barColor = pct === 100 ? '#2E844A' : (pct > 0 ? '#0070D2' : '#E5E5E5');
 
-      // Exit criteria list
       var criteriaTitle = s.status === 'incomplete' ? 'Conversion Checklist' : 'Exit Criteria';
+
+      // Exit criteria as FIELD ROWS with label, value, and check/incomplete state
       var criteriaHtml = '';
       if (s.exitCriteria && s.exitCriteria.length) {
         criteriaHtml = s.exitCriteria.map(function(c) {
-          var liCls = c.done ? ' class="is-done"' : '';
-          var chkCls = c.done ? 'eq-exit-check is-done' : 'eq-exit-check';
-          return '<li' + liCls + '><div class="' + chkCls + '"></div><span>' + esc(c.text) + '</span></li>';
-        }).join('');
-      }
-
-      // Key fields
-      var fieldsHtml = '';
-      if (s.keyFields && s.keyFields.length) {
-        fieldsHtml = s.keyFields.map(function(f) {
-          var val = f.badge
-            ? '<span class="eq-badge eq-badge--' + esc(f.badge) + '">' + esc(f.value) + '</span>'
-            : esc(f.value);
-          if (f.required) val = '<span style="color:#EA001E;">' + esc(f.value) + '</span>';
-          return '<dl class="eq-path-detail-field"><dt>' + esc(f.label) + '</dt><dd>' + val + '</dd></dl>';
+          var rowCls = 'eq-exit-row' + (c.done ? ' is-done' : '');
+          var statusIcon = c.done
+            ? '<svg class="eq-exit-icon eq-exit-icon--done" aria-label="Complete" role="img"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>'
+            : '<svg class="eq-exit-icon eq-exit-icon--open" aria-label="Incomplete" role="img"><use href="assets/icons/utility-sprite/svg/symbols.svg#record"></use></svg>';
+          // Value display — support badges
+          var valHtml = '';
+          if (c.badge) {
+            valHtml = '<span class="eq-badge eq-badge--' + esc(c.badge) + '">' + esc(c.value) + '</span>';
+          } else {
+            valHtml = '<span class="eq-exit-value">' + esc(c.value) + '</span>';
+          }
+          return '<div class="' + rowCls + '">' +
+            statusIcon +
+            '<div class="eq-exit-field">' +
+              '<span class="eq-exit-label">' + esc(c.label) + '</span>' +
+              valHtml +
+            '</div>' +
+          '</div>';
         }).join('');
       }
 
@@ -355,8 +366,8 @@
       if (s.advanceBtn) {
         var remaining = total - done;
         var noteText = remaining > 0
-          ? remaining + ' exit criteria remaining before this stage can close'
-          : 'Complete all items above to close this opportunity';
+          ? remaining + ' criteria remaining before this stage can close'
+          : 'All criteria met — ready to advance';
         var btnCls = s.advanceBtn.disabled ? 'slds-button slds-button_neutral' : 'slds-button slds-button_brand';
         var iconKey = s.advanceBtn.icon || (s.advanceBtn.disabled ? 'lock' : 'check');
         advBtnHtml = '<div class="eq-path-advance-btn">' +
@@ -369,39 +380,39 @@
 
       return '<div id="path-detail-' + esc(s.id) + '" class="eq-path-detail" data-stage="' + esc(s.label) + '">' +
         '<div class="eq-path-stage-header">' +
-          '<span class="eq-path-stage-name">' + esc(s.label) + ' — ' + esc(criteriaTitle) + '</span>' +
+          '<span class="eq-path-stage-name">Stage: <strong>' + esc(s.label) + '</strong></span>' +
           '<div class="eq-path-stage-progress">' +
-            '<span class="eq-progress-label">' + done + ' of ' + total + ' complete</span>' +
+            '<span class="eq-progress-label">' + done + '/' + total + '</span>' +
             '<div class="eq-path-progress-bar"><div class="eq-path-progress-fill" style="width:' + pct + '%; background:' + barColor + ';"></div></div>' +
           '</div>' +
         '</div>' +
         '<div class="eq-path-detail-body">' +
-          '<div><h3 class="eq-path-detail-title">' + esc(criteriaTitle) + '</h3><ul class="eq-exit-criteria">' + criteriaHtml + '</ul></div>' +
-          '<div><h3 class="eq-path-detail-title">Key Fields</h3><div class="eq-path-detail-grid">' + fieldsHtml + '</div></div>' +
-          '<div><h3 class="eq-path-detail-title">Guidance for Success</h3><ul class="eq-path-detail-list">' + guidanceHtml + '</ul></div>' +
+          '<div class="eq-path-criteria-col"><h3 class="eq-path-detail-title">' + esc(criteriaTitle) + '</h3>' + criteriaHtml + '</div>' +
+          '<div class="eq-path-guidance-col"><h3 class="eq-path-detail-title">Guidance</h3><ul class="eq-path-detail-list">' + guidanceHtml + '</ul></div>' +
         '</div>' +
         advBtnHtml +
       '</div>';
     }).join('');
 
-    // — Mobile toggle (collapsed by default, visible < 768px) —
-    var mobileToggle = '<button class="eq-path-mobile-toggle" aria-expanded="false" aria-label="Show sales path">' +
+    // — Expand/collapse toggle (visible on ALL screen sizes) —
+    var toggleBtn = '<button class="eq-path-toggle" aria-expanded="true" aria-controls="eq-path-content" aria-label="Collapse sales path details">' +
       '<svg class="slds-button__icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor;margin-right:6px;">' +
       '<use href="assets/icons/utility-sprite/svg/symbols.svg#routing_offline"></use></svg>' +
-      '<span class="eq-path-mobile-label">Sales Path</span>' +
+      '<span class="eq-path-toggle-label">Sales Path</span>' +
       '<svg class="slds-button__icon eq-path-chevron" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;margin-left:auto;">' +
       '<use href="assets/icons/utility-sprite/svg/symbols.svg#chevrondown"></use></svg></button>';
 
-    target.innerHTML = mobileToggle +
-      '<div class="eq-path-wrapper">' + pathNav + panels + '</div>';
+    target.innerHTML = toggleBtn +
+      '<div id="eq-path-content" class="eq-path-wrapper eq-path-wrapper--open">' + pathNav + panels + '</div>';
 
-    // — Wire mobile toggle —
-    var toggle = target.querySelector('.eq-path-mobile-toggle');
+    // — Wire expand/collapse toggle —
+    var toggle = target.querySelector('.eq-path-toggle');
     var wrapper = target.querySelector('.eq-path-wrapper');
     if (toggle && wrapper) {
       toggle.addEventListener('click', function() {
         var expanded = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', !expanded);
+        this.setAttribute('aria-expanded', String(!expanded));
+        this.setAttribute('aria-label', expanded ? 'Expand sales path details' : 'Collapse sales path details');
         wrapper.classList.toggle('eq-path-wrapper--open');
       });
     }

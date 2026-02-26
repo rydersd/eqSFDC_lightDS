@@ -429,37 +429,26 @@ EQ.renderPath({
   stages: [
     { id:'discovery', label:'Discovery', status:'complete',
       exitCriteria: [
-        {text:'Identify all stakeholders and buying roles', done:true},
-        {text:'Document current infrastructure and pain points', done:true},
-        {text:'Capture technical requirements (cabinets, power, connectivity)', done:true},
-        {text:'Confirm budget authority and procurement timeline', done:true}
-      ],
-      keyFields: [
-        {label:'Account Name', value:'The Knights Who Say Ni Ltd'},
-        {label:'Close Date', value:'Aug 15, 2026'},
-        {label:'Amount', value:'$580,000'},
-        {label:'Opportunity Owner', value:'The Black Knight'}
+        {label:'Account Name', value:'The Knights Who Say Ni Ltd', done:true},
+        {label:'Stakeholders Identified', value:'3 contacts mapped', done:true},
+        {label:'Current Infrastructure', value:'Damp cave, single server rack', done:true},
+        {label:'Technical Requirements', value:'4 cabinets, 8kW, 10Gbps', done:true},
+        {label:'Budget Authority', value:'Confirmed — The Head Knight', done:true}
       ],
       guidance: [
         'Use discovery call template to structure first meeting',
-        'Map org chart \u2014 who influences, who decides, who signs',
+        'Map org chart — who influences, who decides, who signs',
         'Ask about existing vendor relationships and contract end dates',
         'Quantify the cost of their current pain (downtime, latency, etc.)'
       ]
     },
     { id:'qualify', label:'Qualify Opportunity', status:'complete',
       exitCriteria: [
-        {text:'BANT validated (Budget, Authority, Need, Timeline)', done:true},
-        {text:'Competitive landscape mapped', done:true},
-        {text:'Opportunity aligned with strategic account plan', done:true},
-        {text:'Potential blockers identified (legal, procurement, technical)', done:true},
-        {text:'Executive sponsor confirmed', done:true}
-      ],
-      keyFields: [
-        {label:'Budget Confirmed', value:'Yes'},
-        {label:'Decision Maker', value:'The Head Knight (CEO)'},
-        {label:'Competition', value:'The French (Digital Realty)'},
-        {label:'Timeline', value:'Q3 2026'}
+        {label:'Budget Confirmed', value:'Yes', done:true},
+        {label:'Decision Maker', value:'The Head Knight (CEO)', done:true},
+        {label:'Competition', value:'The French (Digital Realty)', done:true},
+        {label:'Timeline', value:'Q3 2026', done:true},
+        {label:'Executive Sponsor', value:'The Head Knight', done:true}
       ],
       guidance: [
         'Score the opportunity using the Equinix qualification matrix',
@@ -470,16 +459,11 @@ EQ.renderPath({
     },
     { id:'develop', label:'Develop Solution', status:'complete',
       exitCriteria: [
-        {text:'Solutions Architect assigned and engaged', done:true},
-        {text:'Technical design document completed', done:true},
-        {text:'IBX location and capacity confirmed', done:true},
-        {text:'ROI / business case delivered to customer', done:true}
-      ],
-      keyFields: [
-        {label:'Solution Architecture', value:'4x cabinets, LD5'},
-        {label:'Products', value:'IBX Colo + Equinix Fabric'},
-        {label:'Power Requirements', value:'8kW per cabinet'},
-        {label:'SA Assigned', value:'Tim the Enchanter'}
+        {label:'Solutions Architect', value:'Tim the Enchanter', done:true},
+        {label:'Solution Architecture', value:'4x cabinets, LD5', done:true},
+        {label:'Products', value:'IBX Colo + Equinix Fabric', done:true},
+        {label:'Power Requirements', value:'8kW per cabinet', done:true},
+        {label:'ROI / Business Case', value:'Delivered Feb 3', done:true}
       ],
       guidance: [
         'Schedule joint technical workshop with customer engineering',
@@ -490,37 +474,25 @@ EQ.renderPath({
     },
     { id:'validate', label:'Validate Requirements', status:'complete',
       exitCriteria: [
-        {text:'Technical proof-of-concept or reference visit completed', done:true},
-        {text:'Security and compliance requirements addressed', done:true},
-        {text:'Written confirmation of solution fit from technical team', done:true},
-        {text:'All stakeholders signed off on approach', done:true}
-      ],
-      keyFields: [
-        {label:'Technical Validation', value:'Complete'},
-        {label:'SLA Requirements', value:'99.999% uptime'},
-        {label:'Security Review', value:'Passed'},
-        {label:'Reference Provided', value:'Yes (King of Swamp Castle)'}
+        {label:'Technical Validation', value:'Complete', done:true},
+        {label:'SLA Requirements', value:'99.999% uptime', done:true},
+        {label:'Security Review', value:'Passed', done:true},
+        {label:'Reference Provided', value:'King of Swamp Castle', done:true}
       ],
       guidance: [
         'Arrange reference call with similar-profile customer',
         'Walk compliance team through Equinix certifications',
-        'Get "thumbs up" email from technical evaluator',
+        'Get thumbs-up email from technical evaluator',
         'Confirm no new requirements have emerged since design'
       ]
     },
     { id:'propose', label:'Propose & Negotiate', status:'current',
       exitCriteria: [
-        {text:'Formal proposal with pricing submitted', done:true},
-        {text:'Contract terms sent to customer legal', done:true},
-        {text:'Legal review and redline completed', done:false},
-        {text:'Final pricing approved by deal desk', done:false},
-        {text:'PO received or verbal commit to sign', done:false}
-      ],
-      keyFields: [
-        {label:'Contract Term', value:'36 months'},
-        {label:'Pricing Submitted', value:'Feb 10, 2026'},
-        {label:'Legal Review', value:'In Progress', badge:'warning'},
-        {label:'PO Status', value:'In Process', badge:'warning'}
+        {label:'Contract Term', value:'36 months', done:true},
+        {label:'Pricing Submitted', value:'Feb 10, 2026', done:true},
+        {label:'Legal Review', value:'In Progress', done:false, badge:'warning'},
+        {label:'Deal Desk Approval', value:'Pending', done:false, badge:'warning'},
+        {label:'PO Status', value:'Not Received', done:false}
       ],
       guidance: [
         'Stay in weekly contact with procurement during legal review',
@@ -532,21 +504,15 @@ EQ.renderPath({
     },
     { id:'closed', label:'Closed', status:'incomplete',
       exitCriteria: [
-        {text:'Contract fully executed (both parties signed)', done:false},
-        {text:'Win/Loss reason documented', done:false},
-        {text:'Delivery kickoff scheduled (within 5 business days)', done:false},
-        {text:'Customer Success team assigned and briefed', done:false},
-        {text:'QBR cadence agreed with customer', done:false}
-      ],
-      keyFields: [
-        {label:'Close Date', value:'\u2014'},
-        {label:'Win/Loss Reason', value:'Required', required:true},
-        {label:'Contract Executed', value:'Required for Won', required:true},
-        {label:'Delivery Handoff', value:'Required for Won', required:true}
+        {label:'Contract Executed', value:'Required', done:false},
+        {label:'Win/Loss Reason', value:'Required', done:false},
+        {label:'Delivery Kickoff', value:'Within 5 business days', done:false},
+        {label:'Customer Success', value:'Assign and brief', done:false},
+        {label:'QBR Cadence', value:'Set with customer', done:false}
       ],
       guidance: [
         'Don\'t mark Closed Won until contract is countersigned',
-        'Win/loss data drives forecast accuracy \u2014 be specific',
+        'Win/loss data drives forecast accuracy — be specific',
         'Warm handoff to delivery: share the full deal brief, not just the order',
         'First QBR within 90 days sets the renewal trajectory'
       ],
