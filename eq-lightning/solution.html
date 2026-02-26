@@ -480,32 +480,6 @@
         </div>
         <!-- /OLD TAB CONTENT -->
 
-        <!-- DESIGN NOTES SECTION -->
-        <section class="eq-design-notes" aria-label="Design Notes">
-            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                </svg>
-                Design Notes &amp; Feedback
-            </button>
-            <div class="slds-hide eq-design-notes-content">
-                <h3>Assembly Decisions</h3>
-                <ul>
-                    <li><strong>Left column (Related):</strong> Related Orders (multiple — one solution can spawn many orders), Related Opportunities, Configuration Items (cabinets, fabric ports, SmartHands), and Change Requests. This shows the solution's full lifecycle context.</li>
-                    <li><strong>Center column (Details):</strong> Solution Information (number, status, account owner), Technical Configuration (IBX location, cabinet specs, power, cooling, network), SLA & Compliance (uptime guarantees, standards), and Shrubbery Specifications. Path component shows solution lifecycle: Draft, Technical Review, Approved (current), Deployed, Optimized.</li>
-                    <li><strong>Right column (Activity):</strong> Tabbed interface with Solution Activity timeline (validation events, design workshops, capacity planning), Chatter for technical team discussion, and Agentforce tab with health monitoring, expansion planning, and drift detection AI actions.</li>
-                </ul>
-                <h3>Open Questions</h3>
-                <ul>
-                    <li>Should Configuration Items be editable inline or require a Change Request workflow?</li>
-                    <li>How should we visualize the relationship between Solution → multiple Orders over time? Consider a timeline view showing deployment phasing.</li>
-                    <li>Should the Solution page include an embedded capacity dashboard showing power/network utilization vs. design specs?</li>
-                    <li>For expansion scenarios: Should we auto-generate "Expansion Solution" child records, or handle via Change Requests?</li>
-                </ul>
-                <h3>Feedback</h3>
-                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
-            </div>
-        </section>
 
 </main>
 
@@ -542,14 +516,6 @@
     </div>
 
 <style>
-    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
-    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
-    .eq-design-notes-toggle:hover { background: #F3F3F3; }
-    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
-    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
-    .eq-design-notes-content h3:first-child { margin-top: 0; }
-    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
-    .eq-design-notes-content li { margin-bottom: 0.375rem; }
 </style>
 
 </div><!-- /slds-scope -->
@@ -572,6 +538,26 @@ EQ.renderHeader({
   ]
 });
 EQ.renderActivityTabs();
+EQ.setSidebarNotes({
+  patterns: ['Related Orders', 'Related Opportunities', 'Configuration Items', 'Path Component'],
+  content: `
+    <h3>Assembly Decisions</h3>
+    <ul>
+      <li><strong>Left column (Related):</strong> Related Orders (multiple — one solution can spawn many orders), Related Opportunities, Configuration Items (cabinets, fabric ports, SmartHands), and Change Requests. This shows the solution's full lifecycle context.</li>
+      <li><strong>Center column (Details):</strong> Solution Information (number, status, account owner), Technical Configuration (IBX location, cabinet specs, power, cooling, network), SLA & Compliance (uptime guarantees, standards), and Shrubbery Specifications. Path component shows solution lifecycle: Draft, Technical Review, Approved (current), Deployed, Optimized.</li>
+      <li><strong>Right column (Activity):</strong> Tabbed interface with Solution Activity timeline (validation events, design workshops, capacity planning), Chatter for technical team discussion, and Agentforce tab with health monitoring, expansion planning, and drift detection AI actions.</li>
+    </ul>
+    <h3>Open Questions</h3>
+    <ul>
+      <li>Should Configuration Items be editable inline or require a Change Request workflow?</li>
+      <li>How should we visualize the relationship between Solution → multiple Orders over time? Consider a timeline view showing deployment phasing.</li>
+      <li>Should the Solution page include an embedded capacity dashboard showing power/network utilization vs. design specs?</li>
+      <li>For expansion scenarios: Should we auto-generate "Expansion Solution" child records, or handle via Change Requests?</li>
+    </ul>
+    <h3>Pattern Standardization</h3>
+    <p>This design establishes a standard pattern for complex technical domain objects (Solution, Order, Configuration) within the EQ Lightning system. Future implementations should follow this assembly structure for consistency.</p>
+  `
+});
 </script>
 </body>
 </html>

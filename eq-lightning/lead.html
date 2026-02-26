@@ -643,31 +643,6 @@
 
         </div><!-- /eq-record-body -->
 
-        <!-- DESIGN NOTES SECTION -->
-        <section class="eq-design-notes" aria-label="Design Notes">
-            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                </svg>
-                Design Notes &amp; Feedback
-            </button>
-            <div class="slds-hide eq-design-notes-content">
-                <h3>Assembly Decisions</h3>
-                <ul>
-                    <li><strong>Left column (Related):</strong> Notes, Files, Lead History, Campaign History — compact related lists using key-value pairs. Agentforce Lead Qualification card at the bottom for pre-qualification insights.</li>
-                    <li><strong>Center column (Details):</strong> Lead identity, company information, lead scoring breakdown with visual progress bars, contact information, and description. Organized for quick BANT assessment.</li>
-                    <li><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (expandable items), Chatter placeholder for team discussion, and Agentforce tab containing Next Best Action, Personalized Outreach, and Engagement Analytics cards.</li>
-                </ul>
-                <h3>Open Questions</h3>
-                <ul>
-                    <li>Should the lead scoring breakdown be collapsible, or always visible as a key qualification signal?</li>
-                    <li>For converted leads, should the Path component show a "Converted" terminal state with a link to the resulting Contact/Account/Opportunity?</li>
-                    <li>Should Agentforce NBA card be pinned above tabs (always visible) or nested inside the Agentforce tab?</li>
-                </ul>
-                <h3>Feedback</h3>
-                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
-            </div>
-        </section>
 
 </main>
 
@@ -718,16 +693,6 @@
         </div>
     </div>
 
-<style>
-    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
-    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
-    .eq-design-notes-toggle:hover { background: #F3F3F3; }
-    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
-    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
-    .eq-design-notes-content h3:first-child { margin-top: 0; }
-    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
-    .eq-design-notes-content li { margin-bottom: 0.375rem; }
-</style>
 
 </div><!-- /slds-scope -->
 <script src="eq-components.js"></script>
@@ -753,6 +718,26 @@ EQ.renderHeader({
   ]
 });
 EQ.renderActivityTabs();
+EQ.setSidebarNotes(`
+  <span class="eq-pattern-tag eq-pattern-tag--component">renderPath</span>
+  <span class="eq-pattern-tag eq-pattern-tag--component">renderHeader</span>
+  <span class="eq-pattern-tag eq-pattern-tag--standard">3-Column Grid</span>
+  <span class="eq-pattern-tag eq-pattern-tag--component">renderActivityTabs</span>
+  <h3>Assembly Decisions</h3>
+  <ul>
+    <li><strong>Left column (Related):</strong> Notes, Files, Lead History, Campaign History — compact related lists using key-value pairs. Agentforce Lead Qualification card at the bottom for pre-qualification insights.</li>
+    <li><strong>Center column (Details):</strong> Lead identity, company information, lead scoring breakdown with visual progress bars, contact information, and description. Organized for quick BANT assessment.</li>
+    <li><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (expandable items), Chatter placeholder for team discussion, and Agentforce tab containing Next Best Action, Personalized Outreach, and Engagement Analytics cards.</li>
+  </ul>
+  <h3>Open Questions</h3>
+  <ul>
+    <li>Should the lead scoring breakdown be collapsible, or always visible as a key qualification signal?</li>
+    <li>For converted leads, should the Path component show a "Converted" terminal state with a link to the resulting Contact/Account/Opportunity?</li>
+    <li>Should Agentforce NBA card be pinned above tabs (always visible) or nested inside the Agentforce tab?</li>
+  </ul>
+  <h3>Pattern Standardization</h3>
+  <p>Lead pages should follow the 3-Column Grid pattern with Activity Tabs for consistent record layouts across the org. Consider incorporating this pattern into future Account, Opportunity, and Contact pages.</p>
+`);
 </script>
 </body>
 </html>

@@ -520,31 +520,6 @@
 
         </div><!-- /eq-record-body -->
 
-        <!-- DESIGN NOTES SECTION -->
-        <section class="eq-design-notes" aria-label="Design Notes">
-            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                </svg>
-                Design Notes &amp; Feedback
-            </button>
-            <div class="slds-hide eq-design-notes-content">
-                <h3>Assembly Decisions</h3>
-                <ul>
-                    <li><strong>Left column (Details):</strong> Contact Information (name, account, title, email, phone, department), Mailing Address, Other Address, and Description with collapsed System & Audit Fields. Organized in 2-column grid for identity and role clarity.</li>
-                    <li><strong>Center column (Activity):</strong> Tabbed interface featuring Activity timeline (emails, calls, events, tasks), Chatter placeholder for team collaboration about the contact, and Agentforce cards (Personalized Outreach, Engagement Analytics, Next Best Action) with time savings metrics.</li>
-                    <li><strong>Right column (Related):</strong> Related records in logical order: Account parent lookup (shows the account this contact belongs to), Related Opportunities (2 items), Related Cases (1 item), Campaign History (3 items), and Quick Actions (Log a Call, New Task, Send Email, New Event).</li>
-                </ul>
-                <h3>Open Questions</h3>
-                <ul>
-                    <li>Should we show the Contact Owner field prominently in the LEFT column Details, or is it already clear enough from the Account context?</li>
-                    <li>For multi-location contacts, should we expand "Other Address" section?</li>
-                </ul>
-                <h3>Feedback</h3>
-                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
-            </div>
-        </section>
-
 </main>
 
     <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
@@ -576,17 +551,6 @@
         </div>
     </div>
 
-    <style>
-        .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
-        .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
-        .eq-design-notes-toggle:hover { background: #F3F3F3; }
-        .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
-        .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
-        .eq-design-notes-content h3:first-child { margin-top: 0; }
-        .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
-        .eq-design-notes-content li { margin-bottom: 0.375rem; }
-    </style>
-
 </div><!-- /slds-scope -->
 <script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
@@ -610,6 +574,30 @@ EQ.renderHeader({
   ]
 });
 EQ.renderActivityTabs();
+EQ.setSidebarNotes(`
+  <div class="eq-pattern-tags">
+    <span class="eq-pattern-tag eq-pattern-tag--component">renderHeader</span>
+    <span class="eq-pattern-tag eq-pattern-tag--component">renderActivityTabs</span>
+    <span class="eq-pattern-tag eq-pattern-tag--standard">3-Column Grid</span>
+  </div>
+  <h3>Assembly Decisions</h3>
+  <ul>
+    <li><strong>Left column (Details):</strong> Contact Information (name, account, title, email, phone, department), Mailing Address, Other Address, and Description with collapsed System & Audit Fields. Organized in 2-column grid for identity and role clarity.</li>
+    <li><strong>Center column (Activity):</strong> Tabbed interface featuring Activity timeline (emails, calls, events, tasks), Chatter placeholder for team collaboration about the contact, and Agentforce cards (Personalized Outreach, Engagement Analytics, Next Best Action) with time savings metrics.</li>
+    <li><strong>Right column (Related):</strong> Related records in logical order: Account parent lookup (shows the account this contact belongs to), Related Opportunities (2 items), Related Cases (1 item), Campaign History (3 items), and Quick Actions (Log a Call, New Task, Send Email, New Event).</li>
+  </ul>
+  <h3>Open Questions</h3>
+  <ul>
+    <li>Should we show the Contact Owner field prominently in the LEFT column Details, or is it already clear enough from the Account context?</li>
+    <li>For multi-location contacts, should we expand "Other Address" section?</li>
+  </ul>
+  <h3>Pattern Standardization</h3>
+  <ul>
+    <li>Proposal: Adopt the 3-Column Grid layout as the standard for all record detail pages, with consistent column widths (30% Details | 40% Activity | 30% Related).</li>
+    <li>Proposal: Create a reusable renderActivityTabs component that can be applied to Accounts, Opportunities, and Cases with configurable tab options.</li>
+    <li>Proposal: Standardize the related records section ordering: parent lookup → opportunities/deals → cases/support → history → quick actions.</li>
+  </ul>
+`);
 </script>
 </body>
 </html>

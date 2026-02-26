@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Orders List</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+    <div class="eq-story-block">
+        The Order Operations team at The Knights Who Say Ni Ltd starts every morning here — the order list view. Bedivere, the operations lead, calls it "the war room view" because you can see every active order, every exception, every price refresh that's stalled. Before the redesign, they had to open each order individually to find out which ones had issues. Now, exception badges surface problems at a glance, and the filter pills let them slice the list by status or issue type without building a report. "I used to spend the first 45 minutes of every day just figuring out which orders needed my attention," Bedivere says. "Now I know in 10 seconds."
+    </div>
+
+    <!-- List view container — built by script below -->
+    <div class="eq-listview" id="eq-orders-list">
+
+        <!-- Toolbar -->
+        <div class="eq-listview-toolbar">
+            <div>
+                <span class="eq-listview-title">All Orders</span>
+                <span class="eq-listview-count" id="orderCount">· 12 items</span>
+            </div>
+            <div class="eq-listview-search">
+                <span class="eq-listview-search-icon" aria-hidden="true">&#128269;</span>
+                <input type="search" placeholder="Search orders…" aria-label="Search orders" id="orderSearch">
+            </div>
+            <div class="eq-listview-actions">
+                <button class="eq-listview-btn" id="btnFilters" aria-expanded="true" aria-controls="filterBar">
+                    <span aria-hidden="true">&#9776;</span> Filters
+                </button>
+                <button class="eq-listview-btn--brand eq-listview-btn">New Order</button>
+            </div>
+        </div>
+
+        <!-- Summary cards -->
+        <div class="eq-listview-summary" role="region" aria-label="Order summary">
+            <div class="eq-summary-card">
+                <div class="eq-summary-card-value" id="sumTotal">12</div>
+                <div class="eq-summary-card-label">Total Orders</div>
+            </div>
+            <div class="eq-summary-card eq-summary-card--success">
+                <div class="eq-summary-card-value" id="sumActive">5</div>
+                <div class="eq-summary-card-label">Active</div>
+            </div>
+            <div class="eq-summary-card eq-summary-card--info">
+                <div class="eq-summary-card-value" id="sumInProgress">4</div>
+                <div class="eq-summary-card-label">In Progress</div>
+            </div>
+            <div class="eq-summary-card eq-summary-card--warning">
+                <div class="eq-summary-card-value" id="sumIssues">2</div>
+                <div class="eq-summary-card-label">Issues</div>
+            </div>
+            <div class="eq-summary-card eq-summary-card--error">
+                <div class="eq-summary-card-value" id="sumCancelled">1</div>
+                <div class="eq-summary-card-label">Cancelled</div>
+            </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="eq-listview-filters" id="filterBar" role="group" aria-label="Filter orders">
+            <span class="eq-filter-label">Status</span>
+            <button class="eq-filter-pill is-active" data-filter="all">All <span class="eq-filter-count">12</span></button>
+            <button class="eq-filter-pill" data-filter="active">Active <span class="eq-filter-count">5</span></button>
+            <button class="eq-filter-pill" data-filter="submitted">Submitted <span class="eq-filter-count">2</span></button>
+            <button class="eq-filter-pill" data-filter="provisioning">Provisioning <span class="eq-filter-count">2</span></button>
+            <button class="eq-filter-pill" data-filter="approved">Approved <span class="eq-filter-count">1</span></button>
+            <span class="eq-filter-sep"></span>
+            <span class="eq-filter-label">Issues</span>
+            <button class="eq-filter-pill" data-filter="hold">&#9888; On Hold <span class="eq-filter-count">1</span></button>
+            <button class="eq-filter-pill" data-filter="cancelled">&#10006; Cancelled <span class="eq-filter-count">1</span></button>
+            <button class="eq-filter-pill" data-filter="price-stale">&#128260; Stale Prices <span class="eq-filter-count">2</span></button>
+            <button class="eq-filter-pill" data-filter="decomp-blocked">&#9899; Decomp Blocked <span class="eq-filter-count">1</span></button>
+            <span class="eq-filter-sep"></span>
+            <button class="eq-filter-clear" id="clearFilters" style="display:none;">Clear All</button>
+        </div>
+
+        <!-- Data table -->
+        <table class="eq-listview-table" aria-label="Orders" id="ordersTable">
+            <thead>
+                <tr>
+                    <th class="eq-listview-checkbox" scope="col"><input type="checkbox" aria-label="Select all orders"></th>
+                    <th class="eq-listview-icon-cell" scope="col"><span class="slds-assistive-text">Icon</span></th>
+                    <th scope="col">Order Number <span class="eq-sort-icon">&#9650;</span></th>
+                    <th scope="col">Account</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Issues</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Contract</th>
+                    <th class="eq-row-action" scope="col"><span class="slds-assistive-text">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody">
+            </tbody>
+        </table>
+
+        <!-- Footer / pagination -->
+        <div class="eq-listview-footer">
+            <span id="footerInfo">Showing 1–12 of 12</span>
+            <div class="eq-listview-pagination">
+                <button class="eq-listview-page-btn" disabled aria-label="Previous page">&#9664; Prev</button>
+                <span>Page 1 of 1</span>
+                <button class="eq-listview-page-btn" disabled aria-label="Next page">Next &#9654;</button>
+            </div>
+        </div>
+    </div>
+
+</main>
+</div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── Order data ──────────────────────────────────────────────
+  var orders = [
+    {
+      id: 'ORD-2026-NI1', href: 'order.html',
+      account: 'The Knights Who Say Ni Ltd', accountHref: 'account.html',
+      status: 'active', statusLabel: 'Activated',
+      issues: [],
+      amount: '$580,000.00', date: 'Jan 15, 2026',
+      contract: 'CON-00031415-NI', contractHref: 'contract.html'
+    },
+    {
+      id: 'ORD-2026-NI2', href: 'order.html',
+      account: 'The Knights Who Say Ni Ltd', accountHref: 'account.html',
+      status: 'active', statusLabel: 'Activated',
+      issues: [],
+      amount: '$124,800.00', date: 'Feb 3, 2026',
+      contract: 'CON-00031415-NI', contractHref: 'contract.html'
+    },
+    {
+      id: 'ORD-2026-NI3', href: 'order-issue.html',
+      account: 'The Knights Who Say Ni Ltd', accountHref: 'account.html',
+      status: 'hold', statusLabel: 'On Hold',
+      issues: [
+        { type: 'warning', label: 'On Hold — Credit Review' },
+        { type: 'warning', label: 'Stale Prices' }
+      ],
+      amount: '$312,000.00', date: 'Feb 10, 2026',
+      contract: 'CON-00031415-NI', contractHref: 'contract.html',
+      rowClass: 'eq-row-issue'
+    },
+    {
+      id: 'ORD-2026-CA1', href: '#',
+      account: 'Castle Anthrax Holdings', accountHref: '#',
+      status: 'provisioning', statusLabel: 'Provisioning',
+      issues: [{ type: 'error', label: 'Decomp Blocked' }],
+      amount: '$890,500.00', date: 'Jan 22, 2026',
+      contract: 'CON-00042101-CA', contractHref: '#',
+      rowClass: 'eq-row-issue'
+    },
+    {
+      id: 'ORD-2026-CA2', href: '#',
+      account: 'Castle Anthrax Holdings', accountHref: '#',
+      status: 'active', statusLabel: 'Activated',
+      issues: [],
+      amount: '$445,200.00', date: 'Dec 12, 2025',
+      contract: 'CON-00042101-CA', contractHref: '#'
+    },
+    {
+      id: 'ORD-2026-BG1', href: '#',
+      account: 'Bridge of Death Consulting', accountHref: '#',
+      status: 'submitted', statusLabel: 'Submitted',
+      issues: [{ type: 'warning', label: 'Stale Prices' }],
+      amount: '$67,500.00', date: 'Feb 18, 2026',
+      contract: 'CON-00053201-BD', contractHref: '#'
+    },
+    {
+      id: 'ORD-2026-HG1', href: '#',
+      account: 'Holy Grail Enterprises', accountHref: '#',
+      status: 'active', statusLabel: 'Activated',
+      issues: [],
+      amount: '$1,250,000.00', date: 'Nov 5, 2025',
+      contract: 'CON-00060010-HG', contractHref: '#'
+    },
+    {
+      id: 'ORD-2026-HG2', href: '#',
+      account: 'Holy Grail Enterprises', accountHref: '#',
+      status: 'provisioning', statusLabel: 'Provisioning',
+      issues: [],
+      amount: '$378,000.00', date: 'Feb 1, 2026',
+      contract: 'CON-00060010-HG', contractHref: '#'
+    },
+    {
+      id: 'ORD-2026-SR1', href: '#',
+      account: 'Swamp Castle Realty', accountHref: '#',
+      status: 'approved', statusLabel: 'Approved',
+      issues: [],
+      amount: '$92,400.00', date: 'Feb 20, 2026',
+      contract: 'CON-00071105-SC', contractHref: '#'
+    },
+    {
+      id: 'ORD-2025-TW1', href: '#',
+      account: 'Tim the Enchanter LLC', accountHref: '#',
+      status: 'cancelled', statusLabel: 'Cancelled',
+      issues: [{ type: 'error', label: 'Cancelled — Customer Request' }],
+      amount: '$205,000.00', date: 'Oct 30, 2025',
+      contract: 'CON-00080220-TE', contractHref: '#',
+      rowClass: 'eq-row-error'
+    },
+    {
+      id: 'ORD-2026-KR1', href: '#',
+      account: 'Killer Rabbit Security', accountHref: '#',
+      status: 'submitted', statusLabel: 'Submitted',
+      issues: [],
+      amount: '$176,300.00', date: 'Feb 22, 2026',
+      contract: 'CON-00090015-KR', contractHref: '#'
+    },
+    {
+      id: 'ORD-2026-NI4', href: '#',
+      account: 'The Knights Who Say Ni Ltd', accountHref: 'account.html',
+      status: 'active', statusLabel: 'Activated',
+      issues: [],
+      amount: '$58,750.00', date: 'Jan 8, 2026',
+      contract: 'CON-00031415-NI', contractHref: 'contract.html'
+    }
+  ];
+
+  // ── Render table rows ───────────────────────────────────────
+  function renderRows(data) {
+    var tbody = document.getElementById('ordersBody');
+    if (!tbody) return;
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+      var o = data[i];
+      var rc = o.rowClass ? ' class="' + o.rowClass + '"' : '';
+      html += '<tr' + rc + ' data-status="' + o.status + '" data-issues="' + (o.issues||[]).map(function(x){return x.label;}).join('|') + '">';
+      html += '<td class="eq-listview-checkbox"><input type="checkbox" aria-label="Select ' + o.id + '"></td>';
+      html += '<td class="eq-listview-icon-cell"><span class="eq-listview-obj-icon" style="background:#6BBECD;">';
+      html += '<svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use></svg>';
+      html += '</span></td>';
+      html += '<td><a href="' + o.href + '" class="eq-listview-link">' + o.id + '</a></td>';
+      html += '<td><a href="' + o.accountHref + '" class="eq-listview-link">' + o.account + '</a></td>';
+      html += '<td><span class="eq-status-badge eq-status-badge--' + o.status + '"><span class="eq-status-dot eq-status-dot--' + o.status + '"></span>' + o.statusLabel + '</span></td>';
+      // Issues column
+      html += '<td>';
+      if (o.issues && o.issues.length) {
+        for (var j = 0; j < o.issues.length; j++) {
+          var iss = o.issues[j];
+          var icon = iss.type === 'error' ? '&#10006;' : '&#9888;';
+          html += '<span class="eq-exception-badge eq-exception-badge--' + iss.type + '">';
+          html += '<span class="eq-exception-icon">' + icon + '</span> ' + iss.label;
+          html += '</span> ';
+        }
+      } else {
+        html += '<span style="color:#B0ADAB;font-size:0.75rem;">—</span>';
+      }
+      html += '</td>';
+      html += '<td>' + o.amount + '</td>';
+      html += '<td>' + o.date + '</td>';
+      html += '<td><a href="' + o.contractHref + '" class="eq-listview-link">' + o.contract + '</a></td>';
+      html += '<td class="eq-row-action"><button class="eq-row-action-btn" aria-label="Actions for ' + o.id + '">&#8942;</button></td>';
+      html += '</tr>';
+    }
+    tbody.innerHTML = html;
+
+    // Update counts
+    document.getElementById('orderCount').textContent = '· ' + data.length + ' items';
+    document.getElementById('footerInfo').textContent = 'Showing 1–' + data.length + ' of ' + data.length;
+  }
+
+  // ── Filter logic ────────────────────────────────────────────
+  var activeFilters = ['all'];
+
+  function applyFilters() {
+    var filtered = orders;
+
+    if (activeFilters.indexOf('all') === -1) {
+      filtered = orders.filter(function(o) {
+        // Check status filters
+        if (activeFilters.indexOf(o.status) !== -1) return true;
+        // Check issue-type filters
+        for (var f = 0; f < activeFilters.length; f++) {
+          var filter = activeFilters[f];
+          if (filter === 'hold' && o.status === 'hold') return true;
+          if (filter === 'cancelled' && o.status === 'cancelled') return true;
+          if (filter === 'price-stale') {
+            for (var k = 0; k < (o.issues||[]).length; k++) {
+              if (o.issues[k].label.indexOf('Stale Prices') !== -1) return true;
+            }
+          }
+          if (filter === 'decomp-blocked') {
+            for (var m = 0; m < (o.issues||[]).length; m++) {
+              if (o.issues[m].label.indexOf('Decomp Blocked') !== -1) return true;
+            }
+          }
+        }
+        return false;
+      });
+    }
+
+    // Also apply search
+    var query = (document.getElementById('orderSearch').value || '').toLowerCase();
+    if (query) {
+      filtered = filtered.filter(function(o) {
+        return o.id.toLowerCase().indexOf(query) !== -1 ||
+               o.account.toLowerCase().indexOf(query) !== -1 ||
+               o.statusLabel.toLowerCase().indexOf(query) !== -1 ||
+               o.contract.toLowerCase().indexOf(query) !== -1;
+      });
+    }
+
+    renderRows(filtered);
+    updateSummary(filtered);
+  }
+
+  function updateSummary(data) {
+    var total = data.length;
+    var active = data.filter(function(o){return o.status==='active';}).length;
+    var inProg = data.filter(function(o){return o.status==='submitted'||o.status==='provisioning'||o.status==='approved';}).length;
+    var issues = data.filter(function(o){return (o.issues||[]).length > 0 && o.status !== 'cancelled';}).length;
+    var cancelled = data.filter(function(o){return o.status==='cancelled';}).length;
+    document.getElementById('sumTotal').textContent = total;
+    document.getElementById('sumActive').textContent = active;
+    document.getElementById('sumInProgress').textContent = inProg;
+    document.getElementById('sumIssues').textContent = issues;
+    document.getElementById('sumCancelled').textContent = cancelled;
+  }
+
+  // Wire filter pills
+  var filterPills = document.querySelectorAll('.eq-filter-pill');
+  for (var p = 0; p < filterPills.length; p++) {
+    filterPills[p].addEventListener('click', function() {
+      var filter = this.getAttribute('data-filter');
+      if (filter === 'all') {
+        // Reset to all
+        activeFilters = ['all'];
+        for (var a = 0; a < filterPills.length; a++) {
+          filterPills[a].classList.remove('is-active');
+        }
+        this.classList.add('is-active');
+        document.getElementById('clearFilters').style.display = 'none';
+      } else {
+        // Remove "all" if present
+        var allIdx = activeFilters.indexOf('all');
+        if (allIdx !== -1) {
+          activeFilters.splice(allIdx, 1);
+          document.querySelector('[data-filter="all"]').classList.remove('is-active');
+        }
+        // Toggle this filter
+        var idx = activeFilters.indexOf(filter);
+        if (idx !== -1) {
+          activeFilters.splice(idx, 1);
+          this.classList.remove('is-active');
+        } else {
+          activeFilters.push(filter);
+          this.classList.add('is-active');
+        }
+        // If nothing selected, go back to all
+        if (activeFilters.length === 0) {
+          activeFilters = ['all'];
+          document.querySelector('[data-filter="all"]').classList.add('is-active');
+          document.getElementById('clearFilters').style.display = 'none';
+        } else {
+          document.getElementById('clearFilters').style.display = '';
+        }
+      }
+      applyFilters();
+    });
+  }
+
+  // Wire clear filters
+  document.getElementById('clearFilters').addEventListener('click', function() {
+    activeFilters = ['all'];
+    for (var a = 0; a < filterPills.length; a++) {
+      filterPills[a].classList.remove('is-active');
+    }
+    document.querySelector('[data-filter="all"]').classList.add('is-active');
+    this.style.display = 'none';
+    applyFilters();
+  });
+
+  // Wire search
+  document.getElementById('orderSearch').addEventListener('input', function() {
+    applyFilters();
+  });
+
+  // Wire filter toggle button
+  document.getElementById('btnFilters').addEventListener('click', function() {
+    var bar = document.getElementById('filterBar');
+    var isVisible = bar.style.display !== 'none';
+    bar.style.display = isVisible ? 'none' : '';
+    this.classList.toggle('is-active', !isVisible);
+    this.setAttribute('aria-expanded', !isVisible);
+  });
+
+  // Initial render
+  renderRows(orders);
+
+  // ── Design notes ────────────────────────────────────────────
+  EQ.setSidebarNotes('\
+    <h3>Pattern Decisions</h3>\
+    <span class="eq-pattern-tag eq-pattern-tag--component">List View</span>\
+    <span class="eq-pattern-tag eq-pattern-tag--proposal">Exception Surfacing</span>\
+    <ul>\
+      <li><strong>Salesforce list views</strong> support filtering natively — both standard filters (by field value) and custom list view filters. We replicate this with horizontal filter pills for faster scanning.</li>\
+      <li><strong>Exception badges</strong> surface issues directly in the list so ops teams don\'t need to open each record. Standard Salesforce list views show status fields but don\'t natively highlight exceptions — this is a proposed enhancement using formula fields or custom components.</li>\
+      <li><strong>Summary cards</strong> above the table give a quick count breakdown. In production, these would be driven by list view aggregate queries or a dashboard component embedded in the list page.</li>\
+      <li><strong>Filter pills</strong> operate on both status (Active, Submitted, etc.) and issue types (On Hold, Stale Prices, Decomp Blocked). Multiple filters can be combined. In production, issue filters would map to formula fields or related object queries.</li>\
+    </ul>\
+    <h3>Implementation Notes</h3>\
+    <ul>\
+      <li><strong>Custom LWC recommended</strong> for the exception badges column and summary cards — standard list views don\'t render inline exception indicators this way.</li>\
+      <li><strong>List view filters</strong> are standard Salesforce — the pill-style UI is a proposed enhancement. OOB uses a sidebar filter panel.</li>\
+      <li>Row highlighting (yellow for issues, red for cancelled) requires a custom data table LWC or conditional formatting via <code>lightning-datatable</code> with custom cell types.</li>\
+      <li>Summary cards could be a standalone LWC placed above the list view via a flexipage layout, or an embedded report chart.</li>\
+    </ul>\
+    <h3>Open Questions</h3>\
+    <ul>\
+      <li>Should "Stale Prices" be a system-detected flag (comparing last price refresh date to a threshold) or a manual flag set by pricing team?</li>\
+      <li>What additional issue types should surface? Candidates: Missing billing contact, expired contract, pending credit approval, SLA breach risk.</li>\
+      <li>Should the list view support inline editing (e.g., changing status directly from the list)?</li>\
+    </ul>\
+    <h3>Sources</h3>\
+    <ul>\
+      <li><a href="https://help.salesforce.com/s/articleView?id=sf.customviews.htm" target="_blank">Salesforce Help: Create Custom List Views</a></li>\
+      <li><a href="https://developer.salesforce.com/docs/component-library/bundle/lightning-datatable" target="_blank">lightning-datatable Component Reference</a></li>\
+      <li><a href="https://www.lightningdesignsystem.com/components/data-tables/" target="_blank">SLDS Data Tables</a></li>\
+    </ul>\
+  ');
+})();
+</script>
+</body>
+</html>

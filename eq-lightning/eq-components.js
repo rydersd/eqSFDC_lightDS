@@ -775,6 +775,150 @@
 
 
   // ====================================================================
+  // CONSOLE WORKSPACE TABS
+  // ====================================================================
+  /**
+   * Renders a Salesforce Console-style workspace tab bar with:
+   * - Primary workspace tab (the current record)
+   * - Subtabs for related records opened from this context
+   * - Internal record tabs grouped logically (replacing flat 11-tab pattern)
+   *
+   * @param {Object} cfg
+   * @param {string} cfg.target          — DOM id to render into
+   * @param {Object} cfg.primary         — { label, icon?, color?, href? } primary workspace tab
+   * @param {Array}  [cfg.subtabs]       — [{ id, label, icon?, color?, href?, closeable? }]
+   * @param {Array}  cfg.recordTabs      — [{ id, label, active?, panels? }]
+   *    Each recordTab can have sub-panels for grouped content.
+   * @param {Object} [cfg.alert]         — { type:'warning'|'info'|'error', message, actionLabel?, actionHref? }
+   */
+  EQ.renderConsoleTabs = function(cfg) {
+    var el = document.getElementById(cfg.target || 'eq-console-tabs');
+    if (!el) return;
+
+    var h = '';
+
+    // ── Workspace tab bar (console chrome) ──────────────────
+    h += '<div class="eq-workspace-bar" role="tablist" aria-label="Workspace tabs">';
+
+    // Primary tab (always present, always active initially)
+    var prim = cfg.primary || { label: 'Record' };
+    h += '<div class="eq-workspace-tab is-primary is-active" data-ws="primary" role="tab" aria-selected="true">';
+    if (prim.color) {
+      h += '<span class="eq-ws-tab-icon" style="background:' + prim.color + ';">';
+      if (prim.icon) {
+        h += '<svg class="slds-icon" style="fill:#fff;width:14px;height:14px;" aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#' + prim.icon + '"></use></svg>';
+      }
+      h += '</span>';
+    }
+    h += '<span class="eq-ws-tab-label">' + esc(prim.label) + '</span>';
+    h += '</div>';
+
+    // Subtabs (related records opened in context)
+    var subtabs = cfg.subtabs || [];
+    for (var s = 0; s < subtabs.length; s++) {
+      var st = subtabs[s];
+      h += '<div class="eq-workspace-tab eq-workspace-subtab" data-ws="subtab-' + s + '" data-href="' + (st.href || '#') + '" role="tab" aria-selected="false">';
+      if (st.color) {
+        h += '<span class="eq-ws-tab-icon" style="background:' + st.color + ';">';
+        if (st.icon) {
+          h += '<svg class="slds-icon" style="fill:#fff;width:12px;height:12px;" aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#' + st.icon + '"></use></svg>';
+        }
+        h += '</span>';
+      }
+      h += '<span class="eq-ws-tab-label">' + esc(st.label) + '</span>';
+      if (st.closeable !== false) {
+        h += '<button class="eq-ws-tab-close" aria-label="Close ' + esc(st.label) + '" data-close="subtab-' + s + '">&times;</button>';
+      }
+      h += '</div>';
+    }
+
+    // "+" button to open more related records
+    h += '<button class="eq-workspace-add" aria-label="Open related record" title="Open a related record as a subtab">+</button>';
+    h += '</div>';
+
+    // ── Alert bar (if present) ──────────────────────────────
+    if (cfg.alert) {
+      var alertClass = 'eq-console-alert--' + (cfg.alert.type || 'info');
+      h += '<div class="eq-console-alert ' + alertClass + '" role="alert">';
+      h += '<span class="eq-console-alert-icon">';
+      if (cfg.alert.type === 'warning') h += '&#9888;';
+      else if (cfg.alert.type === 'error') h += '&#10006;';
+      else h += '&#8505;';
+      h += '</span>';
+      h += '<span class="eq-console-alert-msg">' + cfg.alert.message + '</span>';
+      if (cfg.alert.actionLabel) {
+        h += ' <a href="' + (cfg.alert.actionHref || '#') + '" class="eq-console-alert-action">' + cfg.alert.actionLabel + '</a>';
+      }
+      h += '</div>';
+    }
+
+    // ── Record tabs (the 5 grouped tabs) ────────────────────
+    var tabs = cfg.recordTabs || [];
+    h += '<div class="eq-record-tabs" role="tablist" aria-label="Record detail tabs">';
+    for (var t = 0; t < tabs.length; t++) {
+      var tab = tabs[t];
+      var active = tab.active ? ' is-active' : '';
+      var selected = tab.active ? 'true' : 'false';
+      h += '<button class="eq-record-tab' + active + '" data-tab="' + tab.id + '" role="tab" aria-selected="' + selected + '">' + esc(tab.label) + '</button>';
+    }
+    h += '</div>';
+
+    // ── Tab panels ──────────────────────────────────────────
+    for (var p = 0; p < tabs.length; p++) {
+      var panel = tabs[p];
+      var show = panel.active ? '' : ' style="display:none;"';
+      h += '<div class="eq-record-panel" id="eqPanel_' + panel.id + '" role="tabpanel"' + show + '>';
+      h += (panel.content || '<p style="padding:1rem;color:#706E6B;">Panel content for ' + esc(panel.label) + '</p>');
+      h += '</div>';
+    }
+
+    el.innerHTML = h;
+
+    // ── Wire tab switching ──────────────────────────────────
+    var recordTabBtns = el.querySelectorAll('.eq-record-tab');
+    for (var i = 0; i < recordTabBtns.length; i++) {
+      recordTabBtns[i].addEventListener('click', function() {
+        var tabId = this.getAttribute('data-tab');
+        // Deactivate all
+        var allBtns = el.querySelectorAll('.eq-record-tab');
+        var allPanels = el.querySelectorAll('.eq-record-panel');
+        for (var j = 0; j < allBtns.length; j++) {
+          allBtns[j].classList.remove('is-active');
+          allBtns[j].setAttribute('aria-selected', 'false');
+        }
+        for (var k = 0; k < allPanels.length; k++) {
+          allPanels[k].style.display = 'none';
+        }
+        // Activate clicked
+        this.classList.add('is-active');
+        this.setAttribute('aria-selected', 'true');
+        var targetPanel = document.getElementById('eqPanel_' + tabId);
+        if (targetPanel) targetPanel.style.display = '';
+      });
+    }
+
+    // ── Wire subtab clicks (navigate to related record) ─────
+    var wsTabs = el.querySelectorAll('.eq-workspace-subtab');
+    for (var w = 0; w < wsTabs.length; w++) {
+      wsTabs[w].addEventListener('click', function(e) {
+        if (e.target.classList.contains('eq-ws-tab-close')) return;
+        var href = this.getAttribute('data-href');
+        if (href && href !== '#') window.location.href = href;
+      });
+    }
+
+    // ── Wire subtab close buttons ───────────────────────────
+    var closeBtns = el.querySelectorAll('.eq-ws-tab-close');
+    for (var c = 0; c < closeBtns.length; c++) {
+      closeBtns[c].addEventListener('click', function(e) {
+        e.stopPropagation();
+        var tab = this.closest('.eq-workspace-subtab');
+        if (tab) tab.remove();
+      });
+    }
+  };
+
+  // ====================================================================
   // UTILITY
   // ====================================================================
   function esc(s) {

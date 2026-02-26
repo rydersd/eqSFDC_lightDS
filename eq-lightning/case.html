@@ -398,26 +398,6 @@
             </div>
             </div>
 
-            <section class="eq-design-notes" aria-label="Design Notes">
-                <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                    <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                        <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                    </svg>
-                    Design Notes &amp; Feedback
-                </button>
-                <div class="slds-hide eq-design-notes-content">
-                    <h3>Assembly Decisions</h3>
-                    <ul>
-                        <li><strong>Left (Related Lists):</strong> Related Account and Contact (quickest parent lookups), Knowledge Articles (by relevance), Related Assets (4 items), Quick Actions at bottom. Everything needed to resolve without swivel-chairing to another system.</li>
-                        <li><strong>Center (Case Details):</strong> All case information in one scrollable column. Sections for Case Information, Resolution, and System &amp; Audit Fields (collapsed). Support agents need SLA timers, severity context, and related links without moving.</li>
-                        <li><strong>Right (Activity - Tabbed):</strong> Tabbed interface: Activity timeline shows case history, Chatter for team collaboration, Agentforce for resolution suggestions. Communication thread and progress in one place.</li>
-                    </ul>
-                    <h3>Open Questions</h3>
-                    <ul><li>Should Knowledge Article relevance auto-refresh as agent types in resolution details?</li></ul>
-                    <h3>Feedback</h3>
-                    <p>Have feedback? <a href="#">Submit via Slack</a> or use Annotations toggle.</p>
-                </div>
-            </section>
         </div>
 
 </main>
@@ -472,6 +452,33 @@ EQ.renderHeader({
   ]
 });
 EQ.renderActivityTabs();
+
+EQ.setSidebarNotes(`
+<h3>Pattern Tags</h3>
+<p><strong>Components used on this page:</strong></p>
+<ul>
+  <li>Related Lists (Account, Contact, Knowledge Articles, Related Assets)</li>
+  <li>Case Details Card (with collapsible sections)</li>
+  <li>Activity Tabs (Timeline, Chatter, Agentforce)</li>
+  <li>Quick Actions Panel</li>
+  <li>Badge Components (Status, Priority)</li>
+</ul>
+
+<h3>Assembly Decisions</h3>
+<ul>
+  <li><strong>Left (Related Lists):</strong> Related Account and Contact (quickest parent lookups), Knowledge Articles (by relevance), Related Assets (4 items), Quick Actions at bottom. Everything needed to resolve without swivel-chairing to another system.</li>
+  <li><strong>Center (Case Details):</strong> All case information in one scrollable column. Sections for Case Information, Resolution, and System & Audit Fields (collapsed). Support agents need SLA timers, severity context, and related links without moving.</li>
+  <li><strong>Right (Activity - Tabbed):</strong> Tabbed interface: Activity timeline shows case history, Chatter for team collaboration, Agentforce for resolution suggestions. Communication thread and progress in one place.</li>
+</ul>
+
+<h3>Open Questions</h3>
+<ul>
+  <li>Should Knowledge Article relevance auto-refresh as agent types in resolution details?</li>
+</ul>
+
+<h3>Pattern Standardization</h3>
+<p>This case layout follows the EQ Lightning Design System standard for record pages with three-column responsive layout. Consider whether this pattern should be applied to other object record pages (Account, Contact, Opportunity, etc.) for consistency.</p>
+`);
 </script>
 </body>
 </html>

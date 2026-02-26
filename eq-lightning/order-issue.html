@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Order (On Hold)</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
+
+        <div class="eq-story-block">
+            The Knights Who Say Ni placed a third order — an expansion into DC3 for their planned "Shrubbery Replication Service." But something went wrong. During credit review, the finance team discovered that the Knights had taken out a second shrubbery loan that pushed their debt-to-equity ratio past the threshold. Galahad insists his credit is pure, but the system disagrees. The order has been On Hold for 11 days now, and the pricing team flagged that the original quotes were generated against the Q4 2025 rate card — which expired three weeks ago. So even when the credit hold lifts, the prices need refreshing before the order can advance. This is exactly the kind of compound exception that gets buried in the current system — two separate issues on the same order, neither visible from the list view unless you drill in.
+        </div>
+
+        <!-- PATH — rendered by EQ.renderPath() -->
+        <div id="eq-path"></div>
+
+        <!-- CONSOLE WORKSPACE -->
+        <div id="eq-console-tabs"></div>
+
+</main>
+</div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+<script>
+// Initialize header — shows On Hold status prominently
+EQ.renderHeader({
+  objectType: 'orders',
+  objectLabel: 'Order',
+  title: 'ORD-2026-NI3 — Shrubbery Replication Service (DC3 Expansion)',
+  actions: [{label: 'Edit'}, {label: 'Resume Order'}, {label: 'Cancel Order'}],
+  fields: [
+    {label: 'Account', value: '<a href="account.html">The Knights Who Say Ni Ltd</a>'},
+    {label: 'Status', value: '<span class="eq-badge eq-badge--warning">On Hold — Credit Review</span>'},
+    {label: 'Order Start Date', value: 'Pending'},
+    {label: 'Contract', value: '<a href="contract.html">CON-00031415-NI</a>'},
+    {label: 'Total Amount', value: '$312,000.00'}
+  ]
+});
+
+// Path — stuck at Validated & Approved stage (credit hold blocks advancement)
+EQ.renderPath({
+  target: 'eq-path',
+  advanceLabel: 'Mark Status as Complete',
+  stages: [
+    { id:'submitted', label:'Order Submitted', status:'complete',
+      exitCriteria: [
+        {label:'Purchase Order', value:'PO-NI-2026-003 confirmed', done:true},
+        {label:'Line Items Validated', value:'4 of 4 against catalog', done:true},
+        {label:'Credit Check', value:'Failed — Debt-to-Equity Ratio', done:false, badge:'error'},
+        {label:'Primary Quote', value:'QT-2026-NI3 — Approved', done:true},
+        {label:'Billing Contact', value:'Sir Galahad the Pure', done:true}
+      ],
+      guidance: [
+        'Credit check failed — order cannot advance until finance clears the hold',
+        'Galahad\'s credit was previously clean but a new shrubbery loan altered the ratio',
+        'Escalate to finance team lead (Sir Bedevere) for expedited review'
+      ]
+    },
+    { id:'validated', label:'Validated & Approved', status:'current',
+      exitCriteria: [
+        {label:'Billing Address', value:'DC3 — The Dark Forest Annex', done:true},
+        {label:'Deal Desk Sign-off', value:'Pending credit clearance', done:false, badge:'warning'},
+        {label:'Contract Terms', value:'24 months, Standard SLA', done:true},
+        {label:'Pricing Validation', value:'STALE — Rate card expired Q4 2025', done:false, badge:'error'},
+        {label:'Credit Hold', value:'Active — 11 days', done:false, badge:'error'}
+      ],
+      guidance: [
+        'Two blockers on this order: credit hold AND stale pricing',
+        'Credit hold must be resolved by Finance before deal desk can sign off',
+        'Pricing must be refreshed against RC-2026-Q1 — original quotes used RC-2025-Q4',
+        'After both are resolved, deal desk can complete approval and order advances to Provisioning'
+      ]
+    },
+    { id:'provisioning', label:'Provisioning', status:'incomplete',
+      exitCriteria: [
+        {label:'Space Allocated', value:'DC3 pending — reserved but not confirmed', done:false},
+        {label:'Power Configured', value:'Awaiting order advancement', done:false},
+        {label:'Cross-Connects', value:'4x Fabric 10G planned', done:false},
+        {label:'Acceptance Testing', value:'Not started', done:false},
+        {label:'Replication Link', value:'LD5↔DC3 backbone reserved', done:false}
+      ],
+      guidance: [
+        'Space reservation at DC3 expires in 14 days if order is not activated',
+        'Provisioning cannot begin until order clears Validated & Approved stage',
+        'Replication link between LD5 and DC3 requires backbone capacity check'
+      ]
+    },
+    { id:'active', label:'Active', status:'incomplete',
+      exitCriteria: [
+        {label:'Services Live', value:'Not started', done:false},
+        {label:'SLA Tracking', value:'Standard — 99.95% uptime', done:false},
+        {label:'Monitoring', value:'Not configured', done:false},
+        {label:'First Invoice', value:'Pending activation', done:false},
+        {label:'Customer Acceptance', value:'Not started', done:false}
+      ],
+      guidance: [
+        'Activation blocked by upstream credit and pricing issues',
+        'Standard SLA (not Premium) per contract terms — this is the initial expansion'
+      ]
+    },
+    { id:'renewal', label:'Renewal / Expansion', status:'incomplete',
+      exitCriteria: [
+        {label:'Renewal Timeline', value:'Feb 2028 (24-month term)', done:false},
+        {label:'Upsell Review', value:'Not applicable yet', done:false},
+        {label:'Contract Terms Review', value:'Pending', done:false},
+        {label:'Customer Success', value:'Not assigned', done:false},
+        {label:'Renewal Opportunity', value:'Not yet created', done:false}
+      ],
+      guidance: [
+        'Renewal planning is premature — order must activate first'
+      ]
+    }
+  ]
+});
+
+// Console workspace — shows TWO alerts (stacked) for compound exception
+EQ.renderConsoleTabs({
+  target: 'eq-console-tabs',
+
+  primary: {
+    label: 'ORD-2026-NI3',
+    icon: 'orders',
+    color: '#6BBECD'
+  },
+
+  subtabs: [
+    { id:'case2', label:'CS-4530: Credit Hold Escalation', icon:'case', color:'#F2836B', href:'case.html', closeable:true },
+    { id:'contact1', label:'Sir Galahad the Pure', icon:'contact', color:'#A094ED', href:'contact.html', closeable:true },
+    { id:'order1', label:'ORD-2026-NI1 (Active)', icon:'orders', color:'#6BBECD', href:'order.html', closeable:true }
+  ],
+
+  // Error alert takes priority
+  alert: {
+    type: 'error',
+    message: 'Order On Hold — Credit review required. Debt-to-equity ratio exceeds threshold. Hold active for 11 days.',
+    actionLabel: 'View Credit Review Case',
+    actionHref: 'case.html'
+  },
+
+  recordTabs: [
+    {
+      id: 'details',
+      label: 'Details',
+      active: true,
+      content: '<div class="eq-record-body">'
+        // LEFT: Related lists + Issues summary
+        + '<div>'
+        // Issues card — prominent at top of left column
+        + '<div class="slds-card" style="border-left:3px solid #EA001E;"><div class="slds-card__header" style="background:#FDE7E7;"><div class="slds-media slds-media_small"><div class="slds-media__figure"><span style="font-size:1.25rem;">&#9888;</span></div><div class="slds-media__body"><h2 class="slds-card__header-title slds-text-heading_small" style="color:#C23934;">Active Issues (2)</h2></div></div></div><div class="slds-card__body slds-card__body_inner">'
+        + '<div class="eq-related-item"><div class="eq-related-item-title"><span class="eq-badge eq-badge--error">Credit Hold</span></div><div class="eq-related-item-fields"><span class="eq-related-item-field">Reason: <strong>Debt-to-equity ratio exceeded</strong></span><span class="eq-related-item-field">Duration: <strong>11 days</strong></span><span class="eq-related-item-field">Owner: <strong>Finance Team</strong></span><span class="eq-related-item-field">Case: <strong><a href="case.html">CS-4530</a></strong></span></div></div>'
+        + '<div class="eq-related-item"><div class="eq-related-item-title"><span class="eq-badge eq-badge--warning">Stale Pricing</span></div><div class="eq-related-item-fields"><span class="eq-related-item-field">Reason: <strong>Quotes generated against RC-2025-Q4 (expired)</strong></span><span class="eq-related-item-field">Action: <strong>Refresh against RC-2026-Q1</strong></span><span class="eq-related-item-field">Impact: <strong>Pricing delta TBD</strong></span></div></div>'
+        + '</div></div>'
+        // Related cases
+        + '<div class="slds-card"><div class="slds-card__header"><div class="slds-media slds-media_small"><div class="slds-media__figure"><span class="slds-icon_container slds-icon-standard-case"><svg class="slds-icon slds-icon_small" aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use></svg></span></div><div class="slds-media__body"><h2 class="slds-card__header-title slds-text-heading_small">Related Cases</h2></div></div></div><div class="slds-card__body slds-card__body_inner">'
+        + '<div class="eq-related-item"><div class="eq-related-item-title"><a href="case.html">CS-4530</a></div><div class="eq-related-item-fields"><span class="eq-related-item-field">Subject: <strong>Credit Hold — Shrubbery Loan Impact</strong></span><span class="eq-related-item-field">Priority: <strong><span class="eq-badge eq-badge--error">High</span></strong></span><span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--warning">In Review</span></strong></span></div></div>'
+        + '<div class="eq-related-item"><div class="eq-related-item-title"><a href="case.html">CS-4531</a></div><div class="eq-related-item-fields"><span class="eq-related-item-field">Subject: <strong>Price Refresh Required — Q4 Rate Card Expired</strong></span><span class="eq-related-item-field">Priority: <strong><span class="eq-badge eq-badge--warning">Medium</span></strong></span><span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--info">Queued</span></strong></span></div></div>'
+        + '<a href="#" class="eq-related-view-all">View All</a></div></div>'
+        // Related orders (same account)
+        + '<div class="slds-card"><div class="slds-card__header"><div class="slds-media slds-media_small"><div class="slds-media__figure"><span class="slds-icon_container slds-icon-standard-orders"><svg class="slds-icon slds-icon_small" aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use></svg></span></div><div class="slds-media__body"><h2 class="slds-card__header-title slds-text-heading_small">Related Orders (Same Account)</h2></div></div></div><div class="slds-card__body slds-card__body_inner">'
+        + '<div class="eq-related-item"><div class="eq-related-item-title"><a href="order.html">ORD-2026-NI1</a></div><div class="eq-related-item-fields"><span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span><span class="eq-related-item-field">Amount: <strong>$580,000</strong></span></div></div>'
+        + '<div class="eq-related-item"><div class="eq-related-item-title"><a href="#">ORD-2026-NI2</a></div><div class="eq-related-item-fields"><span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span><span class="eq-related-item-field">Amount: <strong>$124,800</strong></span></div></div>'
+        + '<a href="orders.html" class="eq-related-view-all">View All Orders</a></div></div>'
+        + '</div>'
+        // CENTER: Order details
+        + '<div>'
+        + '<div class="slds-card"><div class="slds-card__header"><div class="slds-media slds-media_small"><div class="slds-media__figure"><span class="slds-icon_container slds-icon-standard-orders"><svg class="slds-icon slds-icon_small" aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use></svg></span></div><div class="slds-media__body"><h2 class="slds-card__header-title slds-text-heading_small">Order Details</h2></div></div></div>'
+        + '<div class="slds-card__body">'
+        + '<div class="eq-field-section-title">Order Information</div>'
+        + '<div class="eq-detail-grid">'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Order Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">ORD-2026-NI3</div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">BAN Account Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">BAN-KWSN-NI-001</div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">On Hold — Credit Review</span></div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Order Start Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Pending (credit hold)</div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Term</span><div class="slds-form-element__control"><div class="slds-form-element__static">24 months</div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Hold Duration</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span style="color:#C23934;font-weight:700;">11 days (since Feb 15, 2026)</span></div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Credit Hold</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span style="color:#C23934;font-weight:700;">Yes — Debt-to-Equity Ratio</span></div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Bill To Contact</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Sir Galahad the Pure</a></div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Customer Project Manager</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Roger the Shrubber</a></div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Rate Card</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span style="color:#8B6914;font-weight:700;">RC-2025-Q4 (EXPIRED)</span> — needs refresh to RC-2026-Q1</div></div></div>'
+        + '<div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Commercial Solutions</span><div class="slds-form-element__control"><div class="slds-form-element__static">Colocation + Interconnection + Replication</div></div></div>'
+        + '</div>'
+        + '<div class="eq-field-section-title">Billing Address</div>'
+        + '<div class="eq-detail-grid">'
+        + '<div class="slds-form-element slds-form-element_readonly eq-full-width"><span class="slds-form-element__label">Billing Address</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Dark Forest Annex, Beyond the Bridge of Death<br>Near DC3 — Second Right After the Gorge of Eternal Peril<br>England (attn: Sir Galahad the Pure, Accounts Payable)</div></div></div>'
+        + '</div>'
+        + '</div></div>'
+        + '</div>'
+        // RIGHT: Activity
+        + '<div><div id="eq-activity-tabs"></div></div>'
+        + '</div>'
+    },
+    {
+      id: 'lineitems',
+      label: 'Line Items & Charges',
+      content: '<div style="padding:1rem;">'
+        + '<div class="eq-console-alert eq-console-alert--warning" role="alert" style="margin:0 0 1rem;border-radius:4px;border:1px solid #FFD740;"><span class="eq-console-alert-icon">&#9888;</span><span class="eq-console-alert-msg">Prices on this order were generated against rate card RC-2025-Q4, which expired Jan 31, 2026. Amounts below may change after price refresh.</span> <a href="#" class="eq-console-alert-action">Refresh Prices</a></div>'
+        + '<div class="slds-card" style="margin-bottom:1rem;"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Order Line Items (4)</h2></div>'
+        + '<div class="slds-card__body"><table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" style="font-size:0.8125rem;"><thead><tr class="slds-line-height_reset"><th scope="col">Line Item</th><th scope="col">Product</th><th scope="col">IBX</th><th scope="col">Qty</th><th scope="col">MRC</th><th scope="col">NRC</th><th scope="col">Status</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td><a href="#">LI-007</a></td><td>Colocation Cabinet — Full ("Replication Rack A")</td><td>DC3</td><td>1</td><td><span style="color:#8B6914;">$10,200*</span></td><td><span style="color:#8B6914;">$600*</span></td><td><span class="eq-badge eq-badge--warning">On Hold</span></td></tr>'
+        + '<tr><td><a href="#">LI-008</a></td><td>Colocation Cabinet — Full ("Replication Rack B")</td><td>DC3</td><td>1</td><td><span style="color:#8B6914;">$10,200*</span></td><td><span style="color:#8B6914;">$600*</span></td><td><span class="eq-badge eq-badge--warning">On Hold</span></td></tr>'
+        + '<tr><td><a href="#">LI-009</a></td><td>Equinix Fabric — 10G Port (Replication Trunk)</td><td>DC3</td><td>2</td><td><span style="color:#8B6914;">$7,200*</span></td><td><span style="color:#8B6914;">$500*</span></td><td><span class="eq-badge eq-badge--warning">On Hold</span></td></tr>'
+        + '<tr><td><a href="#">LI-010</a></td><td>Equinix Fabric — 10G Port (LD5↔DC3 Backbone)</td><td>LD5/DC3</td><td>2</td><td><span style="color:#8B6914;">$7,200*</span></td><td><span style="color:#8B6914;">$500*</span></td><td><span class="eq-badge eq-badge--warning">On Hold</span></td></tr>'
+        + '</tbody></table>'
+        + '<div style="padding:0.5rem 1rem;font-size:0.6875rem;color:#8B6914;font-style:italic;">* Prices from RC-2025-Q4 — refresh required before activation</div>'
+        + '</div></div>'
+        + '<div class="slds-card"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Charge Lines</h2></div>'
+        + '<div class="slds-card__body"><table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" style="font-size:0.8125rem;"><thead><tr class="slds-line-height_reset"><th scope="col">Charge</th><th scope="col">Type</th><th scope="col">Amount</th><th scope="col">Frequency</th><th scope="col">Status</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td>Monthly Colocation — Rack A (DC3)</td><td>MRC</td><td><span style="color:#8B6914;">$10,200.00*</span></td><td>Monthly</td><td><span class="eq-badge eq-badge--warning">Pending Refresh</span></td></tr>'
+        + '<tr><td>Monthly Colocation — Rack B (DC3)</td><td>MRC</td><td><span style="color:#8B6914;">$10,200.00*</span></td><td>Monthly</td><td><span class="eq-badge eq-badge--warning">Pending Refresh</span></td></tr>'
+        + '<tr><td>Fabric Port — 10G × 2 (DC3)</td><td>MRC</td><td><span style="color:#8B6914;">$7,200.00*</span></td><td>Monthly</td><td><span class="eq-badge eq-badge--warning">Pending Refresh</span></td></tr>'
+        + '<tr><td>Fabric Port — 10G × 2 (LD5↔DC3)</td><td>MRC</td><td><span style="color:#8B6914;">$7,200.00*</span></td><td>Monthly</td><td><span class="eq-badge eq-badge--warning">Pending Refresh</span></td></tr>'
+        + '<tr><td>Installation — Cabinets (DC3)</td><td>NRC</td><td><span style="color:#8B6914;">$1,200.00*</span></td><td>One-time</td><td><span class="eq-badge eq-badge--warning">Pending Refresh</span></td></tr>'
+        + '<tr><td>Installation — Fabric Ports</td><td>NRC</td><td><span style="color:#8B6914;">$1,000.00*</span></td><td>One-time</td><td><span class="eq-badge eq-badge--warning">Pending Refresh</span></td></tr>'
+        + '</tbody></table>'
+        + '<div style="padding:0.75rem 1rem;border-top:2px solid #8B6914;font-size:0.8125rem;"><strong>Estimated Total MRC:</strong> <span style="color:#8B6914;">$34,800.00*</span> &nbsp;&middot;&nbsp; <strong>Estimated Total NRC:</strong> <span style="color:#8B6914;">$2,200.00*</span></div>'
+        + '</div></div>'
+        + '</div>'
+    },
+    {
+      id: 'fulfillment',
+      label: 'Fulfillment',
+      content: '<div style="padding:1rem;">'
+        + '<div class="eq-console-alert eq-console-alert--info" role="alert" style="margin:0 0 1rem;border-radius:4px;border:1px solid #1B96FF;"><span class="eq-console-alert-icon">&#8505;</span><span class="eq-console-alert-msg">Fulfillment tasks cannot begin until the order clears Validated &amp; Approved stage. Space reservation at DC3 expires Mar 12, 2026.</span></div>'
+        + '<div class="slds-card" style="margin-bottom:1rem;"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Order Decomposition (Planned)</h2></div>'
+        + '<div class="slds-card__body slds-card__body_inner" style="font-size:0.8125rem;line-height:1.6;">'
+        + '<p style="margin:0 0 0.75rem;color:#3E3E3C;">The following decomposition tasks have been generated but are blocked pending order advancement.</p>'
+        + '<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" style="font-size:0.8125rem;"><thead><tr class="slds-line-height_reset"><th scope="col">Sub-Task</th><th scope="col">Line Item</th><th scope="col">Team</th><th scope="col">Status</th><th scope="col">Target</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td>Space Allocation — DC3 Wing B</td><td>LI-007, LI-008</td><td>Facilities</td><td><span class="eq-badge eq-badge--info">Reserved</span></td><td>Expires Mar 12</td></tr>'
+        + '<tr><td>Power Provisioning — 208V feeds</td><td>LI-007, LI-008</td><td>Electrical</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '<tr><td>Cabinet Physical Install</td><td>LI-007, LI-008</td><td>Smart Hands</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '<tr><td>Port Allocation — 10G × 4</td><td>LI-009, LI-010</td><td>Network Eng</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '<tr><td>Cross-Connect Install (DC3)</td><td>LI-009</td><td>Interconnection</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '<tr><td>Backbone Link (LD5↔DC3)</td><td>LI-010</td><td>Backbone Ops</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '<tr><td>Replication Configuration</td><td>LI-009, LI-010</td><td>Network Ops</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '<tr><td>Customer Acceptance Test</td><td>All</td><td>QA + Customer</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Blocked</span></td><td>—</td></tr>'
+        + '</tbody></table>'
+        + '</div></div>'
+        + '</div>'
+    },
+    {
+      id: 'people',
+      label: 'People & Activity',
+      content: '<div style="padding:1rem;">'
+        + '<div class="slds-card" style="margin-bottom:1rem;"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Order Contacts</h2></div>'
+        + '<div class="slds-card__body"><table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" style="font-size:0.8125rem;"><thead><tr class="slds-line-height_reset"><th scope="col">Contact</th><th scope="col">Role</th><th scope="col">Email</th><th scope="col">Phone</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td><a href="contact.html">Sir Galahad the Pure</a></td><td>Bill To / Procurement</td><td>galahad@knightswhosayni.co.uk</td><td>+44 20 PURE-001</td></tr>'
+        + '<tr><td><a href="contact.html">Roger the Shrubber</a></td><td>Customer Project Manager</td><td>roger@shrubberies.co.uk</td><td>+44 20 SHRUB-001</td></tr>'
+        + '<tr><td><a href="contact.html">The Head Knight</a></td><td>Executive Sponsor</td><td>ni@knightswhosayni.co.uk</td><td>+44 20 NI-NI-NI</td></tr>'
+        + '</tbody></table></div></div>'
+        + '<div class="slds-card" style="margin-bottom:1rem;"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Communications</h2></div>'
+        + '<div class="slds-card__body slds-card__body_inner" style="font-size:0.8125rem;">'
+        + '<div class="eq-related-item"><div class="eq-related-item-title">Email: Credit Hold Notification</div><div class="eq-related-item-fields"><span class="eq-related-item-field">To: <strong>Sir Galahad</strong></span><span class="eq-related-item-field">Date: <strong>Feb 15, 2026</strong></span><span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--error">Requires Action</span></strong></span></div></div>'
+        + '<div class="eq-related-item"><div class="eq-related-item-title">Email: Price Refresh Advisory</div><div class="eq-related-item-fields"><span class="eq-related-item-field">To: <strong>Sir Galahad</strong></span><span class="eq-related-item-field">Date: <strong>Feb 20, 2026</strong></span><span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--warning">Informational</span></strong></span></div></div>'
+        + '<div class="eq-related-item"><div class="eq-related-item-title">Call: Escalation to Finance Lead</div><div class="eq-related-item-fields"><span class="eq-related-item-field">With: <strong>Galahad + Sir Bedevere</strong></span><span class="eq-related-item-field">Date: <strong>Feb 22, 2026</strong></span><span class="eq-related-item-field">Outcome: <strong><span class="eq-badge eq-badge--info">Under Review</span></strong></span></div></div>'
+        + '<a href="#" class="eq-related-view-all">View All Communications</a>'
+        + '</div></div>'
+        + '</div>'
+    },
+    {
+      id: 'approvals',
+      label: 'Approvals',
+      content: '<div style="padding:1rem;">'
+        + '<div class="slds-card" style="margin-bottom:1rem;"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Approval History</h2></div>'
+        + '<div class="slds-card__body"><table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" style="font-size:0.8125rem;"><thead><tr class="slds-line-height_reset"><th scope="col">Step</th><th scope="col">Approver</th><th scope="col">Status</th><th scope="col">Date</th><th scope="col">Comments</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td>Credit Check</td><td>Finance Team</td><td><span class="eq-badge eq-badge--error">Rejected</span></td><td>Feb 15, 2026</td><td>Debt-to-equity ratio 2.4:1 exceeds 2.0:1 threshold. New shrubbery loan detected.</td></tr>'
+        + '<tr><td>Deal Desk Review</td><td>Sir Bedevere</td><td><span class="eq-badge eq-badge--warning">On Hold</span></td><td>—</td><td>Blocked pending credit clearance</td></tr>'
+        + '<tr><td>Legal Review</td><td>The Black Knight</td><td><span class="eq-badge eq-badge--success">Approved</span></td><td>Feb 12, 2026</td><td>"None shall pass without proper contract terms." Terms verified.</td></tr>'
+        + '<tr><td>Final Authorization</td><td>The Head Knight</td><td><span class="eq-badge" style="background:#F3F3F3;color:#706E6B;">Pending</span></td><td>—</td><td>Awaiting deal desk sign-off</td></tr>'
+        + '</tbody></table></div></div>'
+        + '<div class="slds-card"><div class="slds-card__header"><h2 class="slds-card__header-title slds-text-heading_small">Pending Approval Work Items</h2></div>'
+        + '<div class="slds-card__body"><table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" style="font-size:0.8125rem;"><thead><tr class="slds-line-height_reset"><th scope="col">Work Item</th><th scope="col">Assigned To</th><th scope="col">Priority</th><th scope="col">Due Date</th><th scope="col">Status</th></tr></thead>'
+        + '<tbody>'
+        + '<tr><td>Credit Re-evaluation</td><td>Finance Team</td><td><span class="eq-badge eq-badge--error">High</span></td><td>Mar 1, 2026</td><td><span class="eq-badge eq-badge--warning">In Progress</span></td></tr>'
+        + '<tr><td>Price Refresh (RC-2026-Q1)</td><td>Pricing Team</td><td><span class="eq-badge eq-badge--warning">Medium</span></td><td>After credit clear</td><td><span class="eq-badge eq-badge--info">Queued</span></td></tr>'
+        + '</tbody></table></div></div>'
+        + '</div>'
+    }
+  ]
+});
+
+// Initialize activity tabs in the Details panel
+EQ.renderActivityTabs({
+  agentforce: {
+    title: 'Best Next Step: Resolve Credit Hold',
+    description: 'This order has been on hold for 11 days due to a credit review. The finance team case (CS-4530) is in progress. Follow up with Sir Bedevere to get an estimated resolution date, then notify the customer.',
+    btnLabel: 'Draft Follow-Up Email',
+    timeSaved: 'Suggested based on hold duration exceeding 10-day threshold'
+  },
+  timeline: [
+    { icon:'email', title:'Email: Price Refresh Advisory', href:'#', meta:'Feb 20, 2026',
+      body:'Pricing team notified Galahad that quotes need refresh against RC-2026-Q1 after credit hold resolves.' },
+    { icon:'log_a_call', title:'Call: Escalation to Finance Lead', href:'#', meta:'Feb 22, 2026',
+      body:'Galahad called Sir Bedevere to escalate credit review. Bedevere reviewing the shrubbery loan terms.' },
+    { icon:'event', title:'Credit Hold Applied', href:'#', meta:'Feb 15, 2026',
+      body:'Finance auto-flagged order after debt-to-equity ratio exceeded 2.0:1 threshold. Case CS-4530 created.' },
+    { icon:'task', title:'Order Submitted for Approval', href:'#', meta:'Feb 10, 2026',
+      body:'Galahad submitted DC3 expansion order. 4 line items: 2 cabs + 4 Fabric ports (2 local + 2 backbone).' }
+  ],
+  agentforceCards: [
+    { title:'Agentforce: Credit Hold Resolution Assistant',
+      description:'Gather credit review status, compile supporting documentation, and draft a resolution recommendation for the finance team.',
+      btnLabel:'Start Resolution Workflow', timeSaved:'Saves ~20 min per hold review' },
+    { title:'Agentforce: Price Refresh',
+      description:'Refresh all line item prices against the current rate card (RC-2026-Q1) and show a comparison to original quotes.',
+      btnLabel:'Refresh Prices', timeSaved:'Saves ~10 min; prevents manual rate card lookup' }
+  ],
+  chatter: [
+    { author:'Sir Bedevere', time:'Today',
+      body:'Reviewing the shrubbery loan impact. The debt-to-equity ratio is at 2.4:1 — threshold is 2.0:1. Galahad insists the second shrubbery is a strategic investment.' },
+    { author:'Sir Galahad', time:'Yesterday',
+      body:'My credit is PURE. The second shrubbery is essential for the replication topology. Please expedite the review.' },
+    { author:'Pricing Team', time:'Feb 20',
+      body:'FYI: RC-2025-Q4 expired. Once credit hold resolves, all 4 line items need refresh against RC-2026-Q1. Estimated delta: +3-5%.' }
+  ]
+});
+
+// Set sidebar notes
+EQ.setSidebarNotes('\
+  <span class="eq-pattern-tag eq-pattern-tag--proposal">Exception Handling</span>\
+  <span class="eq-pattern-tag eq-pattern-tag--component">renderConsoleTabs</span>\
+  <span class="eq-pattern-tag eq-pattern-tag--component">renderPath</span>\
+  <span class="eq-pattern-tag eq-pattern-tag--standard">Alert Bars</span>\
+\
+  <h3>Exception State Pattern</h3>\
+  <p>This page demonstrates how the console pattern handles <strong>compound exceptions</strong> — an order with multiple simultaneous issues (credit hold + stale pricing). Key design decisions:</p>\
+  <ul>\
+    <li><strong>Alert bar</strong> shows the most severe issue (credit hold = error level). In production, multiple alerts could stack, or a single alert could summarize: "2 issues require attention."</li>\
+    <li><strong>Issues card</strong> at the top of the left column gives a structured breakdown of each issue with owner, duration, and linked case.</li>\
+    <li><strong>Path stage</strong> shows the order stuck at "Validated &amp; Approved" with failed exit criteria highlighted in red.</li>\
+    <li><strong>Line item prices</strong> shown in warning color with asterisks to indicate staleness — a visual cue that these amounts are not final.</li>\
+    <li><strong>Fulfillment tab</strong> shows decomposition tasks as "Blocked" rather than hiding them — the work plan exists but can\'t execute.</li>\
+    <li><strong>Approval history</strong> shows the credit check as "Rejected" (not failed — a temporary rejection pending re-evaluation).</li>\
+  </ul>\
+\
+  <h3>Implementation Notes</h3>\
+  <ul>\
+    <li><strong>Issues card</strong> could be a custom LWC that queries for active exceptions (hold records, stale pricing flags, SLA breaches) and renders them as a priority-sorted list.</li>\
+    <li><strong>Hold duration</strong> should be a formula field calculating days since hold was applied. At threshold (e.g., 10 days), auto-escalation workflow should trigger.</li>\
+    <li><strong>Space reservation expiry</strong> (DC3 Wing B, Mar 12) is a time-based risk. If the hold isn\'t resolved before reservation expires, the order loses its space allocation and goes back to the queue.</li>\
+    <li><strong>Stale pricing detection</strong> should compare quote generation date against rate card effective dates — any order quoted against an expired rate card gets auto-flagged.</li>\
+  </ul>\
+\
+  <h3>Open Questions</h3>\
+  <ul>\
+    <li>Should the alert bar stack multiple issues or consolidate into a summary? Stacking is more visible but takes more space.</li>\
+    <li>Should "On Hold" orders be excluded from standard list views by default, or shown with prominent exception badges (as in the orders list view)?</li>\
+    <li>What is the escalation path when hold duration exceeds threshold? Auto-assign to manager? Create case? Both?</li>\
+    <li>Should the Agentforce "Best Next Step" change dynamically based on exception type? E.g., credit hold → "Resolve Credit Hold" vs. stale pricing → "Refresh Prices"</li>\
+  </ul>\
+');
+</script>
+</body>
+</html>

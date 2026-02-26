@@ -222,31 +222,6 @@
             </div>
         </div><!-- /eq-record-body -->
 
-        <!-- DESIGN NOTES SECTION -->
-        <section class="eq-design-notes" aria-label="Design Notes">
-            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                </svg>
-                Design Notes &amp; Feedback
-            </button>
-            <div class="slds-hide eq-design-notes-content">
-                <h3>Assembly Decisions</h3>
-                <ul>
-                    <li><strong>Left column (Related):</strong> Products with line items, Contact Roles with decision-maker badges, Competitors with differentiation notes, and Account Plans. Compact format prioritizes deal-critical relationships.</li>
-                    <li><strong>Center column (Details):</strong> Deal information (amount, stage, close date), key dates, solution details (cabinet config, power, Fabric ports), and full description. Path component above columns shows stage gates with expandable requirements.</li>
-                    <li><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (call, email, task, proposal history), Chatter for deal team collaboration, and Agentforce tab with Deal Summary Brief and Next Steps & Win Strategy cards.</li>
-                </ul>
-                <h3>Open Questions</h3>
-                <ul>
-                    <li>Should the Products related list show line-item pricing, or just product names and quantities?</li>
-                    <li>For multi-site opportunities, should we add a "Sites" related list showing which IBX locations are involved?</li>
-                    <li>Should Competitors section include win/loss analysis from historical data?</li>
-                </ul>
-                <h3>Feedback</h3>
-                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
-            </div>
-        </section>
 
 </main>
 
@@ -282,16 +257,6 @@
         </div>
     </div>
 
-<style>
-    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
-    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
-    .eq-design-notes-toggle:hover { background: #F3F3F3; }
-    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
-    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
-    .eq-design-notes-content h3:first-child { margin-top: 0; }
-    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
-    .eq-design-notes-content li { margin-bottom: 0.375rem; }
-</style>
 
 </div><!-- /slds-scope -->
 <script src="eq-components.js"></script>
@@ -449,6 +414,31 @@ EQ.renderActivityTabs({
       body:'Technical design review is complete. 4x cabinet config for LD5 with dual Fabric 10G ports. All specs validated and SLA coverage confirmed.' }
   ]
 });
+
+// Design notes sidebar
+EQ.setSidebarNotes(`
+<div>
+  <strong>Pattern Tags:</strong> renderPath | renderHeader | renderActivityTabs | 3-Column Grid
+</div>
+<h3>Assembly Decisions</h3>
+<ul>
+  <li><strong>Left column (Related):</strong> Products with line items, Contact Roles with decision-maker badges, Competitors with differentiation notes, and Account Plans. Compact format prioritizes deal-critical relationships.</li>
+  <li><strong>Center column (Details):</strong> Deal information (amount, stage, close date), key dates, solution details (cabinet config, power, Fabric ports), and full description. Path component above columns shows stage gates with expandable requirements.</li>
+  <li><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (call, email, task, proposal history), Chatter for deal team collaboration, and Agentforce tab with Deal Summary Brief and Next Steps & Win Strategy cards.</li>
+</ul>
+<h3>Open Questions</h3>
+<ul>
+  <li>Should the Products related list show line-item pricing, or just product names and quantities?</li>
+  <li>For multi-site opportunities, should we add a "Sites" related list showing which IBX locations are involved?</li>
+  <li>Should Competitors section include win/loss analysis from historical data?</li>
+</ul>
+<h3>Pattern Standardization</h3>
+<ul>
+  <li><strong>Proposal:</strong> Consolidate all related lists into a collapsible sidebar to reduce initial page height and improve content hierarchy.</li>
+  <li><strong>Proposal:</strong> Add "Refresh" button to Activity timeline to re-invoke Agentforce summary generation.</li>
+  <li><strong>Proposal:</strong> Consider adding quick-action buttons (e.g., "Schedule Follow-up", "Send Proposal") as card-level CTAs.</li>
+</ul>
+`);
 </script>
 </body>
 </html>

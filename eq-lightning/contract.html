@@ -510,31 +510,6 @@
             </div>
         </div><!-- /eq-record-body -->
 
-        <!-- DESIGN NOTES SECTION -->
-        <section class="eq-design-notes" aria-label="Design Notes">
-            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                </svg>
-                Design Notes &amp; Feedback
-            </button>
-            <div class="slds-hide eq-design-notes-content">
-                <h3>Assembly Decisions</h3>
-                <ul>
-                    <li><strong>Left column (Related):</strong> Contract Line Items with product and pricing, Related Orders, Amendments with execution status, and Approval History. Compact format shows deal lifecycle at a glance.</li>
-                    <li><strong>Center column (Details):</strong> Contract Information, Term & Dates, Financial Summary (TCV/ACV/MRR), Special Terms (Clauses 4.2.1 and 7.3), full Description, and System & Audit Fields. Path component above columns shows contract lifecycle (Draft → In Approval → Activated → Amendment → Renewed).</li>
-                    <li><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (task, email, call, event history), Chatter for deal team collaboration, and Agentforce tab with three CLM-specific actions: Contract Renewal Risk, Amendment Generator, and SLA Compliance Check.</li>
-                </ul>
-                <h3>Open Questions</h3>
-                <ul>
-                    <li>Should the Conga CLM document be embedded as an iframe or linked externally?</li>
-                    <li>Should contract line items show a "Compare to Quote" diff view with the original opportunity?</li>
-                    <li>For multi-entity contracts, should we add a "Legal Entities" related list showing which entities are parties to the contract?</li>
-                </ul>
-                <h3>Feedback</h3>
-                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
-            </div>
-        </section>
 
     <!-- BEFORE / AFTER COMPARISON OVERLAY -->
     <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
@@ -566,16 +541,6 @@
         </div>
     </div>
 
-<style>
-    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
-    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
-    .eq-design-notes-toggle:hover { background: #F3F3F3; }
-    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
-    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
-    .eq-design-notes-content h3:first-child { margin-top: 0; }
-    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
-    .eq-design-notes-content li { margin-bottom: 0.375rem; }
-</style>
 
 </main>
 </div><!-- /slds-scope -->
@@ -600,6 +565,35 @@ EQ.renderHeader({
   ]
 });
 EQ.renderActivityTabs();
+
+EQ.setSidebarNotes(`
+  <h4 style="margin: 0 0 1rem 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B;">Pattern Tags</h4>
+  <ul style="padding-left: 1.25rem; margin: 0 0 1rem 0;">
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;">renderHeader</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;">3-Column Grid</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;">renderActivityTabs</li>
+  </ul>
+
+  <h3 style="margin: 1rem 0 0.375rem 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B;">Assembly Decisions</h3>
+  <ul style="padding-left: 1.25rem; margin: 0 0 1rem 0;">
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;"><strong>Left column (Related):</strong> Contract Line Items with product and pricing, Related Orders, Amendments with execution status, and Approval History. Compact format shows deal lifecycle at a glance.</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;"><strong>Center column (Details):</strong> Contract Information, Term & Dates, Financial Summary (TCV/ACV/MRR), Special Terms (Clauses 4.2.1 and 7.3), full Description, and System & Audit Fields. Path component above columns shows contract lifecycle (Draft → In Approval → Activated → Amendment → Renewed).</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;"><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (task, email, call, event history), Chatter for deal team collaboration, and Agentforce tab with three CLM-specific actions: Contract Renewal Risk, Amendment Generator, and SLA Compliance Check.</li>
+  </ul>
+
+  <h3 style="margin: 1rem 0 0.375rem 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B;">Open Questions</h3>
+  <ul style="padding-left: 1.25rem; margin: 0 0 1rem 0;">
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;">Should the Conga CLM document be embedded as an iframe or linked externally?</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;">Should contract line items show a "Compare to Quote" diff view with the original opportunity?</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;">For multi-entity contracts, should we add a "Legal Entities" related list showing which entities are parties to the contract?</li>
+  </ul>
+
+  <h3 style="margin: 1rem 0 0.375rem 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B;">Pattern Standardization</h3>
+  <ul style="padding-left: 1.25rem; margin: 0;">
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;"><strong>Recommendation:</strong> Standardize sidebar notes across all EQ Lightning pages using EQ.setSidebarNotes() to centralize design documentation and reduce HTML bloat.</li>
+    <li style="margin-bottom: 0.375rem; font-size: 0.8125rem;"><strong>Proposal:</strong> Create reusable pattern template library in eq-components.js for consistent pattern tagging (renderHeader, 3-Column Grid, renderActivityTabs, etc.).</li>
+  </ul>
+`);
 </script>
 </body>
 </html>
