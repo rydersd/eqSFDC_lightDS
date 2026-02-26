@@ -433,8 +433,10 @@
    * Renders a full sales path with expandable stage-gate panels.
    * Reusable across any object that has a staged workflow.
    *
-   * Exit criteria display ACTUAL FIELD VALUES (not just checkboxes) so
-   * reps can see real data without scrolling the full record detail.
+   * Exit criteria display ACTUAL FIELD VALUES as inline-editable fields.
+   * Pencil icon on hover opens a modal for related field editing.
+   * Empty values show as anchor links ("Add [field name]").
+   * Multi-faceted criteria use subfields arrays.
    *
    * @param {Object} cfg
    * @param {string} [cfg.target]       — DOM id (default: "eq-path")
@@ -446,10 +448,22 @@
    *     label:    string,
    *     status:   'complete'|'current'|'incomplete',
    *     exitCriteria: [{
-   *       label: string,           — field label (e.g. "Budget Confirmed")
-   *       value: string,           — field value (e.g. "Yes" or "$580,000")
-   *       done:  boolean,          — whether this criterion is met
-   *       badge?: string           — optional badge style (success, warning, info, error)
+   *       label:  string,           — field label (e.g. "Budget Confirmed")
+   *       value:  string|'',        — field value; empty string = unfilled anchor link
+   *       done:   boolean,          — whether this criterion is met
+   *       badge?: string,           — optional badge style (success, warning, info, error)
+   *       required?: boolean,       — show pencil always (not just on hover)
+   *       subfields?: [{            — multi-faceted sub-values
+   *         label: string,
+   *         value: string
+   *       }],
+   *       editFields?: [{           — fields shown in pencil-click modal
+   *         label: string,
+   *         type:  'text'|'select'|'textarea'|'date',
+   *         value?: string,
+   *         options?: [string],     — for select type
+   *         hint?: string
+   *       }]
    *     }],
    *     guidance:     [string],
    *     advanceBtn?:  {label: string, disabled: boolean, icon?: string}
@@ -462,23 +476,26 @@
     var advLabel = cfg.advanceLabel || 'Mark as Current Stage';
     var autoExpand = cfg.autoExpand !== false;
 
-    // — Build path nav tabs —
+    // — Build chevron nav items —
     var navItems = cfg.stages.map(function(s) {
       var cls = 'slds-path__item';
       if (s.status === 'complete') cls += ' slds-is-complete';
       else if (s.status === 'current') cls += ' slds-is-current';
       else cls += ' slds-is-incomplete';
       return '<li class="' + cls + '" role="presentation" data-path-detail="path-detail-' + esc(s.id) + '">' +
-        '<a class="slds-path__link" role="tab" tabindex="-1" href="#"><span class="slds-path__title">' + esc(s.label) + '</span></a></li>';
+        '<a class="slds-path__link" role="tab" tabindex="-1" href="javascript:void(0)"><span class="slds-path__title">' + esc(s.label) + '</span></a></li>';
     }).join('');
 
-    var pathNav = '<div class="slds-path"><div class="slds-grid slds-path__track">' +
-      '<div class="slds-grid slds-path__scroller-container"><div class="slds-path__scroller" role="application">' +
-      '<ul class="slds-path__nav" role="tablist">' + navItems + '</ul></div></div>' +
-      '<div class="slds-grid slds-path__action"><button class="slds-button slds-button_brand slds-path__mark-complete">' +
-      esc(advLabel) + '</button></div></div></div>';
+    // — Path track: [collapse btn] [chevrons] [advance btn] —
+    var pathTrack = '<div class="eq-path-track">' +
+      '<button class="eq-path-collapse-btn" aria-expanded="true" aria-controls="eq-path-content" title="Collapse path">' +
+        '<span class="eq-path-collapse-icon" aria-hidden="true"></span>' +
+      '</button>' +
+      '<ul class="eq-path-chevrons slds-path__nav" role="tablist">' + navItems + '</ul>' +
+      '<div class="eq-path-advance"><button class="slds-button slds-button_brand">' + esc(advLabel) + '</button></div>' +
+    '</div>';
 
-    // — Build detail panels with field-based exit criteria —
+    // — Build detail panels with editable field criteria —
     var panels = cfg.stages.map(function(s) {
       var total = s.exitCriteria ? s.exitCriteria.length : 0;
       var done = 0;
@@ -486,26 +503,51 @@
       var pct = total ? Math.round((done / total) * 100) : 0;
       var barColor = pct === 100 ? '#2E844A' : (pct > 0 ? '#0070D2' : '#E5E5E5');
 
-      var criteriaTitle = s.status === 'incomplete' ? 'Conversion Checklist' : 'Exit Criteria';
-
-      // Exit criteria as FIELD ROWS: status circle + field label + field value
+      // Exit criteria as editable field rows
       var criteriaHtml = '';
       if (s.exitCriteria && s.exitCriteria.length) {
-        criteriaHtml = s.exitCriteria.map(function(c) {
+        criteriaHtml = s.exitCriteria.map(function(c, idx) {
           var rowCls = 'eq-exit-row' + (c.done ? ' is-done' : '');
-          // CSS-only status indicator (no SVG dependency)
-          var statusEl = c.done
-            ? '<span class="eq-exit-status eq-exit-status--done" aria-label="Complete"></span>'
-            : '<span class="eq-exit-status eq-exit-status--open" aria-label="Incomplete"></span>';
-          var valHtml = c.badge
-            ? '<span class="eq-badge eq-badge--' + esc(c.badge) + '">' + esc(c.value) + '</span>'
-            : '<span class="eq-exit-value">' + esc(c.value) + '</span>';
+
+          // Value display: badge, filled value, or empty anchor link
+          var valHtml = '';
+          if (c.value && c.value !== '') {
+            if (c.badge) {
+              valHtml = '<span class="eq-badge eq-badge--' + esc(c.badge) + '">' + esc(c.value) + '</span>';
+            } else {
+              valHtml = '<span class="eq-exit-value-filled">' + esc(c.value) + '</span>';
+            }
+          } else {
+            // Empty value — show as anchor link to fill in
+            valHtml = '<a href="javascript:void(0)" class="eq-exit-value-empty" data-edit-idx="' + idx + '">Add ' + esc(c.label) + '</a>';
+          }
+
+          // Multi-faceted subfields
+          var subHtml = '';
+          if (c.subfields && c.subfields.length) {
+            subHtml = '<div class="eq-exit-subfields">' +
+              c.subfields.map(function(sf) {
+                return '<div class="eq-exit-subfield">' +
+                  '<span class="eq-exit-subfield-label">' + esc(sf.label) + ':</span>' +
+                  '<span>' + esc(sf.value) + '</span>' +
+                '</div>';
+              }).join('') +
+            '</div>';
+          }
+
+          // Pencil edit button — always visible if required or value empty, hover otherwise
+          var pencilCls = 'eq-exit-edit-btn' + ((c.required || !c.value) ? ' is-required' : '');
+          var pencilBtn = '<button class="' + pencilCls + '" data-edit-idx="' + idx + '" title="Edit ' + esc(c.label) + '">' +
+            '<span class="eq-pencil-icon" aria-hidden="true"></span>' +
+          '</button>';
+
           return '<div class="' + rowCls + '">' +
-            statusEl +
             '<div class="eq-exit-field">' +
               '<span class="eq-exit-label">' + esc(c.label) + '</span>' +
               valHtml +
+              subHtml +
             '</div>' +
+            pencilBtn +
           '</div>';
         }).join('');
       }
@@ -518,7 +560,7 @@
         }).join('');
       }
 
-      // Advance button (optional)
+      // Advance button (optional per stage)
       var advBtnHtml = '';
       if (s.advanceBtn) {
         var remaining = total - done;
@@ -532,7 +574,7 @@
           esc(s.advanceBtn.label) + '</button></div>';
       }
 
-      return '<div id="path-detail-' + esc(s.id) + '" class="eq-path-detail" data-stage="' + esc(s.label) + '">' +
+      return '<div id="path-detail-' + esc(s.id) + '" class="eq-path-detail" data-stage="' + esc(s.label) + '" data-stage-idx="' + cfg.stages.indexOf(s) + '">' +
         '<div class="eq-path-stage-header">' +
           '<span class="eq-path-stage-name">Stage: <strong>' + esc(s.label) + '</strong></span>' +
           '<div class="eq-path-stage-progress">' +
@@ -541,29 +583,135 @@
           '</div>' +
         '</div>' +
         '<div class="eq-path-detail-body">' +
-          '<div class="eq-path-criteria-col"><h3 class="eq-path-detail-title">' + esc(criteriaTitle) + '</h3>' + criteriaHtml + '</div>' +
-          '<div class="eq-path-guidance-col"><h3 class="eq-path-detail-title">Guidance</h3><ul class="eq-path-detail-list">' + guidanceHtml + '</ul></div>' +
+          '<div class="eq-path-criteria-col"><h3 class="eq-path-detail-title">Key Fields</h3>' + criteriaHtml + '</div>' +
+          '<div class="eq-path-guidance-col"><h3 class="eq-path-detail-title">Guidance for Success</h3><ul class="eq-path-detail-list">' + guidanceHtml + '</ul></div>' +
         '</div>' +
         advBtnHtml +
       '</div>';
     }).join('');
 
-    // — Expand/collapse toggle: text-based, no SVG dependency —
-    var toggleBtn = '<button class="eq-path-toggle" aria-expanded="true" aria-controls="eq-path-content">' +
-      '\u2630 Sales Path' +
-      '<span class="eq-path-toggle-chevron">\u25BC</span></button>';
+    // — Field edit modal (shared, populated on click) —
+    var modalHtml = '<div class="eq-field-edit-overlay" id="eq-field-edit-overlay">' +
+      '<div class="eq-field-edit-modal">' +
+        '<div class="eq-field-edit-modal-header">' +
+          '<h3 id="eq-field-edit-title">Edit Field</h3>' +
+          '<button class="eq-field-edit-modal-close" aria-label="Close">\u00D7</button>' +
+        '</div>' +
+        '<div class="eq-field-edit-modal-body" id="eq-field-edit-body"></div>' +
+        '<div class="eq-field-edit-modal-footer">' +
+          '<button class="slds-button slds-button_neutral eq-field-edit-cancel">Cancel</button>' +
+          '<button class="slds-button slds-button_brand eq-field-edit-save">Save</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
 
-    target.innerHTML = toggleBtn +
-      '<div id="eq-path-content" class="eq-path-wrapper">' + pathNav + panels + '</div>';
+    target.innerHTML = pathTrack +
+      '<div id="eq-path-content" class="eq-path-wrapper">' + panels + '</div>' +
+      modalHtml;
 
-    // — Wire expand/collapse toggle (display:none toggle, not max-height) —
-    var toggle = target.querySelector('.eq-path-toggle');
+    // — Wire collapse/expand toggle (circle-arrow button) —
+    var collapseBtn = target.querySelector('.eq-path-collapse-btn');
     var wrapper = target.querySelector('.eq-path-wrapper');
-    if (toggle && wrapper) {
-      toggle.addEventListener('click', function() {
+    if (collapseBtn && wrapper) {
+      collapseBtn.addEventListener('click', function() {
         var expanded = this.getAttribute('aria-expanded') === 'true';
         this.setAttribute('aria-expanded', String(!expanded));
         wrapper.classList.toggle('is-collapsed');
+      });
+    }
+
+    // — Wire chevron tab clicks to expand detail panels —
+    var pathItems = target.querySelectorAll('.slds-path__item[data-path-detail]');
+    pathItems.forEach(function(item) {
+      item.querySelector('.slds-path__link').addEventListener('click', function(e) {
+        e.preventDefault();
+        var panelId = item.getAttribute('data-path-detail');
+        // Close all other panels
+        target.querySelectorAll('.eq-path-detail.is-visible').forEach(function(p) { p.classList.remove('is-visible'); });
+        target.querySelectorAll('.slds-path__item.eq-path-expanded').forEach(function(i) { i.classList.remove('eq-path-expanded'); });
+        // Toggle this panel
+        var panel = document.getElementById(panelId);
+        if (panel) {
+          panel.classList.add('is-visible');
+          item.classList.add('eq-path-expanded');
+          // Ensure wrapper is expanded
+          if (wrapper && wrapper.classList.contains('is-collapsed')) {
+            wrapper.classList.remove('is-collapsed');
+            if (collapseBtn) collapseBtn.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+
+    // — Wire pencil edit buttons and empty-value anchor links —
+    var overlay = document.getElementById('eq-field-edit-overlay');
+    var modalTitle = document.getElementById('eq-field-edit-title');
+    var modalBody = document.getElementById('eq-field-edit-body');
+
+    function openEditModal(stageIdx, fieldIdx) {
+      var stage = cfg.stages[stageIdx];
+      if (!stage || !stage.exitCriteria) return;
+      var criterion = stage.exitCriteria[fieldIdx];
+      if (!criterion) return;
+
+      modalTitle.textContent = 'Edit: ' + criterion.label;
+
+      // Build form fields from editFields config or fallback to single text input
+      var fields = criterion.editFields || [{label: criterion.label, type: 'text', value: criterion.value || ''}];
+      modalBody.innerHTML = fields.map(function(f) {
+        var inputHtml = '';
+        if (f.type === 'select' && f.options) {
+          inputHtml = '<select>' + f.options.map(function(o) {
+            return '<option' + (o === f.value ? ' selected' : '') + '>' + esc(o) + '</option>';
+          }).join('') + '</select>';
+        } else if (f.type === 'textarea') {
+          inputHtml = '<textarea rows="3">' + esc(f.value || '') + '</textarea>';
+        } else if (f.type === 'date') {
+          inputHtml = '<input type="date" value="' + esc(f.value || '') + '">';
+        } else {
+          inputHtml = '<input type="text" value="' + esc(f.value || '') + '">';
+        }
+        var hintHtml = f.hint ? '<div class="eq-field-hint">' + esc(f.hint) + '</div>' : '';
+        return '<div class="eq-field-edit-group"><label>' + esc(f.label) + '</label>' + inputHtml + hintHtml + '</div>';
+      }).join('');
+
+      overlay.classList.add('is-open');
+    }
+
+    function closeEditModal() {
+      if (overlay) overlay.classList.remove('is-open');
+    }
+
+    // Pencil buttons
+    target.querySelectorAll('.eq-exit-edit-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var panel = btn.closest('.eq-path-detail');
+        var stageIdx = parseInt(panel.getAttribute('data-stage-idx'), 10);
+        var fieldIdx = parseInt(btn.getAttribute('data-edit-idx'), 10);
+        openEditModal(stageIdx, fieldIdx);
+      });
+    });
+
+    // Empty-value anchor links
+    target.querySelectorAll('.eq-exit-value-empty').forEach(function(link) {
+      link.addEventListener('click', function() {
+        var panel = link.closest('.eq-path-detail');
+        var stageIdx = parseInt(panel.getAttribute('data-stage-idx'), 10);
+        var fieldIdx = parseInt(link.getAttribute('data-edit-idx'), 10);
+        openEditModal(stageIdx, fieldIdx);
+      });
+    });
+
+    // Close modal
+    if (overlay) {
+      overlay.querySelector('.eq-field-edit-modal-close').addEventListener('click', closeEditModal);
+      overlay.querySelector('.eq-field-edit-cancel').addEventListener('click', closeEditModal);
+      overlay.querySelector('.eq-field-edit-save').addEventListener('click', function() {
+        // Prototype: just close on save
+        closeEditModal();
+      });
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeEditModal();
       });
     }
 

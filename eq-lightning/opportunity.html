@@ -270,9 +270,12 @@ EQ.renderPath({
     { id:'discovery', label:'Discovery', status:'complete',
       exitCriteria: [
         {label:'Account Name', value:'The Knights Who Say Ni Ltd', done:true},
-        {label:'Stakeholders Identified', value:'3 contacts mapped', done:true},
-        {label:'Current Infrastructure', value:'Damp cave, single server rack', done:true},
-        {label:'Technical Requirements', value:'4 cabinets, 8kW, 10Gbps', done:true},
+        {label:'Stakeholders Identified', value:'3 contacts mapped', done:true,
+          subfields: [{label:'Economic Buyer', value:'The Head Knight'}, {label:'Technical', value:'Tim the Enchanter'}, {label:'Procurement', value:'Sir Robin'}]},
+        {label:'Current Infrastructure', value:'Damp cave, single server rack', done:true,
+          editFields: [{label:'Current Environment', type:'textarea', value:'Damp cave, single server rack'}, {label:'Pain Points', type:'textarea', value:'Latency, no redundancy, the swallows keep nesting in the rack'}]},
+        {label:'Technical Requirements', value:'4 cabinets, 8kW, 10Gbps', done:true,
+          subfields: [{label:'Cabinets', value:'4'}, {label:'Power', value:'8kW'}, {label:'Bandwidth', value:'10Gbps'}]},
         {label:'Budget Authority', value:'Confirmed — The Head Knight', done:true}
       ],
       guidance: [
@@ -284,9 +287,11 @@ EQ.renderPath({
     },
     { id:'qualify', label:'Qualify Opportunity', status:'complete',
       exitCriteria: [
-        {label:'Budget Confirmed', value:'Yes', done:true},
+        {label:'Budget Confirmed', value:'Yes', done:true,
+          editFields: [{label:'Budget Range', type:'text', value:'$500K-$600K'}, {label:'Fiscal Year', type:'text', value:'FY2026'}]},
         {label:'Decision Maker', value:'The Head Knight (CEO)', done:true},
-        {label:'Competition', value:'The French (Digital Realty)', done:true},
+        {label:'Competition', value:'The French (Digital Realty)', done:true,
+          editFields: [{label:'Primary Competitor', type:'text', value:'Digital Realty (The French)'}, {label:'Secondary', type:'text', value:'None identified'}, {label:'Differentiators', type:'textarea', value:'Fabric interconnection, IBX ecosystem, no catapults'}]},
         {label:'Timeline', value:'Q3 2026', done:true},
         {label:'Executive Sponsor', value:'The Head Knight', done:true}
       ],
@@ -300,10 +305,12 @@ EQ.renderPath({
     { id:'develop', label:'Develop Solution', status:'complete',
       exitCriteria: [
         {label:'Solutions Architect', value:'Tim the Enchanter', done:true},
-        {label:'Solution Architecture', value:'4x cabinets, LD5', done:true},
+        {label:'Solution Architecture', value:'4x cabinets, LD5', done:true,
+          subfields: [{label:'IBX', value:'LD5'}, {label:'Cabinets', value:'4'}, {label:'Fabric Ports', value:'2x 10G'}]},
         {label:'Products', value:'IBX Colo + Equinix Fabric', done:true},
         {label:'Power Requirements', value:'8kW per cabinet', done:true},
-        {label:'ROI / Business Case', value:'Delivered Feb 3', done:true}
+        {label:'ROI / Business Case', value:'Delivered Feb 3', done:true,
+          editFields: [{label:'Delivery Date', type:'date', value:'2026-02-03'}, {label:'Status', type:'select', value:'Delivered', options:['Draft','Under Review','Delivered','Accepted']}]}
       ],
       guidance: [
         'Schedule joint technical workshop with customer engineering',
@@ -316,7 +323,8 @@ EQ.renderPath({
       exitCriteria: [
         {label:'Technical Validation', value:'Complete', done:true},
         {label:'SLA Requirements', value:'99.999% uptime', done:true},
-        {label:'Security Review', value:'Passed', done:true},
+        {label:'Security Review', value:'Passed', done:true,
+          editFields: [{label:'Review Status', type:'select', value:'Passed', options:['Not Started','In Progress','Passed','Failed']}, {label:'Certifications Verified', type:'text', value:'SOC 2 Type II, ISO 27001, PCI DSS'}]},
         {label:'Reference Provided', value:'King of Swamp Castle', done:true}
       ],
       guidance: [
@@ -328,11 +336,15 @@ EQ.renderPath({
     },
     { id:'propose', label:'Propose & Negotiate', status:'current',
       exitCriteria: [
-        {label:'Contract Term', value:'36 months', done:true},
+        {label:'Contract Term', value:'36 months', done:true,
+          editFields: [{label:'Term Length', type:'select', value:'36 months', options:['12 months','24 months','36 months','60 months']}, {label:'Auto-Renew', type:'select', value:'Yes', options:['Yes','No']}]},
         {label:'Pricing Submitted', value:'Feb 10, 2026', done:true},
-        {label:'Legal Review', value:'In Progress', done:false, badge:'warning'},
-        {label:'Deal Desk Approval', value:'Pending', done:false, badge:'warning'},
-        {label:'PO Status', value:'Not Received', done:false}
+        {label:'Legal Review', value:'In Progress', done:false, badge:'warning',
+          editFields: [{label:'Status', type:'select', value:'In Progress', options:['Not Started','In Progress','Complete','Blocked']}, {label:'Legal Contact', type:'text', value:'Sir Lancelot (Legal)'}, {label:'Expected Completion', type:'date', value:''}]},
+        {label:'Deal Desk Approval', value:'Pending', done:false, badge:'warning',
+          editFields: [{label:'Status', type:'select', value:'Pending', options:['Not Submitted','Pending','Approved','Rejected']}, {label:'Discount %', type:'text', value:'8%'}, {label:'Approver', type:'text', value:''}]},
+        {label:'PO Status', value:'', done:false, required:true,
+          editFields: [{label:'PO Number', type:'text', value:''}, {label:'PO Status', type:'select', value:'', options:['','Requested','Received','Confirmed']}]}
       ],
       guidance: [
         'Stay in weekly contact with procurement during legal review',
@@ -344,11 +356,16 @@ EQ.renderPath({
     },
     { id:'closed', label:'Closed', status:'incomplete',
       exitCriteria: [
-        {label:'Contract Executed', value:'Required', done:false},
-        {label:'Win/Loss Reason', value:'Required', done:false},
-        {label:'Delivery Kickoff', value:'Within 5 business days', done:false},
-        {label:'Customer Success', value:'Assign and brief', done:false},
-        {label:'QBR Cadence', value:'Set with customer', done:false}
+        {label:'Contract Executed', value:'', done:false, required:true,
+          editFields: [{label:'Contract Number', type:'text', value:''}, {label:'Execution Date', type:'date', value:''}, {label:'Signatory', type:'text', value:''}]},
+        {label:'Win/Loss Reason', value:'', done:false, required:true,
+          editFields: [{label:'Outcome', type:'select', value:'', options:['','Won','Lost']}, {label:'Reason', type:'textarea', value:'', hint:'Be specific — this drives forecast accuracy'}]},
+        {label:'Delivery Kickoff', value:'', done:false, required:true,
+          editFields: [{label:'Kickoff Date', type:'date', value:''}, {label:'Delivery Lead', type:'text', value:''}]},
+        {label:'Customer Success', value:'', done:false, required:true,
+          editFields: [{label:'CSM Name', type:'text', value:''}, {label:'Brief Delivered', type:'select', value:'', options:['','Yes','No']}]},
+        {label:'QBR Cadence', value:'', done:false, required:true,
+          editFields: [{label:'Frequency', type:'select', value:'', options:['','Monthly','Quarterly','Semi-Annual']}, {label:'First QBR Date', type:'date', value:''}]}
       ],
       guidance: [
         'Don\'t mark Closed Won until contract is countersigned',

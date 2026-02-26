@@ -52,11 +52,15 @@ EQ.renderPath({
   stages: [
     { id:'submitted', label:'Order Submitted', status:'complete',
       exitCriteria: [
-        {label:'Purchase Order', value:'PO-NI-2026-003 confirmed', done:true},
-        {label:'Line Items Validated', value:'4 of 4 against catalog', done:true},
-        {label:'Credit Check', value:'Failed — Debt-to-Equity Ratio', done:false, badge:'error'},
+        {label:'Purchase Order', value:'PO-NI-2026-003 confirmed', done:true,
+          editFields: [{label:'PO Number', type:'text', value:'PO-NI-2026-003'}, {label:'PO Status', type:'select', value:'Confirmed', options:['Pending','Confirmed','Rejected']}]},
+        {label:'Line Items Validated', value:'4 of 4 against catalog', done:true,
+          subfields: [{label:'IBX Colo', value:'Matched'}, {label:'Fabric', value:'Matched'}, {label:'Metal', value:'Matched'}, {label:'Replication', value:'Matched'}]},
+        {label:'Credit Check', value:'Failed — Debt-to-Equity Ratio', done:false, badge:'error',
+          editFields: [{label:'Credit Status', type:'select', value:'Failed', options:['Pending','Passed','Failed','On Hold']}, {label:'Failure Reason', type:'text', value:'Debt-to-Equity Ratio exceeds threshold'}, {label:'Notes', type:'textarea', value:'New shrubbery loan altered the ratio. Escalate to Sir Bedevere.'}]},
         {label:'Primary Quote', value:'QT-2026-NI3 — Approved', done:true},
-        {label:'Billing Contact', value:'Sir Galahad the Pure', done:true}
+        {label:'Billing Contact', value:'Sir Galahad the Pure', done:true,
+          editFields: [{label:'Contact Name', type:'text', value:'Sir Galahad the Pure'}, {label:'Email', type:'text', value:'galahad@ni.co.uk'}]}
       ],
       guidance: [
         'Credit check failed — order cannot advance until finance clears the hold',
@@ -66,11 +70,16 @@ EQ.renderPath({
     },
     { id:'validated', label:'Validated & Approved', status:'current',
       exitCriteria: [
-        {label:'Billing Address', value:'DC3 — The Dark Forest Annex', done:true},
-        {label:'Deal Desk Sign-off', value:'Pending credit clearance', done:false, badge:'warning'},
-        {label:'Contract Terms', value:'24 months, Standard SLA', done:true},
-        {label:'Pricing Validation', value:'STALE — Rate card expired Q4 2025', done:false, badge:'error'},
-        {label:'Credit Hold', value:'Active — 11 days', done:false, badge:'error'}
+        {label:'Billing Address', value:'DC3 — The Dark Forest Annex', done:true,
+          editFields: [{label:'Street', type:'text', value:'The Dark Forest Annex'}, {label:'City', type:'text', value:'DC3 Campus'}, {label:'Country', type:'text', value:'Kingdom of Camelot'}]},
+        {label:'Deal Desk Sign-off', value:'Pending credit clearance', done:false, badge:'warning',
+          editFields: [{label:'Status', type:'select', value:'Pending', options:['Not Started','Pending','Approved','Rejected']}, {label:'Blocker', type:'text', value:'Credit clearance required first'}]},
+        {label:'Contract Terms', value:'24 months, Standard SLA', done:true,
+          subfields: [{label:'Term', value:'24 months'}, {label:'SLA Tier', value:'Standard'}]},
+        {label:'Pricing Validation', value:'STALE — Rate card expired Q4 2025', done:false, badge:'error',
+          editFields: [{label:'Rate Card', type:'text', value:'RC-2025-Q4 (expired)'}, {label:'New Rate Card', type:'text', value:'', hint:'Enter current rate card (RC-2026-Q1)'}, {label:'Variance', type:'text', value:'', hint:'Amount difference from original quote'}]},
+        {label:'Credit Hold', value:'Active — 11 days', done:false, badge:'error',
+          editFields: [{label:'Hold Status', type:'select', value:'Active', options:['Active','Under Review','Cleared','Waived']}, {label:'Days on Hold', type:'text', value:'11'}, {label:'Assigned To', type:'text', value:'Sir Bedevere (Finance)'}]}
       ],
       guidance: [
         'Two blockers on this order: credit hold AND stale pricing',
@@ -81,11 +90,15 @@ EQ.renderPath({
     },
     { id:'provisioning', label:'Provisioning', status:'incomplete',
       exitCriteria: [
-        {label:'Space Allocated', value:'DC3 pending — reserved but not confirmed', done:false},
-        {label:'Power Configured', value:'Awaiting order advancement', done:false},
-        {label:'Cross-Connects', value:'4x Fabric 10G planned', done:false},
-        {label:'Acceptance Testing', value:'Not started', done:false},
-        {label:'Replication Link', value:'LD5↔DC3 backbone reserved', done:false}
+        {label:'Space Allocated', value:'DC3 pending — reserved but not confirmed', done:false,
+          subfields: [{label:'IBX', value:'DC3'}, {label:'Cage', value:'Pending'}, {label:'Reservation', value:'14 days remaining'}]},
+        {label:'Power Configured', value:'', done:false, required:true,
+          editFields: [{label:'Voltage', type:'select', value:'', options:['','120V','208V','240V']}, {label:'kW Required', type:'text', value:''}]},
+        {label:'Cross-Connects', value:'4x Fabric 10G planned', done:false,
+          subfields: [{label:'Port Type', value:'Fabric 10G'}, {label:'Quantity', value:'4'}, {label:'Status', value:'Planned'}]},
+        {label:'Acceptance Testing', value:'', done:false, required:true,
+          editFields: [{label:'Test Status', type:'select', value:'', options:['','Not Started','In Progress','Passed','Failed']}, {label:'Test Date', type:'date', value:''}]},
+        {label:'Replication Link', value:'LD5\u2194DC3 backbone reserved', done:false}
       ],
       guidance: [
         'Space reservation at DC3 expires in 14 days if order is not activated',
@@ -95,11 +108,16 @@ EQ.renderPath({
     },
     { id:'active', label:'Active', status:'incomplete',
       exitCriteria: [
-        {label:'Services Live', value:'Not started', done:false},
-        {label:'SLA Tracking', value:'Standard — 99.95% uptime', done:false},
-        {label:'Monitoring', value:'Not configured', done:false},
-        {label:'First Invoice', value:'Pending activation', done:false},
-        {label:'Customer Acceptance', value:'Not started', done:false}
+        {label:'Services Live', value:'', done:false, required:true,
+          editFields: [{label:'Service Status', type:'select', value:'', options:['','Not Started','Partial','All Live']}]},
+        {label:'SLA Tracking', value:'Standard — 99.95% uptime', done:false,
+          subfields: [{label:'Tier', value:'Standard'}, {label:'Uptime', value:'99.95%'}]},
+        {label:'Monitoring', value:'', done:false, required:true,
+          editFields: [{label:'Monitoring Status', type:'select', value:'', options:['','Not Configured','Configured','Active']}, {label:'Alert Recipients', type:'text', value:''}]},
+        {label:'First Invoice', value:'', done:false, required:true,
+          editFields: [{label:'Invoice Date', type:'date', value:''}, {label:'Invoice Number', type:'text', value:''}]},
+        {label:'Customer Acceptance', value:'', done:false, required:true,
+          editFields: [{label:'Signatory', type:'text', value:''}, {label:'Date Signed', type:'date', value:''}]}
       ],
       guidance: [
         'Activation blocked by upstream credit and pricing issues',
@@ -109,10 +127,13 @@ EQ.renderPath({
     { id:'renewal', label:'Renewal / Expansion', status:'incomplete',
       exitCriteria: [
         {label:'Renewal Timeline', value:'Feb 2028 (24-month term)', done:false},
-        {label:'Upsell Review', value:'Not applicable yet', done:false},
-        {label:'Contract Terms Review', value:'Pending', done:false},
-        {label:'Customer Success', value:'Not assigned', done:false},
-        {label:'Renewal Opportunity', value:'Not yet created', done:false}
+        {label:'Upsell Review', value:'', done:false,
+          editFields: [{label:'Upsell Description', type:'textarea', value:''}, {label:'Estimated Value', type:'text', value:''}]},
+        {label:'Contract Terms Review', value:'', done:false, required:true},
+        {label:'Customer Success', value:'', done:false, required:true,
+          editFields: [{label:'CSM Name', type:'text', value:''}, {label:'QBR Frequency', type:'select', value:'', options:['','Monthly','Quarterly','Semi-Annual']}]},
+        {label:'Renewal Opportunity', value:'', done:false, required:true,
+          editFields: [{label:'Opportunity Name', type:'text', value:'', hint:'Auto-populates when renewal opp is created'}, {label:'Expected Close', type:'date', value:''}]}
       ],
       guidance: [
         'Renewal planning is premature — order must activate first'

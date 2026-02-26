@@ -88,11 +88,15 @@ EQ.renderPath({
   stages: [
     { id:'submitted', label:'Order Submitted', status:'complete',
       exitCriteria: [
-        {label:'Purchase Order', value:'PO-NI-2026-001 confirmed', done:true},
-        {label:'Line Items Validated', value:'3 of 3 against catalog', done:true},
-        {label:'Credit Check', value:'Passed (Galahad\'s credit is pure)', done:true},
+        {label:'Purchase Order', value:'PO-NI-2026-001 confirmed', done:true,
+          editFields: [{label:'PO Number', type:'text', value:'PO-NI-2026-001'}, {label:'PO Status', type:'select', value:'Confirmed', options:['Pending','Confirmed','Rejected']}]},
+        {label:'Line Items Validated', value:'3 of 3 against catalog', done:true,
+          subfields: [{label:'IBX Colo', value:'Matched'}, {label:'Fabric', value:'Matched'}, {label:'Metal', value:'Matched'}]},
+        {label:'Credit Check', value:'Passed', done:true,
+          editFields: [{label:'Credit Status', type:'select', value:'Passed', options:['Pending','Passed','Failed','On Hold']}, {label:'Notes', type:'textarea', value:'Galahad\'s credit is pure'}]},
         {label:'Primary Quote', value:'QT-2026-NI1 — Approved', done:true},
-        {label:'Billing Contact', value:'Sir Galahad the Pure', done:true}
+        {label:'Billing Contact', value:'Sir Galahad the Pure', done:true,
+          editFields: [{label:'Contact Name', type:'text', value:'Sir Galahad the Pure'}, {label:'Email', type:'text', value:'galahad@ni.co.uk'}]}
       ],
       guidance: [
         'Verify all line items match the approved quote before submission',
@@ -103,9 +107,11 @@ EQ.renderPath({
     },
     { id:'validated', label:'Validated & Approved', status:'complete',
       exitCriteria: [
-        {label:'Billing Address', value:'The Dark Forest, past Swamp Castle', done:true},
+        {label:'Billing Address', value:'The Dark Forest, past Swamp Castle', done:true,
+          editFields: [{label:'Street', type:'text', value:'The Dark Forest'}, {label:'City', type:'text', value:'Past Swamp Castle'}, {label:'Country', type:'text', value:'Kingdom of Camelot'}]},
         {label:'Deal Desk Sign-off', value:'Approved — Mar 1, 2026', done:true},
-        {label:'Contract Terms', value:'36 months, Premium SLA', done:true},
+        {label:'Contract Terms', value:'36 months, Premium SLA', done:true,
+          subfields: [{label:'Term', value:'36 months'}, {label:'SLA Tier', value:'Premium'}]},
         {label:'Pricing Validation', value:'Matches rate card RC-2026-Q1', done:true},
         {label:'Credit Hold', value:'None', done:true}
       ],
@@ -118,9 +124,12 @@ EQ.renderPath({
     },
     { id:'provisioning', label:'Provisioning', status:'complete',
       exitCriteria: [
-        {label:'Space Allocated', value:'LD5 Cage 12 — Racks A & B', done:true},
-        {label:'Power Configured', value:'208V feeds tested', done:true},
-        {label:'Cross-Connects', value:'2x Fabric 10G installed', done:true},
+        {label:'Space Allocated', value:'LD5 Cage 12 — Racks A & B', done:true,
+          subfields: [{label:'IBX', value:'LD5'}, {label:'Cage', value:'12'}, {label:'Racks', value:'A & B'}]},
+        {label:'Power Configured', value:'208V feeds tested', done:true,
+          editFields: [{label:'Voltage', type:'select', value:'208V', options:['120V','208V','240V']}, {label:'Test Status', type:'select', value:'Passed', options:['Not Started','In Progress','Passed','Failed']}]},
+        {label:'Cross-Connects', value:'2x Fabric 10G installed', done:true,
+          subfields: [{label:'Port Type', value:'Fabric 10G'}, {label:'Quantity', value:'2'}, {label:'Status', value:'Installed'}]},
         {label:'Acceptance Testing', value:'Passed — all ports active', done:true},
         {label:'Shrubbery Installed', value:'Per clause 4.2.1', done:true}
       ],
@@ -133,10 +142,13 @@ EQ.renderPath({
     },
     { id:'active', label:'Active', status:'current',
       exitCriteria: [
-        {label:'Services Live', value:'All 3 line items operational', done:true},
-        {label:'SLA Tracking', value:'Premium — 99.99% uptime', done:true},
+        {label:'Services Live', value:'All 3 line items operational', done:true,
+          subfields: [{label:'IBX Colo', value:'Live'}, {label:'Fabric', value:'Live'}, {label:'Metal', value:'Live'}]},
+        {label:'SLA Tracking', value:'Premium — 99.99% uptime', done:true,
+          editFields: [{label:'SLA Tier', type:'select', value:'Premium', options:['Standard','Premium','Enterprise']}, {label:'Uptime Target', type:'text', value:'99.99%'}]},
         {label:'Monitoring', value:'Enabled — alerts configured', done:true},
-        {label:'First Invoice', value:'Generated — Mar 2026', done:true},
+        {label:'First Invoice', value:'Generated — Mar 2026', done:true,
+          editFields: [{label:'Invoice Date', type:'date', value:'2026-03-01'}, {label:'Invoice Number', type:'text', value:'INV-2026-NI1-001'}]},
         {label:'Customer Acceptance', value:'Signed by Galahad', done:true}
       ],
       guidance: [
@@ -149,11 +161,15 @@ EQ.renderPath({
     },
     { id:'renewal', label:'Renewal / Expansion', status:'incomplete',
       exitCriteria: [
-        {label:'Renewal Timeline', value:'Jan 2029 (6 months before expiry)', done:false},
-        {label:'Upsell Review', value:'Second shrubbery opportunity identified', done:false, badge:'info'},
-        {label:'Contract Terms Review', value:'Pending — due Q4 2028', done:false},
-        {label:'Customer Success', value:'QBR cadence active', done:false, badge:'warning'},
-        {label:'Renewal Opportunity', value:'Not yet created', done:false}
+        {label:'Renewal Timeline', value:'Jan 2029 (6 months before expiry)', done:false,
+          editFields: [{label:'Renewal Date', type:'date', value:''}, {label:'Lead Time', type:'select', value:'6 months', options:['3 months','6 months','12 months']}]},
+        {label:'Upsell Review', value:'Second shrubbery opportunity identified', done:false, badge:'info',
+          editFields: [{label:'Upsell Description', type:'textarea', value:'Second shrubbery opportunity identified'}, {label:'Estimated Value', type:'text', value:''}]},
+        {label:'Contract Terms Review', value:'Pending — due Q4 2028', done:false, badge:'warning'},
+        {label:'Customer Success', value:'QBR cadence active', done:false, badge:'warning',
+          subfields: [{label:'CSM', value:'Not assigned'}, {label:'QBR Frequency', value:'Quarterly'}, {label:'Last QBR', value:'None'}]},
+        {label:'Renewal Opportunity', value:'', done:false, required:true,
+          editFields: [{label:'Opportunity Name', type:'text', value:'', hint:'Auto-populates when renewal opp is created'}, {label:'Expected Close', type:'date', value:''}]}
       ],
       guidance: [
         'Begin renewal discussions 6-12 months before contract expiration',

@@ -149,13 +149,12 @@
   shtml += '<strong>Captured:</strong> <span id="eqFeedbackTimestamp"></span>';
   shtml += '</div>';
   shtml += '<div id="eqFeedbackScreenshot" class="eq-feedback-screenshot" style="margin-top:0.75rem;display:none;"></div>';
-  shtml += '<form class="eq-feedback-form" id="eqFeedbackForm" style="margin-top:0.75rem;" action="https://formspree.io/f/xpqjbnno" method="POST">';
+  shtml += '<form class="eq-feedback-form" id="eqFeedbackForm" style="margin-top:0.75rem;">';
   shtml += '<input type="hidden" name="_subject" value="EQ Lightning Feedback — ' + currentLabel + '">';
   shtml += '<input type="hidden" name="page" value="' + currentFile + '.html">';
   shtml += '<input type="hidden" name="url" id="eqFeedbackUrl">';
   shtml += '<input type="hidden" name="timestamp" id="eqFeedbackTs">';
   shtml += '<input type="hidden" name="viewport" id="eqFeedbackViewport">';
-  shtml += '<input type="hidden" name="screenshot" id="eqFeedbackScreenshotData">';
   shtml += '<div>';
   shtml += '<label for="eqFeedbackType">Feedback type</label>';
   shtml += '<select name="type" id="eqFeedbackType" required>';
@@ -190,7 +189,7 @@
   shtml += '<div id="eqFeedbackSuccess" class="eq-feedback-success" style="display:none;">';
   shtml += '<div style="font-size:2rem;">&#10003;</div>';
   shtml += '<p><strong>Thank you!</strong></p>';
-  shtml += '<p style="font-size:0.8125rem;color:#706E6B;">Your feedback has been submitted. It will be reviewed alongside the design notes for this page.</p>';
+  shtml += '<p style="font-size:0.8125rem;color:#706E6B;">Your email client should have opened with the feedback pre-filled. Send it to complete submission.</p>';
   shtml += '<button type="button" style="margin-top:0.75rem;" class="eq-feedback-submit" id="eqFeedbackReset">Submit Another</button>';
   shtml += '</div>';
   shtml += '</div>';
@@ -369,41 +368,51 @@
     }
   });
 
-  // ── Feedback form submission via Formspree ─────────────────
+  // ── Feedback form submission via mailto ─────────────────
   var feedbackForm = document.getElementById('eqFeedbackForm');
   var feedbackSuccess = document.getElementById('eqFeedbackSuccess');
 
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var submitBtn = document.getElementById('eqFeedbackSubmit');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
 
-      var formData = new FormData(feedbackForm);
+      // Gather form values
+      var page = feedbackForm.querySelector('[name="page"]').value;
+      var feedbackType = (document.getElementById('eqFeedbackType') || {}).value || '';
+      var name = (document.getElementById('eqFeedbackName') || {}).value || '';
+      var comments = (document.getElementById('eqFeedbackComment') || {}).value || '';
+      var priority = (document.getElementById('eqFeedbackPriority') || {}).value || '';
+      var url = (document.getElementById('eqFeedbackUrl') || {}).value || '';
+      var timestamp = (document.getElementById('eqFeedbackTs') || {}).value || '';
+      var viewport = (document.getElementById('eqFeedbackViewport') || {}).value || '';
 
-      fetch(feedbackForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(function (response) {
-        if (response.ok) {
-          feedbackForm.style.display = 'none';
-          feedbackSuccess.style.display = '';
-          var metaEl = document.getElementById('eqFeedbackMeta');
-          if (metaEl) metaEl.style.display = 'none';
-          var ssEl = document.getElementById('eqFeedbackScreenshot');
-          if (ssEl) ssEl.style.display = 'none';
-        } else {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Submit Feedback';
-          alert('Something went wrong. Please try again.');
-        }
-      }).catch(function () {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Feedback';
-        alert('Network error. Please check your connection and try again.');
-      });
+      var subject = 'EQ Lightning Feedback — ' + page;
+      var body = 'Page: ' + page + '\n' +
+        'URL: ' + url + '\n' +
+        'Timestamp: ' + timestamp + '\n' +
+        'Viewport: ' + viewport + '\n' +
+        '---\n' +
+        'Type: ' + feedbackType + '\n' +
+        'Priority: ' + priority + '\n' +
+        'From: ' + name + '\n' +
+        '---\n\n' +
+        comments;
+
+      var mailto = 'mailto:rybooth@equinix.com' +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+
+      window.location.href = mailto;
+
+      // Show success state after a short delay (email client should have opened)
+      setTimeout(function () {
+        feedbackForm.style.display = 'none';
+        feedbackSuccess.style.display = '';
+        var metaEl = document.getElementById('eqFeedbackMeta');
+        if (metaEl) metaEl.style.display = 'none';
+        var ssEl = document.getElementById('eqFeedbackScreenshot');
+        if (ssEl) ssEl.style.display = 'none';
+      }, 500);
     });
   }
 
