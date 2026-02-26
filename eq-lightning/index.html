@@ -3,307 +3,964 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EQ Lightning — Sitemap</title>
+    <title>EQ Lightning — Site Map</title>
     <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
     <link rel="stylesheet" href="eq-lightning.css">
     <style>
-        /* ── Sitemap-specific styles ── */
-        .eq-sm { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3rem; }
-        .eq-sm-hero { background: #fff; border: 1px solid #DDDBDA; border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
-        .eq-sm-hero h1 { font-size: 1.75rem; font-weight: 700; color: #080707; margin: 0 0 0.375rem; }
-        .eq-sm-hero p { font-size: 0.9375rem; color: #3E3E3C; line-height: 1.6; margin: 0 0 0.5rem; }
-        .eq-sm-hero p:last-child { margin: 0; }
-        .eq-sm-section { margin-bottom: 2.5rem; }
-        .eq-sm-section-title {
-            font-size: 0.6875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-            color: #706E6B; border-bottom: 1px solid #DDDBDA; padding-bottom: 0.375rem; margin: 0 0 1.25rem;
+        /* ── Sitemap core ── */
+        .eq-sm { max-width: 1400px; margin: 0 auto; padding: 0 2rem 3rem; }
+        @media (max-width: 768px) { .eq-sm { padding: 0 1rem 2rem; } }
+
+        /* ── Header ── */
+        .eq-sm-header {
+            background: linear-gradient(135deg, #032D60 0%, #0070D2 100%);
+            color: #fff; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        .eq-sm-header h1 { font-size: 1.5rem; font-weight: 700; margin: 0; }
+        .eq-sm-header p { font-size: 0.8125rem; opacity: 0.85; margin: 0.125rem 0 0; }
+        .eq-sm-header-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.75rem; }
+        .eq-sm-header-meta span { background: rgba(255,255,255,0.15); padding: 0.25rem 0.75rem; border-radius: 4px; }
+
+        /* ── Assembly pattern bar ── */
+        .eq-sm-assembly {
+            background: #fff; border-bottom: 1px solid #DDDBDA; padding: 0.75rem 2rem;
+            display: flex; align-items: center; gap: 2rem; font-size: 0.75rem; flex-wrap: wrap;
+        }
+        .eq-sm-assembly-title {
+            font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #706E6B; white-space: nowrap;
+        }
+        .eq-sm-col-chip {
+            display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.25rem 0.625rem; border-radius: 4px; font-weight: 600; font-size: 0.6875rem;
+        }
+        .eq-sm-col-chip.left { background: #EEF4FF; color: #0070D2; border: 1px solid #B0D0F0; }
+        .eq-sm-col-chip.center { background: #FFF3E0; color: #B35C00; border: 1px solid #FFD699; }
+        .eq-sm-col-chip.right { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+        .eq-sm-col-arrow { color: #DDDBDA; font-weight: 700; }
+        .eq-sm-path-note { color: #706E6B; font-style: italic; margin-left: auto; }
+
+        /* ── Tabs ── */
+        .eq-sm-tabs { margin-top: 1.5rem; }
+        .eq-sm-tab-nav {
+            display: flex; gap: 0; border-bottom: 2px solid #DDDBDA;
+        }
+        .eq-sm-tab-btn {
+            padding: 0.625rem 1.25rem; font-size: 0.875rem; font-weight: 600;
+            background: #FAFAF9; border: 1px solid #DDDBDA; border-bottom: none;
+            color: #706E6B; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
+            transition: all 0.15s; line-height: 1; font-family: inherit;
+        }
+        .eq-sm-tab-btn:first-child { border-radius: 6px 0 0 0; }
+        .eq-sm-tab-btn:last-child { border-radius: 0 6px 0 0; }
+        .eq-sm-tab-btn:hover { background: #fff; color: #080707; }
+        .eq-sm-tab-btn.active {
+            background: #fff; color: #080707; border-top: 2px solid #0070D2;
+            margin-bottom: -2px; font-weight: 700;
+        }
+        .eq-sm-tab-count {
+            font-size: 0.625rem; background: #DDDBDA; color: #3E3E3C;
+            padding: 0.125rem 0.375rem; border-radius: 10px; font-weight: 600;
+        }
+        .eq-sm-tab-btn.active .eq-sm-tab-count { background: #0070D2; color: #fff; }
+        .eq-sm-tab-panel { display: none; padding-top: 1.5rem; }
+        .eq-sm-tab-panel.active { display: block; }
+
+        /* ── Object nodes (sitemap style from partners) ── */
+        .eq-sm-obj-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; align-items: start; }
+        @media (max-width: 1100px) { .eq-sm-obj-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .eq-sm-obj-grid { grid-template-columns: 1fr; } }
+
+        .eq-sm-tier { margin-bottom: 2rem; }
+        .eq-sm-tier-title {
+            font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #706E6B; border-bottom: 1px solid #DDDBDA;
+            padding-bottom: 0.375rem; margin-bottom: 1rem;
         }
 
-        /* Persona flow cards */
+        .eq-sm-obj {
+            background: #fff; border: 1px solid #DDDBDA; border-radius: 8px;
+            overflow: hidden; transition: border-color 0.15s;
+        }
+        .eq-sm-obj:hover { border-color: #0070D2; }
+        .eq-sm-obj-header {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1rem; cursor: pointer; user-select: none;
+        }
+        .eq-sm-obj-icon {
+            width: 28px; height: 28px; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .eq-sm-obj-icon svg { fill: #fff; width: 16px; height: 16px; }
+        .eq-sm-obj-label { flex: 1; font-size: 0.8125rem; font-weight: 600; color: #080707; }
+        .eq-sm-obj-badge {
+            font-size: 0.5625rem; font-weight: 700; padding: 0.125rem 0.375rem;
+            border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em;
+        }
+        .eq-sm-obj-badge.oob { background: #EEF4FF; color: #0070D2; }
+        .eq-sm-obj-badge.custom { background: #FFF3E0; color: #B35C00; }
+        .eq-sm-obj-badge.planned { background: #F3F3F3; color: #706E6B; }
+        .eq-sm-obj-link {
+            display: inline-flex; align-items: center; padding: 0.25rem 0.5rem;
+            font-size: 0.75rem; font-weight: 600; color: #0070D2; text-decoration: none;
+            border: 1px solid transparent; border-radius: 3px; transition: all 0.15s;
+        }
+        .eq-sm-obj-link:hover { background: #0070D2; color: #fff; }
+        .eq-sm-obj-chevron { font-size: 0.75rem; color: #706E6B; transition: transform 0.15s; }
+        .eq-sm-obj-chevron.open { transform: rotate(90deg); }
+
+        .eq-sm-obj-children {
+            display: none; padding: 0.25rem 1rem 0.75rem 3rem;
+            border-top: 1px solid #F3F3F3; font-size: 0.75rem; color: #3E3E3C; line-height: 1.7;
+        }
+        .eq-sm-obj-children.open { display: block; }
+        .eq-sm-child { display: flex; align-items: center; gap: 0.375rem; padding: 0.125rem 0; }
+        .eq-sm-child-type {
+            font-size: 0.5625rem; font-weight: 700; padding: 0.0625rem 0.25rem;
+            border-radius: 2px; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0;
+        }
+        .ct-related { background: #EEF4FF; color: #0070D2; }
+        .ct-field { background: #F3F3F3; color: #706E6B; }
+        .ct-action { background: #E8F5E9; color: #2E7D32; }
+        .ct-component { background: #FFF3E0; color: #B35C00; }
+
+        /* ── Persona flows (kept from original) ── */
         .eq-sm-persona {
             background: #fff; border: 1px solid #DDDBDA; border-radius: 8px;
             margin-bottom: 1.5rem; overflow: hidden;
         }
         .eq-sm-persona-header {
             display: flex; align-items: center; gap: 1rem;
-            padding: 1.25rem 1.5rem; border-bottom: 1px solid #F3F3F3;
+            padding: 1rem 1.25rem; border-bottom: 1px solid #F3F3F3;
         }
         .eq-sm-avatar {
-            width: 44px; height: 44px; border-radius: 50%;
+            width: 40px; height: 40px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8125rem; font-weight: 700; color: #fff; flex-shrink: 0;
+            font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0;
         }
-        .eq-sm-persona-name { font-size: 1rem; font-weight: 700; color: #080707; margin: 0 0 0.125rem; }
-        .eq-sm-persona-role { font-size: 0.75rem; color: #706E6B; margin: 0; }
+        .eq-sm-persona-name { font-size: 0.9375rem; font-weight: 700; color: #080707; margin: 0; }
+        .eq-sm-persona-role { font-size: 0.6875rem; color: #706E6B; margin: 0.125rem 0 0; }
         .eq-sm-persona-story {
-            padding: 1rem 1.5rem; background: #FAFAF9; border-bottom: 1px solid #F3F3F3;
+            padding: 0.75rem 1.25rem; background: #FAFAF9; border-bottom: 1px solid #F3F3F3;
             font-size: 0.8125rem; color: #3E3E3C; line-height: 1.5;
         }
         .eq-sm-persona-story strong { color: #080707; }
-
-        /* Flow steps */
         .eq-sm-flow {
-            display: flex; align-items: stretch; padding: 1rem 1.5rem; gap: 0;
-            overflow-x: auto;
+            display: flex; align-items: stretch; padding: 0.75rem 1.25rem; gap: 0; overflow-x: auto;
         }
         .eq-sm-step {
-            flex: 1; min-width: 0; text-align: center; padding: 0.75rem 0.5rem;
-            position: relative; text-decoration: none; color: inherit;
-            border-radius: 6px; transition: background 0.15s;
+            flex: 1; min-width: 0; text-align: center; padding: 0.5rem 0.375rem;
+            text-decoration: none; color: inherit; border-radius: 6px; transition: background 0.15s;
         }
         .eq-sm-step:hover { background: #F3F3F3; }
         .eq-sm-step-icon {
-            width: 36px; height: 36px; border-radius: 6px; margin: 0 auto 0.375rem;
+            width: 32px; height: 32px; border-radius: 6px; margin: 0 auto 0.25rem;
             display: flex; align-items: center; justify-content: center;
         }
-        .eq-sm-step-icon svg { fill: #fff; width: 20px; height: 20px; }
-        .eq-sm-step-label { font-size: 0.75rem; font-weight: 600; color: #080707; margin-bottom: 0.125rem; }
-        .eq-sm-step-desc { font-size: 0.625rem; color: #706E6B; line-height: 1.3; }
-        .eq-sm-arrow {
-            display: flex; align-items: center; color: #DDDBDA; font-size: 1.25rem;
-            padding: 0 0.125rem; flex-shrink: 0;
-        }
+        .eq-sm-step-icon svg { fill: #fff; width: 18px; height: 18px; }
+        .eq-sm-step-label { font-size: 0.6875rem; font-weight: 600; color: #080707; }
+        .eq-sm-step-desc { font-size: 0.5625rem; color: #706E6B; line-height: 1.3; }
+        .eq-sm-arrow { display: flex; align-items: center; color: #DDDBDA; font-size: 1.125rem; padding: 0 0.125rem; flex-shrink: 0; }
 
-        /* Reference links row */
+        /* ── JTBD items ── */
+        .eq-sm-jtbd {
+            border: 1px solid #DDDBDA; border-radius: 8px; margin-bottom: 1rem; overflow: hidden;
+        }
+        .eq-sm-jtbd-header {
+            display: flex; align-items: flex-start; gap: 0.875rem; padding: 1rem 1.25rem; background: #fff;
+        }
+        .eq-sm-jtbd-num {
+            width: 24px; height: 24px; border-radius: 50%; font-size: 0.6875rem; font-weight: 700;
+            color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .eq-sm-jtbd-content { flex: 1; }
+        .eq-sm-jtbd-title { font-size: 0.875rem; font-weight: 700; color: #080707; margin: 0 0 0.375rem; }
+        .eq-sm-jtbd-statement {
+            font-size: 0.8125rem; color: #3E3E3C; line-height: 1.6; background: #FAFAF9;
+            border-radius: 4px; padding: 0.625rem 0.75rem; font-style: italic;
+        }
+        .eq-sm-jtbd-statement .when { color: #706E6B; }
+        .eq-sm-jtbd-statement .want { color: #0070D2; font-weight: 600; }
+        .eq-sm-jtbd-statement .outcome { color: #2E844A; font-weight: 600; }
+        .eq-sm-jtbd-body {
+            padding: 0 1.25rem 1rem 3.5rem; background: #fff;
+        }
+        .eq-sm-jtbd-body h4 {
+            font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; color: #706E6B; margin: 0.75rem 0 0.375rem;
+        }
+        .eq-sm-jtbd-body ul { margin: 0; padding-left: 1.125rem; font-size: 0.8125rem; color: #3E3E3C; line-height: 1.7; }
+        .eq-sm-screen-links { display: flex; gap: 0.375rem; flex-wrap: wrap; margin-top: 0.375rem; }
+        .eq-sm-screen-link {
+            display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem;
+            font-weight: 600; padding: 0.25rem 0.625rem; border-radius: 4px; text-decoration: none; border: 1px solid;
+        }
+        .eq-sm-screen-link.sl-record { color: #0070D2; border-color: #0070D2; }
+        .eq-sm-screen-link.sl-record:hover { background: #0070D2; color: #fff; }
+
+        /* ── Reference cards ── */
         .eq-sm-ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
         @media (max-width: 768px) { .eq-sm-ref-grid { grid-template-columns: 1fr; } }
         .eq-sm-ref-card {
             background: #fff; border: 1px solid #DDDBDA; border-radius: 8px;
             padding: 1.25rem; transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .eq-sm-ref-card:hover { border-color: #0070D2; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+        .eq-sm-ref-card:hover { border-color: #0070D2; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .eq-sm-ref-card a { text-decoration: none; color: inherit; display: block; }
         .eq-sm-ref-title { font-size: 0.875rem; font-weight: 700; color: #080707; margin-bottom: 0.375rem; }
         .eq-sm-ref-desc { font-size: 0.8125rem; color: #706E6B; line-height: 1.4; }
-
-        /* Stats row */
-        .eq-sm-stats {
-            display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0;
-            padding: 1.25rem; background: #fff; border: 1px solid #DDDBDA; border-radius: 8px;
+        .eq-sm-section { margin-bottom: 2rem; }
+        .eq-sm-section-title {
+            font-size: 0.6875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+            color: #706E6B; border-bottom: 1px solid #DDDBDA; padding-bottom: 0.375rem; margin: 0 0 1.25rem;
         }
-        .eq-sm-stats > div { text-align: center; flex: 1; min-width: 100px; }
     </style>
 </head>
 <body>
 <div class="slds-scope" id="app">
+
+<!-- ═══ HEADER ═══ -->
+<div class="eq-sm-header">
+    <div>
+        <h1>EQ Lightning Prototype</h1>
+        <p>Salesforce Lightning Record Page Design System — Site Map &amp; IA</p>
+    </div>
+    <div class="eq-sm-header-meta">
+        <span>Feb 2026</span>
+        <span>Draft — Design Phase</span>
+    </div>
+</div>
+
+<!-- ═══ ASSEMBLY PATTERN BAR ═══ -->
+<div class="eq-sm-assembly" role="navigation" aria-label="Assembly Pattern">
+    <span class="eq-sm-assembly-title">Assembly Pattern</span>
+    <span class="eq-sm-col-chip left">Left: Related Lists</span>
+    <span class="eq-sm-col-arrow">|</span>
+    <span class="eq-sm-col-chip center">Center: Record Details</span>
+    <span class="eq-sm-col-arrow">|</span>
+    <span class="eq-sm-col-chip right">Right: Activity (tabbed)</span>
+    <span class="eq-sm-path-note">Path above columns. Agentforce in right-column tabs.</span>
+</div>
+
 <main id="main-content">
 <div class="eq-sm">
 
-    <!-- ═══ HERO ═══ -->
-    <div class="eq-sm-hero">
-        <h1>EQ Lightning Prototype</h1>
-        <p>A standardized Salesforce Lightning record page design system for Equinix. This prototype defines the consistent assembly pattern — which components go where, per object — so every team builds pages the same way.</p>
-        <p>Each persona below follows a different path through the prototype, hitting the pages most relevant to their daily work. The stories are Monty Python themed so stakeholders can focus on layout and assembly, not real data.</p>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TABS                                                           -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="eq-sm-tabs">
+
+    <div class="eq-sm-tab-nav" role="tablist" aria-label="Sitemap sections">
+        <button class="eq-sm-tab-btn active" id="tab-btn-ia" role="tab" aria-selected="true" aria-controls="tab-panel-ia" onclick="switchTab('ia')">
+            <span>IA &amp; Object Map</span>
+            <span class="eq-sm-tab-count">9</span>
+        </button>
+        <button class="eq-sm-tab-btn" id="tab-btn-jtbd" role="tab" aria-selected="false" aria-controls="tab-panel-jtbd" onclick="switchTab('jtbd')">
+            <span>Jobs to Be Done</span>
+            <span class="eq-sm-tab-count">4</span>
+        </button>
+        <button class="eq-sm-tab-btn" id="tab-btn-research" role="tab" aria-selected="false" aria-controls="tab-panel-research" onclick="switchTab('research')">
+            <span>Research &amp; Docs</span>
+        </button>
     </div>
 
-    <!-- ═══ STATS ═══ -->
-    <div class="eq-sm-stats">
-        <div><div class="eq-stat-num">6</div><div class="eq-stat-label">Object Types</div></div>
-        <div><div class="eq-stat-num">3</div><div class="eq-stat-label">CRO Personas</div></div>
-        <div><div class="eq-stat-num">3-Column</div><div class="eq-stat-label">Standard Layout</div></div>
-        <div><div class="eq-stat-num">~160</div><div class="eq-stat-label">Consolidated Objects</div></div>
-        <div><div class="eq-stat-num">Feb 2026</div><div class="eq-stat-label">Version</div></div>
-    </div>
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 1: IA & OBJECT MAP                                    -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="eq-sm-tab-panel active" id="tab-panel-ia" role="tabpanel" aria-labelledby="tab-btn-ia">
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- PERSONA FLOWS -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <div class="eq-sm-section">
-        <h2 class="eq-sm-section-title">Persona Flows — How Each Role Navigates the Prototype</h2>
+        <!-- PRIMARY OBJECTS -->
+        <div class="eq-sm-tier">
+            <h2 class="eq-sm-tier-title">Primary Objects — Core Deal Lifecycle</h2>
+            <div class="eq-sm-obj-grid">
 
-        <!-- ── ACCOUNT EXECUTIVE ── -->
-        <div class="eq-sm-persona">
-            <div class="eq-sm-persona-header">
-                <div class="eq-sm-avatar" style="background: #C23934;">AE</div>
+                <!-- Lead -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#F88962;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#lead"></use></svg></div>
+                        <span class="eq-sm-obj-label">Lead</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="lead.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Name, Company, Title, Email, Phone, Lead Source, Status, Rating</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Path</span> New &#8594; Working &#8594; Nurturing &#8594; Qualified &#8594; Converted</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Campaign History, Activities, Notes, Files</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Custom</span> Lead Scoring Breakdown (Engagement, Fit, Behavior)</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Lead Qualification, Personalized Outreach, Engagement Analytics</div>
+                    </div>
+                </div>
+
+                <!-- Account -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#7F8DE1;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use></svg></div>
+                        <span class="eq-sm-obj-label">Account</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="account.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Name, Type, Industry, Revenue, Employees, Website, Addresses</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Contacts, Opportunities, Cases, Orders, Contracts, Partners, Account Teams</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Custom</span> Account Plans, Health Score, Churn Risk</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Account Summary, Relationship Intelligence, Churn Alert</div>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#A094ED;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use></svg></div>
+                        <span class="eq-sm-obj-label">Contact</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="contact.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Name, Title, Department, Email, Phone, Mailing Address, Reports To</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Opportunities (Contact Roles), Cases, Campaign History, Activities</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Stakeholder Mapping, Meeting Prep, Communication Analytics</div>
+                    </div>
+                </div>
+
+                <!-- Opportunity -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#FCB95B;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use></svg></div>
+                        <span class="eq-sm-obj-label">Opportunity</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="opportunity.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Name, Stage, Amount, Close Date, Probability, Forecast Category, Type</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Path</span> Stage gates with requirements per step before advancing</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Contact Roles, Products, Competitors, Partners, Quotes, Orders</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Deal Summary Brief, Win Strategy, Price Validation</div>
+                    </div>
+                </div>
+
+                <!-- Order -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#6BBECD;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use></svg></div>
+                        <span class="eq-sm-obj-label">Order</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="order.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Order Number, Account, Status, Dates, Contract, Billing/Shipping</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Path</span> Draft &#8594; Provisioning &#8594; Active &#8594; Complete</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Order Line Items, Related Cases, Account</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Auto-Populate from Quote, Price Validation</div>
+                    </div>
+                </div>
+
+                <!-- Case -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#F2836B;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use></svg></div>
+                        <span class="eq-sm-obj-label">Case</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="case.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Number, Subject, Status, Priority, Origin, Account, Contact</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Path</span> New &#8594; Working &#8594; Escalated &#8594; Resolved &#8594; Closed</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Knowledge Articles, Related Assets, Case Comments, Related Cases</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Resolution Suggestion, Knowledge Surfacing, Escalation Analysis</div>
+                    </div>
+                </div>
+
+                <!-- Contract -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#E0725A;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#contract"></use></svg></div>
+                        <span class="eq-sm-obj-label">Contract</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <a href="contract.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Number, Account, Status, Term, Start/End Date, Signed Dates</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Amendments, Attachments, Orders, Opportunities</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-action">Agentforce</span> Renewal Alert, CLM Integration (Conga/Ironclad)</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Note</span> Legal proto-persona scope. CLM integration needed for redlining.</div>
+                    </div>
+                </div>
+
+                <!-- Solution (Custom Object) -->
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#4BC076;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#solution"></use></svg></div>
+                        <span class="eq-sm-obj-label">Solution</span>
+                        <span class="eq-sm-obj-badge custom">Custom</span>
+                        <a href="solution.html" class="eq-sm-obj-link" title="View Mockup">&#8594;</a>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Note</span> Salesforce deprecated Solutions; use Knowledge Articles instead</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Solution Name, Type, Configuration, Products, Data Center Region</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Multiple Orders, Products, Accounts, Technical Requirements</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-component">Note</span> A Solution can have multiple related Orders (one solution, many fulfillments)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECONDARY OBJECTS -->
+        <div class="eq-sm-tier">
+            <h2 class="eq-sm-tier-title">Secondary Objects — Supporting the Deal</h2>
+            <div class="eq-sm-obj-grid">
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header" onclick="toggleObj(this)" tabindex="0" role="button" aria-expanded="false">
+                        <div class="eq-sm-obj-icon" style="background:#FF9A3C;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#campaign"></use></svg></div>
+                        <span class="eq-sm-obj-label">Campaign</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                        <span class="eq-sm-obj-chevron">&#8250;</span>
+                    </div>
+                    <div class="eq-sm-obj-children">
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-field">Fields</span> Name, Type, Status, Budget, Revenue, Parent Campaign</div>
+                        <div class="eq-sm-child"><span class="eq-sm-child-type ct-related">Related</span> Campaign Members (Leads/Contacts), Opportunities (influence)</div>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#62B7ED;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use></svg></div>
+                        <span class="eq-sm-obj-label">Task / Event / Activity</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#B0C4DE;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#note"></use></svg></div>
+                        <span class="eq-sm-obj-label">Note / File / Attachment</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#7F8DE1;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#partner_marketing_budget"></use></svg></div>
+                        <span class="eq-sm-obj-label">Partner</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#E67E22;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#product"></use></svg></div>
+                        <span class="eq-sm-obj-label">Product / Pricebook</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#9B59B6;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#quotes"></use></svg></div>
+                        <span class="eq-sm-obj-label">Quote / Quote Line Item</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TERTIARY OBJECTS -->
+        <div class="eq-sm-tier">
+            <h2 class="eq-sm-tier-title">Tertiary Objects — Reference &amp; Admin</h2>
+            <div class="eq-sm-obj-grid">
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#706E6B;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#user"></use></svg></div>
+                        <span class="eq-sm-obj-label">User / Profile / Permission Set</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#706E6B;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#report"></use></svg></div>
+                        <span class="eq-sm-obj-label">Report / Dashboard</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+                <div class="eq-sm-obj">
+                    <div class="eq-sm-obj-header">
+                        <div class="eq-sm-obj-icon" style="background:#706E6B;"><svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#flow"></use></svg></div>
+                        <span class="eq-sm-obj-label">Flow / Automation</span>
+                        <span class="eq-sm-obj-badge oob">OOB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERSONA VISIBILITY MATRIX -->
+        <div class="eq-sm-tier" style="margin-top:2rem;">
+            <h2 class="eq-sm-tier-title">Persona &#8594; Object Visibility Matrix</h2>
+            <p style="font-size:0.8125rem;color:#706E6B;margin:-0.75rem 0 1.25rem;line-height:1.5;">Which record pages each persona needs access to. Drives page layout assignments, field-level security, and tab visibility sets.</p>
+            <div style="overflow-x:auto;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.8125rem;background:#fff;border:1px solid #DDDBDA;border-radius:8px;">
+                    <thead>
+                        <tr style="background:#FAFAF9;border-bottom:2px solid #DDDBDA;">
+                            <th style="text-align:left;padding:0.75rem 1rem;font-weight:700;color:#080707;min-width:140px;">Persona</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Lead</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Account</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Contact</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Opportunity</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Order</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Contract</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Solution</th>
+                            <th style="text-align:center;padding:0.75rem 0.5rem;font-weight:600;color:#706E6B;">Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #DDDBDA;">
+                            <td style="padding:0.625rem 1rem;font-weight:600;"><span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:#C23934;color:#fff;text-align:center;line-height:28px;font-size:0.6875rem;font-weight:700;margin-right:0.5rem;vertical-align:middle;">AE</span> Account Executive</td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #DDDBDA;background:#FAFAF9;">
+                            <td style="padding:0.625rem 1rem;font-weight:600;"><span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:#0B5394;color:#fff;text-align:center;line-height:28px;font-size:0.6875rem;font-weight:700;margin-right:0.5rem;vertical-align:middle;">SA</span> Solutions Architect</td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #DDDBDA;">
+                            <td style="padding:0.625rem 1rem;font-weight:600;"><span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:#2E844A;color:#fff;text-align:center;line-height:28px;font-size:0.6875rem;font-weight:700;margin-right:0.5rem;vertical-align:middle;">SE</span> Sales Engineer</td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.625rem 1rem;font-weight:600;"><span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:#8B6914;color:#fff;text-align:center;line-height:28px;font-size:0.6875rem;font-weight:700;margin-right:0.5rem;vertical-align:middle;">LG</span> Legal</td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#2E844A;font-weight:700;font-size:1rem;" aria-label="Yes" title="Primary access">&#9679;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                            <td style="text-align:center;padding:0.625rem 0.5rem;"><span style="color:#DDDBDA;" aria-label="No">&#9675;</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:0.75rem;color:#706E6B;margin:0.75rem 0 0;line-height:1.4;"><span style="color:#2E844A;font-weight:700;">&#9679;</span> = Primary access (page layout assigned) &nbsp;&nbsp; <span style="color:#DDDBDA;">&#9675;</span> = No default access (available via permission set if needed)</p>
+        </div>
+
+    </div><!-- /tab-panel-ia -->
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 2: JOBS TO BE DONE                                    -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="eq-sm-tab-panel" id="tab-panel-jtbd" role="tabpanel" aria-labelledby="tab-btn-jtbd">
+
+        <div style="background:#FAFAF9;border:1px solid #DDDBDA;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2rem;border-left:4px solid #0070D2;">
+            <p style="font-size:0.875rem;font-weight:700;color:#080707;margin:0 0 0.375rem;">Core Workflows Per Persona</p>
+            <p style="font-size:0.8125rem;color:#3E3E3C;line-height:1.6;margin:0;">Each job maps to specific pages in the prototype. The Monty Python stories provide cognitively distinct narratives so stakeholders evaluate the assembly pattern, not the data.</p>
+        </div>
+
+        <!-- AE PERSONA -->
+        <div class="eq-sm-section">
+            <div class="eq-sm-persona-header" style="border-bottom:2px solid #DDDBDA;padding:0 0 0.75rem;margin-bottom:1.25rem;">
+                <div class="eq-sm-avatar" style="background:#C23934;">AE</div>
                 <div>
                     <p class="eq-sm-persona-name">Account Executive</p>
-                    <p class="eq-sm-persona-role">Revenue driver. Manages the full deal cycle from lead qualification through close and renewal.</p>
+                    <p class="eq-sm-persona-role">Revenue driver. Full deal cycle from lead qualification through close and renewal.</p>
                 </div>
             </div>
-            <div class="eq-sm-persona-story">
-                <strong>The Quest for the Holy Colocation:</strong> The Knights Who Say Ni have demanded a proper data center for their Shrubbery-as-a-Service platform. As the AE, you qualify Thurston Livingston (a new lead from Filthy Lucre Imports), build out the account for The Knights Who Say Ni Ltd, manage the opportunity through negotiation, and ultimately land the order. Your path touches every stage of the deal lifecycle.
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#C23934;">1</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Qualify and Convert a New Lead</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> a new lead arrives from a tradeshow,
+                            <span class="want">I want to</span> assess their fit and intent quickly
+                            <span class="outcome">so I can</span> either convert them or nurture them without wasting pipeline cycles.
+                        </div>
+                    </div>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Review lead score breakdown (engagement + fit + behavior)</li>
+                        <li>Walk the qualification path (New &#8594; Working &#8594; Qualified)</li>
+                        <li>Use Agentforce to draft personalized outreach</li>
+                        <li>Convert to Account + Contact + Opportunity</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="lead.html" class="eq-sm-screen-link sl-record">Lead &#8594;</a>
+                        <a href="account.html" class="eq-sm-screen-link sl-record">Account &#8594;</a>
+                        <a href="contact.html" class="eq-sm-screen-link sl-record">Contact &#8594;</a>
+                    </div>
+                </div>
             </div>
-            <div class="eq-sm-flow">
-                <a href="lead.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #F88962;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#lead"></use></svg>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#C23934;">2</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Advance an Opportunity Through Stage Gates</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> I have a qualified opportunity,
+                            <span class="want">I want to</span> see exactly what is required before advancing to the next stage
+                            <span class="outcome">so I can</span> close the deal without missing required fields or approvals.
+                        </div>
                     </div>
-                    <div class="eq-sm-step-label">Lead</div>
-                    <div class="eq-sm-step-desc">Qualify Thurston Livingston. Score, BANT, convert.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="account.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #7F8DE1;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use></svg>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Expand path detail panel to see stage requirements</li>
+                        <li>Complete required fields and get partner sign-off</li>
+                        <li>Review Agentforce deal summary and win strategy</li>
+                        <li>Advance stage, update forecast</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="opportunity.html" class="eq-sm-screen-link sl-record">Opportunity &#8594;</a>
+                        <a href="account.html" class="eq-sm-screen-link sl-record">Account &#8594;</a>
                     </div>
-                    <div class="eq-sm-step-label">Account</div>
-                    <div class="eq-sm-step-desc">Knights Who Say Ni Ltd. Account plan, health score.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="contact.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #A094ED;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use></svg>
+                </div>
+            </div>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#C23934;">3</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Fulfill and Track a Customer Order</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> an opportunity closes-won,
+                            <span class="want">I want to</span> monitor provisioning status and resolve any issues
+                            <span class="outcome">so I can</span> ensure a smooth handoff and maintain customer satisfaction.
+                        </div>
                     </div>
-                    <div class="eq-sm-step-label">Contact</div>
-                    <div class="eq-sm-step-desc">Sir Robin. Stakeholder mapping, engagement history.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="opportunity.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #FCB95B;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use></svg>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Review order line items and billing details</li>
+                        <li>Monitor provisioning path (Draft &#8594; Active)</li>
+                        <li>Escalate cases if provisioning stalls</li>
+                        <li>Confirm activation with customer</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="order.html" class="eq-sm-screen-link sl-record">Order &#8594;</a>
+                        <a href="case.html" class="eq-sm-screen-link sl-record">Case &#8594;</a>
                     </div>
-                    <div class="eq-sm-step-label">Opportunity</div>
-                    <div class="eq-sm-step-desc">Holy Colocation deal. Stage gates, pricing, close plan.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="order.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #6BBECD;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use></svg>
-                    </div>
-                    <div class="eq-sm-step-label">Order</div>
-                    <div class="eq-sm-step-desc">Sacred Order of Shrubbery Hosting. Provisioning, activation.</div>
-                </a>
+                </div>
             </div>
         </div>
 
-        <!-- ── SOLUTIONS ARCHITECT ── -->
-        <div class="eq-sm-persona">
-            <div class="eq-sm-persona-header">
-                <div class="eq-sm-avatar" style="background: #0B5394;">SA</div>
+        <!-- SA PERSONA -->
+        <div class="eq-sm-section">
+            <div class="eq-sm-persona-header" style="border-bottom:2px solid #DDDBDA;padding:0 0 0.75rem;margin-bottom:1.25rem;">
+                <div class="eq-sm-avatar" style="background:#0B5394;">SA</div>
                 <div>
                     <p class="eq-sm-persona-name">Solutions Architect</p>
-                    <p class="eq-sm-persona-role">Technical strategist. Designs solutions, validates requirements, and ensures delivery feasibility.</p>
+                    <p class="eq-sm-persona-role">Technical strategist. Validates requirements and ensures delivery feasibility.</p>
                 </div>
             </div>
-            <div class="eq-sm-persona-story">
-                <strong>Tim the Enchanter's Technical Review:</strong> Tim has been called in to evaluate whether Equinix's IBX facilities can handle the Knights' Shrubbery-as-a-Service workload — 147,000 SKUs, 4 million API requests per day, and a security posture managed by a man who insists it's "just a flesh wound." Tim's path starts at the account to understand the landscape, dives deep into the opportunity's technical requirements, then monitors the order and any support cases during implementation.
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#0B5394;">1</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Assess Technical Feasibility of a Deal</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> an AE brings me a new opportunity,
+                            <span class="want">I want to</span> review the customer's infrastructure and the proposed solution
+                            <span class="outcome">so I can</span> validate feasibility before the team commits to delivery dates.
+                        </div>
+                    </div>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Review account landscape (existing infra, services, contracts)</li>
+                        <li>Evaluate opportunity products and technical requirements</li>
+                        <li>Check data center capacity and cross-connect availability</li>
+                        <li>Flag technical risks in Chatter and Agentforce</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="account.html" class="eq-sm-screen-link sl-record">Account &#8594;</a>
+                        <a href="opportunity.html" class="eq-sm-screen-link sl-record">Opportunity &#8594;</a>
+                    </div>
+                </div>
             </div>
-            <div class="eq-sm-flow">
-                <a href="account.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #7F8DE1;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use></svg>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#0B5394;">2</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Support Implementation and Troubleshooting</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> an order is being provisioned,
+                            <span class="want">I want to</span> monitor progress and jump in on escalated cases
+                            <span class="outcome">so I can</span> resolve technical issues before they delay activation.
+                        </div>
                     </div>
-                    <div class="eq-sm-step-label">Account</div>
-                    <div class="eq-sm-step-desc">Understand the customer landscape and existing infra.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="opportunity.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #FCB95B;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use></svg>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="order.html" class="eq-sm-screen-link sl-record">Order &#8594;</a>
+                        <a href="case.html" class="eq-sm-screen-link sl-record">Case &#8594;</a>
                     </div>
-                    <div class="eq-sm-step-label">Opportunity</div>
-                    <div class="eq-sm-step-desc">Solution design, product selection, technical validation.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="order.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #6BBECD;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use></svg>
+                </div>
+            </div>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#0B5394;">3</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Design and Validate a Solution Configuration</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> a customer needs a multi-site colocation deployment,
+                            <span class="want">I want to</span> build a solution configuration that maps power, cooling, network, and compliance requirements
+                            <span class="outcome">so I can</span> ensure the technical design can be fulfilled across multiple orders without rework.
+                        </div>
                     </div>
-                    <div class="eq-sm-step-label">Order</div>
-                    <div class="eq-sm-step-desc">Provisioning oversight, cross-connect config, power specs.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="case.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #F2836B;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use></svg>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Create solution record linking opportunity to technical requirements</li>
+                        <li>Define configuration items (cabinets, power, cross-connects, cooling)</li>
+                        <li>Validate IBX capacity and SLA compliance</li>
+                        <li>Use Agentforce to detect configuration drift from baseline</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="solution.html" class="eq-sm-screen-link sl-record">Solution &#8594;</a>
+                        <a href="opportunity.html" class="eq-sm-screen-link sl-record">Opportunity &#8594;</a>
+                        <a href="order.html" class="eq-sm-screen-link sl-record">Order &#8594;</a>
                     </div>
-                    <div class="eq-sm-step-label">Case</div>
-                    <div class="eq-sm-step-desc">Implementation issues, the herring compatibility incident.</div>
-                </a>
+                </div>
             </div>
         </div>
 
-        <!-- ── SALES ENGINEER ── -->
-        <div class="eq-sm-persona">
-            <div class="eq-sm-persona-header">
-                <div class="eq-sm-avatar" style="background: #2E844A;">SE</div>
+        <!-- SE PERSONA -->
+        <div class="eq-sm-section">
+            <div class="eq-sm-persona-header" style="border-bottom:2px solid #DDDBDA;padding:0 0 0.75rem;margin-bottom:1.25rem;">
+                <div class="eq-sm-avatar" style="background:#2E844A;">SE</div>
                 <div>
                     <p class="eq-sm-persona-name">Sales Engineer</p>
-                    <p class="eq-sm-persona-role">Technical pre-sales. Runs demos, answers RFPs, and bridges the gap between customer needs and product capabilities.</p>
+                    <p class="eq-sm-persona-role">Technical pre-sales. Demos, RFPs, bridging customer needs and product capabilities.</p>
                 </div>
             </div>
-            <div class="eq-sm-persona-story">
-                <strong>Roger the Shrubber's Demo Prep:</strong> Roger is the Knights' VP of Shrubbery Operations — and the technical decision-maker you need to win over. The SE's job is to understand Roger's contact history, prep for the demo using the opportunity's product lineup and competitors, then handle the inevitable support escalation when the herring turns out not to be RJ45-compatible. The SE lives in the details.
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#2E844A;">1</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Prepare for a Technical Demo</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> I am preparing for a customer demo,
+                            <span class="want">I want to</span> review the contact's communication history and the opportunity's product lineup
+                            <span class="outcome">so I can</span> tailor my presentation to their specific needs and concerns.
+                        </div>
+                    </div>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="contact.html" class="eq-sm-screen-link sl-record">Contact &#8594;</a>
+                        <a href="opportunity.html" class="eq-sm-screen-link sl-record">Opportunity &#8594;</a>
+                    </div>
+                </div>
             </div>
-            <div class="eq-sm-flow">
-                <a href="contact.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #A094ED;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use></svg>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#2E844A;">2</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Handle Post-Sale Technical Escalation</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> a customer reports a compatibility issue,
+                            <span class="want">I want to</span> access the case details, knowledge base, and related assets
+                            <span class="outcome">so I can</span> diagnose the issue and propose a resolution quickly.
+                        </div>
                     </div>
-                    <div class="eq-sm-step-label">Contact</div>
-                    <div class="eq-sm-step-desc">Roger the Shrubber. Communication history, preferences.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="opportunity.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #FCB95B;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use></svg>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="case.html" class="eq-sm-screen-link sl-record">Case &#8594;</a>
+                        <a href="lead.html" class="eq-sm-screen-link sl-record">Lead &#8594;</a>
                     </div>
-                    <div class="eq-sm-step-label">Opportunity</div>
-                    <div class="eq-sm-step-desc">Products, competitors, technical requirements for demo.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="case.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #F2836B;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use></svg>
-                    </div>
-                    <div class="eq-sm-step-label">Case</div>
-                    <div class="eq-sm-step-desc">The herring incident. Knowledge base, asset tracking.</div>
-                </a>
-                <div class="eq-sm-arrow" aria-hidden="true">&#8594;</div>
-                <a href="lead.html" class="eq-sm-step">
-                    <div class="eq-sm-step-icon" style="background: #F88962;">
-                        <svg aria-hidden="true"><use href="assets/icons/standard-sprite/svg/symbols.svg#lead"></use></svg>
-                    </div>
-                    <div class="eq-sm-step-label">Lead</div>
-                    <div class="eq-sm-step-desc">Thurston's technical eval. Scoring criteria, qualification.</div>
-                </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- REFERENCE PAGES -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <div class="eq-sm-section">
-        <h2 class="eq-sm-section-title">Reference Materials</h2>
-        <div class="eq-sm-ref-grid">
-            <div class="eq-sm-ref-card">
-                <a href="personas.html">
-                    <div class="eq-sm-ref-title">CRO Personas</div>
-                    <div class="eq-sm-ref-desc">Account Executive, Solutions Architect, and Sales Engineer — jobs-to-be-done, pain points, and tool ecosystem.</div>
-                </a>
+        <!-- LEGAL PERSONA -->
+        <div class="eq-sm-section">
+            <div class="eq-sm-persona-header" style="border-bottom:2px solid #DDDBDA;padding:0 0 0.75rem;margin-bottom:1.25rem;">
+                <div class="eq-sm-avatar" style="background:#8B6914;">LG</div>
+                <div>
+                    <p class="eq-sm-persona-name">Legal</p>
+                    <p class="eq-sm-persona-role">Contract lifecycle management. Drafting, redlining, approval, and renewal of customer agreements.</p>
+                </div>
             </div>
-            <div class="eq-sm-ref-card">
-                <a href="story-reference.html">
-                    <div class="eq-sm-ref-title">Story Reference</div>
-                    <div class="eq-sm-ref-desc">The Monty Python data story — character guide, company profiles, and narrative continuity across all pages.</div>
-                </a>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#8B6914;">1</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Draft and Route a New Contract for Approval</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> an opportunity closes-won and needs a formal agreement,
+                            <span class="want">I want to</span> generate a contract from the approved template and route it through legal review
+                            <span class="outcome">so I can</span> get it executed without delays that push revenue recognition into the next quarter.
+                        </div>
+                    </div>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Generate contract from Conga CLM template linked to the opportunity</li>
+                        <li>Review special terms and shrubbery clauses for compliance</li>
+                        <li>Route through approval chain (Legal &#8594; Finance &#8594; VP)</li>
+                        <li>Track redline cycles and version history</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="contract.html" class="eq-sm-screen-link sl-record">Contract &#8594;</a>
+                        <a href="account.html" class="eq-sm-screen-link sl-record">Account &#8594;</a>
+                        <a href="order.html" class="eq-sm-screen-link sl-record">Order &#8594;</a>
+                    </div>
+                </div>
             </div>
-            <div class="eq-sm-ref-card">
-                <a href="research.html">
-                    <div class="eq-sm-ref-title">Research and Best Practices</div>
-                    <div class="eq-sm-ref-desc">Lightning deployment research, record page design patterns, and Agentforce integration strategies.</div>
-                </a>
+
+            <div class="eq-sm-jtbd">
+                <div class="eq-sm-jtbd-header">
+                    <div class="eq-sm-jtbd-num" style="background:#8B6914;">2</div>
+                    <div class="eq-sm-jtbd-content">
+                        <p class="eq-sm-jtbd-title">Manage Contract Renewals and Amendments</p>
+                        <div class="eq-sm-jtbd-statement">
+                            <span class="when">When</span> a contract is approaching its renewal date,
+                            <span class="want">I want to</span> assess risk, review amendment history, and flag non-standard terms
+                            <span class="outcome">so I can</span> proactively renew or renegotiate before lapse creates service disruption.
+                        </div>
+                    </div>
+                </div>
+                <div class="eq-sm-jtbd-body">
+                    <h4>Key Steps</h4>
+                    <ul>
+                        <li>Review Agentforce renewal risk assessment and SLA compliance</li>
+                        <li>Check amendment history for scope changes</li>
+                        <li>Validate financial summary (TCV/ACV/MRR) against current terms</li>
+                        <li>Generate amendment or renewal contract via Conga CLM</li>
+                    </ul>
+                    <h4>Pages Touched</h4>
+                    <div class="eq-sm-screen-links">
+                        <a href="contract.html" class="eq-sm-screen-link sl-record">Contract &#8594;</a>
+                        <a href="account.html" class="eq-sm-screen-link sl-record">Account &#8594;</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <!-- PROJECT CONTEXT -->
-    <!-- ═══════════════════════════════════════════════════════════ -->
-    <div class="eq-sm-section">
-        <h2 class="eq-sm-section-title">Project Context</h2>
-        <div style="background: #fff; border: 1px solid #DDDBDA; border-radius: 8px; padding: 1.5rem; font-size: 0.8125rem; color: #3E3E3C; line-height: 1.6;">
-            <p style="margin: 0 0 0.75rem;">Equinix is standardizing its Salesforce Lightning experience across a global sales organization. The current state includes 800+ custom objects (consolidated to ~160), pages with 175-225 field sections and 190+ action buttons, and a swivel-chair workflow between Salesforce, Siebel, and email.</p>
-            <p style="margin: 0 0 0.75rem;">This prototype defines the target assembly pattern: how standard Salesforce Lightning components should be composed into consistent, persona-aware record pages. The three-column layout (Related | Details | Activity) serves as the foundation, with Agentforce touchpoints woven in where they reduce manual work and surface intelligence.</p>
-            <p style="margin: 0;">The Monty Python data story keeps stakeholder conversations about content, layout, and field groupings engaging and low-stakes — so people focus on the structure, not the data.</p>
+    </div><!-- /tab-panel-jtbd -->
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 3: RESEARCH & DOCS                                    -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="eq-sm-tab-panel" id="tab-panel-research" role="tabpanel" aria-labelledby="tab-btn-research">
+
+        <div class="eq-sm-section">
+            <h2 class="eq-sm-section-title">Reference Pages</h2>
+            <div class="eq-sm-ref-grid">
+                <div class="eq-sm-ref-card">
+                    <a href="personas.html">
+                        <div class="eq-sm-ref-title">CRO Personas</div>
+                        <div class="eq-sm-ref-desc">Account Executive, Solutions Architect, and Sales Engineer — jobs-to-be-done, pain points, and tool ecosystem.</div>
+                    </a>
+                </div>
+                <div class="eq-sm-ref-card">
+                    <a href="story-reference.html">
+                        <div class="eq-sm-ref-title">Story Reference</div>
+                        <div class="eq-sm-ref-desc">The Monty Python data story — character guide, company profiles, and narrative continuity across pages.</div>
+                    </a>
+                </div>
+                <div class="eq-sm-ref-card">
+                    <a href="research.html">
+                        <div class="eq-sm-ref-title">Research &amp; Best Practices</div>
+                        <div class="eq-sm-ref-desc">Lightning deployment research, record page design patterns, and Agentforce integration strategies.</div>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
 
+        <div class="eq-sm-section">
+            <h2 class="eq-sm-section-title">Project Context</h2>
+            <div style="background:#fff;border:1px solid #DDDBDA;border-radius:8px;padding:1.5rem;font-size:0.8125rem;color:#3E3E3C;line-height:1.6;">
+                <p style="margin:0 0 0.75rem;">Equinix is standardizing its Salesforce Lightning experience across a global sales organization. The current state includes 800+ custom objects (consolidated to ~160), pages with 175-225 field sections and 190+ action buttons, and a swivel-chair workflow between Salesforce, Siebel, and email.</p>
+                <p style="margin:0 0 0.75rem;">This prototype defines the target assembly pattern: how standard Salesforce Lightning components should be composed into consistent, persona-aware record pages. The three-column layout (Related | Details | Activity) serves as the foundation, with Agentforce touchpoints woven into the right-column Activity tabs.</p>
+                <p style="margin:0;">The Monty Python data story keeps stakeholder conversations about content, layout, and field groupings engaging and low-stakes — so people focus on the structure, not the data.</p>
+            </div>
+        </div>
+
+        <div class="eq-sm-section">
+            <h2 class="eq-sm-section-title">Object Classification Methodology</h2>
+            <div style="background:#fff;border:1px solid #DDDBDA;border-radius:8px;padding:1.5rem;font-size:0.8125rem;color:#3E3E3C;line-height:1.6;">
+                <p style="margin:0 0 0.75rem;"><strong>Primary</strong> — Core deal lifecycle objects that every CRO persona interacts with daily. These get full record page prototypes with the three-column assembly pattern.</p>
+                <p style="margin:0 0 0.75rem;"><strong>Secondary</strong> — Objects that support primary objects. They appear as related lists, tabs, or embedded components within primary record pages. They don't typically need their own standalone page layouts in this project.</p>
+                <p style="margin:0;"><strong>Tertiary</strong> — Reference and admin objects. Important for configuration and governance but not part of the daily CRO workflow. Documented for completeness but not prototyped.</p>
+            </div>
+        </div>
+
+    </div><!-- /tab-panel-research -->
+
+</div><!-- /eq-sm-tabs -->
 </div><!-- /eq-sm -->
 </main>
-</div>
+</div><!-- /slds-scope -->
 
 <script src="eq-nav.js"></script>
+<script>
+function switchTab(id) {
+    document.querySelectorAll('.eq-sm-tab-btn').forEach(function(b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.eq-sm-tab-panel').forEach(function(p) {
+        p.classList.remove('active');
+    });
+    document.getElementById('tab-btn-' + id).classList.add('active');
+    document.getElementById('tab-btn-' + id).setAttribute('aria-selected', 'true');
+    document.getElementById('tab-panel-' + id).classList.add('active');
+}
+function toggleObj(el) {
+    var children = el.nextElementSibling;
+    if (!children || !children.classList.contains('eq-sm-obj-children')) return;
+    var chevron = el.querySelector('.eq-sm-obj-chevron');
+    var isOpen = children.classList.contains('open');
+    children.classList.toggle('open');
+    if (chevron) chevron.classList.toggle('open');
+    el.setAttribute('aria-expanded', !isOpen);
+}
+</script>
 </body>
 </html>

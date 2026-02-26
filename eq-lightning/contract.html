@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Contract</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <!-- Page Header -->
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <svg class="slds-icon slds-icon_large slds-m-right_medium" aria-hidden="true">
+                                <use href="assets/icons/standard-sprite/svg/symbols.svg#contract"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1 class="slds-text-heading_large slds-m-right_small">CON-2026-NS — The Sacred Covenant of Shrubbery Hosting</h1>
+                                </div>
+                            </div>
+                            <p class="slds-text-body_small slds-page-header__name-label">Contract</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-button-group-list">
+                        <button class="slds-button slds-button_brand">Activate Contract</button>
+                        <button class="slds-button slds-button_neutral">Edit</button>
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__row slds-page-header__row_gutters">
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Contract Number</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">CON-2026-NS</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Status</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Activated</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Contract Start</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">Mar 1, 2026</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Contract End</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">Feb 28, 2029</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Contract Term</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">36 months</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>📖 Chapter 7: The Sacred Covenant</strong><br>
+            The Knights Who Say Ni required a contract of unusual specificity. Not only did it need to cover standard colocation terms (power, cooling, connectivity, SLAs), it also needed a clause about shrubbery placement in the data center (Clause 4.2.1). The contract was drafted in Conga CLM, which reduced what used to be a 14-day contract cycle down to 90 minutes. The Head Knight reviewed every line, naturally. The Black Knight insisted on a non-compete clause: "None shall pass to another vendor for 36 months." Sir Galahad verified the pricing was "pure and untainted by hidden fees."<br><br>
+            <strong>🥬 Design discussion:</strong> The Contract record page is primarily used by Legal and Deal Desk. It needs to answer: What are the terms? What's been amended? Who approved it? The CLM integration (Conga) means most contract creation happens outside Salesforce, but the record of truth lives here. Left column shows related contract line items, orders, amendments, and approval history. Center shows the full contract details including financial summary and special terms. Right column contains tabbed activity with CLM-specific Agentforce actions.
+        </div>
+
+        <!-- CONTRACT LIFECYCLE PATH -->
+        <div class="slds-path">
+            <div class="slds-grid slds-path__track">
+                <div class="slds-grid slds-path__scroller-container">
+                    <div class="slds-path__scroller" role="application">
+                        <ul class="slds-path__nav" role="tablist">
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-draft">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Draft</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-in-approval">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">In Approval</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="path-detail-activated">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Activated</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-amendment">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Amendment</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-renewed">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Renewed</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slds-grid slds-path__action">
+                    <button class="slds-button slds-button_brand slds-path__mark-complete">
+                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                            <use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                        </svg>
+                        Move to Amendment
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PATH DETAIL PANELS -->
+        <div id="path-detail-draft" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Draft — Contract Preparation</h3>
+            <div class="eq-path-detail-subtitle">Required Before Approval</div>
+            <ul class="eq-path-detail-list">
+                <li>MSA template selected and customized with deal-specific terms</li>
+                <li>All contract line items loaded (products, pricing, terms)</li>
+                <li>Legal review underway for standard terms compliance</li>
+                <li>Pricing and financial terms verified by Deal Desk</li>
+                <li>Approval chain identified (Legal, Sales Leadership, Finance)</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Contract Number</dt><dd>Generated or assigned</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Account Name</dt><dd>Link to customer account</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Contract Start Date</dt><dd>Agreed upon</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Contract End Date</dt><dd>Calculated from term</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-in-approval" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">In Approval — Sign-Off & Authorization</h3>
+            <div class="eq-path-detail-subtitle">Required Before Activation</div>
+            <ul class="eq-path-detail-list">
+                <li>Contract submitted to Conga CLM for e-signature workflow</li>
+                <li>Customer legal review completed with any amendments noted</li>
+                <li>All required internal approvers have signed (Legal, Finance, Sales VP)</li>
+                <li>Customer signatory has reviewed and approved final terms</li>
+                <li>Amendment tracking active if redlines requested by either party</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>CLM Status</dt><dd>Sent for Signature</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Approval History</dt><dd>All stakeholders listed</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Total Contract Value</dt><dd>Locked in</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Payment Terms</dt><dd>Finalized</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-activated" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Activated — Contract Fully Executed</h3>
+            <div class="eq-path-detail-subtitle">Requirements Met</div>
+            <ul class="eq-path-detail-list">
+                <li>Contract fully executed by all authorized parties</li>
+                <li>Final signed PDFs stored in Conga and linked to Salesforce record</li>
+                <li>Start date reached and services commence or already commencing</li>
+                <li>Billing system configured and first invoice generated</li>
+                <li>Customer success team notified for onboarding and kickoff</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Post-Activation</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Service Activation</dt><dd>Underway or complete</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Billing Initiated</dt><dd>First invoice in system</dd></dl>
+                <dl class="eq-path-detail-field"><dt>CSM Assignment</dt><dd>Customer success owner assigned</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Renewal Date</dt><dd>Calculated from end date</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-amendment" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Amendment — Contract Modification</h3>
+            <div class="eq-path-detail-subtitle">When Changes Are Needed</div>
+            <ul class="eq-path-detail-list">
+                <li>Change request submitted (pricing adjustment, term extension, scope addition)</li>
+                <li>Amendment drafted in Conga with marked changes highlighted</li>
+                <li>Customer and internal stakeholders review and approve changes</li>
+                <li>Amendment executed and linked to parent contract in Salesforce</li>
+                <li>Financial impact reconciled and billing system updated if needed</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Amendment Tracking</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Amendment Number</dt><dd>AMD-001, AMD-002, etc.</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Amendment Type</dt><dd>Scope, Pricing, Term, etc.</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Execution Date</dt><dd>When all parties signed</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Effective Date</dt><dd>When changes take effect</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-renewed" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Renewed — Contract Extension</h3>
+            <div class="eq-path-detail-subtitle">At Contract End or Early Renewal</div>
+            <ul class="eq-path-detail-list">
+                <li>Customer expresses intent to renew before 30-day notice window</li>
+                <li>New contract terms negotiated (pricing refresh, term extension)</li>
+                <li>Renewal contract drafted and executed via Conga CLM</li>
+                <li>Previous contract closed and new contract activated in Salesforce</li>
+                <li>Revenue recognition updated in Finance system</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Renewal Metrics</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Renewal Amount</dt><dd>New contract value</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Customer Health</dt><dd>NPS/retention flag</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Renewal Term</dt><dd>Duration of new contract</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Churn Risk</dt><dd>If renewal declined</dd></dl>
+            </div>
+        </div>
+
+        <!-- MAIN RECORD BODY -->
+        <div class="eq-record-body">
+
+            <!-- LEFT COLUMN = Related Lists -->
+            <div>
+                <!-- Contract Line Items Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#product"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Contract Line Items (3)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Colocation: 4x Cabinets, LD5</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Product: <strong>Colocation</strong></span>
+                                <span class="eq-related-item-field">Qty: <strong>4</strong>, MRC: <strong>$12,500</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Equinix Fabric: 2x 10Gbps Ports</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Product: <strong>Fabric</strong></span>
+                                <span class="eq-related-item-field">Qty: <strong>2</strong>, MRC: <strong>$2,800</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">SmartHands: 10hrs/month</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Product: <strong>SmartHands</strong></span>
+                                <span class="eq-related-item-field">Qty: <strong>10</strong>, MRC: <strong>$750</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Orders Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Related Orders (2)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">ORD-2026-NS — Sacred Order of Shrubbery Hosting</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong>Active</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">ORD-2025-BK — Black Knight Connectivity</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong>Active</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amendments Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#document"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Amendments (1)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">AMD-001 — Shrubbery Clause Addition</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong>Executed</strong></span>
+                                <span class="eq-related-item-field">Date: <strong>Jan 15, 2026</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval History Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Approval History (3)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Roger the Shrubber</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong>Approved</strong></span>
+                                <span class="eq-related-item-field">Date: <strong>Jan 10, 2026</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">The Head Knight</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong>Approved</strong></span>
+                                <span class="eq-related-item-field">Date: <strong>Jan 11, 2026</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Legal Review (The Bridge Keeper)</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong>Approved</strong></span>
+                                <span class="eq-related-item-field">Date: <strong>Jan 12, 2026</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN = Contract Details -->
+            <div class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <div class="slds-media slds-media_center">
+                        <div class="slds-media__figure">
+                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                <use href="assets/icons/standard-sprite/svg/symbols.svg#contract"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title slds-text-heading_small">Contract Details</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-card__body">
+                    <!-- Contract Information Section -->
+                    <div class="eq-field-section-title">Contract Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">CON-2026-NS</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Owner</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Black Knight</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Activated</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">CLM Document</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">Master Services Agreement v4.2 (Conga)</a></div></div></div>
+                    </div>
+
+                    <!-- Term & Dates Section -->
+                    <div class="eq-field-section-title">Term & Dates</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Start</span><div class="slds-form-element__control"><div class="slds-form-element__static">March 1, 2026</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract End</span><div class="slds-form-element__control"><div class="slds-form-element__static">February 28, 2029</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Term</span><div class="slds-form-element__control"><div class="slds-form-element__static">36 months</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Auto-Renewal</span><div class="slds-form-element__control"><div class="slds-form-element__static">Yes (30-day notice required)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Payment Terms</span><div class="slds-form-element__control"><div class="slds-form-element__static">Net 30</div></div></div>
+                    </div>
+
+                    <!-- Financial Summary Section -->
+                    <div class="eq-field-section-title">Financial Summary</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Total Contract Value (TCV)</span><div class="slds-form-element__control"><div class="slds-form-element__static">$580,000</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Annual Contract Value (ACV)</span><div class="slds-form-element__control"><div class="slds-form-element__static">$193,333</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Monthly Recurring Revenue (MRR)</span><div class="slds-form-element__control"><div class="slds-form-element__static">$16,050</div></div></div>
+                    </div>
+
+                    <!-- Special Terms Section -->
+                    <div class="eq-field-section-title">Special Terms</div>
+                    <div style="padding:0.75rem;">
+                        <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0 0 0.75rem 0;">
+                            <strong>Clause 4.2.1 — Shrubbery Placement:</strong><br>
+                            "One (1) decorative shrubbery, not exceeding 0.5 cubic meters, shall be permitted adjacent to Cabinet A in the LD5 facility. Said shrubbery must comply with all fire safety regulations and shall not impede airflow."
+                        </p>
+                        <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0 0 0.75rem 0;">
+                            <strong>Clause 7.3 — Prohibited Items:</strong><br>
+                            "No herrings, fresh or otherwise, shall be introduced to the facility infrastructure."
+                        </p>
+                        <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0 0 0.75rem 0;">
+                            <strong>SLA:</strong> 99.999% uptime guarantee
+                        </p>
+                        <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0;">
+                            <strong>Penalty:</strong> 5% MRC credit per hour of unplanned downtime exceeding SLA
+                        </p>
+                    </div>
+
+                    <!-- Description Section -->
+                    <div class="eq-field-section-title">Description</div>
+                    <div style="padding:0.75rem;">
+                        <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0;">
+                            Master Services Agreement for colocation and connectivity services between Equinix and The Knights Who Say Ni Ltd. This 36-month contract covers four (4) IBX cabinets at the London LD5 data center with full Equinix Fabric connectivity (2x 10Gbps ports), SmartHands hands-on support services (10 hours per month), and comprehensive SLA coverage with 99.999% uptime guarantee. Custom term includes shrubbery placement provisions (Clause 4.2.1) and non-compete agreement requiring 36-month vendor exclusivity. Contract was drafted and executed via Conga CLM, reducing the cycle from 14 days to 90 minutes. All internal approvals obtained from Legal, Sales, and Deal Desk. Customer signed amendment AMD-001 to clarify shrubbery specifications. Contract becomes effective March 1, 2026 with automatic renewal on 30-day notice before February 28, 2029 end date.
+                        </p>
+                    </div>
+
+                    <!-- System & Audit Fields Section (Collapsed) -->
+                    <div class="eq-field-section-title">System & Audit Fields</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Created By</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Black Knight</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Created Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Jan 8, 2026 — 2:34 PM</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Last Modified By</span><div class="slds-form-element__control"><div class="slds-form-element__static">Roger the Shrubber</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Last Modified Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Jan 15, 2026 — 11:22 AM</div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN = Activity Timeline & Agentforce -->
+            <div>
+                <!-- SLDS Tabs Container -->
+                <div class="slds-tabs_default">
+                    <!-- Tab Navigation -->
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
+                            <a class="slds-tabs_default__link" id="tab-activity-link" href="#tab-activity" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-activity">Activity</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" id="tab-chatter-link" href="#tab-chatter" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" id="tab-agentforce-link" href="#tab-agentforce" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
+                        </li>
+                    </ul>
+
+                    <!-- Activity Tab Content -->
+                    <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
+                        <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
+                            <button class="eq-activity-filter is-active" data-filter="all">All</button>
+                            <button class="eq-activity-filter" data-filter="calls">Calls</button>
+                            <button class="eq-activity-filter" data-filter="emails">Emails</button>
+                            <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
+                            <button class="eq-activity-filter" data-filter="events">Events</button>
+                        </div>
+                        <div style="padding:0.75rem;">
+                            <ul class="slds-timeline">
+                                <li class="slds-timeline__item">
+                                    <div class="slds-timeline__marker">
+                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="slds-timeline__details">
+                                        <h3 class="slds-timeline__title"><a href="#">Task: Amendment Executed — Shrubbery Clause</a></h3>
+                                        <p class="slds-timeline__meta">Last week</p>
+                                        <p class="slds-timeline__body">The Head Knight insisted on adding Clause 4.2.1 after Galahad pointed out there was no contractual basis for the shrubbery placement. Amendment drafted, reviewed, and fully executed by all parties.</p>
+                                    </div>
+                                </li>
+                                <li class="slds-timeline__item">
+                                    <div class="slds-timeline__marker">
+                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="slds-timeline__details">
+                                        <h3 class="slds-timeline__title"><a href="#">Email: Contract Countersigned by Customer</a></h3>
+                                        <p class="slds-timeline__meta">2 weeks ago</p>
+                                        <p class="slds-timeline__body">The Head Knight returned the signed contract with only one redline: changing "reasonable shrubbery" to "decorative shrubbery." Accepted and countersigned immediately.</p>
+                                    </div>
+                                </li>
+                                <li class="slds-timeline__item">
+                                    <div class="slds-timeline__marker">
+                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="slds-timeline__details">
+                                        <h3 class="slds-timeline__title"><a href="#">Call: Legal Review with The Bridge Keeper</a></h3>
+                                        <p class="slds-timeline__meta">3 weeks ago</p>
+                                        <p class="slds-timeline__body">Bridge Keeper asked three questions before allowing the contract to pass: "What is your term?" "What is your TCV?" "What is the airspeed velocity of an unladen server?" All questions answered satisfactorily. Legal approval granted.</p>
+                                    </div>
+                                </li>
+                                <li class="slds-timeline__item">
+                                    <div class="slds-timeline__marker">
+                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="slds-timeline__details">
+                                        <h3 class="slds-timeline__title"><a href="#">Event: Contract Kickoff Meeting</a></h3>
+                                        <p class="slds-timeline__meta">1 month ago</p>
+                                        <p class="slds-timeline__body">All stakeholders gathered to review final terms. Roger brought a shrubbery to celebrate. The Black Knight declared: "None shall pass without signing!" Final approval chains confirmed. Sent to Conga CLM for e-signature workflow.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Chatter Tab Content -->
+                    <div id="tab-chatter" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-chatter-link">
+                        <div style="padding:0.75rem;">
+                            <p style="color:#706E6B; font-size:0.8125rem; margin-bottom:0.75rem;">Team discussion about this contract.</p>
+                            <div style="padding:0.75rem; background:#F3F3F3; border-radius:4px; font-size:0.8125rem; color:#3E3E3C;">
+                                <div style="margin-bottom:0.75rem;">
+                                    <strong>The Black Knight</strong> — Last week<br>
+                                    <span style="color:#706E6B;">Amendment executed successfully. Shrubbery clause is now fully documented and binding. All parties satisfied with final terms.</span>
+                                </div>
+                                <div style="margin-bottom:0.75rem;">
+                                    <strong>Roger the Shrubber</strong> — 2 weeks ago<br>
+                                    <span style="color:#706E6B;">Legal review completed by Bridge Keeper. Contract is now fully approved and ready for customer signature. Moving to CLM.</span>
+                                </div>
+                                <div>
+                                    <strong>Sir Galahad</strong> — 3 weeks ago<br>
+                                    <span style="color:#706E6B;">Financial terms verified. TCV of $580k locked in. MRR of $16,050 is correct. Deal Desk approval granted.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agentforce Tab Content -->
+                    <div id="tab-agentforce" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-agentforce-link">
+                        <div style="padding:0.75rem;">
+                            <!-- Agentforce Card 1 -->
+                            <div class="eq-agentforce">
+                                <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Agentforce: Contract Renewal Risk</div>
+                                <div class="eq-agentforce-desc">Analyze contract terms, usage patterns, and customer health score to predict renewal likelihood and flag at-risk contracts 6 months before expiry. Saves ~15 min of manual review.</div>
+                                <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Analyze Risk</button>
+                                <div class="eq-agentforce-time">Saves ~15 min per review</div>
+                            </div>
+
+                            <!-- Agentforce Card 2 -->
+                            <div class="eq-agentforce">
+                                <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Agentforce: Amendment Generator</div>
+                                <div class="eq-agentforce-desc">Draft contract amendments in Conga CLM format based on requested changes, ensuring compliance with master agreement terms. Saves ~45 min per amendment.</div>
+                                <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Draft Amendment</button>
+                                <div class="eq-agentforce-time">Saves ~45 min per amendment</div>
+                            </div>
+
+                            <!-- Agentforce Card 3 -->
+                            <div class="eq-agentforce">
+                                <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Agentforce: SLA Compliance Check</div>
+                                <div class="eq-agentforce-desc">Cross-reference uptime monitoring data against contracted SLA terms to flag any potential credit obligations. Saves ~10 min per review.</div>
+                                <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Check SLA Status</button>
+                                <div class="eq-agentforce-time">Saves ~10 min per review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /eq-record-body -->
+
+        <!-- DESIGN NOTES SECTION -->
+        <section class="eq-design-notes" aria-label="Design Notes">
+            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
+                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
+                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                </svg>
+                Design Notes &amp; Feedback
+            </button>
+            <div class="slds-hide eq-design-notes-content">
+                <h3>Assembly Decisions</h3>
+                <ul>
+                    <li><strong>Left column (Related):</strong> Contract Line Items with product and pricing, Related Orders, Amendments with execution status, and Approval History. Compact format shows deal lifecycle at a glance.</li>
+                    <li><strong>Center column (Details):</strong> Contract Information, Term & Dates, Financial Summary (TCV/ACV/MRR), Special Terms (Clauses 4.2.1 and 7.3), full Description, and System & Audit Fields. Path component above columns shows contract lifecycle (Draft → In Approval → Activated → Amendment → Renewed).</li>
+                    <li><strong>Right column (Activity):</strong> Tabbed interface with Activity timeline (task, email, call, event history), Chatter for deal team collaboration, and Agentforce tab with three CLM-specific actions: Contract Renewal Risk, Amendment Generator, and SLA Compliance Check.</li>
+                </ul>
+                <h3>Open Questions</h3>
+                <ul>
+                    <li>Should the Conga CLM document be embedded as an iframe or linked externally?</li>
+                    <li>Should contract line items show a "Compare to Quote" diff view with the original opportunity?</li>
+                    <li>For multi-entity contracts, should we add a "Legal Entities" related list showing which entities are parties to the contract?</li>
+                </ul>
+                <h3>Feedback</h3>
+                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
+            </div>
+        </section>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">Before (Traditional Contract Page)</h3>
+                    <div class="eq-metric-row"><span>Approval pages required</span><strong style="color:#EA001E;">3–4</strong></div>
+                    <div class="eq-metric-row"><span>Fields spread across tabs</span><strong style="color:#EA001E;">12+ tabs</strong></div>
+                    <div class="eq-metric-row"><span>Time to see amendments</span><strong style="color:#EA001E;">5–8 min</strong></div>
+                    <div class="eq-metric-row"><span>CLM document access</span><strong style="color:#EA001E;">External link (context loss)</strong></div>
+                    <div class="eq-metric-row"><span>Related lists visibility</span><strong style="color:#EA001E;">Collapsed or missing</strong></div>
+                    <div class="eq-metric-row"><span>SLA tracking</span><strong style="color:#EA001E;">Separate system check</strong></div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">After (EQ Lightning Contract)</h3>
+                    <div class="eq-metric-row"><span>Approval history visible</span><strong style="color:#2E844A;">All on one page</strong></div>
+                    <div class="eq-metric-row"><span>Field sections</span><strong style="color:#2E844A;">5 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Time to see amendments</span><strong style="color:#2E844A;">30 seconds</strong></div>
+                    <div class="eq-metric-row"><span>CLM integration</span><strong style="color:#2E844A;">Linked in Contract Details</strong></div>
+                    <div class="eq-metric-row"><span>Related lists at a glance</span><strong style="color:#2E844A;">Left column + expandable</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce SLA check</span><strong style="color:#2E844A;">Single-click analysis</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
+    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
+    .eq-design-notes-toggle:hover { background: #F3F3F3; }
+    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
+    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
+    .eq-design-notes-content h3:first-child { margin-top: 0; }
+    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
+    .eq-design-notes-content li { margin-bottom: 0.375rem; }
+</style>
+
+</main>
+</div><!-- /slds-scope -->
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Solution</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-icon">
+                    <svg class="slds-icon slds-icon-standard-solution slds-page-header__icon" aria-hidden="true">
+                        <use href="assets/icons/standard-sprite/svg/symbols.svg#solution"></use>
+                    </svg>
+                </div>
+                <div class="slds-page-header__col-details">
+                    <div class="slds-text-body_small slds-truncate">Solution</div>
+                    <h1 class="slds-page-header__title slds-truncate slds-m-top_x-small">SOL-2026-COLO — The Colocation Configuration of Unusual Purity</h1>
+                </div>
+            </div>
+            <div class="slds-page-header__row">
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Solution Number</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate">SOL-2026-COLO</dd>
+                    </dl>
+                </div>
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Status</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate"><span class="eq-badge eq-badge--success">Active</span></dd>
+                    </dl>
+                </div>
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">IBX Location</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate">LD5 (London)</dd>
+                    </dl>
+                </div>
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Solution Type</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate">Colocation + Connectivity</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            Chapter 8: The Solution of Unusual Purity — Sir Galahad insisted that every solution design be pure — no mixed vendors, no impure configurations, no hidden complexity. This Solution record represents the complete technical configuration for the Knights Who Say Ni: 4 cabinets in LD5 with 8kW power per cab, dual Equinix Fabric 10Gbps ports for redundancy, SmartHands support, and one (1) compliant decorative shrubbery. Tim the Enchanter validated the architecture, declaring it "not as terrifying as it could be." The solution can have multiple related orders — the initial deployment order and any subsequent expansion orders.<br><br>
+            <strong>Design discussion:</strong> The Solution object is custom at Equinix. It bridges the gap between what was sold (Opportunity) and what gets deployed (Order). A single Solution can spawn multiple Orders over time as the customer expands. This is the technical truth — what exactly is being built and where.
+        </div>
+
+        <div class="slds-path">
+            <div class="slds-grid slds-path__track">
+                <div class="slds-grid slds-path__scroller-container">
+                    <div class="slds-path__scroller" role="application">
+                        <ul class="slds-path__nav" role="tablist">
+                            <li class="slds-path__item slds-is-complete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="draft">
+                                    <span class="slds-path__title">Draft</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-complete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="technical-review">
+                                    <span class="slds-path__title">Technical Review</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-current" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="approved">
+                                    <span class="slds-path__title">Approved</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="deployed">
+                                    <span class="slds-path__title">Deployed</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="optimized">
+                                    <span class="slds-path__title">Optimized</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slds-grid slds-path__action">
+                    <button class="slds-button slds-button_brand slds-path__mark-complete">
+                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>
+                        Mark Status as Complete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path Detail Panels -->
+        <div class="eq-path-detail" id="draft-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Draft (Complete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Initial solution design created, baseline architecture documented</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Solution SOL-2026-COLO was drafted with 4 cabinets in LD5, Hall 3, Row 12. Base power allocation: 8kW per cabinet (32kW total). Cooling redundancy (N+1) and network topology (dual 10Gbps Fabric) defined. Shrubbery specifications drafted per Clause 4.2.1.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="technical-review-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Technical Review (Complete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Architecture reviewed and validated by engineering</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Tim the Enchanter conducted technical design workshop. Reviewed cabinet placement, power distribution architecture, network redundancy topology, and shrubbery positioning. Confirmed cooling capacity calculations and cross-connect fiber paths. Declared the design "not as terrifying as it could be." No major concerns raised.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="approved-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Approved (Current)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Solution design approved for deployment, configuration locked</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Head Knight reviewed and approved solution document. Final design includes all regulatory compliance (SOC 2 Type II, ISO 27001, PCI DSS), carrier diversity options (4 available), and SLA commitments (99.999% uptime). Shrubbery specifications approved. One note: "Ensure documentation is complete. We do NOT want a repeat of the Roger incident."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="deployed-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Deployed (Incomplete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Solution physically deployed, services live, monitoring enabled</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Pending: Cabinets A, B, C, D provisioned in LD5. Power feeds tested and live. Fabric ports connected. SmartHands allocation active. Shrubbery installed adjacent to Cabinet A, east side. Monitoring systems enabled. SLA tracking active.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="optimized-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Optimized (Incomplete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Solution optimized for performance and cost</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Pending: Performance baseline established, utilization metrics analyzed, cost optimization review completed, future expansion planning initiated. Path to expansion: Year 2 expansion to 2 additional cabinets planned. Year 3+: potential second IBX site (AM3, Amsterdam) being evaluated for geographic redundancy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-record-body">
+            <!-- LEFT COLUMN: Related Lists -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-orders">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Related Orders (2)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="order.html">ORD-2026-NS</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Name: <strong>Sacred Order of Shrubbery Hosting</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                                <span class="eq-related-item-field">Start Date: <strong>Mar 2026</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="order.html">ORD-2025-BK</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Name: <strong>Black Knight Connectivity</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                                <span class="eq-related-item-field">Start Date: <strong>Jan 2025</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-opportunity">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Related Opportunities (1)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="opportunity.html">The Quest for the Holy Colocation</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Stage: <strong>Negotiation</strong></span>
+                                <span class="eq-related-item-field">Amount: <strong>$580,000</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-custom">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#custom"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Configuration Items (4)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">CAB-LD5-A through D</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Cabinet</strong></span>
+                                <span class="eq-related-item-field">Power: <strong>8kW each</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">FAB-LD5-PRI</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Fabric Port</strong></span>
+                                <span class="eq-related-item-field">Speed: <strong>10Gbps</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">FAB-LD5-SEC</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Fabric Port</strong></span>
+                                <span class="eq-related-item-field">Speed: <strong>10Gbps</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">SH-LD5-10HR</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>SmartHands</strong></span>
+                                <span class="eq-related-item-field">Allocation: <strong>10hrs/mo</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-case">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Change Requests (1)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">CR-001</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Title: <strong>Add Redundant Power Feed to Cabinet D</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--warning">Pending Review</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN: Details -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-solution">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#solution"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Solution Details</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body">
+                        <div class="eq-field-section-title">Solution Information</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Solution Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">SOL-2026-COLO</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Solution Name</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Colocation Configuration of Unusual Purity</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Solution Owner</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Tim the Enchanter</a></div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Active</span></div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Solution Type</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--custom">CUSTOM</span> Colocation + Connectivity</div></div></div>
+                        </div>
+                        <div class="eq-field-section-title">Technical Configuration</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">IBX Location</span><div class="slds-form-element__control"><div class="slds-form-element__static">LD5 — Slough, London</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Cabinets</span><div class="slds-form-element__control"><div class="slds-form-element__static">4 (A, B, C, D) — Hall 3, Row 12</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Power per Cabinet</span><div class="slds-form-element__control"><div class="slds-form-element__static">8kW (A-rated)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Total Power</span><div class="slds-form-element__control"><div class="slds-form-element__static">32kW</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Cooling</span><div class="slds-form-element__control"><div class="slds-form-element__static">N+1 Redundant</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Network</span><div class="slds-form-element__control"><div class="slds-form-element__static">Dual Equinix Fabric 10Gbps (Primary + Secondary)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Cross-Connects</span><div class="slds-form-element__control"><div class="slds-form-element__static">4x Single-Mode Fiber</div></div></div>
+                        </div>
+                        <div class="eq-field-section-title">SLA &amp; Compliance</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Uptime SLA</span><div class="slds-form-element__control"><div class="slds-form-element__static">99.999%</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Power Redundancy</span><div class="slds-form-element__control"><div class="slds-form-element__static">2N UPS + Diesel Generator</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Compliance Standards</span><div class="slds-form-element__control"><div class="slds-form-element__static">SOC 2 Type II, ISO 27001, PCI DSS</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Carrier Diversity</span><div class="slds-form-element__control"><div class="slds-form-element__static">4 carriers available (BT, Colt, Zayo, Telia)</div></div></div>
+                        </div>
+                        <div class="eq-field-section-title">Shrubbery Specifications (per Clause 4.2.1)</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Location</span><div class="slds-form-element__control"><div class="slds-form-element__static">Adjacent to Cabinet A, east side</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Species</span><div class="slds-form-element__control"><div class="slds-form-element__static">Buxus sempervirens (English Box)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Max Dimensions</span><div class="slds-form-element__control"><div class="slds-form-element__static">0.5m³</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Fire Safety Rating</span><div class="slds-form-element__control"><div class="slds-form-element__static">Class A</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Airflow Impact</span><div class="slds-form-element__control"><div class="slds-form-element__static">Certified negligible by Tim the Enchanter</div></div></div>
+                        </div>
+                        <div class="eq-field-section-title">Description</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly eq-full-width"><span class="slds-form-element__label">Description</span><div class="slds-form-element__control"><div class="slds-form-element__static">Complete technical configuration for the Knights Who Say Ni colocation deployment. Includes 4 full cabinets in LD5 with redundant power, cooling, and network connectivity. Solution supports capacity planning for 3-year growth projection with expansion options to additional cabinets in Year 2 and potential secondary IBX site (Amsterdam) in Year 3+. All components validated for purity and compliance by Tim the Enchanter.</div></div></div>
+                        </div>
+                        <div class="eq-field-section-title">System &amp; Audit Fields</div>
+                        <div class="eq-detail-grid" style="display:none;">
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Created By</span><div class="slds-form-element__control"><div class="slds-form-element__static">Merlin the Sysadmin</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Created Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Jan 15, 2026</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Last Modified By</span><div class="slds-form-element__control"><div class="slds-form-element__static">Tim the Enchanter</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Last Modified Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Feb 10, 2026</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Activity -->
+            <div>
+                <div class="slds-tabs_default">
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
+                            <a class="slds-tabs_default__link" href="#tab-activity" id="tab-activity-link" role="tab" aria-selected="true" aria-controls="tab-activity">Activity</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" href="#tab-chatter" id="tab-chatter-link" role="tab" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" href="#tab-agentforce" id="tab-agentforce-link" role="tab" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
+                        </li>
+                    </ul>
+
+                    <!-- Activity Tab -->
+                    <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
+                        <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
+                            <button class="eq-activity-filter is-active" data-filter="all">All</button>
+                            <button class="eq-activity-filter" data-filter="calls">Calls</button>
+                            <button class="eq-activity-filter" data-filter="emails">Emails</button>
+                            <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
+                            <button class="eq-activity-filter" data-filter="events">Events</button>
+                        </div>
+                        <div class="slds-card">
+                            <div class="slds-card__header">
+                                <div class="slds-media slds-media_small">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-log_a_call">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title slds-text-heading_small">Solution Activity</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                                <div class="slds-timeline">
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-task" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Architecture Validated by Tim the Enchanter</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">1 week ago</p>
+                                            <p class="slds-m-top_small">Tim reviewed the 4-cabinet configuration and confirmed power, cooling, and network redundancy meets requirements. Declared it "pure enough, though not as exciting as a fireball." Configuration approved for deployment.</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-email" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Customer Approved Solution Design</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">2 weeks ago</p>
+                                            <p class="slds-m-top_small">The Head Knight reviewed the solution document and approved with one note: "Ensure the shrubbery specifications are documented. We do NOT want a repeat of the Roger incident." All documentation updated and confirmed complete.</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-event" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Technical Design Workshop</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">3 weeks ago</p>
+                                            <p class="slds-m-top_small">Joint session with Equinix engineering team. Covered cabinet placement in Hall 3 Row 12, power distribution (8kW per cab), network topology (dual 10Gbps Fabric), and shrubbery positioning. All attendees agreed on configuration baseline. Roger was NOT invited.</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-log_a_call" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Capacity Planning Discussion</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">1 month ago</p>
+                                            <p class="slds-m-top_small">Discussed 3-year growth projection with the Knights. Year 1: Deploy 4 cabs (this solution). Year 2: Add 2 more cabinets in LD5. Year 3+: Potential expansion to secondary IBX (AM3, Amsterdam) for geographic redundancy. Expansion paths documented and approved.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chatter Tab -->
+                    <div id="tab-chatter" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-chatter-link">
+                        <div class="slds-card">
+                            <div class="slds-card__header">
+                                <div class="slds-media slds-media_small">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-feed">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#feed"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title slds-text-heading_small">Chatter</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-card__body" style="padding:0.75rem;">
+                                <p style="color:#706E6B; font-size:0.8125rem; margin-bottom:0.75rem;">Team discussion about this solution.</p>
+                                <div style="padding:0.75rem; background:#F3F3F3; border-radius:4px; font-size:0.8125rem; color:#3E3E3C;">
+                                    <div style="margin-bottom:0.75rem;">
+                                        <strong>Tim the Enchanter</strong> — Yesterday<br>
+                                        <span style="color:#706E6B;">Configuration review complete. All 4 cabinets in LD5 meet power, cooling, and network redundancy requirements. The dual 10Gbps Fabric ports provide excellent carrier diversity. Shrubbery specifications validated per Clause 4.2.1. Approved for deployment.</span>
+                                    </div>
+                                    <div style="margin-bottom:0.75rem;">
+                                        <strong>Head Knight</strong> — 2 days ago<br>
+                                        <span style="color:#706E6B;">Excellent work on the capacity planning assumptions. The 3-year growth projection with Year 2 expansion and Year 3+ secondary IBX is solid strategy. Document everything carefully — we cannot afford another Roger incident.</span>
+                                    </div>
+                                    <div>
+                                        <strong>Merlin the Sysadmin</strong> — 4 days ago<br>
+                                        <span style="color:#706E6B;">Solution architecture is sound. Cabinet layout optimizes airflow. Power feeds redundant. Network paths diverse. Ready for implementation once all orders are provisioned.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agentforce Tab -->
+                    <div id="tab-agentforce" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-agentforce-link">
+                        <div class="eq-agentforce">
+                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#chart"></use></svg> Agentforce: Solution Health Monitor</div>
+                            <div class="eq-agentforce-desc">Continuously analyze power utilization, network throughput, and environmental conditions against the solution design. Flag deviations before they become incidents. Detects if actual deployment drifts from approved specs.</div>
+                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Monitor Solution Health</button>
+                            <div class="eq-agentforce-time">Saves ~20 min daily monitoring</div>
+                        </div>
+                        <div class="eq-agentforce">
+                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#moneybag"></use></svg> Agentforce: Expansion Recommendation</div>
+                            <div class="eq-agentforce-desc">Based on current utilization trends and contract terms, recommend optimal timing and configuration for solution expansion. Automatically create expansion order templates with suggested cabinet counts and power allocations.</div>
+                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Generate Expansion Plan</button>
+                            <div class="eq-agentforce-time">Saves ~2 hours of capacity planning</div>
+                        </div>
+                        <div class="eq-agentforce">
+                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg> Agentforce: Configuration Drift Detection</div>
+                            <div class="eq-agentforce-desc">Compare current deployed state against the approved solution design to detect unauthorized changes. Alerts if cabinets are reconfigured, power specs changed, or unexpected items added (e.g., herrings). Maintains solution integrity.</div>
+                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Check Configuration Drift</button>
+                            <div class="eq-agentforce-time">Saves ~30 min per audit cycle</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN NOTES SECTION -->
+        <section class="eq-design-notes" aria-label="Design Notes">
+            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
+                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
+                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                </svg>
+                Design Notes &amp; Feedback
+            </button>
+            <div class="slds-hide eq-design-notes-content">
+                <h3>Assembly Decisions</h3>
+                <ul>
+                    <li><strong>Left column (Related):</strong> Related Orders (multiple — one solution can spawn many orders), Related Opportunities, Configuration Items (cabinets, fabric ports, SmartHands), and Change Requests. This shows the solution's full lifecycle context.</li>
+                    <li><strong>Center column (Details):</strong> Solution Information (number, status, account owner), Technical Configuration (IBX location, cabinet specs, power, cooling, network), SLA & Compliance (uptime guarantees, standards), and Shrubbery Specifications. Path component shows solution lifecycle: Draft, Technical Review, Approved (current), Deployed, Optimized.</li>
+                    <li><strong>Right column (Activity):</strong> Tabbed interface with Solution Activity timeline (validation events, design workshops, capacity planning), Chatter for technical team discussion, and Agentforce tab with health monitoring, expansion planning, and drift detection AI actions.</li>
+                </ul>
+                <h3>Open Questions</h3>
+                <ul>
+                    <li>Should Configuration Items be editable inline or require a Change Request workflow?</li>
+                    <li>How should we visualize the relationship between Solution → multiple Orders over time? Consider a timeline view showing deployment phasing.</li>
+                    <li>Should the Solution page include an embedded capacity dashboard showing power/network utilization vs. design specs?</li>
+                    <li>For expansion scenarios: Should we auto-generate "Expansion Solution" child records, or handle via Change Requests?</li>
+                </ul>
+                <h3>Feedback</h3>
+                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
+            </div>
+        </section>
+
+</main>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">200–300+</strong></div>
+                    <div class="eq-metric-row"><span>Related object visibility</span><strong style="color:#EA001E;">Hidden in sub-tabs</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">4–6</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">700+</strong></div>
+                    <div class="eq-metric-row"><span>Time to understand solution</span><strong style="color:#EA001E;">10–15 min</strong></div>
+                    <div class="eq-metric-row"><span>Expansion planning process</span><strong style="color:#EA001E;">Manual spreadsheet work</strong></div>
+                    <div class="eq-metric-row"><span>Drift detection</span><strong style="color:#EA001E;">Quarterly audits only</strong></div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">5–7 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Related objects at a glance</span><strong style="color:#2E844A;">Left column — always visible</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">&lt; 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Related | Details | Activity</strong></div>
+                    <div class="eq-metric-row"><span>Time to understand solution</span><strong style="color:#2E844A;">1–3 min</strong></div>
+                    <div class="eq-metric-row"><span>Expansion recommendation</span><strong style="color:#2E844A;">Agentforce auto-analysis</strong></div>
+                    <div class="eq-metric-row"><span>Configuration drift monitoring</span><strong style="color:#2E844A;">Continuous AI detection</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
+    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
+    .eq-design-notes-toggle:hover { background: #F3F3F3; }
+    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
+    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
+    .eq-design-notes-content h3:first-child { margin-top: 0; }
+    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
+    .eq-design-notes-content li { margin-bottom: 0.375rem; }
+</style>
+
+</div><!-- /slds-scope -->
+</body>
+</html>

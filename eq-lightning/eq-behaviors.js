@@ -349,6 +349,8 @@
     initCardCollapse();
     initCollapsingHeader();
     initPathDetailExpand();
+    initRightColumnTabs();
+    initActivityFilters();
 
     // Expose showToast globally for manual use
     window.showToast = showToast;
@@ -426,6 +428,114 @@
       }
     `;
     document.head.appendChild(style);
+  }
+
+  // ====================================================================
+  // ACTIVITY TIMELINE FILTERS
+  // ====================================================================
+
+  /**
+   * Initializes activity type filters (All, Calls, Emails, Tasks, Events)
+   * within the Activity tab. Filters timeline items by their type class.
+   * Timeline items use SLDS classes: slds-timeline__item_email,
+   * slds-timeline__item_call, slds-timeline__item_task, slds-timeline__item_event
+   */
+  function initActivityFilters() {
+    document.querySelectorAll('.eq-activity-filters').forEach(function(filterBar) {
+      filterBar.addEventListener('click', function(e) {
+        var btn = e.target.closest('.eq-activity-filter');
+        if (!btn) return;
+
+        var filterType = btn.getAttribute('data-filter');
+        var timeline = filterBar.closest('.slds-tabs_default__content') ||
+                       filterBar.parentElement;
+        var timelineEl = timeline.querySelector('.slds-timeline');
+        if (!timelineEl) return;
+
+        // Update active state
+        filterBar.querySelectorAll('.eq-activity-filter').forEach(function(b) {
+          b.classList.remove('is-active');
+        });
+        btn.classList.add('is-active');
+
+        // Filter items
+        var items = timelineEl.querySelectorAll(
+          '.slds-timeline__item_expandable, .slds-timeline__item, li.slds-timeline__item, div.slds-timeline__item'
+        );
+        items.forEach(function(item) {
+          if (filterType === 'all') {
+            item.style.display = '';
+          } else {
+            // Check class name for type match
+            var classes = item.className || '';
+            var assistText = item.querySelector('.slds-assistive-text');
+            var itemType = assistText ? assistText.textContent.toLowerCase().trim() : '';
+
+            var match = classes.indexOf('_' + filterType) !== -1 ||
+                        itemType === filterType ||
+                        itemType === filterType.replace('s', ''); // "calls" -> "call"
+
+            // Also check timeline marker icon for flat timelines
+            if (!match) {
+              var iconUse = item.querySelector('use[href*="' + filterType.replace('s', '') + '"]') ||
+                            item.querySelector('use[href*="log_a_call"]');
+              if (filterType === 'calls' && iconUse && iconUse.getAttribute('href').indexOf('log_a_call') !== -1) {
+                match = true;
+              }
+            }
+
+            item.style.display = match ? '' : 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // ====================================================================
+  // RIGHT-COLUMN TAB SWITCHING
+  // ====================================================================
+
+  /**
+   * Initializes SLDS tab switching for right-column activity tabs.
+   * Works with standard SLDS tabs markup: slds-tabs_default with
+   * slds-tabs_default__item, slds-tabs_default__link, slds-tabs_default__content.
+   */
+  function initRightColumnTabs() {
+    document.querySelectorAll('.slds-tabs_default__nav').forEach(function(nav) {
+      nav.addEventListener('click', function(e) {
+        var link = e.target.closest('.slds-tabs_default__link');
+        if (!link) return;
+        e.preventDefault();
+
+        var tabContainer = nav.closest('.slds-tabs_default');
+        if (!tabContainer) return;
+
+        // Deactivate all tabs
+        tabContainer.querySelectorAll('.slds-tabs_default__item').forEach(function(item) {
+          item.classList.remove('slds-is-active');
+        });
+        tabContainer.querySelectorAll('.slds-tabs_default__link').forEach(function(l) {
+          l.setAttribute('aria-selected', 'false');
+          l.setAttribute('tabindex', '-1');
+        });
+        tabContainer.querySelectorAll('.slds-tabs_default__content').forEach(function(panel) {
+          panel.classList.remove('slds-show');
+          panel.classList.add('slds-hide');
+        });
+
+        // Activate clicked tab
+        link.closest('.slds-tabs_default__item').classList.add('slds-is-active');
+        link.setAttribute('aria-selected', 'true');
+        link.setAttribute('tabindex', '0');
+
+        var panelId = link.getAttribute('aria-controls');
+        var panel = document.getElementById(panelId);
+        if (panel) {
+          panel.classList.remove('slds-hide');
+          panel.classList.add('slds-show');
+        }
+      });
+    });
   }
 
   // Initialize when DOM is ready

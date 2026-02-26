@@ -20,6 +20,8 @@
       { file: 'contact',     label: 'Contact',     icon: 'contact', color: '#A094ED' },
       { file: 'opportunity', label: 'Opportunity', icon: 'opportunity', color: '#FCB95B' },
       { file: 'order',       label: 'Order',       icon: 'orders', color: '#6BBECD' },
+      { file: 'contract',    label: 'Contract',    icon: 'contract', color: '#E0725A' },
+      { file: 'solution',    label: 'Solution',    icon: 'solution_detail', color: '#4BC076' },
       { file: 'case',        label: 'Case',        icon: 'case', color: '#F2836B' }
     ]
   };
@@ -70,7 +72,7 @@
   hhtml += '<span class="eq-app-name">Sales</span>';
   hhtml += '<div class="eq-search-box"><input type="search" placeholder="Search Salesforce" aria-label="Search Salesforce"></div>';
   hhtml += '<div class="eq-header-actions">';
-  hhtml += '<button aria-label="Notifications" title="Notifications">🔔</button>';
+  hhtml += '<button aria-label="Notifications" title="Notifications"><svg class="slds-icon slds-icon_x-small" style="fill:#fff;" aria-hidden="true"><use href="assets/icons/utility-sprite/svg/symbols.svg#notification"></use></svg></button>';
   hhtml += '<div class="eq-avatar" aria-label="User menu">RB</div>';
   hhtml += '</div>';
   header.innerHTML = hhtml;

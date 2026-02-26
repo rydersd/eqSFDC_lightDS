@@ -172,7 +172,7 @@
         <div class="eq-story-block">
             <strong>&#128218; Chapter 1: "We Are the Knights Who Say... Ni!"</strong><br>
             The Knights Who Say Ni Ltd began as a humble shrubbery procurement operation in the forests of ancient Britain. Their Head Knight demanded a very specific thing from every traveler who passed through: "A shrubbery! One that looks nice. And not too expensive." Over time, the Knights diversified into professional services — specifically, helping organizations find exactly the right thing they didn't know they needed. Their latest venture: migrating their entire shrubbery catalog to a cloud-hosted platform, which naturally requires colocation services. The Black Knight, their famously persistent Security Director ("It's just a flesh wound!"), manages the relationship. He has never, not once, allowed a vendor to pass without a fight.<br><br>
-            <strong>&#127793; Design discussion:</strong> This Account record is the hub. The three-column layout needs to answer three questions instantly: <em>Who is this customer?</em> (left), <em>What's happening with them right now?</em> (center), and <em>What else should I know?</em> (right). If a rep has to scroll or click to another page to answer any of those, we've failed.
+            <strong>&#127793; Design discussion:</strong> This Account record is the hub. The three-column layout needs to answer three questions instantly: <em>What else should I know?</em> (left), <em>Who is this customer?</em> (center), and <em>What's happening with them right now?</em> (right). If a rep has to scroll or click to another page to answer any of those, we've failed.
         </div>
 
         <!-- THREE-COLUMN BODY -->
@@ -560,6 +560,13 @@
                             <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Task</button>
                             <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Event</button>
                         </div>
+                    </div>
+                    <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities" style="padding:0.75rem 0.75rem 0;">
+                        <button class="eq-activity-filter is-active" data-filter="all">All</button>
+                        <button class="eq-activity-filter" data-filter="calls">Calls</button>
+                        <button class="eq-activity-filter" data-filter="emails">Emails</button>
+                        <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
+                        <button class="eq-activity-filter" data-filter="events">Events</button>
                     </div>
                     <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
                         <div class="eq-story-block">

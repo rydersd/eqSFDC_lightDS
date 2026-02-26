@@ -923,3 +923,58 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     border-radius: 0 0 4px 0;
 }
 .eq-skip-link:focus { top: 0; }
+
+/* ===== DESIGN NOTES ===== */
+.eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
+.eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
+.eq-design-notes-toggle:hover { background: #F3F3F3; }
+.eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
+.eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
+.eq-design-notes-content h3:first-child { margin-top: 0; }
+.eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
+.eq-design-notes-content li { margin-bottom: 0.375rem; }
+
+/* Quick Action Buttons */
+.eq-quick-action-btn { display: block; width: 100%; margin-bottom: 0.5rem; text-align: left; }
+
+/* ===== ACTIVITY TIMELINE FILTERS ===== */
+.eq-activity-filters {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #DDDBDA;
+    background: #FAFAF9;
+    flex-wrap: wrap;
+}
+.eq-activity-filter {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    border-radius: 1rem;
+    border: 1px solid #DDDBDA;
+    background: #fff;
+    color: #706E6B;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.eq-activity-filter:hover {
+    background: #F3F3F3;
+    border-color: #B0ADAB;
+}
+.eq-activity-filter.is-active {
+    background: #0070D2;
+    color: #fff;
+    border-color: #0070D2;
+}
+.eq-activity-filter .eq-filter-count {
+    display: inline-block;
+    font-size: 0.625rem;
+    background: rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    padding: 0 0.375rem;
+    margin-left: 0.25rem;
+}
+.eq-activity-filter.is-active .eq-filter-count {
+    background: rgba(255,255,255,0.25);
+}

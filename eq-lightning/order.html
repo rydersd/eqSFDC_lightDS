@@ -315,89 +315,175 @@
 
             <!-- RIGHT COLUMN: Activity -->
             <div>
-                <div class="slds-card">
-                    <div class="slds-card__header">
-                        <div class="slds-media slds-media_small">
-                            <div class="slds-media__figure">
-                                <span class="slds-icon_container slds-icon-standard-log_a_call">
-                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
-                                    </svg>
-                                </span>
-                            </div>
-                            <div class="slds-media__body">
-                                <h2 class="slds-card__header-title slds-text-heading_small">Order Activity</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
-                        <div class="slds-timeline">
-                            <div class="slds-timeline__item">
-                                <div class="slds-timeline__marker">
-                                    <svg class="slds-icon slds-icon-standard-task" aria-hidden="true">
-                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
-                                    </svg>
-                                </div>
-                                <div class="slds-timeline__content">
-                                    <h3 class="slds-text-heading_small">Order Activated — "The Purest Activation"</h3>
-                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Mar 2026</p>
-                                    <p class="slds-m-top_small">All line items provisioned and live. LD5: 2 cabs + 2 Fabric ports. Sir Galahad personally inspected each cable and declared them "pure and untainted by vendor lock-in." A small shrubbery was placed beside Cabinet A as per contract clause 4.2.1.</p>
-                                </div>
-                            </div>
-                            <div class="slds-timeline__item">
-                                <div class="slds-timeline__marker">
-                                    <svg class="slds-icon slds-icon-standard-email" aria-hidden="true">
-                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
-                                    </svg>
-                                </div>
-                                <div class="slds-timeline__content">
-                                    <h3 class="slds-text-heading_small">Email: Invoice Purity Check</h3>
-                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Feb 2026</p>
-                                    <p class="slds-m-top_small">Galahad reviewed the first invoice with a fine-tooth comb: "This line item for 'Miscellaneous Charges' — what is that? It's not very pure, is it? I demand itemization!" Resolved after breaking $47.50 into 3 sub-items.</p>
-                                </div>
-                            </div>
-                            <div class="slds-timeline__item">
-                                <div class="slds-timeline__marker">
-                                    <svg class="slds-icon slds-icon-standard-event" aria-hidden="true">
-                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
-                                    </svg>
-                                </div>
-                                <div class="slds-timeline__content">
-                                    <h3 class="slds-text-heading_small">Provisioning Delay: Herring Incident</h3>
-                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Jan 2026</p>
-                                    <p class="slds-m-top_small">Installation was delayed 2 days when Roger the Shrubber attempted to mount a herring in Rack B as a "network topology enhancement." The NOC team gently explained that herrings are not RJ45-compatible.</p>
-                                </div>
-                            </div>
-                            <div class="slds-timeline__item">
-                                <div class="slds-timeline__marker">
-                                    <svg class="slds-icon slds-icon-standard-log_a_call" aria-hidden="true">
-                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
-                                    </svg>
-                                </div>
-                                <div class="slds-timeline__content">
-                                    <h3 class="slds-text-heading_small">Call: Castle Anthrax Temptation</h3>
-                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Dec 2025</p>
-                                    <p class="slds-m-top_small">Galahad received a call from Castle Anthrax offering 40% discount on switching providers. He was tempted — "Let me face the peril!" — but The Black Knight intervened: "None shall pass to another vendor!" Order remained intact.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="slds-tabs_default">
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
+                            <a class="slds-tabs_default__link" href="#tab-activity" id="tab-activity-link" role="tab" aria-selected="true" aria-controls="tab-activity">Activity</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" href="#tab-chatter" id="tab-chatter-link" role="tab" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" href="#tab-agentforce" id="tab-agentforce-link" role="tab" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
+                        </li>
+                    </ul>
 
-                <div class="eq-agentforce">
-                    <div class="eq-agentforce-hdr">📄 Agentforce: Auto-Populate from Quote</div>
-                    <div class="eq-agentforce-desc">Automatically create an Order with line items from an approved Quote, mapping products, quantities, shrubbery specifications, and pricing. Includes Galahad's purity seal of approval workflow.</div>
-                    <button class="eq-agentforce-btn">🤖 Create Pure Order from Quote</button>
-                    <div class="eq-agentforce-time">Saves ~15 min of manual data entry per order</div>
-                </div>
-                <div class="eq-agentforce">
-                    <div class="eq-agentforce-hdr">💰 Agentforce: Price Validation</div>
-                    <div class="eq-agentforce-desc">Cross-check order pricing against current rate cards, approved shrubbery discounts, and contract terms. Flag anything that isn't "pure" before activation. Automatically rejects Castle Anthrax competitive offers.</div>
-                    <button class="eq-agentforce-btn">🤖 Validate Pricing Purity</button>
-                    <div class="eq-agentforce-time">Saves ~8 min; prevents impure billing</div>
+                    <!-- Activity Tab -->
+                    <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
+                        <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
+                            <button class="eq-activity-filter is-active" data-filter="all">All</button>
+                            <button class="eq-activity-filter" data-filter="calls">Calls</button>
+                            <button class="eq-activity-filter" data-filter="emails">Emails</button>
+                            <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
+                            <button class="eq-activity-filter" data-filter="events">Events</button>
+                        </div>
+                        <div class="slds-card">
+                            <div class="slds-card__header">
+                                <div class="slds-media slds-media_small">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-log_a_call">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title slds-text-heading_small">Order Activity</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                                <div class="slds-timeline">
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-task" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Order Activated — "The Purest Activation"</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Mar 2026</p>
+                                            <p class="slds-m-top_small">All line items provisioned and live. LD5: 2 cabs + 2 Fabric ports. Sir Galahad personally inspected each cable and declared them "pure and untainted by vendor lock-in." A small shrubbery was placed beside Cabinet A as per contract clause 4.2.1.</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-email" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Email: Invoice Purity Check</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Feb 2026</p>
+                                            <p class="slds-m-top_small">Galahad reviewed the first invoice with a fine-tooth comb: "This line item for 'Miscellaneous Charges' — what is that? It's not very pure, is it? I demand itemization!" Resolved after breaking $47.50 into 3 sub-items.</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-event" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Provisioning Delay: Herring Incident</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Jan 2026</p>
+                                            <p class="slds-m-top_small">Installation was delayed 2 days when Roger the Shrubber attempted to mount a herring in Rack B as a "network topology enhancement." The NOC team gently explained that herrings are not RJ45-compatible.</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-timeline__item">
+                                        <div class="slds-timeline__marker">
+                                            <svg class="slds-icon slds-icon-standard-log_a_call" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="slds-timeline__content">
+                                            <h3 class="slds-text-heading_small">Call: Castle Anthrax Temptation</h3>
+                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Dec 2025</p>
+                                            <p class="slds-m-top_small">Galahad received a call from Castle Anthrax offering 40% discount on switching providers. He was tempted — "Let me face the peril!" — but The Black Knight intervened: "None shall pass to another vendor!" Order remained intact.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chatter Tab -->
+                    <div id="tab-chatter" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-chatter-link">
+                        <div class="slds-card">
+                            <div class="slds-card__header">
+                                <div class="slds-media slds-media_small">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-feed">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#feed"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title slds-text-heading_small">Chatter</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-card__body" style="padding:0.75rem;">
+                                <p style="color:#706E6B; font-size:0.8125rem; margin-bottom:0.75rem;">Team discussion about this order.</p>
+                                <div style="padding:0.75rem; background:#F3F3F3; border-radius:4px; font-size:0.8125rem; color:#3E3E3C;">
+                                    <div style="margin-bottom:0.75rem;">
+                                        <strong>Sir Galahad</strong> — Today<br>
+                                        <span style="color:#706E6B;">All line items provisioned and live. I personally inspected each cable and they are pure and untainted. The shrubbery in Cabinet A meets clause 4.2.1 specifications.</span>
+                                    </div>
+                                    <div>
+                                        <strong>Roger the Shrubber</strong> — Yesterday<br>
+                                        <span style="color:#706E6B;">The herring incident has been resolved. NOC team confirmed all non-standard items removed from Rack B. RJ45 connections restored to full purity.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agentforce Tab -->
+                    <div id="tab-agentforce" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-agentforce-link">
+                        <div class="eq-agentforce">
+                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#page"></use></svg> Agentforce: Auto-Populate from Quote</div>
+                            <div class="eq-agentforce-desc">Automatically create an Order with line items from an approved Quote, mapping products, quantities, shrubbery specifications, and pricing. Includes Galahad's purity seal of approval workflow.</div>
+                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Create Pure Order from Quote</button>
+                            <div class="eq-agentforce-time">Saves ~15 min of manual data entry per order</div>
+                        </div>
+                        <div class="eq-agentforce">
+                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#moneybag"></use></svg> Agentforce: Price Validation</div>
+                            <div class="eq-agentforce-desc">Cross-check order pricing against current rate cards, approved shrubbery discounts, and contract terms. Flag anything that isn't "pure" before activation. Automatically rejects Castle Anthrax competitive offers.</div>
+                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Validate Pricing Purity</button>
+                            <div class="eq-agentforce-time">Saves ~8 min; prevents impure billing</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- DESIGN NOTES SECTION -->
+        <section class="eq-design-notes" aria-label="Design Notes">
+            <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
+                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
+                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                </svg>
+                Design Notes &amp; Feedback
+            </button>
+            <div class="slds-hide eq-design-notes-content">
+                <h3>Assembly Decisions</h3>
+                <ul>
+                    <li><strong>Left column (Related):</strong> Order Line Items with provisioning status, Related Cases linked to this order, and Shrubbery Inventory tracking. Compact related lists surface order fulfillment details at a glance.</li>
+                    <li><strong>Center column (Details):</strong> Order information (number, status, dates), shipping and billing addresses, and key terms. Path component shows order lifecycle: Draft, Activated, Provisioning, Complete.</li>
+                    <li><strong>Right column (Activity):</strong> Tabbed interface with Order Activity timeline (provisioning events, invoice checks, incidents), Chatter for order team discussion, and Agentforce tab with Auto-Populate from Quote and Price Validation cards.</li>
+                </ul>
+                <h3>Open Questions</h3>
+                <ul>
+                    <li>Should Order Line Items show provisioning progress bars per item, or just status badges?</li>
+                    <li>For orders linked to Solutions, should there be a "Related Solutions" card in the left column?</li>
+                    <li>Should the Auto-Populate from Quote Agentforce action be a one-click button on the order header instead of nested in the tab?</li>
+                </ul>
+                <h3>Feedback</h3>
+                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
+            </div>
+        </section>
 
 </main>
 
@@ -432,6 +518,17 @@
             </div>
         </div>
     </div>
+
+<style>
+    .eq-design-notes { margin: 1.5rem 1rem; border-top: 1px solid #DDDBDA; padding-top: 1rem; }
+    .eq-design-notes-toggle { background: none; border: 1px solid #DDDBDA; border-radius: 4px; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; color: #706E6B; cursor: pointer; display: flex; align-items: center; }
+    .eq-design-notes-toggle:hover { background: #F3F3F3; }
+    .eq-design-notes-content { padding: 1rem; margin-top: 0.75rem; background: #FAFAF9; border: 1px solid #DDDBDA; border-radius: 4px; font-size: 0.8125rem; line-height: 1.6; color: #3E3E3C; }
+    .eq-design-notes-content h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #706E6B; margin: 1rem 0 0.375rem; }
+    .eq-design-notes-content h3:first-child { margin-top: 0; }
+    .eq-design-notes-content ul { padding-left: 1.25rem; margin: 0; }
+    .eq-design-notes-content li { margin-bottom: 0.375rem; }
+</style>
 
 </div><!-- /slds-scope -->
 </body>
