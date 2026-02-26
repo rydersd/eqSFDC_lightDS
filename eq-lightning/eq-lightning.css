@@ -334,72 +334,75 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
 }
 
 /* Active path step indicator when panel is expanded */
-/* ===== PATH COMPONENT — matches Salesforce native pattern ===== */
+/* ===== PATH COMPONENT ===== */
 
-/* Active tab indicator */
+/* Outer container — provides margin around entire path section */
+#eq-path {
+    margin: 0.5rem 1rem 0.75rem;
+}
+
+/* Active tab underline when expanded */
 .slds-path__item.eq-path-expanded .slds-path__link {
     box-shadow: inset 0 -3px 0 #0070D2;
 }
 
-/* Expand / Collapse toggle — always visible */
+/* Current step — make it unmistakable */
+.slds-path__item.slds-is-current .slds-path__link {
+    font-weight: 700 !important;
+}
+
+/* ---- Expand / Collapse toggle (text-based, no SVG dependency) ---- */
 .eq-path-toggle {
     display: flex;
     align-items: center;
-    width: calc(100% - 2rem);
-    margin: 0 1rem;
-    padding: 0.5rem 0.75rem;
-    background: #fff;
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    background: #FAFAF9;
     border: 1px solid #DDDBDA;
-    border-bottom: none;
-    border-radius: 0.25rem 0.25rem 0 0;
+    border-radius: 0.25rem;
     cursor: pointer;
     font-size: 0.8125rem;
     font-weight: 600;
     color: #3E3E3C;
+    margin-bottom: 0;
 }
 .eq-path-toggle:hover { background: #F3F3F3; }
-.eq-path-chevron { transition: transform 0.25s ease; }
-.eq-path-toggle[aria-expanded="true"] .eq-path-chevron {
-    transform: rotate(180deg);
+.eq-path-toggle[aria-expanded="true"] {
+    border-radius: 0.25rem 0.25rem 0 0;
+    border-bottom: none;
+}
+.eq-path-toggle-chevron {
+    margin-left: auto;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+.eq-path-toggle[aria-expanded="false"] .eq-path-toggle-chevron {
+    transform: rotate(-90deg);
 }
 
-/* Path wrapper — collapsible content area */
+/* ---- Path wrapper — simple display toggle ---- */
 .eq-path-wrapper {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
-                opacity 0.25s ease;
-}
-.eq-path-wrapper.eq-path-wrapper--open {
-    max-height: 3000px;
-    opacity: 1;
-    overflow: visible;
-}
-
-/* Detail panel — expands below path nav (pushes columns down) */
-.eq-path-detail {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    background: #FAFAF9;
     border: 1px solid #DDDBDA;
     border-top: none;
-    margin: 0 1rem;
-    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
-                opacity 0.25s ease,
-                padding 0.35s cubic-bezier(0.4,0,0.2,1);
-    padding: 0 1.25rem;
-}
-.eq-path-detail.is-visible {
-    max-height: 800px;
-    opacity: 1;
-    padding: 1rem 1.25rem 1.25rem;
-    margin-bottom: 0.75rem;
     border-radius: 0 0 0.25rem 0.25rem;
+    background: #fff;
+}
+.eq-path-wrapper.is-collapsed {
+    display: none;
 }
 
-/* Stage header row inside panel: Stage Name | progress */
+/* ---- Detail panel — toggle with display, not max-height ---- */
+.eq-path-detail {
+    display: none;
+    background: #FAFAF9;
+    border-top: 3px solid #0070D2;
+    padding: 1rem 1.25rem 1.25rem;
+}
+.eq-path-detail.is-visible {
+    display: block;
+}
+
+/* Stage header: "Stage: Name" + progress */
 .eq-path-stage-header {
     display: flex;
     align-items: center;
@@ -413,10 +416,7 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     font-weight: 400;
     color: #3E3E3C;
 }
-.eq-path-stage-name strong {
-    font-weight: 700;
-    color: #080707;
-}
+.eq-path-stage-name strong { font-weight: 700; color: #080707; }
 .eq-path-stage-progress {
     display: flex;
     align-items: center;
@@ -435,10 +435,9 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
 .eq-path-progress-fill {
     height: 100%;
     border-radius: 3px;
-    transition: width 0.4s ease;
 }
 
-/* 2-column body: Key Fields | Guidance (matches SF native) */
+/* 2-column body: Exit Criteria (fields) | Guidance */
 .eq-path-detail-body {
     display: grid;
     grid-template-columns: 2fr 3fr;
@@ -457,7 +456,7 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     border-bottom: 1px solid #E5E5E5;
 }
 
-/* ---- Exit criteria / Key Fields as field rows ---- */
+/* ---- Exit criteria as FIELD ROWS (label + value + status) ---- */
 .eq-exit-row {
     display: flex;
     align-items: flex-start;
@@ -467,15 +466,28 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
 }
 .eq-exit-row:last-child { border-bottom: none; }
 
-/* Status icons */
-.eq-exit-icon {
+/* CSS-only status circles (no SVG dependency) */
+.eq-exit-status {
     flex-shrink: 0;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
     margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    line-height: 1;
 }
-.eq-exit-icon--done { fill: #2E844A; }
-.eq-exit-icon--open { fill: #DDDBDA; }
+.eq-exit-status--done {
+    background: #2E844A;
+    color: #fff;
+}
+.eq-exit-status--done::after { content: '\2713'; }
+.eq-exit-status--open {
+    background: #fff;
+    border: 2px solid #DDDBDA;
+}
 
 /* Field label + value */
 .eq-exit-field {
@@ -508,9 +520,7 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     color: #3E3E3C;
     line-height: 1.6;
 }
-.eq-path-detail-list li {
-    margin-bottom: 0.3rem;
-}
+.eq-path-detail-list li { margin-bottom: 0.3rem; }
 
 /* Advance stage button bar */
 .eq-path-advance-btn {
@@ -529,10 +539,8 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-    .eq-path-toggle { font-size: 0.75rem; }
-    .eq-path-detail-body {
-        grid-template-columns: 1fr;
-    }
+    #eq-path { margin: 0.5rem 0.75rem; }
+    .eq-path-detail-body { grid-template-columns: 1fr; }
     .slds-path__nav { flex-wrap: wrap; }
     .slds-path__item { flex: 1 1 auto; min-width: 0; }
     .slds-path__title { font-size: 0.6875rem; }
@@ -780,6 +788,217 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
     color: #706E6B;
     margin-top: 0.25rem;
 }
+
+/* ===== AGENTFORCE "BEST NEXT STEP" — above activity tabs ===== */
+.eq-agentforce-step {
+    background: linear-gradient(135deg, #F5EEFF 0%, #EEF4FF 100%);
+    border: 1px solid #D8B4FE;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.875rem;
+    margin-bottom: 0.75rem;
+}
+.eq-agentforce-step-hdr {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-bottom: 0.25rem;
+}
+.eq-agentforce-step-icon { font-size: 0.875rem; }
+.eq-agentforce-step-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #5A2D82;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.eq-agentforce-step-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #3E3E3C;
+    margin-bottom: 0.25rem;
+}
+.eq-agentforce-step-desc {
+    font-size: 0.75rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+    line-height: 1.45;
+}
+
+/* ===== ACTIVITY TABS — outer shell ===== */
+.eq-activity-tabs-wrap {
+    border: 1px solid #DDDBDA;
+    border-radius: 0.25rem;
+    background: #fff;
+}
+
+/* Outer panels */
+.eq-act-outer-panel { display: none; }
+.eq-act-outer-panel.is-active { display: block; }
+.eq-act-empty {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: #706E6B;
+}
+
+/* ---- Inner sub-tabs (Activity | Email | New Task | New Event) ---- */
+.eq-subtab-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #DDDBDA;
+    background: #FAFAF9;
+}
+.eq-subtab-item {
+    flex: none;
+}
+.eq-subtab-btn {
+    display: block;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #706E6B;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.eq-subtab-btn:hover { color: #3E3E3C; }
+.eq-subtab-item.is-active .eq-subtab-btn {
+    color: #0070D2;
+    border-bottom-color: #0070D2;
+}
+
+/* ---- Recap your Call input module ---- */
+.eq-activity-input {
+    padding: 0.75rem 0.875rem 0.5rem;
+}
+.eq-activity-input-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #3E3E3C;
+    margin-bottom: 0.375rem;
+}
+.eq-activity-input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.eq-activity-input-field {
+    flex: 1;
+    min-width: 0;
+    height: 2rem;
+    font-size: 0.8125rem;
+}
+.eq-activity-input-add {
+    flex-shrink: 0;
+    height: 2rem;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* ---- Filters row ---- */
+.eq-activity-filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.875rem;
+    border-bottom: 1px solid #F3F3F3;
+}
+.eq-activity-filter-text {
+    font-size: 0.6875rem;
+    color: #706E6B;
+}
+.eq-activity-filter-text a {
+    color: #706E6B;
+    text-decoration: none;
+}
+.eq-activity-filter-text a:hover {
+    color: #0070D2;
+    text-decoration: underline;
+}
+.eq-activity-filter-icon {
+    background: none;
+    border: 1px solid #DDDBDA;
+    border-radius: 0.25rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    color: #0070D2;
+    cursor: pointer;
+}
+.eq-activity-filter-icon:hover { background: #F3F3F3; }
+
+/* ---- Timeline wrap ---- */
+.eq-activity-timeline-wrap {
+    padding: 0.5rem 0.875rem;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+/* ---- CSS-only timeline icons (replaces SVG markers) ---- */
+.eq-timeline-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    color: #fff;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.eq-timeline-icon--log_a_call { background: #47C97A; }
+.eq-timeline-icon--log_a_call::after { content: '\260E'; }
+.eq-timeline-icon--email { background: #26AAE1; }
+.eq-timeline-icon--email::after { content: '\2709'; }
+.eq-timeline-icon--task { background: #4BC076; }
+.eq-timeline-icon--task::after { content: '\2713'; }
+.eq-timeline-icon--opportunity { background: #FCB95B; }
+.eq-timeline-icon--opportunity::after { content: '\2605'; }
+.eq-timeline-icon--event { background: #EB7092; }
+.eq-timeline-icon--event::after { content: '\25C6'; }
+
+/* ---- Chatter feed (component-generated) ---- */
+.eq-chatter-feed {
+    background: #F3F3F3;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+    color: #3E3E3C;
+}
+.eq-chatter-post { margin-bottom: 0.75rem; }
+.eq-chatter-post:last-child { margin-bottom: 0; }
+.eq-chatter-post-hdr { margin-bottom: 0.125rem; }
+.eq-chatter-post-body { color: #706E6B; }
+
+/* ---- Filter funnel icon ---- */
+.eq-filter-funnel {
+    color: #0070D2;
+    font-size: 0.75rem;
+}
+
+/* ---- Footer links ---- */
+.eq-activity-footer {
+    padding: 0.5rem 0.875rem 0.625rem;
+    border-top: 1px solid #F3F3F3;
+    text-align: center;
+    font-size: 0.75rem;
+}
+.eq-activity-footer a {
+    color: #0070D2;
+    text-decoration: none;
+    font-weight: 600;
+}
+.eq-activity-footer a:hover { text-decoration: underline; }
 
 /* ===== COMPACT RELATED LIST (Salesforce-style key-value) ===== */
 .eq-related-item {

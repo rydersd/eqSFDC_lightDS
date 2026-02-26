@@ -216,134 +216,9 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN = Activity Timeline & Agentforce -->
+            <!-- RIGHT COLUMN = Activity Timeline & Agentforce (component-driven) -->
             <div>
-                <!-- SLDS Tabs Container -->
-                <div id="eq-activity-tabs">
-
-                    <!-- Activity Tab Content -->
-                    <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
-                        <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
-                            <button class="eq-activity-filter is-active" data-filter="all">All</button>
-                            <button class="eq-activity-filter" data-filter="calls">Calls</button>
-                            <button class="eq-activity-filter" data-filter="emails">Emails</button>
-                            <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
-                            <button class="eq-activity-filter" data-filter="events">Events</button>
-                        </div>
-                        <div style="padding:0.75rem;">
-                            <ul class="slds-timeline">
-                                <li class="slds-timeline__item">
-                                    <div class="slds-timeline__marker">
-                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
-                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="slds-timeline__details">
-                                        <h3 class="slds-timeline__title"><a href="#">Call: Pricing Negotiation with The Head Knight</a></h3>
-                                        <p class="slds-timeline__meta">Yesterday</p>
-                                        <p class="slds-timeline__body">Discussed cabinet pricing, contract term flexibility, and delivery timeline. Head Knight requested 15% discount on first-year MRC. Proposed counteroffer of 10% + expedited cabinet provisioning. Follow-up meeting scheduled for next week.</p>
-                                    </div>
-                                </li>
-                                <li class="slds-timeline__item">
-                                    <div class="slds-timeline__marker">
-                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
-                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="slds-timeline__details">
-                                        <h3 class="slds-timeline__title"><a href="#">Email: Revised Statement of Work Submitted</a></h3>
-                                        <p class="slds-timeline__meta">3 days ago</p>
-                                        <p class="slds-timeline__body">Sent updated SOW incorporating cabinet specifications, power requirements, cross-connect configuration, and service level terms. Technical team reviewed for accuracy. Awaiting customer legal review and markup.</p>
-                                    </div>
-                                </li>
-                                <li class="slds-timeline__item">
-                                    <div class="slds-timeline__marker">
-                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
-                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="slds-timeline__details">
-                                        <h3 class="slds-timeline__title"><a href="#">Task: Technical Design Review Completed</a></h3>
-                                        <p class="slds-timeline__meta">1 week ago</p>
-                                        <p class="slds-timeline__body">Tim the Enchanter validated solution architecture: 4x cabinet configuration for LD5, 8kW per cabinet power draw, dual Equinix Fabric 10Gbps ports for redundancy, and metal instance allocation. Design approved with full SLA coverage.</p>
-                                    </div>
-                                </li>
-                                <li class="slds-timeline__item">
-                                    <div class="slds-timeline__marker">
-                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
-                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="slds-timeline__details">
-                                        <h3 class="slds-timeline__title"><a href="#">Proposal Presentation to Executive Sponsor</a></h3>
-                                        <p class="slds-timeline__meta">2 weeks ago</p>
-                                        <p class="slds-timeline__body">Presented comprehensive proposal to The Head Knight covering solution design, pricing model (36-month term), deployment timeline, and competitive differentiation. Head Knight approved solution approach pending final contract negotiation.</p>
-                                    </div>
-                                </li>
-                                <li class="slds-timeline__item">
-                                    <div class="slds-timeline__marker">
-                                        <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
-                                            <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="slds-timeline__details">
-                                        <h3 class="slds-timeline__title"><a href="#">Initial Proposal Submitted</a></h3>
-                                        <p class="slds-timeline__meta">3 weeks ago</p>
-                                        <p class="slds-timeline__body">Submitted formal proposal document including pricing, cabinet configuration, network architecture, SLAs, and support model. Pricing: $580k for 36-month commitment with setup fee included.</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Chatter Tab Content -->
-                    <div id="tab-chatter" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-chatter-link">
-                        <div style="padding:0.75rem;">
-                            <p style="color:#706E6B; font-size:0.8125rem; margin-bottom:0.75rem;">Team discussion about this opportunity.</p>
-                            <div style="padding:0.75rem; background:#F3F3F3; border-radius:4px; font-size:0.8125rem; color:#3E3E3C;">
-                                <div style="margin-bottom:0.75rem;">
-                                    <strong>The Black Knight</strong> — Yesterday<br>
-                                    <span style="color:#706E6B;">Pricing negotiation with The Head Knight went well. He wants 15% discount but we countered with 10% + expedited provisioning. Follow-up next week.</span>
-                                </div>
-                                <div>
-                                    <strong>Tim the Enchanter</strong> — 3 days ago<br>
-                                    <span style="color:#706E6B;">Technical design review is complete. 4x cabinet config for LD5 with dual Fabric 10G ports. All specs validated and SLA coverage confirmed.</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Agentforce Tab Content -->
-                    <div id="tab-agentforce" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-agentforce-link">
-                        <div style="padding:0.75rem;">
-                            <!-- Agentforce Card 1 -->
-                            <div class="eq-agentforce">
-                                <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#snippet"></use></svg>Agentforce: Deal Summary Brief</div>
-                                <div class="eq-agentforce-desc">Generate a concise brief covering the full deal history, all stakeholders, solution specs, competitive landscape, and recommended talking points for your next customer call.</div>
-                                <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Generate Brief</button>
-                                <div class="eq-agentforce-time">Saves ~10 min before every call</div>
-                            </div>
-
-                            <!-- Agentforce Card 2 -->
-                            <div class="eq-agentforce">
-                                <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#trophy"></use></svg>Agentforce: Next Steps & Win Strategy</div>
-                                <div class="eq-agentforce-desc">Based on the current deal stage, competitive pressure, and historical win patterns, recommend the best next actions and tactics to move this deal toward signature and close.</div>
-                                <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg>Get Recommendations</button>
-                                <div class="eq-agentforce-time">Improves win rate by surfacing proven playbooks</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="eq-activity-tabs"></div>
             </div>
         </div><!-- /eq-record-body -->
 
@@ -536,7 +411,44 @@ EQ.renderHeader({
     {label: 'Probability', value: '65%'}
   ]
 });
-EQ.renderActivityTabs();
+EQ.renderActivityTabs({
+  // Agentforce "Best Next Step" card above tabs
+  agentforce: {
+    title: 'Best Next Step: Schedule Legal Review Follow-up',
+    description: 'Legal review is blocking close. Recommend scheduling a 30-min call with customer legal and your contracts team to resolve outstanding redlines.',
+    btnLabel: 'View Recommendation',
+    timeSaved: 'Suggested based on deal stage and historical win patterns'
+  },
+  // Activity timeline items
+  timeline: [
+    { icon:'log_a_call', title:'Call: Pricing Negotiation with The Head Knight', href:'#', meta:'Yesterday',
+      body:'Discussed cabinet pricing, contract term flexibility, and delivery timeline. Head Knight requested 15% discount on first-year MRC. Proposed counteroffer of 10% + expedited cabinet provisioning. Follow-up meeting scheduled for next week.' },
+    { icon:'email', title:'Email: Revised Statement of Work Submitted', href:'#', meta:'3 days ago',
+      body:'Sent updated SOW incorporating cabinet specifications, power requirements, cross-connect configuration, and service level terms. Technical team reviewed for accuracy. Awaiting customer legal review and markup.' },
+    { icon:'task', title:'Task: Technical Design Review Completed', href:'#', meta:'1 week ago',
+      body:'Tim the Enchanter validated solution architecture: 4x cabinet configuration for LD5, 8kW per cabinet power draw, dual Equinix Fabric 10Gbps ports for redundancy, and metal instance allocation. Design approved with full SLA coverage.' },
+    { icon:'opportunity', title:'Proposal Presentation to Executive Sponsor', href:'#', meta:'2 weeks ago',
+      body:'Presented comprehensive proposal to The Head Knight covering solution design, pricing model (36-month term), deployment timeline, and competitive differentiation. Head Knight approved solution approach pending final contract negotiation.' },
+    { icon:'email', title:'Initial Proposal Submitted', href:'#', meta:'3 weeks ago',
+      body:'Submitted formal proposal document including pricing, cabinet configuration, network architecture, SLAs, and support model. Pricing: $580k for 36-month commitment with setup fee included.' }
+  ],
+  // Agentforce tab cards
+  agentforceCards: [
+    { title:'Agentforce: Deal Summary Brief',
+      description:'Generate a concise brief covering the full deal history, all stakeholders, solution specs, competitive landscape, and recommended talking points for your next customer call.',
+      btnLabel:'Generate Brief', timeSaved:'Saves ~10 min before every call' },
+    { title:'Agentforce: Next Steps & Win Strategy',
+      description:'Based on the current deal stage, competitive pressure, and historical win patterns, recommend the best next actions and tactics to move this deal toward signature and close.',
+      btnLabel:'Get Recommendations', timeSaved:'Improves win rate by surfacing proven playbooks' }
+  ],
+  // Chatter posts
+  chatter: [
+    { author:'The Black Knight', time:'Yesterday',
+      body:'Pricing negotiation with The Head Knight went well. He wants 15% discount but we countered with 10% + expedited provisioning. Follow-up next week.' },
+    { author:'Tim the Enchanter', time:'3 days ago',
+      body:'Technical design review is complete. 4x cabinet config for LD5 with dual Fabric 10G ports. All specs validated and SLA coverage confirmed.' }
+  ]
+});
 </script>
 </body>
 </html>

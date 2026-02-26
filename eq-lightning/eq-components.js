@@ -115,41 +115,203 @@
 
 
   // ====================================================================
-  // RIGHT-COLUMN ACTIVITY TABS (shell only — content stays in page HTML)
+  // RIGHT-COLUMN ACTIVITY TABS
   // ====================================================================
   /**
-   * Renders the tab navigation for Activity | Chatter | Agentforce.
-   * Wraps existing content containers that must already be in the DOM:
-   *   <div id="tab-activity">...</div>
-   *   <div id="tab-chatter">...</div>
-   *   <div id="tab-agentforce">...</div>
+   * Renders the full Activity column as a self-contained component:
+   *   • Agentforce "Best Next Step" card (above tabs)
+   *   • Outer tabs: Activity | Agentforce | Community | Chatter
+   *   • Inside Activity tab:
+   *     – Sub-tabs: Activity | Email | New Task | New Event
+   *     – "Recap your Call" input module
+   *     – Filters row
+   *     – Activity timeline items
+   *     – Footer: Refresh · Expand All · View All
+   *
+   * All content is passed via cfg — nothing is hardcoded in the page HTML.
    *
    * @param {Object} [cfg]
-   * @param {string} [cfg.target] — DOM id (default: "eq-activity-tabs")
+   * @param {string}  [cfg.target]       — DOM id (default: "eq-activity-tabs")
+   * @param {Object}  [cfg.agentforce]   — Best-next-step card: {title, description, btnLabel, timeSaved}
+   * @param {Array}   [cfg.timeline]     — [{icon, title, href, meta, body}] activity items
+   * @param {Array}   [cfg.agentforceCards] — [{title, description, btnLabel, timeSaved}] for Agentforce tab
+   * @param {Array}   [cfg.chatter]      — [{author, time, body}] chatter posts
+   * @param {string}  [cfg.communityHtml]— Raw HTML for Community tab
    */
   EQ.renderActivityTabs = function(cfg) {
     cfg = cfg || {};
     var target = document.getElementById(cfg.target || 'eq-activity-tabs');
     if (!target) return;
 
-    // Create the tab nav
-    var nav = document.createElement('ul');
-    nav.className = 'slds-tabs_default__nav';
-    nav.setAttribute('role', 'tablist');
-    nav.innerHTML =
-      '<li class="slds-tabs_default__item slds-is-active" role="presentation">' +
-        '<a class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-activity" id="tab-activity__item">Activity</a>' +
-      '</li>' +
-      '<li class="slds-tabs_default__item" role="presentation">' +
-        '<a class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-chatter" id="tab-chatter__item">Chatter</a>' +
-      '</li>' +
-      '<li class="slds-tabs_default__item" role="presentation">' +
-        '<a class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-agentforce" id="tab-agentforce__item">Agentforce</a>' +
-      '</li>';
+    var outerTabs = ['Activity', 'Agentforce', 'Community', 'Chatter'];
+    var innerTabs = ['Activity', 'Email', 'New Task', 'New Event'];
 
-    // Insert nav at the top of the container
-    target.classList.add('slds-tabs_default');
-    target.insertBefore(nav, target.firstChild);
+    // — Agentforce "Best Next Step" card (above tabs) —
+    var agentHtml = '';
+    if (cfg.agentforce) {
+      var af = cfg.agentforce;
+      agentHtml = '<div class="eq-agentforce-step">' +
+        '<div class="eq-agentforce-step-hdr">' +
+          '<span class="eq-agentforce-step-icon" aria-hidden="true">&#x2728;</span>' +
+          '<span class="eq-agentforce-step-label">Agentforce</span>' +
+        '</div>' +
+        '<div class="eq-agentforce-step-title">' + esc(af.title) + '</div>' +
+        '<div class="eq-agentforce-step-desc">' + esc(af.description) + '</div>' +
+        '<button class="eq-agentforce-btn">' + esc(af.btnLabel || 'View Recommendation') + '</button>' +
+        (af.timeSaved ? '<div class="eq-agentforce-time">' + esc(af.timeSaved) + '</div>' : '') +
+      '</div>';
+    }
+
+    // — Outer tab nav —
+    var outerNav = outerTabs.map(function(label, i) {
+      var id = 'eq-act-outer-' + label.toLowerCase().replace(/\s+/g, '-');
+      var active = i === 0;
+      return '<li class="slds-tabs_default__item' + (active ? ' slds-is-active' : '') + '" role="presentation">' +
+        '<a class="slds-tabs_default__link" role="tab" tabindex="' + (active ? '0' : '-1') + '" ' +
+        'aria-selected="' + active + '" data-eq-tab="' + id + '">' + esc(label) + '</a></li>';
+    }).join('');
+
+    // — Inner sub-tabs (inside Activity panel) —
+    var innerNav = innerTabs.map(function(label, i) {
+      var active = i === 0;
+      return '<li class="eq-subtab-item' + (active ? ' is-active' : '') + '">' +
+        '<button class="eq-subtab-btn"' +
+        (active ? ' aria-current="true"' : '') + '>' + esc(label) + '</button></li>';
+    }).join('');
+
+    // — Input module: "Recap your Call" —
+    var inputModule = '<div class="eq-activity-input">' +
+      '<label class="eq-activity-input-label">Recap your Call</label>' +
+      '<div class="eq-activity-input-row">' +
+        '<input type="text" class="eq-activity-input-field slds-input" placeholder="" aria-label="Call recap" />' +
+        '<button class="slds-button slds-button_brand eq-activity-input-add">Add</button>' +
+      '</div>' +
+    '</div>';
+
+    // — Filters row —
+    var filtersRow = '<div class="eq-activity-filter-row">' +
+      '<span class="eq-activity-filter-text">Filters: <a href="#">All time</a> &middot; <a href="#">All Activities</a> &middot; <a href="#">All Types</a></span>' +
+      '<button class="eq-activity-filter-icon" aria-label="Filter options" title="Filter options">' +
+        '<span class="eq-filter-funnel" aria-hidden="true">&#x25BC;</span>' +
+      '</button>' +
+    '</div>';
+
+    // — Build timeline from data —
+    var timelineHtml = '';
+    if (cfg.timeline && cfg.timeline.length) {
+      var items = cfg.timeline.map(function(t) {
+        var iconSlug = t.icon || 'log_a_call';
+        return '<li class="slds-timeline__item">' +
+          '<div class="slds-timeline__marker">' +
+            '<span class="eq-timeline-icon eq-timeline-icon--' + esc(iconSlug) + '" aria-hidden="true"></span>' +
+          '</div>' +
+          '<div class="slds-timeline__details">' +
+            '<h3 class="slds-timeline__title">' +
+              (t.href ? '<a href="' + esc(t.href) + '">' : '') +
+              esc(t.title) +
+              (t.href ? '</a>' : '') +
+            '</h3>' +
+            '<p class="slds-timeline__meta">' + esc(t.meta) + '</p>' +
+            '<p class="slds-timeline__body">' + esc(t.body) + '</p>' +
+          '</div>' +
+        '</li>';
+      }).join('');
+      timelineHtml = '<ul class="slds-timeline">' + items + '</ul>';
+    }
+
+    // — Footer —
+    var footer = '<div class="eq-activity-footer">' +
+      '<a href="#">Refresh</a> &middot; <a href="#">Expand All</a> &middot; <a href="#">View All</a>' +
+    '</div>';
+
+    // — Activity panel (first outer tab) —
+    var activityPanel = '<div id="eq-act-outer-activity" class="eq-act-outer-panel is-active">' +
+      '<ul class="eq-subtab-nav">' + innerNav + '</ul>' +
+      inputModule +
+      filtersRow +
+      '<div class="eq-activity-timeline-wrap">' + timelineHtml + '</div>' +
+      footer +
+    '</div>';
+
+    // — Agentforce panel (second outer tab) —
+    var agentforceTabHtml = '';
+    if (cfg.agentforceCards && cfg.agentforceCards.length) {
+      agentforceTabHtml = cfg.agentforceCards.map(function(card) {
+        return '<div class="eq-agentforce">' +
+          '<div class="eq-agentforce-hdr">' + esc(card.title) + '</div>' +
+          '<div class="eq-agentforce-desc">' + esc(card.description) + '</div>' +
+          '<button class="eq-agentforce-btn">' + esc(card.btnLabel || 'Generate') + '</button>' +
+          (card.timeSaved ? '<div class="eq-agentforce-time">' + esc(card.timeSaved) + '</div>' : '') +
+        '</div>';
+      }).join('');
+    }
+    var agentforcePanel = '<div id="eq-act-outer-agentforce" class="eq-act-outer-panel">' +
+      '<div style="padding:0.75rem;">' +
+      (agentforceTabHtml || '<div class="eq-act-empty">No Agentforce actions available.</div>') +
+      '</div></div>';
+
+    // — Community panel —
+    var communityPanel = '<div id="eq-act-outer-community" class="eq-act-outer-panel">' +
+      (cfg.communityHtml || '<div class="eq-act-empty">No community activity.</div>') +
+    '</div>';
+
+    // — Chatter panel —
+    var chatterHtml = '';
+    if (cfg.chatter && cfg.chatter.length) {
+      var posts = cfg.chatter.map(function(p) {
+        return '<div class="eq-chatter-post">' +
+          '<div class="eq-chatter-post-hdr"><strong>' + esc(p.author) + '</strong> &mdash; ' + esc(p.time) + '</div>' +
+          '<div class="eq-chatter-post-body">' + esc(p.body) + '</div>' +
+        '</div>';
+      }).join('');
+      chatterHtml = '<div style="padding:0.75rem;">' +
+        '<p style="color:#706E6B; font-size:0.8125rem; margin-bottom:0.75rem;">Team discussion about this opportunity.</p>' +
+        '<div class="eq-chatter-feed">' + posts + '</div></div>';
+    }
+    var chatterPanel = '<div id="eq-act-outer-chatter" class="eq-act-outer-panel">' +
+      (chatterHtml || '<div class="eq-act-empty">No Chatter posts.</div>') +
+    '</div>';
+
+    // — Assemble —
+    target.innerHTML = agentHtml +
+      '<div class="slds-tabs_default eq-activity-tabs-wrap">' +
+        '<ul class="slds-tabs_default__nav" role="tablist">' + outerNav + '</ul>' +
+        activityPanel + agentforcePanel + communityPanel + chatterPanel +
+      '</div>';
+
+    // — Wire outer tab switching —
+    var outerLinks = target.querySelectorAll('[data-eq-tab]');
+    var outerPanels = target.querySelectorAll('.eq-act-outer-panel');
+    Array.prototype.forEach.call(outerLinks, function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var tabId = this.getAttribute('data-eq-tab');
+        Array.prototype.forEach.call(outerLinks, function(l) {
+          l.parentElement.classList.remove('slds-is-active');
+          l.setAttribute('aria-selected', 'false');
+          l.setAttribute('tabindex', '-1');
+        });
+        this.parentElement.classList.add('slds-is-active');
+        this.setAttribute('aria-selected', 'true');
+        this.setAttribute('tabindex', '0');
+        Array.prototype.forEach.call(outerPanels, function(p) {
+          p.classList.toggle('is-active', p.id === tabId);
+        });
+      });
+    });
+
+    // — Wire inner sub-tab switching —
+    var subBtns = target.querySelectorAll('.eq-subtab-btn');
+    Array.prototype.forEach.call(subBtns, function(btn) {
+      btn.addEventListener('click', function() {
+        Array.prototype.forEach.call(subBtns, function(b) {
+          b.parentElement.classList.remove('is-active');
+          b.removeAttribute('aria-current');
+        });
+        this.parentElement.classList.add('is-active');
+        this.setAttribute('aria-current', 'true');
+      });
+    });
   };
 
 
@@ -314,12 +476,10 @@
       '<div class="slds-grid slds-path__scroller-container"><div class="slds-path__scroller" role="application">' +
       '<ul class="slds-path__nav" role="tablist">' + navItems + '</ul></div></div>' +
       '<div class="slds-grid slds-path__action"><button class="slds-button slds-button_brand slds-path__mark-complete">' +
-      '<svg class="slds-button__icon slds-button__icon_left" aria-hidden="true"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>' +
       esc(advLabel) + '</button></div></div></div>';
 
-    // — Build detail panels —
+    // — Build detail panels with field-based exit criteria —
     var panels = cfg.stages.map(function(s) {
-      // Progress calc
       var total = s.exitCriteria ? s.exitCriteria.length : 0;
       var done = 0;
       if (s.exitCriteria) s.exitCriteria.forEach(function(c) { if (c.done) done++; });
@@ -328,23 +488,20 @@
 
       var criteriaTitle = s.status === 'incomplete' ? 'Conversion Checklist' : 'Exit Criteria';
 
-      // Exit criteria as FIELD ROWS with label, value, and check/incomplete state
+      // Exit criteria as FIELD ROWS: status circle + field label + field value
       var criteriaHtml = '';
       if (s.exitCriteria && s.exitCriteria.length) {
         criteriaHtml = s.exitCriteria.map(function(c) {
           var rowCls = 'eq-exit-row' + (c.done ? ' is-done' : '');
-          var statusIcon = c.done
-            ? '<svg class="eq-exit-icon eq-exit-icon--done" aria-label="Complete" role="img"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>'
-            : '<svg class="eq-exit-icon eq-exit-icon--open" aria-label="Incomplete" role="img"><use href="assets/icons/utility-sprite/svg/symbols.svg#record"></use></svg>';
-          // Value display — support badges
-          var valHtml = '';
-          if (c.badge) {
-            valHtml = '<span class="eq-badge eq-badge--' + esc(c.badge) + '">' + esc(c.value) + '</span>';
-          } else {
-            valHtml = '<span class="eq-exit-value">' + esc(c.value) + '</span>';
-          }
+          // CSS-only status indicator (no SVG dependency)
+          var statusEl = c.done
+            ? '<span class="eq-exit-status eq-exit-status--done" aria-label="Complete"></span>'
+            : '<span class="eq-exit-status eq-exit-status--open" aria-label="Incomplete"></span>';
+          var valHtml = c.badge
+            ? '<span class="eq-badge eq-badge--' + esc(c.badge) + '">' + esc(c.value) + '</span>'
+            : '<span class="eq-exit-value">' + esc(c.value) + '</span>';
           return '<div class="' + rowCls + '">' +
-            statusIcon +
+            statusEl +
             '<div class="eq-exit-field">' +
               '<span class="eq-exit-label">' + esc(c.label) + '</span>' +
               valHtml +
@@ -367,14 +524,11 @@
         var remaining = total - done;
         var noteText = remaining > 0
           ? remaining + ' criteria remaining before this stage can close'
-          : 'All criteria met — ready to advance';
+          : 'All criteria met \u2014 ready to advance';
         var btnCls = s.advanceBtn.disabled ? 'slds-button slds-button_neutral' : 'slds-button slds-button_brand';
-        var iconKey = s.advanceBtn.icon || (s.advanceBtn.disabled ? 'lock' : 'check');
         advBtnHtml = '<div class="eq-path-advance-btn">' +
           '<span class="eq-advance-note">' + esc(noteText) + '</span>' +
           '<button class="' + btnCls + '"' + (s.advanceBtn.disabled ? ' disabled' : '') + '>' +
-          '<svg class="slds-button__icon slds-button__icon_left" aria-hidden="true" style="width:14px;height:14px;">' +
-          '<use href="assets/icons/utility-sprite/svg/symbols.svg#' + iconKey + '"></use></svg>' +
           esc(s.advanceBtn.label) + '</button></div>';
       }
 
@@ -394,30 +548,26 @@
       '</div>';
     }).join('');
 
-    // — Expand/collapse toggle (visible on ALL screen sizes) —
-    var toggleBtn = '<button class="eq-path-toggle" aria-expanded="true" aria-controls="eq-path-content" aria-label="Collapse sales path details">' +
-      '<svg class="slds-button__icon" aria-hidden="true" style="width:16px;height:16px;fill:currentColor;margin-right:6px;">' +
-      '<use href="assets/icons/utility-sprite/svg/symbols.svg#routing_offline"></use></svg>' +
-      '<span class="eq-path-toggle-label">Sales Path</span>' +
-      '<svg class="slds-button__icon eq-path-chevron" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;margin-left:auto;">' +
-      '<use href="assets/icons/utility-sprite/svg/symbols.svg#chevrondown"></use></svg></button>';
+    // — Expand/collapse toggle: text-based, no SVG dependency —
+    var toggleBtn = '<button class="eq-path-toggle" aria-expanded="true" aria-controls="eq-path-content">' +
+      '\u2630 Sales Path' +
+      '<span class="eq-path-toggle-chevron">\u25BC</span></button>';
 
     target.innerHTML = toggleBtn +
-      '<div id="eq-path-content" class="eq-path-wrapper eq-path-wrapper--open">' + pathNav + panels + '</div>';
+      '<div id="eq-path-content" class="eq-path-wrapper">' + pathNav + panels + '</div>';
 
-    // — Wire expand/collapse toggle —
+    // — Wire expand/collapse toggle (display:none toggle, not max-height) —
     var toggle = target.querySelector('.eq-path-toggle');
     var wrapper = target.querySelector('.eq-path-wrapper');
     if (toggle && wrapper) {
       toggle.addEventListener('click', function() {
         var expanded = this.getAttribute('aria-expanded') === 'true';
         this.setAttribute('aria-expanded', String(!expanded));
-        this.setAttribute('aria-label', expanded ? 'Expand sales path details' : 'Collapse sales path details');
-        wrapper.classList.toggle('eq-path-wrapper--open');
+        wrapper.classList.toggle('is-collapsed');
       });
     }
 
-    // — Auto-expand current stage —
+    // — Auto-expand current stage detail panel —
     if (autoExpand) {
       setTimeout(function() {
         var currentItem = target.querySelector('.slds-is-current[data-path-detail]');
@@ -429,7 +579,7 @@
             currentItem.classList.add('eq-path-expanded');
           }
         }
-      }, 400);
+      }, 300);
     }
   };
 
