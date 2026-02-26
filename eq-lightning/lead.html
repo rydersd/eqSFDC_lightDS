@@ -11,88 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <!-- HIGHLIGHTS PANEL - Using SLDS Page Header Record Home -->
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-title">
-                    <div class="slds-media">
-                        <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-lead" title="Lead">
-                                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
-                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#lead"></use>
-                                </svg>
-                                <span class="slds-assistive-text">Lead</span>
-                            </span>
-                        </div>
-                        <div class="slds-media__body">
-                            <div class="slds-page-header__name">
-                                <div class="slds-page-header__name-title">
-                                    <h1>
-                                        <span class="slds-page-header__title slds-truncate" title="Thurston Livingston III">Thurston Livingston III</span>
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-page-header__col-actions">
-                    <div class="slds-page-header__controls">
-                        <div class="slds-page-header__control">
-                            <div class="slds-p-right_small" style="display:inline-block;">
-                                <button class="slds-button slds-button_neutral slds-button_icon slds-button_icon-border-filled" id="toggleComparison" aria-label="Toggle Before/After" title="Toggle Before/After" aria-checked="false">
-                                    <svg class="slds-button__icon" aria-hidden="true">
-                                        <use href="assets/icons/utility-sprite/svg/symbols.svg#compare"></use>
-                                    </svg>
-                                    <span class="slds-assistive-text">Before/After</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="slds-page-header__control">
-                            <ul class="slds-button-group-list">
-                                <li><button class="slds-button slds-button_neutral">Following</button></li>
-                                <li><button class="slds-button slds-button_neutral">Edit</button></li>
-                                <li><button class="slds-button slds-button_neutral">Change Owner</button></li>
-                                <li>
-                                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions" title="More Actions">
-                                        <svg class="slds-button__icon" aria-hidden="true">
-                                            <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-                                        </svg>
-                                        <span class="slds-assistive-text">More Actions</span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-page-header__row slds-page-header__row_gutters">
-                <div class="slds-page-header__col-details">
-                    <div class="slds-page-header__detail-row">
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Company">Company</p>
-                            <p class="slds-text-body_regular slds-truncate" title="Filthy Lucre Imports Ltd">Filthy Lucre Imports Ltd</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Title">Title</p>
-                            <p class="slds-text-body_regular slds-truncate" title="CTO">CTO</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
-                            <p class="slds-text-body_regular slds-truncate" title="+44 776 192 2187">+44 776 192 2187</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Email">Email</p>
-                            <p class="slds-text-body_regular slds-truncate" title="t.livingston@filthylucre.co.uk"><a href="mailto:t.livingston@filthylucre.co.uk">t.livingston@filthylucre.co.uk</a></p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Lead Score">Lead Score</p>
-                            <p class="slds-text-body_regular slds-truncate" title="78 — Hot"><span class="eq-badge eq-badge--success">78 — Hot</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="eq-anno">&#9432; Highlights Panel — max 5 fields. Shows compact layout fields from the record. First thing a user sees. Must answer: "Is this the right record? What's the status?"</div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <!-- LEAD QUALIFICATION PATH - FULL WIDTH -->
         <div style="padding: 0.5rem 1rem;">
@@ -473,19 +393,8 @@
             <!-- ===== RIGHT: Activity + Next Best Action ===== -->
             <div>
 
-                <!-- Tabbed Activity Section -->
-                <div class="slds-tabs_default">
-                    <ul class="slds-tabs_default__nav" role="tablist">
-                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
-                            <a class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-activity" id="tab-activity__item">Activity</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-chatter" id="tab-chatter__item">Chatter</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-agentforce" id="tab-agentforce__item">Agentforce</a>
-                        </li>
-                    </ul>
+                <!-- Tabbed Activity Section — tabs injected by eq-components.js -->
+                <div id="eq-activity-tabs">
 
                     <!-- Activity Tab -->
                     <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity__item" style="padding:0;">
@@ -821,7 +730,29 @@
 </style>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
+<script>
+EQ.renderHeader({
+  objectType: 'lead',
+  objectLabel: 'Lead',
+  title: 'Thurston Livingston III',
+  showCompare: true,
+  actions: [
+    {label: 'Following'},
+    {label: 'Edit'},
+    {label: 'Change Owner'}
+  ],
+  fields: [
+    {label: 'Company', value: 'Filthy Lucre Imports Ltd'},
+    {label: 'Title', value: 'CTO'},
+    {label: 'Phone', value: '+44 776 192 2187'},
+    {label: 'Email', value: 't.livingston@filthylucre.co.uk', isLink: true, href: 'mailto:t.livingston@filthylucre.co.uk'},
+    {label: 'Lead Score', value: '78 — Hot', badge: 'success'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

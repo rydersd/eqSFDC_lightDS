@@ -11,78 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <!-- HIGHLIGHTS PANEL - Using SLDS Page Header Record Home -->
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-title">
-                    <div class="slds-media">
-                        <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-account" title="Account">
-                                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
-                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use>
-                                </svg>
-                                <span class="slds-assistive-text">Account</span>
-                            </span>
-                        </div>
-                        <div class="slds-media__body">
-                            <div class="slds-page-header__name">
-                                <div class="slds-page-header__name-title">
-                                    <h1>
-                                        <span class="slds-page-header__title slds-truncate" title="The Knights Who Say Ni Ltd">The Knights Who Say Ni Ltd</span>
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-page-header__col-actions">
-                    <div class="slds-page-header__controls">
-                        <div class="slds-page-header__control">
-                            <ul class="slds-button-group-list">
-                                <li><button class="slds-button slds-button_neutral">Following</button></li>
-                                <li><button class="slds-button slds-button_neutral">Edit</button></li>
-                                <li><button class="slds-button slds-button_neutral">Change Owner</button></li>
-                                <li>
-                                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions" title="More Actions">
-                                        <svg class="slds-button__icon" aria-hidden="true">
-                                            <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-                                        </svg>
-                                        <span class="slds-assistive-text">More Actions</span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-page-header__row slds-page-header__row_gutters">
-                <div class="slds-page-header__col-details">
-                    <div class="slds-page-header__detail-row">
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Annual Revenue">Annual Revenue</p>
-                            <p class="slds-text-body_regular slds-truncate" title="$4,200,000">$4,200,000</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Industry">Industry</p>
-                            <p class="slds-text-body_regular slds-truncate" title="Shrubbery &amp; Landscaping">Shrubbery &amp; Landscaping</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Account Owner">Account Owner</p>
-                            <p class="slds-text-body_regular slds-truncate" title="The Black Knight"><a href="contact.html">The Black Knight</a></p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
-                            <p class="slds-text-body_regular slds-truncate" title="+44 20 NI-NI-NIII">+44 20 NI-NI-NIII</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Customer Segmentation">Customer Segmentation</p>
-                            <p class="slds-text-body_regular slds-truncate" title="Mid-Market – Growth">Mid-Market – Growth</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="eq-anno">&#9432; Highlights Panel — max 5 fields. Shows compact layout fields from the record. First thing a user sees. Must answer: "Is this the right record? What's the status?"</div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <!-- ENGAGEMENT PATH - FULL WIDTH -->
         <div style="padding: 0.5rem 1rem;">
@@ -342,7 +272,7 @@
                     </div>
                 </div>
 
-                <!-- Account Plans (0) -->
+                <!-- Account Plans (1) -->
                 <div class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -354,23 +284,21 @@
                                 </span>
                             </div>
                             <div class="slds-media__body">
-                                <h2 class="slds-card__header-title"><span>Account Plans (0)</span></h2>
+                                <h2 class="slds-card__header-title"><span>Account Plans (1)</span></h2>
                             </div>
                         </header>
                         <div class="slds-no-flex">
                             <button class="slds-button slds-button_neutral" style="font-size:0.6875rem;">New</button>
                         </div>
                     </div>
-                    <div class="slds-card__body slds-card__body_inner">
-                        <div class="eq-account-plan-cta">
-                            <p>No Account Plan exists yet. Create one to document strategic priorities, KPIs, and growth targets for this account.</p>
-                            <p style="font-size:0.6875rem; color:#706E6B;">Tip: Click "New" to open the Account Plan form. Fill in the plan name, start/end dates, vision, and SWOT analysis. Agentforce can help pre-populate based on account history.</p>
-                        </div>
-                        <div class="eq-agentforce" style="margin:0.5rem 0.75rem;">
-                            <div class="eq-agentforce-hdr">&#129302; Agentforce: Draft Account Plan</div>
-                            <div class="eq-agentforce-desc">Analyze account history, open opportunities, installed products, and case trends to draft a starting Account Plan with strategic priorities and growth targets.</div>
-                            <button class="eq-agentforce-btn">&#129302; Generate Account Plan Draft</button>
-                            <div class="eq-agentforce-time">Saves ~45 min manual research and writing</div>
+                    <div class="slds-card__body">
+                        <div class="eq-related-item" style="cursor:pointer;" onclick="switchCenterTab('plan')">
+                            <div class="eq-related-item-title"><a href="#" onclick="event.preventDefault();switchCenterTab('plan')">FY26 Strategic Growth Plan</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                                <span class="eq-related-item-field">Health: <strong>72/100</strong></span>
+                                <span class="eq-related-item-field">Next Review: <strong>Mar 15, 2026</strong></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,8 +312,22 @@
                 </div>
             </div>
 
-            <!-- ===== CENTER: Record Details ===== -->
-            <div class="slds-card">
+            <!-- ===== CENTER: Record Details / Account Plan ===== -->
+            <div>
+                <!-- Center Column Tab Switcher -->
+                <div class="slds-tabs_default" style="margin-bottom:0;">
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
+                            <a class="slds-tabs_default__link" href="#" role="tab" onclick="event.preventDefault();switchCenterTab('details')">Details</a>
+                        </li>
+                        <li class="slds-tabs_default__item" role="presentation">
+                            <a class="slds-tabs_default__link" href="#" role="tab" onclick="event.preventDefault();switchCenterTab('plan')">Account Plan</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Details Tab Content -->
+                <div id="center-tab-details" class="slds-card" style="border-top:none;border-radius:0 0 0.25rem 0.25rem;">
                 <div class="slds-card__header slds-grid">
                     <header class="slds-media slds-media_center slds-has-flexi-truncate">
                         <div class="slds-media__figure">
@@ -532,7 +474,15 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><!-- /center-tab-details -->
+
+                <!-- Account Plan Tab Content (lazy loaded) -->
+                <div id="center-tab-plan" class="slds-card" style="display:none;border-top:none;border-radius:0 0 0.25rem 0.25rem;">
+                    <div class="slds-card__body" style="padding:1rem; text-align:center; color:#706E6B;">
+                        Loading Account Plan...
+                    </div>
+                </div>
+            </div><!-- /center column wrapper -->
 
             <!-- ===== RIGHT: Activity + Context ===== -->
             <div>
@@ -796,7 +746,64 @@
     </div>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
+<script>
+/* Center column tab switcher — Details / Account Plan */
+let planLoaded = false;
+function switchCenterTab(tab) {
+    const detailsTab = document.getElementById('center-tab-details');
+    const planTab = document.getElementById('center-tab-plan');
+    const tabs = document.querySelectorAll('.slds-tabs_default__item');
+    if (!detailsTab || !planTab) return;
+
+    tabs.forEach(t => t.classList.remove('slds-is-active'));
+    if (tab === 'plan') {
+        detailsTab.style.display = 'none';
+        planTab.style.display = '';
+        if (tabs[1]) tabs[1].classList.add('slds-is-active');
+        if (!planLoaded) loadAccountPlan();
+    } else {
+        detailsTab.style.display = '';
+        planTab.style.display = 'none';
+        if (tabs[0]) tabs[0].classList.add('slds-is-active');
+    }
+}
+
+function loadAccountPlan() {
+    fetch('account-plan-content.html')
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(html => {
+            document.getElementById('center-tab-plan').innerHTML = html;
+            planLoaded = true;
+        })
+        .catch(() => {
+            document.getElementById('center-tab-plan').innerHTML =
+                '<div class="slds-card__body" style="padding:1rem;color:#C23934;">Failed to load Account Plan content.</div>';
+        });
+}
+
+/* Initialize EQ components */
+EQ.renderHeader({
+  objectType: 'account',
+  objectLabel: 'Account',
+  title: 'The Knights Who Say Ni Ltd',
+  showCompare: true,
+  actions: [
+    {label: 'Following'},
+    {label: 'Edit'},
+    {label: 'Change Owner'}
+  ],
+  fields: [
+    {label: 'Account Owner', value: 'The Black Knight'},
+    {label: 'Industry', value: 'Shrubbery & Landscaping'},
+    {label: 'Phone', value: '+44 20 NI-NI-NIII'},
+    {label: 'Rating', value: 'Hot', badge: 'success'},
+    {label: 'Annual Revenue', value: '$4,200,000'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

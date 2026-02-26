@@ -11,39 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-icon">
-                    <svg class="slds-icon slds-icon-standard-orders slds-page-header__icon" aria-hidden="true">
-                        <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
-                    </svg>
-                </div>
-                <div class="slds-page-header__col-details">
-                    <div class="slds-text-body_small slds-truncate">Order</div>
-                    <h1 class="slds-page-header__title slds-truncate slds-m-top_x-small">ORD-2026-NI1 — The Sacred Order of Shrubbery Hosting</h1>
-                </div>
-            </div>
-            <div class="slds-page-header__row">
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Account</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate"><a href="account.html">The Knights Who Say Ni Ltd</a></dd>
-                    </dl>
-                </div>
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Status</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate"><span class="eq-badge eq-badge--success">Active (and Pure)</span></dd>
-                    </dl>
-                </div>
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Order Start Date</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate">Mar 1, 2026</dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <div class="eq-story-block">
             Sir Galahad the Pure handles all procurement for the Knights Who Say Ni. He approaches every purchase order with an almost spiritual dedication to accuracy. When the Castle Anthrax sales team tried to lure him with aggressive discounting and "special offers," he nearly succumbed — "It's not a very good deal, is it? I mean, I could stay a while..." — but Sir Lancelot burst in and dragged him back to proper vendor evaluation. The existing order covers their initial deployment: 2 cabs in LD5 plus Fabric ports for the Shrubbery-as-a-Service beta. In the old Salesforce system, this order had 138 fields spread across 5+ screens. Galahad had to open Siebel to see the billing details, then back to Salesforce for the line items, then into a spreadsheet for the rack layout. He called it "the temptation of swivel-chairing."<br><br>
@@ -315,19 +284,12 @@
 
             <!-- RIGHT COLUMN: Activity -->
             <div>
-                <div class="slds-tabs_default">
-                    <ul class="slds-tabs_default__nav" role="tablist">
-                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
-                            <a class="slds-tabs_default__link" href="#tab-activity" id="tab-activity-link" role="tab" aria-selected="true" aria-controls="tab-activity">Activity</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" href="#tab-chatter" id="tab-chatter-link" role="tab" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" href="#tab-agentforce" id="tab-agentforce-link" role="tab" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
-                        </li>
-                    </ul>
+                <div id="eq-activity-tabs"></div>
+            </div>
+        </div>
 
+        <!-- OLD TAB CONTENT (PRESERVE FOR REFERENCE) -->
+        <div style="display:none;">
                     <!-- Activity Tab -->
                     <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
                         <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
@@ -455,9 +417,8 @@
                             <div class="eq-agentforce-time">Saves ~8 min; prevents impure billing</div>
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
+        <!-- /OLD TAB CONTENT -->
 
         <!-- DESIGN NOTES SECTION -->
         <section class="eq-design-notes" aria-label="Design Notes">
@@ -531,5 +492,25 @@
 </style>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+<script>
+// Initialize header and activity tabs for Order
+EQ.renderHeader({
+  objectType: 'orders',
+  objectLabel: 'Order',
+  title: 'ORD-2026-NI1 — The Sacred Order of Shrubbery Hosting',
+  actions: [{label: 'Edit'}, {label: 'Activate'}],
+  fields: [
+    {label: 'Account', value: '<a href="account.html">The Knights Who Say Ni Ltd</a>'},
+    {label: 'Status', value: '<span class="eq-badge eq-badge--success">Activated</span>'},
+    {label: 'Order Start Date', value: 'Mar 1, 2026'},
+    {label: 'Contract', value: '<a href="contract.html">CON-00031415-NI</a>'},
+    {label: 'Total Amount', value: '$580,000.00'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

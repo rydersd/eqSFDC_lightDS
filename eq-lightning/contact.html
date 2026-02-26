@@ -11,77 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <!-- HIGHLIGHTS PANEL - Using SLDS Page Header Record Home -->
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-title">
-                    <div class="slds-media">
-                        <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-contact" title="Contact">
-                                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
-                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
-                                </svg>
-                                <span class="slds-assistive-text">Contact</span>
-                            </span>
-                        </div>
-                        <div class="slds-media__body">
-                            <div class="slds-page-header__name">
-                                <div class="slds-page-header__name-title">
-                                    <h1>
-                                        <span class="slds-page-header__title slds-truncate" title="Sir Robin the Not-Quite-So-Brave-as-Sir-Lancelot">Sir Robin the Not-Quite-So-Brave-as-Sir-Lancelot</span>
-                                    </h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-page-header__col-actions">
-                    <div class="slds-page-header__controls">
-                        <div class="slds-page-header__control">
-                            <ul class="slds-button-group-list">
-                                <li><button class="slds-button slds-button_neutral">Edit</button></li>
-                                <li><button class="slds-button slds-button_neutral">Clone</button></li>
-                                <li>
-                                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions" title="More Actions">
-                                        <svg class="slds-button__icon" aria-hidden="true">
-                                            <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-                                        </svg>
-                                        <span class="slds-assistive-text">More Actions</span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-page-header__row slds-page-header__row_gutters">
-                <div class="slds-page-header__col-details">
-                    <div class="slds-page-header__detail-row">
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Account">Account</p>
-                            <p class="slds-text-body_regular slds-truncate" title="The Knights Who Say Ni Ltd"><a href="account.html">The Knights Who Say Ni Ltd</a></p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Title">Title</p>
-                            <p class="slds-text-body_regular slds-truncate" title="VP Strategic Retreat Planning">VP Strategic Retreat Planning</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Email">Email</p>
-                            <p class="slds-text-body_regular slds-truncate" title="robin@bravelyranaway.co.uk"><a href="#">robin@bravelyranaway.co.uk</a></p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
-                            <p class="slds-text-body_regular slds-truncate" title="+44 20 RUN-AWAY">+44 20 RUN-AWAY</p>
-                        </div>
-                        <div class="slds-page-header__detail-block">
-                            <p class="slds-text-title slds-truncate" title="Department">Department</p>
-                            <p class="slds-text-body_regular slds-truncate" title="Tactical Withdrawal">Tactical Withdrawal</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="eq-anno">&#9432; Highlights Panel — max 5 fields. Shows compact layout fields from the record. First thing a user sees. Must answer: "Is this the right record? What's the status?"</div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <div class="eq-story-block">
             <strong><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#knowledge_base"></use></svg>Chapter 2: "Brave Sir Robin Ran Away..."</strong><br>
@@ -376,19 +307,8 @@
                         </header>
                     </div>
                     <div class="slds-card__body" style="padding:0;">
-                        <!-- Tab Navigation -->
-                        <div class="slds-tabs_default">
-                            <ul class="slds-tabs_default__nav" role="tablist">
-                                <li class="slds-tabs_default__item slds-is-active" role="presentation">
-                                    <a class="slds-tabs_default__link" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-activity" id="tab-activity__item">Activity</a>
-                                </li>
-                                <li class="slds-tabs_default__item" role="presentation">
-                                    <a class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-chatter" id="tab-chatter__item">Chatter</a>
-                                </li>
-                                <li class="slds-tabs_default__item" role="presentation">
-                                    <a class="slds-tabs_default__link" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-agentforce" id="tab-agentforce__item">Agentforce</a>
-                                </li>
-                            </ul>
+                        <!-- Tab Navigation — rendered by eq-components.js -->
+                        <div id="eq-activity-tabs">
 
                             <!-- Activity Tab Content -->
                             <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity__item" style="padding:0.75rem;">
@@ -668,7 +588,28 @@
     </style>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
+<script>
+EQ.renderHeader({
+  objectType: 'contact',
+  objectLabel: 'Contact',
+  title: 'Sir Robin the Not-Quite-So-Brave-as-Sir-Lancelot',
+  showCompare: false,
+  actions: [
+    {label: 'Edit'},
+    {label: 'Clone'}
+  ],
+  fields: [
+    {label: 'Account', value: 'The Knights Who Say Ni Ltd'},
+    {label: 'Title', value: 'VP Strategic Retreat Planning'},
+    {label: 'Email', value: 'robin@bravelyranaway.co.uk', isLink: true, href: 'mailto:robin@bravelyranaway.co.uk'},
+    {label: 'Phone', value: '+44 20 RUN-AWAY'},
+    {label: 'Department', value: 'Tactical Withdrawal'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

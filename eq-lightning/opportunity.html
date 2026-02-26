@@ -11,81 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <!-- Page Header -->
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-title">
-                    <div class="slds-media">
-                        <div class="slds-media__figure">
-                            <svg class="slds-icon slds-icon_large slds-m-right_medium" aria-hidden="true">
-                                <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
-                            </svg>
-                        </div>
-                        <div class="slds-media__body">
-                            <div class="slds-page-header__name">
-                                <div class="slds-page-header__name-title">
-                                    <h1 class="slds-text-heading_large slds-m-right_small">The Quest for the Holy Colocation (Second Shrubbery Included)</h1>
-                                </div>
-                            </div>
-                            <p class="slds-text-body_small slds-page-header__name-label">Opportunity</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-page-header__col-actions">
-                    <div class="slds-button-group-list">
-                        <button class="slds-button slds-button_brand">Mark Stage as Complete</button>
-                        <button class="slds-button slds-button_neutral">Edit</button>
-                        <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-page-header__row slds-page-header__row_gutters">
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Account</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Amount</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">$580,000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Close Date</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">Aug 15, 2026</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Stage</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Negotiation / Review</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Probability</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">65%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <div class="eq-story-block">
             <strong>📖 Chapter 3: "We Demand... A Colocation!"</strong><br>
@@ -99,29 +26,34 @@
                 <div class="slds-grid slds-path__scroller-container">
                     <div class="slds-path__scroller" role="application">
                         <ul class="slds-path__nav" role="tablist">
-                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-prospecting">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Prospecting</span>
-                                </a>
-                            </li>
                             <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-discovery">
                                 <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Discovery / Qualification</span>
+                                    <span class="slds-path__title">Discovery</span>
                                 </a>
                             </li>
-                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-proposal">
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-qualify">
                                 <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Proposal / Pricing</span>
+                                    <span class="slds-path__title">Qualify Opportunity</span>
                                 </a>
                             </li>
-                            <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="path-detail-negotiation">
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-develop">
                                 <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Negotiation / Review</span>
+                                    <span class="slds-path__title">Develop Solution</span>
                                 </a>
                             </li>
-                            <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-closed-won">
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-validate">
                                 <a class="slds-path__link" role="tab" tabindex="-1" href="#">
-                                    <span class="slds-path__title">Closed Won</span>
+                                    <span class="slds-path__title">Validate Requirements</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="path-detail-propose">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Propose &amp; Negotiate</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-closed">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Closed</span>
                                 </a>
                             </li>
                         </ul>
@@ -132,104 +64,148 @@
                         <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
                             <use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
                         </svg>
-                        Mark Stage as Complete
+                        Mark as Current Stage
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- PATH DETAIL PANELS -->
-        <div id="path-detail-prospecting" class="eq-path-detail">
-            <h3 class="eq-path-detail-title">Prospecting — Key Activities</h3>
-            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
-            <ul class="eq-path-detail-list">
-                <li>Identify decision-maker and economic buyer</li>
-                <li>Confirm data center / colocation need exists</li>
-                <li>Initial meeting scheduled or completed</li>
-                <li>Lead source documented (event, referral, inbound, etc.)</li>
-            </ul>
-            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
-            <div class="eq-path-detail-grid">
-                <dl class="eq-path-detail-field"><dt>Account Name</dt><dd>Required</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Contact Role</dt><dd>At least 1 contact</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Close Date</dt><dd>Estimated</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Amount</dt><dd>Initial estimate</dd></dl>
-            </div>
-        </div>
-
+        <!-- PATH DETAIL PANELS — Real Equinix Opportunity Stages -->
         <div id="path-detail-discovery" class="eq-path-detail">
-            <h3 class="eq-path-detail-title">Discovery / Qualification — Key Activities</h3>
-            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
-            <ul class="eq-path-detail-list">
-                <li>Technical requirements documented (cabinets, power, cooling)</li>
-                <li>Budget confirmed with procurement</li>
-                <li>Data center location(s) identified and approved</li>
-                <li>Competitive landscape assessed</li>
-                <li>Decision timeline established</li>
-            </ul>
-            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
-            <div class="eq-path-detail-grid">
-                <dl class="eq-path-detail-field"><dt>Product Interest</dt><dd>IBX Colocation or Equinix Fabric</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Cabinet Count</dt><dd>Confirmed</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Budget Range</dt><dd>Locked in</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Contact Roles</dt><dd>Technical + Procurement</dd></dl>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div>
+                    <h3 class="eq-path-detail-title">Key Fields</h3>
+                    <div class="eq-path-detail-grid">
+                        <dl class="eq-path-detail-field"><dt>Account Name</dt><dd>The Knights Who Say Ni Ltd</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Close Date</dt><dd>Aug 15, 2026</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Amount</dt><dd>$580,000</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Opportunity Owner</dt><dd>The Black Knight</dd></dl>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
+                    <ul class="eq-path-detail-list">
+                        <li>Identify all stakeholders and their roles in the buying process</li>
+                        <li>Understand the customer's current infrastructure and pain points</li>
+                        <li>Document technical requirements (cabinets, power, connectivity)</li>
+                        <li>Confirm budget authority and procurement timeline</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div id="path-detail-proposal" class="eq-path-detail">
-            <h3 class="eq-path-detail-title">Proposal / Pricing — Key Activities</h3>
-            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
-            <ul class="eq-path-detail-list">
-                <li>Solution designed with technical team</li>
-                <li>Pricing submitted and reviewed by customer</li>
-                <li>SOW (Statement of Work) drafted</li>
-                <li>Contract terms discussed at high level</li>
-                <li>Executive sponsor alignment confirmed</li>
-            </ul>
-            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
-            <div class="eq-path-detail-grid">
-                <dl class="eq-path-detail-field"><dt>Amount</dt><dd>Final proposal amount</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Contract Term</dt><dd>Months (typically 36)</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Next Step</dt><dd>Contract review scheduled</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Forecast Category</dt><dd>Pipeline or Best Case</dd></dl>
+        <div id="path-detail-qualify" class="eq-path-detail">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div>
+                    <h3 class="eq-path-detail-title">Key Fields</h3>
+                    <div class="eq-path-detail-grid">
+                        <dl class="eq-path-detail-field"><dt>Budget Confirmed</dt><dd>Yes</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Decision Maker</dt><dd>The Head Knight (CEO)</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Competition</dt><dd>The French (Digital Realty)</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Timeline</dt><dd>Q3 2026</dd></dl>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
+                    <ul class="eq-path-detail-list">
+                        <li>Validate BANT criteria (Budget, Authority, Need, Timeline)</li>
+                        <li>Map the competitive landscape and differentiate</li>
+                        <li>Confirm the opportunity aligns with strategic account goals</li>
+                        <li>Identify potential blockers early (legal, procurement, technical)</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div id="path-detail-negotiation" class="eq-path-detail">
-            <h3 class="eq-path-detail-title">Negotiation / Review — Key Activities</h3>
-            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
-            <ul class="eq-path-detail-list">
-                <li>Legal review underway with customer procurement</li>
-                <li>Contract amendments negotiated</li>
-                <li>Pricing concessions finalized (if any)</li>
-                <li>All stakeholder sign-off obtained (procurement, legal, finance)</li>
-                <li>PO creation timeline confirmed</li>
-            </ul>
-            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
-            <div class="eq-path-detail-grid">
-                <dl class="eq-path-detail-field"><dt>Forecast Category</dt><dd>Commit (if >50% close probability)</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Next Step</dt><dd>Final contract signature expected</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Deal Risk</dt><dd>Legal hold-up or budget freeze</dd></dl>
-                <dl class="eq-path-detail-field"><dt>PO Status</dt><dd>Created or in-process</dd></dl>
+        <div id="path-detail-develop" class="eq-path-detail">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div>
+                    <h3 class="eq-path-detail-title">Key Fields</h3>
+                    <div class="eq-path-detail-grid">
+                        <dl class="eq-path-detail-field"><dt>Solution Architecture</dt><dd>4x cabinets, LD5</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Products</dt><dd>IBX Colo + Equinix Fabric</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Power Requirements</dt><dd>8kW per cabinet</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>SA Assigned</dt><dd>Tim the Enchanter</dd></dl>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
+                    <ul class="eq-path-detail-list">
+                        <li>Complete technical design with Solutions Architect</li>
+                        <li>Document power, cooling, and connectivity requirements</li>
+                        <li>Confirm IBX location availability and capacity</li>
+                        <li>Build ROI narrative tailored to customer priorities</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div id="path-detail-closed-won" class="eq-path-detail">
-            <h3 class="eq-path-detail-title">Closed Won — Deal Closure & Handoff</h3>
-            <div class="eq-path-detail-subtitle">Required Before Closing</div>
-            <ul class="eq-path-detail-list">
-                <li>Contract fully executed by all parties</li>
-                <li>PO received and matched to MSA</li>
-                <li>Finance approved for revenue recognition</li>
-                <li>Handoff to delivery/fulfillment team scheduled</li>
-                <li>Customer success onboarding planned</li>
-            </ul>
-            <div class="eq-path-detail-subtitle">After Closure</div>
-            <div class="eq-path-detail-grid">
-                <dl class="eq-path-detail-field"><dt>Revenue Recognized</dt><dd>Finance closure</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Delivery Team Notified</dt><dd>Project initiation</dd></dl>
-                <dl class="eq-path-detail-field"><dt>Customer Kickoff</dt><dd>Within 5 business days</dd></dl>
-                <dl class="eq-path-detail-field"><dt>QBR Schedule</dt><dd>30-day post-go-live</dd></dl>
+        <div id="path-detail-validate" class="eq-path-detail">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div>
+                    <h3 class="eq-path-detail-title">Key Fields</h3>
+                    <div class="eq-path-detail-grid">
+                        <dl class="eq-path-detail-field"><dt>Technical Validation</dt><dd>Complete</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>SLA Requirements</dt><dd>99.999% uptime</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Security Review</dt><dd>Passed</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Reference Provided</dt><dd>Yes (King of Swamp Castle)</dd></dl>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
+                    <ul class="eq-path-detail-list">
+                        <li>Complete technical proof-of-concept or reference site visit</li>
+                        <li>Address all security and compliance requirements</li>
+                        <li>Get written confirmation of solution fit from technical team</li>
+                        <li>Ensure all stakeholders have signed off on the approach</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="path-detail-propose" class="eq-path-detail">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div>
+                    <h3 class="eq-path-detail-title">Key Fields</h3>
+                    <div class="eq-path-detail-grid">
+                        <dl class="eq-path-detail-field"><dt>Contract Term</dt><dd>36 months</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Pricing Submitted</dt><dd>Feb 10, 2026</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Legal Review</dt><dd>In Progress</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>PO Status</dt><dd>In Process</dd></dl>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
+                    <ul class="eq-path-detail-list">
+                        <li>Submit formal proposal with pricing and contract terms</li>
+                        <li>Negotiate terms with legal and procurement teams</li>
+                        <li>Address any remaining competitive concerns</li>
+                        <li>Confirm PO timeline and signature authority</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="path-detail-closed" class="eq-path-detail">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div>
+                    <h3 class="eq-path-detail-title">Key Fields</h3>
+                    <div class="eq-path-detail-grid">
+                        <dl class="eq-path-detail-field"><dt>Close Date</dt><dd>Actual close date</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Win/Loss Reason</dt><dd>Required</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Contract Executed</dt><dd>Required for Won</dd></dl>
+                        <dl class="eq-path-detail-field"><dt>Delivery Handoff</dt><dd>Required for Won</dd></dl>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="eq-path-detail-title">Guidance for Success</h3>
+                    <ul class="eq-path-detail-list">
+                        <li>Ensure contract is fully executed before marking Closed Won</li>
+                        <li>Document win/loss reasons for pipeline analytics</li>
+                        <li>Schedule delivery kickoff within 5 business days</li>
+                        <li>Plan QBR cadence with customer success team</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -429,19 +405,7 @@
             <!-- RIGHT COLUMN = Activity Timeline & Agentforce -->
             <div>
                 <!-- SLDS Tabs Container -->
-                <div class="slds-tabs_default">
-                    <!-- Tab Navigation -->
-                    <ul class="slds-tabs_default__nav" role="tablist">
-                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
-                            <a class="slds-tabs_default__link" id="tab-activity-link" href="#tab-activity" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-activity">Activity</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" id="tab-chatter-link" href="#tab-chatter" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" id="tab-agentforce-link" href="#tab-agentforce" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
-                        </li>
-                    </ul>
+                <div id="eq-activity-tabs">
 
                     <!-- Activity Tab Content -->
                     <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
@@ -641,7 +605,27 @@
 </style>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
+
+<script>
+// Initialize header and activity tabs using eq-components
+EQ.renderHeader({
+  objectType: 'opportunity',
+  objectLabel: 'Opportunity',
+  title: 'The Quest for the Holy Colocation (Second Shrubbery Included)',
+  showCompare: true,
+  actions: [{label: 'Edit'}, {label: 'Change Owner'}],
+  fields: [
+    {label: 'Account', value: 'The Knights Who Say Ni Ltd', isLink: true, href: 'account.html'},
+    {label: 'Amount', value: '$580,000'},
+    {label: 'Close Date', value: 'Aug 15, 2026'},
+    {label: 'Stage', value: 'Propose & Negotiate', badge: 'warning'},
+    {label: 'Probability', value: '65%'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

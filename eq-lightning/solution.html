@@ -11,45 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-icon">
-                    <svg class="slds-icon slds-icon-standard-solution slds-page-header__icon" aria-hidden="true">
-                        <use href="assets/icons/standard-sprite/svg/symbols.svg#solution"></use>
-                    </svg>
-                </div>
-                <div class="slds-page-header__col-details">
-                    <div class="slds-text-body_small slds-truncate">Solution</div>
-                    <h1 class="slds-page-header__title slds-truncate slds-m-top_x-small">SOL-2026-COLO — The Colocation Configuration of Unusual Purity</h1>
-                </div>
-            </div>
-            <div class="slds-page-header__row">
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Solution Number</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate">SOL-2026-COLO</dd>
-                    </dl>
-                </div>
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Status</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate"><span class="eq-badge eq-badge--success">Active</span></dd>
-                    </dl>
-                </div>
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">IBX Location</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate">LD5 (London)</dd>
-                    </dl>
-                </div>
-                <div class="slds-col">
-                    <dl class="slds-dl_horizontal">
-                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Solution Type</span></dt>
-                        <dd class="slds-dl_horizontal__detail slds-truncate">Colocation + Connectivity</dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <div class="eq-story-block">
             Chapter 8: The Solution of Unusual Purity — Sir Galahad insisted that every solution design be pure — no mixed vendors, no impure configurations, no hidden complexity. This Solution record represents the complete technical configuration for the Knights Who Say Ni: 4 cabinets in LD5 with 8kW power per cab, dual Equinix Fabric 10Gbps ports for redundancy, SmartHands support, and one (1) compliant decorative shrubbery. Tim the Enchanter validated the architecture, declaring it "not as terrifying as it could be." The solution can have multiple related orders — the initial deployment order and any subsequent expansion orders.<br><br>
@@ -371,19 +334,12 @@
 
             <!-- RIGHT COLUMN: Activity -->
             <div>
-                <div class="slds-tabs_default">
-                    <ul class="slds-tabs_default__nav" role="tablist">
-                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
-                            <a class="slds-tabs_default__link" href="#tab-activity" id="tab-activity-link" role="tab" aria-selected="true" aria-controls="tab-activity">Activity</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" href="#tab-chatter" id="tab-chatter-link" role="tab" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" href="#tab-agentforce" id="tab-agentforce-link" role="tab" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
-                        </li>
-                    </ul>
+                <div id="eq-activity-tabs"></div>
+            </div>
+        </div>
 
+        <!-- OLD TAB CONTENT (PRESERVE FOR REFERENCE) -->
+        <div style="display:none;">
                     <!-- Activity Tab -->
                     <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
                         <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
@@ -521,9 +477,8 @@
                             <div class="eq-agentforce-time">Saves ~30 min per audit cycle</div>
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
+        <!-- /OLD TAB CONTENT -->
 
         <!-- DESIGN NOTES SECTION -->
         <section class="eq-design-notes" aria-label="Design Notes">
@@ -598,5 +553,25 @@
 </style>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+<script>
+// Initialize header and activity tabs for Solution
+EQ.renderHeader({
+  objectType: 'solution',
+  objectLabel: 'Solution',
+  title: 'SOL-2026-COLO — The Colocation Configuration of Unusual Purity',
+  actions: [{label: 'Edit'}, {label: 'Clone'}],
+  fields: [
+    {label: 'Solution Number', value: 'SOL-2026-COLO'},
+    {label: 'Status', value: '<span class="eq-badge eq-badge--success">Active</span>'},
+    {label: 'Product Family', value: 'IBX Colocation'},
+    {label: 'Version', value: '2.1'},
+    {label: 'Last Modified', value: 'Feb 20, 2026'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

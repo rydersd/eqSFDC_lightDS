@@ -978,3 +978,319 @@ html, body { margin:0; padding:0; background:#f3f3f3; }
 .eq-activity-filter.is-active .eq-filter-count {
     background: rgba(255,255,255,0.25);
 }
+
+/* ===== ACCOUNT PLAN COMPONENTS ===== */
+
+/* SWOT 2x2 Grid */
+.eq-swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+}
+.eq-swot-cell {
+    border: 1px solid #DDDBDA;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+.eq-swot-cell h4 {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.375rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid;
+}
+.eq-swot-cell ul {
+    margin: 0;
+    padding-left: 1rem;
+    color: #3E3E3C;
+}
+.eq-swot-cell li {
+    margin-bottom: 0.25rem;
+}
+.eq-swot-strengths h4 { color: #2E844A; border-color: #2E844A; }
+.eq-swot-strengths { background: #F4FBF6; }
+.eq-swot-weaknesses h4 { color: #C23934; border-color: #C23934; }
+.eq-swot-weaknesses { background: #FEF4F4; }
+.eq-swot-opportunities h4 { color: #0070D2; border-color: #0070D2; }
+.eq-swot-opportunities { background: #F0F7FD; }
+.eq-swot-threats h4 { color: #FE9339; border-color: #FE9339; }
+.eq-swot-threats { background: #FFF8F0; }
+
+/* Objective progress bars */
+.eq-objective-card {
+    border: 1px solid #DDDBDA;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+.eq-objective-card:last-child {
+    margin-bottom: 0;
+}
+.eq-objective-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #080707;
+    margin-bottom: 0.25rem;
+}
+.eq-objective-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.6875rem;
+    color: #706E6B;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+.eq-progress-bar {
+    height: 6px;
+    background: #ECEBEA;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.eq-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+.eq-progress-fill--low { background: #C23934; }
+.eq-progress-fill--mid { background: #FE9339; }
+.eq-progress-fill--high { background: #2E844A; }
+
+/* Relationship map table */
+.eq-relationship-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+}
+.eq-relationship-table th {
+    background: #FAFAF9;
+    padding: 0.5rem 0.625rem;
+    text-align: left;
+    font-weight: 600;
+    color: #706E6B;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #DDDBDA;
+}
+.eq-relationship-table td {
+    padding: 0.5rem 0.625rem;
+    border-bottom: 1px solid #F3F3F3;
+    color: #3E3E3C;
+}
+.eq-relationship-table a {
+    color: #0070D2;
+    text-decoration: none;
+}
+.eq-relationship-table a:hover {
+    text-decoration: underline;
+}
+
+/* Disposition badges */
+.eq-disposition {
+    display: inline-block;
+    padding: 0.0625rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+}
+.eq-disposition--advocate { background: #D4EDDA; color: #1C6B4A; }
+.eq-disposition--champion { background: #D4EDDA; color: #1C6B4A; }
+.eq-disposition--supporter { background: #D1ECF1; color: #0C5460; }
+.eq-disposition--neutral { background: #ECEBEA; color: #706E6B; }
+.eq-disposition--skeptical { background: #FFF3CD; color: #856404; }
+
+/* Signal cards */
+.eq-signal-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid #F3F3F3;
+    align-items: flex-start;
+}
+.eq-signal-item:last-child {
+    border-bottom: none;
+}
+.eq-signal-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+}
+.eq-signal-icon--opportunity { background: #D4EDDA; color: #1C6B4A; }
+.eq-signal-icon--trigger { background: #D1ECF1; color: #0C5460; }
+.eq-signal-icon--threat { background: #F8D7DA; color: #721C24; }
+.eq-signal-icon--action { background: #FFF3CD; color: #856404; }
+.eq-signal-body {
+    flex: 1;
+}
+.eq-signal-title {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #080707;
+}
+.eq-signal-detail {
+    font-size: 0.6875rem;
+    color: #706E6B;
+    margin-top: 0.125rem;
+}
+
+/* Action plan table */
+.eq-action-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+}
+.eq-action-table th {
+    background: #FAFAF9;
+    padding: 0.5rem 0.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: #706E6B;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #DDDBDA;
+}
+.eq-action-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #F3F3F3;
+    color: #3E3E3C;
+    vertical-align: top;
+}
+
+/* Health score bar */
+.eq-health-score {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.eq-health-bar {
+    flex: 1;
+    height: 8px;
+    background: #ECEBEA;
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 120px;
+}
+.eq-health-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #FE9339, #2E844A);
+}
+.eq-health-value {
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+/* Plan header grid */
+.eq-plan-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    padding: 0.75rem;
+    background: #FAFAF9;
+    border-bottom: 1px solid #DDDBDA;
+}
+.eq-plan-header dt {
+    font-size: 0.6875rem;
+    color: #706E6B;
+    font-weight: 500;
+}
+.eq-plan-header dd {
+    font-size: 0.8125rem;
+    color: #080707;
+    margin: 0 0 0.5rem;
+}
+
+/* Center column tab content section spacing */
+.eq-plan-section {
+    padding: 0.75rem;
+    border-bottom: 1px solid #DDDBDA;
+}
+.eq-plan-section:last-child {
+    border-bottom: none;
+}
+.eq-plan-section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #3E3E3C;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+}
+
+/* Chatter feed items */
+.eq-chatter-item {
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid #F3F3F3;
+}
+.eq-chatter-item:last-child {
+    border-bottom: none;
+}
+.eq-chatter-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+.eq-chatter-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+.eq-chatter-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #0070D2;
+}
+.eq-chatter-time {
+    font-size: 0.625rem;
+    color: #706E6B;
+    margin-left: auto;
+}
+.eq-chatter-body {
+    font-size: 0.8125rem;
+    color: #3E3E3C;
+    line-height: 1.4;
+    padding-left: 2rem;
+}
+.eq-chatter-input {
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid #DDDBDA;
+    background: #FAFAF9;
+}
+.eq-chatter-input textarea {
+    width: 100%;
+    border: 1px solid #DDDBDA;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 0.8125rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .eq-swot-grid {
+        grid-template-columns: 1fr;
+    }
+    .eq-plan-header {
+        grid-template-columns: 1fr;
+    }
+}

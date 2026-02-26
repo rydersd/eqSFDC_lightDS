@@ -11,81 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <!-- Page Header -->
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-title">
-                    <div class="slds-media">
-                        <div class="slds-media__figure">
-                            <svg class="slds-icon slds-icon_large slds-m-right_medium" aria-hidden="true">
-                                <use href="assets/icons/standard-sprite/svg/symbols.svg#contract"></use>
-                            </svg>
-                        </div>
-                        <div class="slds-media__body">
-                            <div class="slds-page-header__name">
-                                <div class="slds-page-header__name-title">
-                                    <h1 class="slds-text-heading_large slds-m-right_small">CON-2026-NS — The Sacred Covenant of Shrubbery Hosting</h1>
-                                </div>
-                            </div>
-                            <p class="slds-text-body_small slds-page-header__name-label">Contract</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-page-header__col-actions">
-                    <div class="slds-button-group-list">
-                        <button class="slds-button slds-button_brand">Activate Contract</button>
-                        <button class="slds-button slds-button_neutral">Edit</button>
-                        <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-page-header__row slds-page-header__row_gutters">
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Contract Number</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">CON-2026-NS</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Status</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Activated</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Contract Start</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">Mar 1, 2026</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Contract End</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">Feb 28, 2029</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-col slds-size_1-of-5">
-                    <div class="slds-form-element">
-                        <label class="slds-form-element__label">Contract Term</label>
-                        <div class="slds-form-element__control">
-                            <div class="slds-form-element__static">36 months</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Page Header — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <div class="eq-story-block">
             <strong>📖 Chapter 7: The Sacred Covenant</strong><br>
@@ -457,19 +384,7 @@
             <!-- RIGHT COLUMN = Activity Timeline & Agentforce -->
             <div>
                 <!-- SLDS Tabs Container -->
-                <div class="slds-tabs_default">
-                    <!-- Tab Navigation -->
-                    <ul class="slds-tabs_default__nav" role="tablist">
-                        <li class="slds-tabs_default__item slds-is-active" role="presentation">
-                            <a class="slds-tabs_default__link" id="tab-activity-link" href="#tab-activity" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-activity">Activity</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" id="tab-chatter-link" href="#tab-chatter" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-chatter">Chatter</a>
-                        </li>
-                        <li class="slds-tabs_default__item" role="presentation">
-                            <a class="slds-tabs_default__link" id="tab-agentforce-link" href="#tab-agentforce" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-agentforce">Agentforce</a>
-                        </li>
-                    </ul>
+                <div id="eq-activity-tabs">
 
                     <!-- Activity Tab Content -->
                     <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
@@ -664,7 +579,27 @@
 
 </main>
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
+
+<script>
+// Initialize header and activity tabs using eq-components
+EQ.renderHeader({
+  objectType: 'contract',
+  objectLabel: 'Contract',
+  title: 'CON-2026-NS — The Sacred Covenant of Shrubbery Hosting',
+  showCompare: false,
+  actions: [{label: 'Activate Contract'}, {label: 'Edit'}],
+  fields: [
+    {label: 'Contract Number', value: 'CON-2026-NS'},
+    {label: 'Status', value: 'Activated', badge: 'success'},
+    {label: 'Contract Start', value: 'Mar 1, 2026'},
+    {label: 'Contract End', value: 'Feb 28, 2029'},
+    {label: 'Contract Term', value: '36 months'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>

@@ -11,59 +11,8 @@
 <div class="slds-scope" id="app">
 <main id="main-content">
 
-        <!-- HIGHLIGHTS PANEL → SLDS PAGE HEADER RECORD HOME -->
-        <div class="slds-page-header slds-page-header_record-home">
-            <div class="slds-page-header__row">
-                <div class="slds-page-header__col-title">
-                    <div class="slds-media slds-media_center slds-no-space">
-                        <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-case slds-m-right_small" title="Case">
-                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="slds-media__body">
-                            <div class="slds-page-header__name">
-                                <div class="slds-page-header__name-title">
-                                    <h1 class="slds-page-header__title slds-truncate slds-text-heading_large">CS-4525: The Herring Is Not RJ45-Compatible</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-page-header__col-actions">
-                    <div class="slds-button-group-list">
-                        <button class="slds-button slds-button_neutral">Edit</button>
-                        <button class="slds-button slds-button_neutral">Close Case</button>
-                        <button class="slds-button slds-button_neutral">Escalate</button>
-                        <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-                            </svg>
-                            <span class="slds-assistive-text">More Actions</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="slds-page-header__row slds-page-header__row_gutters slds-m-top_medium">
-                <div class="slds-page-header__col-details slds-size_1-of-5">
-                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Account</span><span class="slds-page-header__detail-content"><a href="account.html">The Knights Who Say Ni Ltd</a></span></div>
-                </div>
-                <div class="slds-page-header__col-details slds-size_1-of-5">
-                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Priority</span><span class="slds-page-header__detail-content"><span class="eq-badge eq-badge--warning">Medium (but feels High to the customer)</span></span></div>
-                </div>
-                <div class="slds-page-header__col-details slds-size_1-of-5">
-                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Status</span><span class="slds-page-header__detail-content"><span class="eq-badge eq-badge--warning">In Progress</span></span></div>
-                </div>
-                <div class="slds-page-header__col-details slds-size_1-of-5">
-                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Contact</span><span class="slds-page-header__detail-content"><a href="contact.html">Roger the Shrubber</a></span></div>
-                </div>
-                <div class="slds-page-header__col-details slds-size_1-of-5">
-                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Opened</span><span class="slds-page-header__detail-content">Feb 20, 2026</span></div>
-                </div>
-            </div>
-        </div>
+        <!-- HIGHLIGHTS PANEL — rendered by eq-components.js -->
+        <div id="eq-header"></div>
 
         <div class="eq-story-block">
             <strong><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#knowledge_base"></use></svg>Chapter 5: "You Must Cut Down the Mightiest Tree in the Forest With... a Herring!"</strong><br>
@@ -294,28 +243,7 @@
             </div>
 
             <!-- ===== RIGHT: Activity (Tabbed) ===== -->
-            <div class="slds-card">
-                    <div class="slds-card__header">
-                        <div class="slds-media slds-media_center slds-no-space">
-                            <div class="slds-media__figure">
-                                <span class="slds-icon_container slds-icon-standard-log_a_call" title="Case History">
-                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
-                                    </svg>
-                                </span>
-                            </div>
-                            <div class="slds-media__body">
-                                <h2 class="slds-card__header-title slds-text-heading_small">Case History</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities" style="padding:0.75rem 0.75rem 0;">
-                        <button class="eq-activity-filter is-active" data-filter="all">All</button>
-                        <button class="eq-activity-filter" data-filter="calls">Calls</button>
-                        <button class="eq-activity-filter" data-filter="emails">Emails</button>
-                        <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
-                        <button class="eq-activity-filter" data-filter="events">Events</button>
-                    </div>
+            <div id="eq-activity-tabs">
                             <div class="slds-timeline">
                             <div class="slds-timeline__item_expandable slds-timeline__item_task">
                                 <span class="slds-assistive-text">Task</span>
@@ -468,6 +396,7 @@
                     </div>
                 </div>
             </div>
+            </div>
 
             <section class="eq-design-notes" aria-label="Design Notes">
                 <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
@@ -522,7 +451,27 @@
     </div>
 
 </div><!-- /slds-scope -->
+<script src="eq-components.js"></script>
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
+
+<script>
+// Initialize header and activity tabs using eq-components
+EQ.renderHeader({
+  objectType: 'case',
+  objectLabel: 'Case',
+  title: 'CS-4525: The Herring Is Not RJ45-Compatible',
+  showCompare: false,
+  actions: [{label: 'Edit'}, {label: 'Close Case'}, {label: 'Escalate'}],
+  fields: [
+    {label: 'Account', value: 'The Knights Who Say Ni Ltd', isLink: true, href: 'account.html'},
+    {label: 'Priority', value: 'Medium (but feels High to the customer)', badge: 'warning'},
+    {label: 'Status', value: 'In Progress', badge: 'warning'},
+    {label: 'Contact', value: 'Roger the Shrubber', isLink: true, href: 'contact.html'},
+    {label: 'Opened', value: 'Feb 20, 2026'}
+  ]
+});
+EQ.renderActivityTabs();
+</script>
 </body>
 </html>
