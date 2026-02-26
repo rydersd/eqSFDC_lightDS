@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Account</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <!-- HIGHLIGHTS PANEL - Using SLDS Page Header Record Home -->
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account" title="Account">
+                                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Account</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="The Knights Who Say Ni Ltd">The Knights Who Say Ni Ltd</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                                <li><button class="slds-button slds-button_neutral">Following</button></li>
+                                <li><button class="slds-button slds-button_neutral">Edit</button></li>
+                                <li><button class="slds-button slds-button_neutral">Change Owner</button></li>
+                                <li>
+                                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions" title="More Actions">
+                                        <svg class="slds-button__icon" aria-hidden="true">
+                                            <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                                        </svg>
+                                        <span class="slds-assistive-text">More Actions</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__row slds-page-header__row_gutters">
+                <div class="slds-page-header__col-details">
+                    <div class="slds-page-header__detail-row">
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Annual Revenue">Annual Revenue</p>
+                            <p class="slds-text-body_regular slds-truncate" title="$4,200,000">$4,200,000</p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Industry">Industry</p>
+                            <p class="slds-text-body_regular slds-truncate" title="Shrubbery &amp; Landscaping">Shrubbery &amp; Landscaping</p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Account Owner">Account Owner</p>
+                            <p class="slds-text-body_regular slds-truncate" title="The Black Knight"><a href="contact.html">The Black Knight</a></p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
+                            <p class="slds-text-body_regular slds-truncate" title="+44 20 NI-NI-NIII">+44 20 NI-NI-NIII</p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Customer Segmentation">Customer Segmentation</p>
+                            <p class="slds-text-body_regular slds-truncate" title="Mid-Market – Growth">Mid-Market – Growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eq-anno">&#9432; Highlights Panel — max 5 fields. Shows compact layout fields from the record. First thing a user sees. Must answer: "Is this the right record? What's the status?"</div>
+        </div>
+
+        <!-- ENGAGEMENT PATH - FULL WIDTH -->
+        <div style="padding: 0.5rem 1rem;">
+            <div class="slds-path">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller" role="application">
+                            <ul class="slds-path__nav" role="tablist">
+                                <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-traveler">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Traveler</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-shrubbery-delivered">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Shrubbery Delivered</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="path-detail-customer">
+                                    <a class="slds-path__link" role="tab" tabindex="0" href="#">
+                                        <span class="slds-path__title">Customer</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-knights-ekke">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Knights Who Now Say Ekke Ekke</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-strategic-partner">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Strategic Partner</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-path__action">
+                        <button class="slds-button slds-button_brand slds-path__mark-complete">
+                            <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                <use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                            </svg>
+                            Mark Status as Complete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="eq-anno">&#9432; Path component — shows account lifecycle stage. Equinix-specific stages reflecting the customer journey from prospect to strategic partner.</div>
+        </div>
+
+        <!-- PATH DETAIL PANELS -->
+        <div id="path-detail-traveler" class="eq-path-detail-panel" style="display:none; padding:0.75rem 1rem; background:#f3f3f1; border-top:1px solid #d8d6d2; margin:0.5rem 1rem;">
+            <div style="font-size:0.875rem;"><strong>Traveler Stage</strong></div>
+            <div style="font-size:0.8125rem; color:#3e3e3c; margin-top:0.25rem;">
+                <p style="margin:0.25rem 0;">Initial contact made, NDA signed, basic account info captured</p>
+            </div>
+        </div>
+
+        <div id="path-detail-shrubbery-delivered" class="eq-path-detail-panel" style="display:none; padding:0.75rem 1rem; background:#f3f3f1; border-top:1px solid #d8d6d2; margin:0.5rem 1rem;">
+            <div style="font-size:0.875rem;"><strong>Shrubbery Delivered Stage</strong></div>
+            <div style="font-size:0.8125rem; color:#3e3e3c; margin-top:0.25rem;">
+                <p style="margin:0.25rem 0;">First order placed and delivered, primary contacts documented, billing set up</p>
+            </div>
+        </div>
+
+        <div id="path-detail-customer" class="eq-path-detail-panel" style="display:none; padding:0.75rem 1rem; background:#f3f3f1; border-top:1px solid #d8d6d2; margin:0.5rem 1rem;">
+            <div style="font-size:0.875rem;"><strong>Customer Stage</strong></div>
+            <div style="font-size:0.8125rem; color:#3e3e3c; margin-top:0.25rem;">
+                <p style="margin:0.25rem 0;">Active services running, regular QBRs established, support structure in place</p>
+            </div>
+        </div>
+
+        <div id="path-detail-knights-ekke" class="eq-path-detail-panel" style="display:none; padding:0.75rem 1rem; background:#f3f3f1; border-top:1px solid #d8d6d2; margin:0.5rem 1rem;">
+            <div style="font-size:0.875rem;"><strong>Knights Who Now Say Ekke Ekke Stage</strong></div>
+            <div style="font-size:0.8125rem; color:#3e3e3c; margin-top:0.25rem;">
+                <p style="margin:0.25rem 0;">Multi-product adoption, executive sponsor engaged, co-marketing activities</p>
+            </div>
+        </div>
+
+        <div id="path-detail-strategic-partner" class="eq-path-detail-panel" style="display:none; padding:0.75rem 1rem; background:#f3f3f1; border-top:1px solid #d8d6d2; margin:0.5rem 1rem;">
+            <div style="font-size:0.875rem;"><strong>Strategic Partner Stage</strong></div>
+            <div style="font-size:0.8125rem; color:#3e3e3c; margin-top:0.25rem;">
+                <p style="margin:0.25rem 0;">Joint roadmap, board-level relationship, strategic revenue targets</p>
+            </div>
+        </div>
+
+        <!-- DATA STORY -->
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 1: "We Are the Knights Who Say... Ni!"</strong><br>
+            The Knights Who Say Ni Ltd began as a humble shrubbery procurement operation in the forests of ancient Britain. Their Head Knight demanded a very specific thing from every traveler who passed through: "A shrubbery! One that looks nice. And not too expensive." Over time, the Knights diversified into professional services — specifically, helping organizations find exactly the right thing they didn't know they needed. Their latest venture: migrating their entire shrubbery catalog to a cloud-hosted platform, which naturally requires colocation services. The Black Knight, their famously persistent Security Director ("It's just a flesh wound!"), manages the relationship. He has never, not once, allowed a vendor to pass without a fight.<br><br>
+            <strong>&#127793; Design discussion:</strong> This Account record is the hub. The three-column layout needs to answer three questions instantly: <em>Who is this customer?</em> (left), <em>What's happening with them right now?</em> (center), and <em>What else should I know?</em> (right). If a rep has to scroll or click to another page to answer any of those, we've failed.
+        </div>
+
+        <!-- THREE-COLUMN BODY -->
+        <div class="eq-record-body">
+
+            <!-- ===== LEFT: Related Lists + Agentforce ===== -->
+            <div>
+                <div class="eq-anno">&#9432; LEFT COLUMN — Related records and quick actions. Compact format with expandable details. This is the "what else?" column. Everything a rep needs without leaving the record.</div>
+
+                <!-- Contacts (4) -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-contact">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title"><span>Contacts (4)</span></h2>
+                            </div>
+                        </header>
+                        <div class="slds-no-flex">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.6875rem;">New</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">The Head Knight</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Title: <strong>CEO / Chief Ni Officer</strong></span>
+                                <span class="eq-related-item-field">Phone: <strong>+44 NI NI NI</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">The Black Knight</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Title: <strong>Security Director</strong></span>
+                                <span class="eq-related-item-field">Phone: <strong>+44 TIS-A-SCRATCH</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">Roger the Shrubber</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Title: <strong>VP Shrubbery Ops</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">The Green Knight</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Title: <strong>Dir. of Sustainability</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+
+                <!-- Open Opportunities (2) -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-opportunity">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title"><span>Open Opportunities (2)</span></h2>
+                            </div>
+                        </header>
+                        <div class="slds-no-flex">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.6875rem;">New</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="opportunity.html">The Quest for the Holy Colocation</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Amount: <strong>$580,000</strong></span>
+                                <span class="eq-related-item-field">Stage: <strong><span class="eq-badge eq-badge--info">Negotiation</span></strong></span>
+                                <span class="eq-related-item-field">Close: <strong>Aug 2026</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="opportunity.html">Redundant Shrubberies (Highly Hedged)</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Amount: <strong>$120,000</strong></span>
+                                <span class="eq-related-item-field">Stage: <strong><span class="eq-badge eq-badge--warning">Discovery</span></strong></span>
+                                <span class="eq-related-item-field">Close: <strong>Nov 2026</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+
+                <!-- Active Orders (2) -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-orders">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title"><span>Active Orders (2)</span></h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="order.html">ORD-2026-NS — Sacred Order of Shrubbery Hosting</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                                <span class="eq-related-item-field">Start: <strong>Mar 1, 2026</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="order.html">ORD-2025-BK — Black Knight Connectivity</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                                <span class="eq-related-item-field">Start: <strong>Jan 15, 2025</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+
+                <!-- Open Cases (2) -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-case">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title"><span>Open Cases (2)</span></h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="case.html">CS-4525: The Herring Is Not RJ45-Compatible</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Priority: <strong><span class="eq-badge eq-badge--error">High</span></strong></span>
+                                <span class="eq-related-item-field">Status: <strong>In Progress</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="case.html">CS-4301: Shrubbery Sat 'it' on a Support Ticket</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Priority: <strong><span class="eq-badge eq-badge--warning">Medium</span></strong></span>
+                                <span class="eq-related-item-field">Status: <strong>Investigating</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+
+                <!-- Account Plans (0) -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-account">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title"><span>Account Plans (0)</span></h2>
+                            </div>
+                        </header>
+                        <div class="slds-no-flex">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.6875rem;">New</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-account-plan-cta">
+                            <p>No Account Plan exists yet. Create one to document strategic priorities, KPIs, and growth targets for this account.</p>
+                            <p style="font-size:0.6875rem; color:#706E6B;">Tip: Click "New" to open the Account Plan form. Fill in the plan name, start/end dates, vision, and SWOT analysis. Agentforce can help pre-populate based on account history.</p>
+                        </div>
+                        <div class="eq-agentforce" style="margin:0.5rem 0.75rem;">
+                            <div class="eq-agentforce-hdr">&#129302; Agentforce: Draft Account Plan</div>
+                            <div class="eq-agentforce-desc">Analyze account history, open opportunities, installed products, and case trends to draft a starting Account Plan with strategic priorities and growth targets.</div>
+                            <button class="eq-agentforce-btn">&#129302; Generate Account Plan Draft</button>
+                            <div class="eq-agentforce-time">Saves ~45 min manual research and writing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agentforce: Draft Outreach -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9993; Agentforce: Draft Outreach</div>
+                    <div class="eq-agentforce-desc">Generate a personalized email or call script. WARNING: Agent has been trained to never say the word "it" when composing messages for this account.</div>
+                    <button class="eq-agentforce-btn">&#129302; Draft Email to The Head Knight</button>
+                    <div class="eq-agentforce-time">Saves ~8 min per personalized outreach</div>
+                </div>
+            </div>
+
+            <!-- ===== CENTER: Record Details ===== -->
+            <div class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account" title="Account">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Record Details</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <div class="eq-anno">&#9432; CENTER COLUMN — Required fields + key business info. This is the "reference" column. Users scan here to confirm record identity and core attributes. Organized by field section matching the Page Layout in Setup.</div>
+
+                    <!-- Account Information Section -->
+                    <div class="eq-field-section-title">Account Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Account Name</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">The Knights Who Say Ni Ltd</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Account Number</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">ACC-00031415</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Account Owner</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">The Black Knight</a></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Account Source</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Traveler Referral</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Active</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Active</span></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Internal Account</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Ni!</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Industry</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Shrubbery &amp; Landscaping</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Industry Sector</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Botanical Commerce</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Industry Vertical</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Sacred Foliage Supply Chain</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Enterprise Vertical</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Enchanted Forest Operations</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Annual Revenue</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">$4,200,000</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Employees</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">47 Knights (and 1 limbless guard)</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Customer Segmentation – CRO</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Mid-Market – Growth</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Customer Segmentation – GTM</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Acquire</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Buyer Attributes</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Demands Shrubberies; Easily Offended by "It"</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Customer Success Manager</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Roger the Shrubber</a></div></div>
+                        </div>
+                    </div>
+
+                    <!-- DUNS Information Section -->
+                    <div class="eq-field-section-title">DUNS / Data Enrichment</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">DUNS Number</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">NI-NI-NI-001</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">DUNS Source</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">D&amp;B (via The Old Man from Scene 24)</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">MDM ID</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">MDM-KWSN-00047</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">NAICS Code</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">444220 (Nursery &amp; Garden)</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Global Ultimate DUNS</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">NI-NI-NI-001</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Domestic Ultimate DUNS</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">The Knights Who Until Recently Said Ni Holdings</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Address Section -->
+                    <div class="eq-field-section-title">Address Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">HQ Address</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">The Dark Forest<br>Just Past the Swamp Castle, Turn Left at the Gorge of Eternal Peril<br>England</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Phone</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">+44 20 NI-NI-NIII</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Fax</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">We no longer say Fax. We now say "Ekke Ekke Ekke Ptang Zoo Boing"</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Website</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">www.knightswhosayni.co.uk</a></div></div>
+                        </div>
+                    </div>
+
+                    <div class="eq-field-section-title">Description</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width" style="padding:0.5rem 0.75rem;">
+                            <span class="slds-form-element__label">Description</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Forest-dwelling collective specializing in shrubbery procurement and traveler toll collection. Recently pivoted to cloud services after discovering that saying "Ni" at servers doesn't actually improve uptime. Currently migrating their shrubbery catalog (147,000 SKUs) to a hosted platform. Require colocation for their "Shrubbery-as-a-Service" offering. Note: Do NOT say the word "it" during account reviews.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RIGHT: Activity + Context ===== -->
+            <div>
+                <div class="eq-anno">&#9432; RIGHT COLUMN — "What's happening now?" Activity timeline, engagement path, and contextual intelligence. This is the action column — the most dynamic content lives here.</div>
+
+                <!-- Activity Timeline -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-log-a-call" title="Activity">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Activity Timeline</span>
+                                </h2>
+                            </div>
+                        </header>
+                        <div style="margin-left:auto;">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">Log a Call</button>
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Task</button>
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Event</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-story-block">
+                            <strong>&#128218; The Timeline tells the story:</strong> When The Black Knight opens this Account, the timeline should immediately show what's been happening — the Head Knight's demand for a second shrubbery (slightly higher so you get a two-level effect with a little path running down the middle), the migration kickoff, and the ongoing dispute about whether coconut halves count as server hardware. No swivel-chairing to Siebel. It's all right here.
+                        </div>
+                        <div class="slds-timeline">
+                            <div class="slds-timeline__item_expandable slds-timeline__item_email">
+                                <span class="slds-assistive-text">email</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-1" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-email slds-timeline__icon" title="email">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Email: "We Want... ANOTHER Shrubbery!"</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">Today, 2:45 PM</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">The Head Knight emailed demanding a second colocation cabinet, "only slightly higher, so we get a nice two-level effect with a little path running down the middle." Also requesting a herring-shaped network topology.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_call">
+                                <span class="slds-assistive-text">call</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-2" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-log-a-call slds-timeline__icon" title="call">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Call: The Black Knight Disputes Access Policy</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">Yesterday, 11:22 AM</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">"None shall pass!" — The Black Knight objected to the new IBX security badge policy. After losing the argument (and metaphorically, both arms), he agreed it was "just a scratch" and accepted the terms.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_task">
+                                <span class="slds-assistive-text">task</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-3" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon" title="task">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Task Completed: Shrubbery Catalog Migration — Phase 1</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">3 days ago</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">Successfully migrated 47,000 of 147,000 shrubbery SKUs to the hosted platform. Roger the Shrubber confirmed data integrity: "They're all very nice, and not too expensive."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">event</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-4" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-opportunity slds-timeline__icon" title="event">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Opportunity Created: Ni Colocation Migration</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">1 week ago</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">New opportunity for $580K. 4 cabinets + Fabric ports to host the Shrubbery-as-a-Service platform. The Head Knight insists the cabinets be "arranged in a nice path with a little fence."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">event</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-5" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-event slds-timeline__icon" title="event">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Case Filed: CS-4523 — "Someone Said 'It'"</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">2 weeks ago</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">A support agent accidentally said the word "it" on a call with the Head Knight. The entire organization went into distress. Status: Resolved (after bringing a nice shrubbery as apology).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agentforce: Center column -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#10024; Agentforce: Account Intelligence</div>
+                    <div class="eq-agentforce-desc">Generate an AI-powered account summary including health signals, shrubbery satisfaction scores, open demands, and recommended next offerings across all related records.</div>
+                    <button class="eq-agentforce-btn">&#129302; Generate Account Summary</button>
+                    <div class="eq-agentforce-time">Replaces ~15 min of manual research across CRM, Siebel, and email</div>
+                    <div class="eq-anno">&#9432; AGENTFORCE TOUCHPOINT — This is high-value: reps currently spend 10-20 min compiling account context from multiple systems. This agent reads across Opportunities, Cases, Activities, and Orders to produce a single brief. ROI: ~$45/use at avg. rep cost.</div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9888;&#65039; Agentforce: Churn Risk Prediction</div>
+                    <div class="eq-agentforce-desc">Analyze shrubbery delivery cadence, "Ni!" frequency, case volume, and engagement patterns to flag at-risk accounts before they demand a herring.</div>
+                    <button class="eq-agentforce-btn">&#129302; Run Risk Analysis</button>
+                    <div class="eq-agentforce-time">Replaces ~20 min CSM analysis; early warning 90 days before renewal</div>
+                </div>
+            </div>
+
+        </div><!-- /eq-record-body -->
+
+</main>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">&#10060; Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">175–225</strong></div>
+                    <div class="eq-metric-row"><span>Action buttons per page</span><strong style="color:#EA001E;">190–203</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">3–5</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">600–686</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#EA001E;">8–12 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check (swivel chair)</span><strong style="color:#EA001E;">3 (SF + Siebel + Email)</strong></div>
+                    <div class="eq-metric-row"><span>Object count</span><strong style="color:#EA001E;">800+ → 160 (in progress)</strong></div>
+                    <div style="margin-top:1rem;">
+                        <p style="font-size:0.75rem; font-weight:600; color:#706E6B; margin-bottom:0.5rem;">Sample fields (Account — scrolled off screen):</p>
+                        <div class="eq-before-field">DUNS Enrichment Date</div>
+                        <div class="eq-before-field">Domestic Ultimate DUNS Number</div>
+                        <div class="eq-before-field">Global Ultimate DUNS Number</div>
+                        <div class="eq-before-field">DUNS Assignment Date</div>
+                        <div class="eq-before-field">Industry Sub-Sector</div>
+                        <div class="eq-before-field">Lead Sub-Source Last</div>
+                        <div class="eq-before-field">Legacy Record Id</div>
+                        <div class="eq-before-field">Inactive Status Date</div>
+                        <div class="eq-before-field">... and 80+ more fields</div>
+                    </div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">&#9989; After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">4–6 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Primary action buttons</span><strong style="color:#2E844A;">3–5 + overflow menu</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">&lt; 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Details | Activity | Related</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#2E844A;">30 sec – 2 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check</span><strong style="color:#2E844A;">1 (Salesforce only)</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce touchpoints</span><strong style="color:#2E844A;">2–3 per object</strong></div>
+                    <div style="margin-top:1rem;">
+                        <p style="font-size:0.75rem; font-weight:600; color:#706E6B; margin-bottom:0.5rem;">Layout principle:</p>
+                        <p style="font-size:0.75rem; color:#3E3E3C; line-height:1.5;">
+                            <strong>Left:</strong> Record identity + required fields (who/what)<br>
+                            <strong>Center:</strong> Activity timeline + path + Agentforce (what's happening)<br>
+                            <strong>Right:</strong> Related lists + quick actions (what else matters)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /slds-scope -->
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+</body>
+</html>

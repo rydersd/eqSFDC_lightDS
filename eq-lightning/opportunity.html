@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Opportunity</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <!-- Page Header -->
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <svg class="slds-icon slds-icon_large slds-m-right_medium" aria-hidden="true">
+                                <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1 class="slds-text-heading_large slds-m-right_small">The Quest for the Holy Colocation (Second Shrubbery Included)</h1>
+                                </div>
+                            </div>
+                            <p class="slds-text-body_small slds-page-header__name-label">Opportunity</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-button-group-list">
+                        <button class="slds-button slds-button_brand">Mark Stage as Complete</button>
+                        <button class="slds-button slds-button_neutral">Edit</button>
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__row slds-page-header__row_gutters">
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Account</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Amount</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">$580,000</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Close Date</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">Aug 15, 2026</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Stage</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Negotiation / Review</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Probability</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">65%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>📖 Chapter 3: "We Demand... A Colocation!"</strong><br>
+            The Head Knight has issued a formal demand: the Knights Who Say Ni require a proper colocation facility to host their Shrubbery-as-a-Service platform (147,000 SKUs of shrubberies, ranging from "quite nice" to "very nice indeed"). The deal started when Roger the Shrubber discovered that their current on-premises servers — kept in a damp cave and guarded by the Black Knight — couldn't handle the traffic from their "Ni!" API endpoint (which receives 4 million requests per day from terrified travelers). Tim the Enchanter has been brought in as technical evaluator: "Look at the bones of your current infrastructure! LOOK AT THE BONES!" The French (a competing colo provider) have been catapulting insults and livestock from the next meeting room, but The Head Knight remains loyal — provided we deliver a shrubbery with the proposal.<br><br>
+            <strong>🥬 Design discussion:</strong> The Opportunity record is the deal cockpit. Left column = deal terms and pricing. Center = sales path + activity timeline (what happened, what's next). Right = products, the team, and competitive intel. The Path component at the top is critical — it shows where we are in the quest at a glance. Every rep should be able to walk into a call with context in 30 seconds.
+        </div>
+
+        <!-- SALES PATH -->
+        <div class="slds-path">
+            <div class="slds-grid slds-path__track">
+                <div class="slds-grid slds-path__scroller-container">
+                    <div class="slds-path__scroller" role="application">
+                        <ul class="slds-path__nav" role="tablist">
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-prospecting">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Prospecting</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-discovery">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Discovery / Qualification</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="path-detail-proposal">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Proposal / Pricing</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="path-detail-negotiation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Negotiation / Review</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="path-detail-closed-won">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                    <span class="slds-path__title">Closed Won</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slds-grid slds-path__action">
+                    <button class="slds-button slds-button_brand slds-path__mark-complete">
+                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                            <use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                        </svg>
+                        Mark Stage as Complete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PATH DETAIL PANELS -->
+        <div id="path-detail-prospecting" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Prospecting — Key Activities</h3>
+            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
+            <ul class="eq-path-detail-list">
+                <li>Identify decision-maker and economic buyer</li>
+                <li>Confirm data center / colocation need exists</li>
+                <li>Initial meeting scheduled or completed</li>
+                <li>Lead source documented (event, referral, inbound, etc.)</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Account Name</dt><dd>Required</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Contact Role</dt><dd>At least 1 contact</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Close Date</dt><dd>Estimated</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Amount</dt><dd>Initial estimate</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-discovery" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Discovery / Qualification — Key Activities</h3>
+            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
+            <ul class="eq-path-detail-list">
+                <li>Technical requirements documented (cabinets, power, cooling)</li>
+                <li>Budget confirmed with procurement</li>
+                <li>Data center location(s) identified and approved</li>
+                <li>Competitive landscape assessed</li>
+                <li>Decision timeline established</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Product Interest</dt><dd>IBX Colocation or Equinix Fabric</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Cabinet Count</dt><dd>Confirmed</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Budget Range</dt><dd>Locked in</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Contact Roles</dt><dd>Technical + Procurement</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-proposal" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Proposal / Pricing — Key Activities</h3>
+            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
+            <ul class="eq-path-detail-list">
+                <li>Solution designed with technical team</li>
+                <li>Pricing submitted and reviewed by customer</li>
+                <li>SOW (Statement of Work) drafted</li>
+                <li>Contract terms discussed at high level</li>
+                <li>Executive sponsor alignment confirmed</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Amount</dt><dd>Final proposal amount</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Contract Term</dt><dd>Months (typically 36)</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Next Step</dt><dd>Contract review scheduled</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Forecast Category</dt><dd>Pipeline or Best Case</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-negotiation" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Negotiation / Review — Key Activities</h3>
+            <div class="eq-path-detail-subtitle">Required Before Advancing</div>
+            <ul class="eq-path-detail-list">
+                <li>Legal review underway with customer procurement</li>
+                <li>Contract amendments negotiated</li>
+                <li>Pricing concessions finalized (if any)</li>
+                <li>All stakeholder sign-off obtained (procurement, legal, finance)</li>
+                <li>PO creation timeline confirmed</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">Key Fields to Complete</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Forecast Category</dt><dd>Commit (if >50% close probability)</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Next Step</dt><dd>Final contract signature expected</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Deal Risk</dt><dd>Legal hold-up or budget freeze</dd></dl>
+                <dl class="eq-path-detail-field"><dt>PO Status</dt><dd>Created or in-process</dd></dl>
+            </div>
+        </div>
+
+        <div id="path-detail-closed-won" class="eq-path-detail">
+            <h3 class="eq-path-detail-title">Closed Won — Deal Closure & Handoff</h3>
+            <div class="eq-path-detail-subtitle">Required Before Closing</div>
+            <ul class="eq-path-detail-list">
+                <li>Contract fully executed by all parties</li>
+                <li>PO received and matched to MSA</li>
+                <li>Finance approved for revenue recognition</li>
+                <li>Handoff to delivery/fulfillment team scheduled</li>
+                <li>Customer success onboarding planned</li>
+            </ul>
+            <div class="eq-path-detail-subtitle">After Closure</div>
+            <div class="eq-path-detail-grid">
+                <dl class="eq-path-detail-field"><dt>Revenue Recognized</dt><dd>Finance closure</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Delivery Team Notified</dt><dd>Project initiation</dd></dl>
+                <dl class="eq-path-detail-field"><dt>Customer Kickoff</dt><dd>Within 5 business days</dd></dl>
+                <dl class="eq-path-detail-field"><dt>QBR Schedule</dt><dd>30-day post-go-live</dd></dl>
+            </div>
+        </div>
+
+        <!-- MAIN RECORD BODY -->
+        <div class="eq-record-body">
+
+            <!-- LEFT COLUMN = Related Lists -->
+            <div>
+                <!-- Products Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#product"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Products (4)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">IBX Colocation — LD5 Cabinet Rack</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Qty: <strong>4</strong></span>
+                                <span class="eq-related-item-field">MRC: <strong>$18,000</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Equinix Fabric — 10Gbps Port</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Qty: <strong>2</strong></span>
+                                <span class="eq-related-item-field">MRC: <strong>$2,400</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Equinix Metal — Reserved</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Qty: <strong>2</strong></span>
+                                <span class="eq-related-item-field">MRC: <strong>$14,000</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Installation & Delivery (one-time)</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Qty: <strong>1</strong></span>
+                                <span class="eq-related-item-field">NRC: <strong>$1,200</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Roles Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Contact Roles (3)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">The Head Knight</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Role: <strong>Economic Buyer</strong></span>
+                                <span class="eq-related-item-field"><strong>Primary</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">Sir Robin</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Role: <strong>Procurement Officer</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="contact.html">Tim the Enchanter</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Role: <strong>Technical Evaluator</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competitors Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#groups"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Competitors (2)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">The French (Digital Realty)</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Strengths: <strong>Low price per cab</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Castle Anthrax (CoreSite)</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Strengths: <strong>Attractive sales team</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Plans Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Account Plans (0)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-account-plan-cta">
+                            <p>No account plans created yet. Create one to align cross-functional strategy with the Knights Who Say Ni.</p>
+                            <button class="slds-button slds-button_brand" style="font-size:0.6875rem; padding:0.25rem 0.5rem;">Create Account Plan via Agentforce</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN = Opportunity Details -->
+            <div class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <div class="slds-media slds-media_center">
+                        <div class="slds-media__figure">
+                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title slds-text-heading_small">Opportunity Details</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-card__body">
+                    <!-- Deal Information Section -->
+                    <div class="eq-field-section-title">Deal Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Opportunity Name</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Quest for the Holy Colocation (Second Shrubbery Included)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Type</span><div class="slds-form-element__control"><div class="slds-form-element__static">New Business</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Lead Source</span><div class="slds-form-element__control"><div class="slds-form-element__static">Partner Referral</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Amount</span><div class="slds-form-element__control"><div class="slds-form-element__static">$580,000</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Close Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Aug 15, 2026</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Stage</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Negotiation / Review</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Probability</span><div class="slds-form-element__control"><div class="slds-form-element__static">65%</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Next Step</span><div class="slds-form-element__control"><div class="slds-form-element__static">Finalize contract terms with procurement</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Forecast Category</span><div class="slds-form-element__control"><div class="slds-form-element__static">Commit</div></div></div>
+                    </div>
+
+                    <!-- Solution Details Section -->
+                    <div class="eq-field-section-title">Solution Details</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Product Interest</span><div class="slds-form-element__control"><div class="slds-form-element__static">IBX Colocation</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Data Center Region</span><div class="slds-form-element__control"><div class="slds-form-element__static">EMEA — London (LD5)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Cabinet Count</span><div class="slds-form-element__control"><div class="slds-form-element__static">4</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Power Density</span><div class="slds-form-element__control"><div class="slds-form-element__static">8kW per cabinet</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Cross Connect Requirements</span><div class="slds-form-element__control"><div class="slds-form-element__static">12 fiber, 4 copper</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Network Fabric</span><div class="slds-form-element__control"><div class="slds-form-element__static">Equinix Fabric (2 ports)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Term</span><div class="slds-form-element__control"><div class="slds-form-element__static">36 months</div></div></div>
+                    </div>
+
+                    <!-- Description Section -->
+                    <div class="eq-field-section-title">Description</div>
+                    <div style="padding:0.75rem;">
+                        <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0;">
+                            The Knights Who Say Ni have issued a formal demand for a world-class colocation facility to host their Shrubbery-as-a-Service platform. Their current infrastructure — housed in a damp cave and guarded by the Black Knight — cannot handle the 4 million requests per day from the "Ni!" API endpoint. This is an enterprise-grade 36-month deal requiring IBX cabinets at the London data center with full Equinix Fabric connectivity and metal instances. The Head Knight serves as economic buyer, while Sir Robin manages procurement and Tim the Enchanter evaluates technical specifications. Competitive pressure from The French (Digital Realty) offering aggressive pricing and from Castle Anthrax (CoreSite) attempting to win via excessive hospitality. The deal is in negotiation stage with legal review underway. Expected close Aug 15, 2026 with PO in process.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN = Activity Timeline & Agentforce -->
+            <div>
+                <!-- Activity Timeline Card -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center">
+                            <div class="slds-media__figure">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                </svg>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Activity</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <ul class="slds-timeline">
+                            <li class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                        <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                            <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="slds-timeline__details">
+                                    <h3 class="slds-timeline__title"><a href="#">Call: Pricing Negotiation with The Head Knight</a></h3>
+                                    <p class="slds-timeline__meta">Yesterday</p>
+                                    <p class="slds-timeline__body">Discussed cabinet pricing, contract term flexibility, and delivery timeline. Head Knight requested 15% discount on first-year MRC. Proposed counteroffer of 10% + expedited cabinet provisioning. Follow-up meeting scheduled for next week.</p>
+                                </div>
+                            </li>
+                            <li class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                        <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                            <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="slds-timeline__details">
+                                    <h3 class="slds-timeline__title"><a href="#">Email: Revised Statement of Work Submitted</a></h3>
+                                    <p class="slds-timeline__meta">3 days ago</p>
+                                    <p class="slds-timeline__body">Sent updated SOW incorporating cabinet specifications, power requirements, cross-connect configuration, and service level terms. Technical team reviewed for accuracy. Awaiting customer legal review and markup.</p>
+                                </div>
+                            </li>
+                            <li class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                        <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                            <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="slds-timeline__details">
+                                    <h3 class="slds-timeline__title"><a href="#">Task: Technical Design Review Completed</a></h3>
+                                    <p class="slds-timeline__meta">1 week ago</p>
+                                    <p class="slds-timeline__body">Tim the Enchanter validated solution architecture: 4x cabinet configuration for LD5, 8kW per cabinet power draw, dual Equinix Fabric 10Gbps ports for redundancy, and metal instance allocation. Design approved with full SLA coverage.</p>
+                                </div>
+                            </li>
+                            <li class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                        <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                            <use href="assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="slds-timeline__details">
+                                    <h3 class="slds-timeline__title"><a href="#">Proposal Presentation to Executive Sponsor</a></h3>
+                                    <p class="slds-timeline__meta">2 weeks ago</p>
+                                    <p class="slds-timeline__body">Presented comprehensive proposal to The Head Knight covering solution design, pricing model (36-month term), deployment timeline, and competitive differentiation. Head Knight approved solution approach pending final contract negotiation.</p>
+                                </div>
+                            </li>
+                            <li class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <button class="slds-button slds-button_icon slds-button_icon-large" aria-hidden="true">
+                                        <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
+                                            <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="slds-timeline__details">
+                                    <h3 class="slds-timeline__title"><a href="#">Initial Proposal Submitted</a></h3>
+                                    <p class="slds-timeline__meta">3 weeks ago</p>
+                                    <p class="slds-timeline__body">Submitted formal proposal document including pricing, cabinet configuration, network architecture, SLAs, and support model. Pricing: $580k for 36-month commitment with setup fee included.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Agentforce Card 1 -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">📋 Agentforce: Deal Summary Brief</div>
+                    <div class="eq-agentforce-desc">Generate a concise brief covering the full deal history, all stakeholders, solution specs, competitive landscape, and recommended talking points for your next customer call.</div>
+                    <button class="eq-agentforce-btn">🤖 Generate Brief</button>
+                    <div class="eq-agentforce-time">Saves ~10 min before every call</div>
+                </div>
+
+                <!-- Agentforce Card 2 -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">🏆 Agentforce: Next Steps & Win Strategy</div>
+                    <div class="eq-agentforce-desc">Based on the current deal stage, competitive pressure, and historical win patterns, recommend the best next actions and tactics to move this deal toward signature and close.</div>
+                    <button class="eq-agentforce-btn">🤖 Get Recommendations</button>
+                    <div class="eq-agentforce-time">Improves win rate by surfacing proven playbooks</div>
+                </div>
+            </div>
+        </div><!-- /eq-record-body -->
+
+</main>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">❌ Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">175–225</strong></div>
+                    <div class="eq-metric-row"><span>Action buttons per page</span><strong style="color:#EA001E;">190–203</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">3–5</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">600–686</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#EA001E;">8–12 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check (swivel chair)</span><strong style="color:#EA001E;">3 (SF + Siebel + Email)</strong></div>
+                    <div class="eq-metric-row"><span>Object count</span><strong style="color:#EA001E;">800+ → 160 (in progress)</strong></div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">✅ After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">4–6 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Primary action buttons</span><strong style="color:#2E844A;">3–5 + overflow menu</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">< 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Related | Details | Activity</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#2E844A;">30 sec – 2 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check</span><strong style="color:#2E844A;">1 (Salesforce only)</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce touchpoints</span><strong style="color:#2E844A;">2–3 per object</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /slds-scope -->
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+</body>
+</html>

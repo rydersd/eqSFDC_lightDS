@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Case</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <!-- HIGHLIGHTS PANEL → SLDS PAGE HEADER RECORD HOME -->
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media slds-media_center slds-no-space">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-case slds-m-right_small" title="Case">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1 class="slds-page-header__title slds-truncate slds-text-heading_large">CS-4525: The Herring Is Not RJ45-Compatible</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-button-group-list">
+                        <button class="slds-button slds-button_neutral">Edit</button>
+                        <button class="slds-button slds-button_neutral">Close Case</button>
+                        <button class="slds-button slds-button_neutral">Escalate</button>
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                            </svg>
+                            <span class="slds-assistive-text">More Actions</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__row slds-page-header__row_gutters slds-m-top_medium">
+                <div class="slds-page-header__col-details slds-size_1-of-5">
+                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Account</span><span class="slds-page-header__detail-content"><a href="account.html">The Knights Who Say Ni Ltd</a></span></div>
+                </div>
+                <div class="slds-page-header__col-details slds-size_1-of-5">
+                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Priority</span><span class="slds-page-header__detail-content"><span class="eq-badge eq-badge--warning">Medium (but feels High to the customer)</span></span></div>
+                </div>
+                <div class="slds-page-header__col-details slds-size_1-of-5">
+                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Status</span><span class="slds-page-header__detail-content"><span class="eq-badge eq-badge--warning">In Progress</span></span></div>
+                </div>
+                <div class="slds-page-header__col-details slds-size_1-of-5">
+                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Contact</span><span class="slds-page-header__detail-content"><a href="contact.html">Roger the Shrubber</a></span></div>
+                </div>
+                <div class="slds-page-header__col-details slds-size_1-of-5">
+                    <div class="slds-page-header__detail-item"><span class="slds-page-header__detail-label">Opened</span><span class="slds-page-header__detail-content">Feb 20, 2026</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            <strong>📖 Chapter 5: "You Must Cut Down the Mightiest Tree in the Forest With... a Herring!"</strong><br>
+            Roger the Shrubber, VP of Shrubbery Operations at the Knights Who Say Ni, attempted to install a herring in Rack B at the LD5 facility. The Head Knight had insisted that the network topology be "herring-shaped" and Roger interpreted this literally. He arrived at the data center with an actual herring and attempted to mount it between the two Fabric ports. The NOC team intercepted the situation, but not before Roger had unplugged a fiber patch cable to "make room for the herring." This caused a brief connectivity blip on the Ni! API (47 seconds of downtime, 12,000 failed "Ni!" requests). The Bridge Keeper — our senior support engineer — is now working the case. He has a policy of asking three questions before allowing any resolution to pass.<br><br>
+            <strong>🍲 Design discussion:</strong> The Case record is about speed to resolution. Left = case details, SLA timers, and severity context. Center = the communication thread and resolution progress. Right = knowledge articles, related assets, and Agentforce suggestions. A support agent needs everything on one screen — no swivel-chairing to Siebel for asset info, then back to Salesforce for the case notes, then to email for the customer thread.
+        </div>
+
+        <div class="eq-record-body">
+            <!-- LEFT = Related Lists: Knowledge Articles, Related Assets, Preventive Actions -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_center slds-no-space">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-note" title="Knowledge Articles">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#note"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Knowledge Articles</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">KB-0042: Non-Standard Objects in Customer Cages</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Relevance: <strong><span class="eq-badge eq-badge--success">98%</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">KB-0099: Customer Misinterpretation of Technical Terms</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Relevance: <strong><span class="eq-badge eq-badge--success">94%</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">KB-1247: Fiber Patch Cable Reconnection Procedure</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Relevance: <strong><span class="eq-badge eq-badge--info">87%</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">KB-0666: Acceptable vs. Unacceptable Rack-Mount Items (with illustrations)</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Relevance: <strong><span class="eq-badge eq-badge--info">79%</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_center slds-no-space">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-asset_object" title="Related Assets">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#asset_object"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Related Assets</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">FAB-LD5-NI1</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Fabric Port</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active (restored)</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">FAB-LD5-NI2</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Fabric Port</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">FPC-LD5-C12-007</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Fiber Patch Cable</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Re-patched (herring-free)</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">1x North Atlantic Herring</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Type: <strong>Unauthorized Equipment</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--warning">In NOC refrigerator</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_center slds-no-space">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-task" title="Preventive Actions">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Preventive Actions</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Add "No Marine Life" Clause</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Target: <strong>Customer smart-hands agreement</strong></span>
+                                <span class="eq-related-item-field">Priority: <strong>High</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Update Access Permissions</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Contact: <strong>Roger the Shrubber</strong></span>
+                                <span class="eq-related-item-field">Action: <strong>Require escort for Rack B access</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Schedule Training Session</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Topic: <strong>Network Topology: Metaphors vs. Literal Interpretations</strong></span>
+                                <span class="eq-related-item-field">Attendee: <strong>Roger the Shrubber</strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER = Case Details: Form fields and case information -->
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <div class="slds-media slds-media_center slds-no-space">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-case" title="Case Details">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title slds-text-heading_small">Case Details</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-card__body">
+                    <div class="eq-field-section-title">Case Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Case Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">CS-4525</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Subject</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Herring Is Not RJ45-Compatible — Unauthorized Rack Insertion</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contact Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Roger the Shrubber</a> (very sorry about the herring)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Priority</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Medium</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">In Progress (herring removed, fiber re-patched)</span></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Type</span><div class="slds-form-element__control"><div class="slds-form-element__static">Physical Infrastructure — Unauthorized Equipment</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Origin</span><div class="slds-form-element__control"><div class="slds-form-element__static">NOC Alert (fish detected in cage)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Case Owner</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">The Bridge Keeper</a> (asks three questions before resolving)</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Related Order</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="order.html">ORD-2026-NI1</a></div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">IBX</span><div class="slds-form-element__control"><div class="slds-form-element__static">LD5 — Cage 12, Rack B</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">SLA Deadline</span><div class="slds-form-element__control"><div class="slds-form-element__static">Feb 22, 2026 — 5:00 PM GMT</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Downtime Impact</span><div class="slds-form-element__control"><div class="slds-form-element__static">47 seconds; 12,000 failed Ni! API requests</div></div></div>
+                        <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Root Cause</span><div class="slds-form-element__control"><div class="slds-form-element__static">Customer placed herring in rack; unplugged fiber patch cable</div></div></div>
+                    </div>
+                    <div class="eq-field-section-title">Description</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width" style="padding:0.5rem 0.75rem;">
+                            <span class="slds-form-element__label">Description</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Customer's VP of Shrubbery Operations (Roger the Shrubber) entered LD5 Cage 12 at 14:23 GMT with what NOC cameras confirmed was a North Atlantic herring. He attempted to mount the herring between Fabric ports FAB-LD5-NI1 and FAB-LD5-NI2, stating he was "implementing the Head Knight's herring-shaped network topology." During the attempt, he disconnected fiber patch cable FPC-LD5-C12-007, causing 47 seconds of downtime on the Ni! API endpoint. The herring has been removed and is currently in the NOC break room refrigerator. Roger has been reminded that only Equinix-approved equipment may be rack-mounted. He is "very sorry about the herring."</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT = Activity: Case History timeline + Agentforce cards -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_center slds-no-space">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-log_a_call" title="Case History">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Case History</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="slds-timeline">
+                            <div class="slds-timeline__item_expandable slds-timeline__item_task">
+                                <span class="slds-assistive-text">Task</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-1" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon" title="Task">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"><h3><a href="#">Fiber Patch Cable Re-Connected</a></h3></div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline"><p class="slds-timeline__date">Today, 11:00 AM</p></div>
+                                        </div>
+                                        <p class="slds-truncate">FPC-LD5-C12-007 re-patched and tested. Full connectivity restored. Light levels normal. No herring residue on fiber ends (confirmed via microscope inspection).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">Event</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-2" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-event slds-timeline__icon" title="Event">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"><h3><a href="#">The Bridge Keeper's Three Questions</a></h3></div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline"><p class="slds-timeline__date">Today, 9:30 AM</p></div>
+                                        </div>
+                                        <p class="slds-truncate">Before approving the resolution, The Bridge Keeper asked Roger three questions: 1) "What is your name?" ("Roger the Shrubber"), 2) "What is your quest?" ("To arrange the most beautiful server rack in all the land"), 3) "What is the airspeed velocity of an unladen herring?" ("I... I don't know that — AAUGH!" *call dropped*). Resolution approved anyway.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_email">
+                                <span class="slds-assistive-text">Email</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-3" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-email slds-timeline__icon" title="Email">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"><h3><a href="#">Email to Customer: Herring Retrieval Options</a></h3></div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline"><p class="slds-timeline__date">Yesterday, 4:00 PM</p></div>
+                                        </div>
+                                        <p class="slds-truncate">"Dear Roger — the herring has been removed from Rack B and is being stored in our NOC break room refrigerator. You may retrieve it during standard smart-hands hours (M-F, 9-5). Please do not attempt to mount any additional marine life in the facility. Regards, The Bridge Keeper."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_call">
+                                <span class="slds-assistive-text">Call</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-4" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-log_a_call slds-timeline__icon" title="Call">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"><h3><a href="#">Inbound Call: Roger the Shrubber</a></h3></div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline"><p class="slds-timeline__date">Feb 20, 2:30 PM</p></div>
+                                        </div>
+                                        <p class="slds-truncate">"I'm terribly sorry about the herring. The Head Knight was very specific — he said the topology must be 'herring-shaped.' I thought he meant... well... I'm not a network engineer, I'm a shrubber! Can I at least have my herring back? It was a very nice herring."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">Event</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-5" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-event slds-timeline__icon" title="Event">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space"><h3><a href="#">NOC Alert: Unauthorized Object in Cage 12</a></h3></div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline"><p class="slds-timeline__date">Feb 20, 2:23 PM</p></div>
+                                        </div>
+                                        <p class="slds-truncate">Environmental sensor triggered — unusual humidity increase in Rack B vicinity. NOC camera review revealed customer contact inserting marine life into server rack. Security dispatched. Fiber disconnect confirmed at 14:23:47 GMT.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">📖 Agentforce: Suggest Resolution</div>
+                    <div class="eq-agentforce-desc">Search knowledge base for similar "unauthorized equipment" cases. Current top suggestion: KB-0042 "Non-Standard Objects Found in Customer Cages — Response Procedure." Also flagged: KB-0099 "Dealing with Unusual Customer Interpretations of Network Topology Terms."</div>
+                    <button class="eq-agentforce-btn">🤖 Find Resolution</button>
+                    <div class="eq-agentforce-time">Saves ~12 min research; resolves 40% of cases on first suggestion</div>
+                </div>
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">📧 Agentforce: Draft Customer Response</div>
+                    <div class="eq-agentforce-desc">Generate a professional response that diplomatically explains why herrings cannot be rack-mounted while maintaining the customer relationship. Tone: firm but understanding of shrubbery professionals working outside their domain.</div>
+                    <button class="eq-agentforce-btn">🤖 Draft Diplomatic Response</button>
+                    <div class="eq-agentforce-time">Saves ~6 min per response; ensures consistent tone</div>
+                </div>
+            </div>
+        </div>
+
+</main>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">❌ Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">175–225</strong></div>
+                    <div class="eq-metric-row"><span>Action buttons per page</span><strong style="color:#EA001E;">190–203</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">3–5</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">600–686</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#EA001E;">8–12 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check (swivel chair)</span><strong style="color:#EA001E;">3 (SF + Siebel + Email)</strong></div>
+                    <div class="eq-metric-row"><span>Object count</span><strong style="color:#EA001E;">800+ → 160 (in progress)</strong></div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">✅ After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">4–6 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Primary action buttons</span><strong style="color:#2E844A;">3–5 + overflow menu</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">&lt; 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Related | Details | Activity</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#2E844A;">30 sec – 2 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check</span><strong style="color:#2E844A;">1 (Salesforce only)</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce touchpoints</span><strong style="color:#2E844A;">2–3 per object</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /slds-scope -->
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+</body>
+</html>

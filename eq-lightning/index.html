@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Sitemap</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+    <style>
+        .eq-sitemap-intro { background: #fff; border: 1px solid #DDDBDA; border-radius: 8px; padding: 2rem; margin-bottom: 2rem; }
+        .eq-sitemap-intro h1 { margin: 0 0 0.5rem; font-size: 1.875rem; color: #080707; }
+        .eq-sitemap-intro p { margin: 0 0 0.75rem; color: #3E3E3C; line-height: 1.6; }
+        .eq-sitemap-section { margin-bottom: 2.5rem; }
+        .eq-sitemap-section-title { font-size: 1.125rem; font-weight: 700; color: #080707; margin: 0 0 1.25rem; padding-bottom: 0.75rem; border-bottom: 3px solid #0070D2; }
+        .eq-sitemap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .eq-sitemap-tile { background: #fff; border: 1px solid #DDDBDA; border-radius: 8px; padding: 1.5rem; transition: box-shadow 0.15s, border-color 0.15s; }
+        .eq-sitemap-tile:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: #0070D2; }
+        .eq-sitemap-tile a { text-decoration: none; color: inherit; display: block; }
+        .eq-tile-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .eq-tile-title { font-size: 1rem; font-weight: 700; color: #080707; margin-bottom: 0.5rem; }
+        .eq-tile-description { font-size: 0.8125rem; color: #3E3E3C; line-height: 1.5; margin-bottom: 0.75rem; }
+        .eq-tile-meta { font-size: 0.75rem; color: #706E6B; }
+        .eq-ref-section-title { font-size: 1.125rem; font-weight: 700; color: #080707; margin: 2rem 0 1.25rem; padding-bottom: 0.75rem; border-bottom: 3px solid #2E844A; }
+        .eq-ref-page { background: #fff; border: 1px solid #DDDBDA; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .eq-ref-header { margin-bottom: 2rem; }
+        .eq-ref-header h1 { margin: 0 0 0.5rem; }
+        .eq-ref-header p { margin: 0; }
+        .eq-stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .eq-stats-bar > div { background: #f3f3f3; border-radius: 8px; padding: 1rem; text-align: center; }
+        .eq-stat-num { font-size: 1.5rem; font-weight: 700; color: #080707; }
+        .eq-stat-label { font-size: 0.75rem; color: #706E6B; margin-top: 0.25rem; }
+        .eq-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .eq-card { background: #fff; border: 1px solid #DDDBDA; border-radius: 8px; padding: 1.5rem; transition: box-shadow 0.15s, border-color 0.15s; }
+        .eq-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: #0070D2; }
+        .eq-card a { color: #0070D2; text-decoration: none; font-weight: 600; }
+        .eq-card a:hover { text-decoration: underline; }
+        .eq-card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .eq-card-icon { width: 48px; height: 48px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .eq-card-title { font-size: 1rem; font-weight: 700; color: #080707; }
+        .eq-card-body { font-size: 0.8125rem; color: #3E3E3C; line-height: 1.5; margin-bottom: 0.75rem; }
+        .eq-card-meta { font-size: 0.75rem; color: #706E6B; }
+        .eq-related-table { width: 100%; border-collapse: collapse; }
+        .eq-related-table th { background: #f3f3f3; border: 1px solid #DDDBDA; padding: 0.75rem; text-align: left; font-weight: 700; color: #080707; }
+        .eq-related-table td { border: 1px solid #DDDBDA; padding: 0.75rem; }
+    </style>
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SITEMAP INTRODUCTION -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="eq-sitemap-intro">
+    <h1>EQ Lightning Prototype</h1>
+    <p>A standardized Salesforce Lightning record page design system for Equinix. This prototype defines the consistent "lego" pattern — which components go where, per object — so every team builds pages the same way.</p>
+    <p><strong>Navigate the pages below</strong>, review the assembly pattern reference, and explore how the three-column layout (Details | Activity | Related) serves as the foundation across all record types.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- QUICK STATS -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="eq-stats-bar">
+    <div><div class="eq-stat-num">5</div><div class="eq-stat-label">Object Types</div></div>
+    <div><div class="eq-stat-num">3</div><div class="eq-stat-label">CRO Personas</div></div>
+    <div><div class="eq-stat-num">3-Column</div><div class="eq-stat-label">Standard Layout</div></div>
+    <div><div class="eq-stat-num">~160</div><div class="eq-stat-label">Consolidated Objects</div></div>
+    <div><div class="eq-stat-num">Feb 2026</div><div class="eq-stat-label">Version</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RECORD PAGES (PRIMARY NAVIGATION) -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="eq-sitemap-section">
+    <h2 class="eq-sitemap-section-title">Record Pages — The Five Core Objects</h2>
+    <p style="color: #3E3E3C; font-size: 0.8125rem; margin-bottom: 1.5rem;">Each record page follows the same three-column layout and component assembly pattern. Click any tile to view the full page.</p>
+
+    <div class="eq-sitemap-grid">
+        <a href="account.html" class="eq-sitemap-tile">
+            <div class="eq-tile-icon">🏢</div>
+            <div class="eq-tile-title">Account</div>
+            <div class="eq-tile-description">Company identity, hierarchy, and account intelligence. Includes related contacts, opportunities, and orders.</div>
+            <div class="eq-tile-meta">5 detail sections · 4 related lists · 2 Agentforce cards</div>
+        </a>
+
+        <a href="contact.html" class="eq-sitemap-tile">
+            <div class="eq-tile-icon">👤</div>
+            <div class="eq-tile-title">Contact</div>
+            <div class="eq-tile-description">Person details, communication preferences, and engagement timeline. Related opportunities and activities.</div>
+            <div class="eq-tile-meta">4 detail sections · 3 related lists · 1 Agentforce card</div>
+        </a>
+
+        <a href="opportunity.html" class="eq-sitemap-tile">
+            <div class="eq-tile-icon">💰</div>
+            <div class="eq-tile-title">Opportunity</div>
+            <div class="eq-tile-description">Deal details, sales path, competitive landscape, and product line items with Agentforce deal summary.</div>
+            <div class="eq-tile-meta">4 detail sections · 3 related lists · 2 Agentforce cards</div>
+        </a>
+
+        <a href="order.html" class="eq-sitemap-tile">
+            <div class="eq-tile-icon">📦</div>
+            <div class="eq-tile-title">Order</div>
+            <div class="eq-tile-description">Fulfillment path, billing details, and provisioning timeline with Agentforce auto-populate from quote.</div>
+            <div class="eq-tile-meta">4 detail sections · 3 related lists · 1 Agentforce card</div>
+        </a>
+
+        <a href="case.html" class="eq-sitemap-tile">
+            <div class="eq-tile-icon">🛠</div>
+            <div class="eq-tile-title">Case</div>
+            <div class="eq-tile-description">Support path, resolution timeline, and SLA tracking with Agentforce resolution suggestions.</div>
+            <div class="eq-tile-meta">3 detail sections · 3 related lists · 2 Agentforce cards</div>
+        </a>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- REFERENCE & RESEARCH PAGES -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="eq-sitemap-section">
+    <h2 class="eq-sitemap-section-title">Reference & Research — Understanding the Pattern</h2>
+    <p style="color: #3E3E3C; font-size: 0.8125rem; margin-bottom: 1.5rem;">Learn about the personas, the data story, and the research that informed the design pattern.</p>
+
+    <div class="eq-card-grid">
+        <a href="personas.html" class="eq-card">
+            <div class="eq-card-header">
+                <div class="eq-card-icon" style="background: #5A2D82;">👥</div>
+                <div class="eq-card-title">CRO Personas</div>
+            </div>
+            <div class="eq-card-body">Account Executive, Solutions Architect, and Sales Engineer personas with Jobs-to-Be-Done, pain points, and tool ecosystem mapping.</div>
+            <div class="eq-card-meta">3 personas · JTBD framework · Tool mapping</div>
+        </a>
+
+        <a href="story-reference.html" class="eq-card">
+            <div class="eq-card-header">
+                <div class="eq-card-icon" style="background: #FF8A00;">🎭</div>
+                <div class="eq-card-title">Story Reference</div>
+            </div>
+            <div class="eq-card-body">The Monty Python data story that threads through every record page — character guide, company profiles, and narrative continuity.</div>
+            <div class="eq-card-meta">5 characters · 2 organizations · Narrative thread</div>
+        </a>
+
+        <a href="research.html" class="eq-card">
+            <div class="eq-card-header">
+                <div class="eq-card-icon" style="background: #2E844A;">📚</div>
+                <div class="eq-card-title">Research & Best Practices</div>
+            </div>
+            <div class="eq-card-body">Salesforce Lightning deployment research — record page design patterns, enterprise deployment friction, and Agentforce integration strategies.</div>
+            <div class="eq-card-meta">Verified links · Paywalled sources in Further Reading</div>
+        </a>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- THE ASSEMBLY PATTERN EXPLANATION -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="eq-ref-page">
+    <h2 class="eq-ref-section-title">The Assembly Pattern — How the Legos Fit Together</h2>
+
+    <div style="background:#fff; border:1px solid #DDDBDA; border-radius:8px; padding:1.5rem; margin-bottom:1.5rem;">
+        <p style="font-size:0.875rem; color:#3E3E3C; line-height:1.6; margin:0 0 1.25rem;">
+            Every record page at Equinix follows the same three-column composition. The components ("legos") are standard Salesforce Lightning building blocks — highlights panel, path, activity timeline, related lists, Agentforce cards — but the <strong>assembly order and placement</strong> is what this project standardizes. Regardless of whether you're looking at an Account, a Case, or an Order, you always know where to look.
+        </p>
+
+        <!-- Visual diagram of three-column layout -->
+        <div style="display:grid; grid-template-columns:1fr 1.3fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+            <!-- Left column -->
+            <div style="border:2px dashed #0070D2; border-radius:8px; padding:1rem;">
+                <div style="font-size:0.6875rem; font-weight:700; color:#0070D2; text-transform:uppercase; letter-spacing:.04em; margin-bottom:0.75rem;">Left Column — Details</div>
+                <div style="background:#EEF4FF; border:1px solid #D1E5F9; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>1. Record Details</strong><br>Grouped field sections (2-col grid). Identity, classification, relationships.
+                </div>
+                <div style="background:#F5EEFF; border:1px solid #D8B4FE; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>2. Agentforce Intelligence</strong><br>AI-generated insights, churn risk, account health scores.
+                </div>
+                <div style="background:#EEF4FF; border:1px solid #D1E5F9; border-radius:4px; padding:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>3. System &amp; Audit Fields</strong><br>Created/Modified dates, owners, record type. Collapsed by default.
+                </div>
+            </div>
+            <!-- Center column -->
+            <div style="border:2px dashed #2E844A; border-radius:8px; padding:1rem;">
+                <div style="font-size:0.6875rem; font-weight:700; color:#2E844A; text-transform:uppercase; letter-spacing:.04em; margin-bottom:0.75rem;">Center Column — Activity &amp; Path</div>
+                <div style="background:#E8F5E9; border:1px solid #A5D6A7; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>1. Path Component</strong><br>Lifecycle stages as chevron. Shows where the record is in its journey.
+                </div>
+                <div style="background:#E8F5E9; border:1px solid #A5D6A7; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>2. Activity Timeline</strong><br>Calls, emails, tasks, events. The single source of "what happened."
+                </div>
+                <div style="background:#F5EEFF; border:1px solid #D8B4FE; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>3. Agentforce Actions</strong><br>Draft outreach, deal summary, resolution suggestions — contextual to object.
+                </div>
+                <div style="background:#E8F5E9; border:1px solid #A5D6A7; border-radius:4px; padding:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>4. Chatter / Collaboration</strong><br>Team discussion, @mentions, file shares on the record.
+                </div>
+            </div>
+            <!-- Right column -->
+            <div style="border:2px dashed #FF8A00; border-radius:8px; padding:1rem;">
+                <div style="font-size:0.6875rem; font-weight:700; color:#FF8A00; text-transform:uppercase; letter-spacing:.04em; margin-bottom:0.75rem;">Right Column — Related &amp; Actions</div>
+                <div style="background:#FFF8E1; border:1px solid #FFE082; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>1. Related Lists</strong><br>Child objects, lookup relationships. Context-specific per object type.
+                </div>
+                <div style="background:#FFF8E1; border:1px solid #FFE082; border-radius:4px; padding:0.5rem; margin-bottom:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>2. Quick Actions</strong><br>Log a Call, New Task, New Event, Send Email — 3-5 max per object.
+                </div>
+                <div style="background:#F5EEFF; border:1px solid #D8B4FE; border-radius:4px; padding:0.5rem; font-size:0.75rem; color:#3E3E3C;">
+                    <strong>3. Agentforce Engagement</strong><br>Engagement analytics, next best action, customer response drafts.
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size:0.75rem; color:#706E6B; margin:0; line-height:1.5;">
+            <strong>Above the fold (shared across all objects):</strong> Highlights Panel (5-8 key fields) → "Is this the right record?" confirmation in under 3 seconds. Every record page starts here.
+        </p>
+    </div>
+
+    <!-- ═══ COMPONENT MATRIX ═══ -->
+    <div style="background:#fff; border:1px solid #DDDBDA; border-radius:8px; padding:1.25rem; margin-bottom:2rem; overflow-x:auto;">
+        <h3 style="font-size:0.875rem; font-weight:700; color:#080707; margin:0 0 1rem;">Component Assembly Matrix — Which Legos, Per Object</h3>
+        <table class="eq-related-table" style="font-size:0.75rem;">
+            <thead>
+                <tr>
+                    <th style="min-width:160px;">Component</th>
+                    <th>Account</th>
+                    <th>Contact</th>
+                    <th>Opportunity</th>
+                    <th>Order</th>
+                    <th>Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Highlights Panel</strong></td><td>✅ 6 fields</td><td>✅ 5 fields</td><td>✅ 6 fields</td><td>✅ 5 fields</td><td>✅ 6 fields</td></tr>
+                <tr><td><strong>Path Component</strong></td><td>—</td><td>—</td><td>✅ Sales Path</td><td>✅ Fulfillment</td><td>✅ Support Path</td></tr>
+                <tr><td><strong>Detail Sections</strong></td><td>5 sections</td><td>4 sections</td><td>4 sections</td><td>4 sections</td><td>3 sections</td></tr>
+                <tr><td><strong>Activity Timeline</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+                <tr><td><strong>Related Lists</strong></td><td>4 lists</td><td>3 lists</td><td>3 lists</td><td>3 lists</td><td>3 lists</td></tr>
+                <tr><td><strong>Agentforce Cards</strong></td><td>2 cards</td><td>1 card</td><td>2 cards</td><td>1 card</td><td>2 cards</td></tr>
+                <tr><td><strong>Quick Actions</strong></td><td>4 actions</td><td>4 actions</td><td>3 actions</td><td>3 actions</td><td>4 actions</td></tr>
+                <tr><td><strong>Chatter</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ═══ PROJECT CONTEXT ═══ -->
+    <h2 class="eq-ref-section-title">Project Context</h2>
+
+    <div style="background:#fff; border:1px solid #DDDBDA; border-radius:8px; padding:1.25rem; line-height:1.6; font-size:0.8125rem; color:#3E3E3C;">
+        <p style="margin:0 0 0.75rem;">Equinix is standardizing its Salesforce Lightning experience across a global sales organization. The current state includes 800+ custom objects (consolidated to ~160), pages with 175-225 field sections and 190+ action buttons, and a swivel-chair workflow between Salesforce, Siebel, and email.</p>
+        <p style="margin:0 0 0.75rem;">This prototype defines the target assembly pattern: how standard Salesforce Lightning components should be composed into consistent, persona-aware record pages. The three-column layout (Details | Activity | Related) serves as the foundation, with Agentforce touchpoints woven in where they reduce manual work and surface intelligence.</p>
+        <p style="margin:0;">The Monty Python data story keeps stakeholder conversations about required content, layout decisions, and field groupings engaging and low-stakes — so people focus on the structure, not the data.</p>
+    </div>
+</div>
+
+</main>
+</div>
+
+<script src="eq-nav.js"></script>
+</body>
+</html>

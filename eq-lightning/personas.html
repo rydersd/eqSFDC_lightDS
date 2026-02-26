@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — CRO Personas</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+    <style>
+        .eq-journey-bar { display:flex; gap:2px; margin-top:1rem; }
+        .eq-journey-step { flex:1; text-align:center; padding:0.5rem 0.25rem; font-size:0.6875rem; border-radius:4px; }
+        .eq-journey-step.high { background:#2E844A; color:#fff; font-weight:700; }
+        .eq-journey-step.med { background:#A5D6A7; color:#1C6B4A; font-weight:600; }
+        .eq-journey-step.low { background:#E8F5E9; color:#2E844A; }
+        .eq-journey-label { font-size:0.625rem; color:#706E6B; margin-top:0.125rem; }
+        .eq-pain-tag { display:inline-block; padding:0.125rem 0.5rem; border-radius:0.75rem; font-size:0.6875rem; font-weight:600; background:#F8D7DA; color:#721C24; margin:0.125rem; }
+        .eq-tool-tag { display:inline-block; padding:0.125rem 0.5rem; border-radius:0.75rem; font-size:0.6875rem; font-weight:600; background:#D1ECF1; color:#0C5460; margin:0.125rem; }
+        .eq-persona-full { background:#fff; border:1px solid #DDDBDA; border-radius:8px; padding:1.5rem; margin-bottom:2rem; }
+        .eq-persona-full h2 { font-size:1.25rem; font-weight:700; color:#080707; margin:0 0 0.25rem; }
+        .eq-persona-full .eq-persona-quote { font-size:0.875rem; color:#706E6B; font-style:italic; margin:0 0 1rem; line-height:1.5; }
+        .eq-persona-full .eq-persona-intro { font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0 0 1.25rem; }
+        .eq-persona-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+        @media (max-width:768px) { .eq-persona-grid { grid-template-columns:1fr; } }
+        .eq-persona-col h3 { font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem; padding-bottom:0.25rem; border-bottom:1px solid #DDDBDA; }
+        .eq-persona-col ul { margin:0; padding-left:1rem; font-size:0.8125rem; color:#3E3E3C; line-height:1.6; }
+        .eq-persona-col ul li { margin-bottom:0.25rem; }
+    </style>
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+<div class="eq-ref-page">
+
+    <div class="eq-ref-header">
+        <h1>CRO Personas</h1>
+        <p>Three roles from Equinix CRO research that drive how record pages should be assembled. Each persona interacts with Salesforce differently — the consistent lego assembly must serve all three without requiring role-specific page layouts.</p>
+    </div>
+
+    <!-- Notice -->
+    <div style="background:#FFFAF0; border:1px solid #FF8A00; border-radius:8px; padding:1rem; margin-bottom:2rem; font-size:0.8125rem; color:#3E3E3C; line-height:1.5;">
+        <strong style="color:#8B4513;">Source:</strong> These personas are derived from Equinix CRO persona research documents. They represent validated role archetypes across the sales organization and inform which fields, components, and Agentforce touchpoints belong on each record page.
+    </div>
+
+    <!-- ═══ ACCOUNT EXECUTIVE ═══ -->
+    <div class="eq-persona-full">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+            <div class="eq-persona-avatar" style="background:#F8D7DA; color:#721C24; width:52px; height:52px; font-size:1rem;">AE</div>
+            <div>
+                <h2>Account Executive</h2>
+                <p class="eq-persona-quote">"I drive revenue and build trust with my customers, but my success depends on navigating complex internal processes, fragmented tools, and cross-team coordination."</p>
+            </div>
+        </div>
+        <p class="eq-persona-intro">Drives revenue by building trust and managing relationships across customers and internal teams. Days are fast-moving and unpredictable, driven by deal stage, quarter timing, and customer needs. Externally focused but internally dependent. Performance is measured by numbers, but success depends on relationships, credibility, and speed.</p>
+
+        <div class="eq-persona-grid">
+            <div class="eq-persona-col">
+                <h3>Jobs to Be Done</h3>
+                <ul>
+                    <li><strong>Moving an opportunity through the sales cycle:</strong> Coordinate approvals, pricing, and internal resources efficiently to close deals faster</li>
+                    <li><strong>Receiving a customer inquiry or request:</strong> Access accurate account, contract, and product information quickly without errors or delay</li>
+                    <li><strong>Preparing for a customer or partner meeting:</strong> Align internally with SEs and collaborators to present a confident, unified solution</li>
+                    <li><strong>Encountering fragmented systems or missing data:</strong> Consolidate or validate information efficiently to avoid manual workarounds</li>
+                    <li><strong>Building long-term customer relationships:</strong> Track touchpoints and follow-ups efficiently to maintain trust and improve retention</li>
+                </ul>
+            </div>
+            <div class="eq-persona-col">
+                <h3>Goals &amp; Motivations</h3>
+                <ul>
+                    <li>Hit and exceed revenue targets and quotas</li>
+                    <li>Maintain credibility with customers</li>
+                    <li>Keep internal teams aligned</li>
+                    <li>Build long-term trusted relationships</li>
+                    <li>Keep deals moving forward</li>
+                </ul>
+                <h3 style="margin-top:1rem;">Success Metrics</h3>
+                <ul>
+                    <li>New revenue</li>
+                    <li>Retention &amp; renewals</li>
+                    <li>Expansion / upsell</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="eq-persona-grid" style="margin-top:1.25rem;">
+            <div class="eq-persona-col">
+                <h3>Operational Challenges</h3>
+                <ul>
+                    <li><strong>Lengthy quoting &amp; approval workflows</strong> — deals pass through multiple teams with unclear ownership, causing restarts and delayed momentum</li>
+                    <li><strong>Data inconsistencies</strong> — contracts, product availability, and account histories scattered across systems, requiring manual validation</li>
+                    <li><strong>Complex infrastructure requirements</strong> — capacity, power, and site validations add extra steps that delay deal progression</li>
+                    <li><strong>Manual admin work</strong> — reliance on spreadsheets and personal trackers adds effort and increases risk of mistakes</li>
+                </ul>
+            </div>
+            <div class="eq-persona-col">
+                <h3>Emotional Frustrations</h3>
+                <ul>
+                    <li><strong>Lack of trust in tools &amp; data</strong> — no single source of truth; must look into multiple systems and constantly worry about having the wrong information</li>
+                    <li><strong>Frequent changes &amp; instability</strong> — hard to keep up with constant changes in territories, targets, new tools, and internal teams</li>
+                    <li><strong>Direct customer bypass</strong> — customers sometimes go straight to AEs instead of their CSM, adding tasks, confusing ownership, and slowing focus on revenue-driving activities</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top:1.25rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem;">Key Relationships</h3>
+            <span class="eq-tool-tag">GTST</span>
+            <span class="eq-tool-tag">CSMs</span>
+            <span class="eq-tool-tag">Partners</span>
+            <span class="eq-tool-tag">AEs</span>
+        </div>
+
+        <div style="margin-top:0.75rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem;">Top Tools / Systems</h3>
+            <span class="eq-tool-tag">Salesforce</span>
+            <span class="eq-tool-tag">Outlook / Teams</span>
+            <span class="eq-tool-tag">Clari</span>
+            <span class="eq-tool-tag">Excel</span>
+            <span class="eq-tool-tag">Account360</span>
+            <span class="eq-tool-tag">Siebel</span>
+        </div>
+
+        <div style="margin-top:1rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.375rem;">Influence Across the Customer Journey</h3>
+            <div class="eq-journey-bar">
+                <div class="eq-journey-step high">Awareness<div class="eq-journey-label">Builds relationships, uncovers initial needs</div></div>
+                <div class="eq-journey-step high">Consideration<div class="eq-journey-label">Leads opp qualification, coordinates with GTST</div></div>
+                <div class="eq-journey-step high">Purchase<div class="eq-journey-label">Prepares quotes and contracts, secures approvals</div></div>
+                <div class="eq-journey-step med">Onboarding<div class="eq-journey-label">Ensures smooth handoff to CSMs/delivery</div></div>
+                <div class="eq-journey-step med">Adoption<div class="eq-journey-label">Advises on effective usage, monitors early success</div></div>
+                <div class="eq-journey-step high">Growth<div class="eq-journey-label">Identifies renewal and upsell opportunities</div></div>
+            </div>
+        </div>
+
+        <div style="margin-top:1rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.375rem;">Key Ownership</h3>
+            <p style="font-size:0.8125rem; color:#3E3E3C; line-height:1.6; margin:0;">Opportunity qualification · Account strategy and planning · Coordinating technical validation (with GTST) · Pricing and quote initiation · Driving approvals and internal alignment · Contract progression · Renewal and expansion strategy · Maintaining deal momentum</p>
+        </div>
+    </div>
+
+    <!-- ═══ SOLUTIONS ARCHITECT ═══ -->
+    <div class="eq-persona-full">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+            <div class="eq-persona-avatar" style="background:#D1ECF1; color:#0C5460; width:52px; height:52px; font-size:1rem;">SA</div>
+            <div>
+                <h2>Solutions Architect</h2>
+                <p class="eq-persona-quote">"I design solutions that work today and scale for what the customer hasn't even planned yet."</p>
+            </div>
+        </div>
+        <p class="eq-persona-intro">Designs scalable, future-ready architectures that align technical solutions to long-term customer strategy and growth. Operates as a trusted advisor shaping solution direction early and maintaining continuity through implementation and growth.</p>
+
+        <div class="eq-persona-grid">
+            <div class="eq-persona-col">
+                <h3>Jobs to Be Done</h3>
+                <ul>
+                    <li><strong>Complex infrastructure needs:</strong> Design a scalable, compliant solution</li>
+                    <li><strong>Requirements evolve late:</strong> Adjust architecture without compromising integrity</li>
+                    <li><strong>Internal systems are fragmented:</strong> Create workarounds to keep deals moving</li>
+                    <li><strong>Customers plan for growth:</strong> Identify expansion-ready configurations</li>
+                    <li><strong>New products launch:</strong> Quickly gain enough expertise to remain credible</li>
+                    <li><strong>Handing off to fulfillment:</strong> Ensure nothing gets lost in translation</li>
+                </ul>
+            </div>
+            <div class="eq-persona-col">
+                <h3>Goals &amp; Motivations</h3>
+                <ul>
+                    <li>Be a trusted long-term technical advisor to AEs and customers</li>
+                    <li>Design accurate, future-proof solutions</li>
+                    <li>Maintain deep, cutting-edge expertise</li>
+                    <li>Build durable customer relationships</li>
+                    <li>Reduce time spent on administrative friction</li>
+                    <li>Contribute to revenue growth and expansion</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="eq-persona-grid" style="margin-top:1.25rem;">
+            <div class="eq-persona-col">
+                <h3>Operational Challenges</h3>
+                <ul>
+                    <li><strong>No standardized workflow</strong> — too much reliance on personal systems, creating inconsistency, inefficiency, and handoff risk</li>
+                    <li><strong>Manual re-entry of configurations across tools</strong> — configurations must be recreated in multiple systems, increasing admin time and error risk</li>
+                    <li><strong>Fragmented documentation and knowledge sharing</strong> — critical product and process knowledge is scattered, making answers dependent on who you know</li>
+                </ul>
+            </div>
+            <div class="eq-persona-col">
+                <h3>Emotional Frustrations</h3>
+                <ul>
+                    <li><strong>Too much time navigating systems instead of designing</strong> — administrative friction reduces time spent on high-value solution design</li>
+                    <li><strong>Every small change causes unnecessary rework</strong> — minor requirement updates can trigger disproportionate effort and process restarts</li>
+                    <li><strong>Reliance on tribal knowledge</strong> — progress often depends on informal networks, creating uncertainty and onboarding challenges</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top:1.25rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem;">Key Relationships</h3>
+            <span class="eq-tool-tag">AE</span>
+            <span class="eq-tool-tag">GTST</span>
+            <span class="eq-tool-tag">COMs</span>
+            <span class="eq-tool-tag">Capacity</span>
+            <span class="eq-tool-tag">Product / Engineering</span>
+        </div>
+
+        <div style="margin-top:0.75rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem;">Top Tools / Systems</h3>
+            <span class="eq-tool-tag">Outlook / Teams</span>
+            <span class="eq-tool-tag">Solution Builder</span>
+            <span class="eq-tool-tag">Operator Portal</span>
+            <span class="eq-tool-tag">Fabric Portal</span>
+            <span class="eq-tool-tag">Salesforce</span>
+            <span class="eq-tool-tag">Account360</span>
+        </div>
+
+        <div style="margin-top:1rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.375rem;">Influence Across the Customer Journey</h3>
+            <div class="eq-journey-bar">
+                <div class="eq-journey-step med">Awareness<div class="eq-journey-label">Shapes solution vision, aligns architectural possibilities</div></div>
+                <div class="eq-journey-step high">Consideration<div class="eq-journey-label">Leads strategic discovery, designs scalable solutions</div></div>
+                <div class="eq-journey-step high">Purchase<div class="eq-journey-label">Ensures feasibility, supports solution confidence</div></div>
+                <div class="eq-journey-step med">Onboarding<div class="eq-journey-label">Provides architectural continuity during handoff</div></div>
+                <div class="eq-journey-step low">Adoption<div class="eq-journey-label">Advises on optimization and scalability</div></div>
+                <div class="eq-journey-step med">Growth<div class="eq-journey-label">Identifies expansion pathways</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SALES ENGINEER ═══ -->
+    <div class="eq-persona-full">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+            <div class="eq-persona-avatar" style="background:#FFF3CD; color:#856404; width:52px; height:52px; font-size:1rem;">SE</div>
+            <div>
+                <h2>Sales Engineer</h2>
+                <p class="eq-persona-quote">"I turn complex technical requirements into solutions that win trust and deals, while keeping things accurate and scalable."</p>
+            </div>
+        </div>
+        <p class="eq-persona-intro">Bridges between customer technical needs and sales delivery; trusted technical advisor and solution designer. Partners closely with AEs to design technically sound, scalable solutions that win deals and build long-term customer trust. Balances solution design, customer conversations, internal coordination, and constant learning. Credibility is currency, both internally and with customers.</p>
+
+        <div class="eq-persona-grid">
+            <div class="eq-persona-col">
+                <h3>Jobs to Be Done</h3>
+                <ul>
+                    <li><strong>Engaging a new sales opportunity:</strong> Clearly understand and validate the customer's technical requirements to determine feasibility and design the right solution from the start</li>
+                    <li><strong>Leading or joining customer calls:</strong> Capture complete and accurate technical requirements so the solution reflects the customer's true needs</li>
+                    <li><strong>Moving a deal toward quoting:</strong> Translate complex configurations into accurate inputs to prevent errors and downstream delays</li>
+                    <li><strong>Presenting technical solutions:</strong> Clearly explain trade-offs and constraints to build trust and confidence in the proposed design</li>
+                    <li><strong>Managing multiple accounts and AEs:</strong> Maintain clear context across opportunities to avoid mistakes and respond quickly</li>
+                </ul>
+            </div>
+            <div class="eq-persona-col">
+                <h3>Goals &amp; Motivations</h3>
+                <ul>
+                    <li>Be a trusted technical advisor to customers and AEs</li>
+                    <li>Design accurate, scalable solutions that meet complex and evolving requirements</li>
+                    <li>Build long-term customer trust and relationships</li>
+                    <li>Maintain deep, up-to-date technical expertise to stay credible</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="eq-persona-grid" style="margin-top:1.25rem;">
+            <div class="eq-persona-col">
+                <h3>Operational Challenges</h3>
+                <ul>
+                    <li><strong>Fragmented tools &amp; systems</strong> — switching between Solution Builder, VDC, CAD, portals, spreadsheets, and slides slows work and increases errors</li>
+                    <li><strong>Lack of standardized workflow</strong> — no single process for solution design or knowledge management; everyone creates personal systems</li>
+                    <li><strong>Scattered knowledge sources</strong> — critical information is fragmented across wikis, decks, and informal channels; onboarding and knowledge transfer are challenging</li>
+                </ul>
+            </div>
+            <div class="eq-persona-col">
+                <h3>Emotional Frustrations</h3>
+                <ul>
+                    <li><strong>Frustration with inefficiency</strong> — wasted time on manual administrative tasks/tracking, rework, and navigating disconnected tools</li>
+                    <li><strong>Pressure to maintain expertise</strong> — rapidly changing products and technologies require constant learning to stay credible</li>
+                    <li><strong>Customers reaching out directly</strong> — frequent direct requests interrupt workflows and create pressure to respond quickly without full context</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top:1.25rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem;">Key Relationships</h3>
+            <span class="eq-tool-tag">AE</span>
+            <span class="eq-tool-tag">CSMs</span>
+            <span class="eq-tool-tag">GTST</span>
+            <span class="eq-tool-tag">Capacity</span>
+            <span class="eq-tool-tag">COMs</span>
+            <span class="eq-tool-tag">Engineering</span>
+        </div>
+
+        <div style="margin-top:0.75rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.5rem;">Top Tools / Systems</h3>
+            <span class="eq-tool-tag">Outlook / Teams</span>
+            <span class="eq-tool-tag">VDC</span>
+            <span class="eq-tool-tag">Excel</span>
+            <span class="eq-tool-tag">Salesforce</span>
+            <span class="eq-tool-tag">Siebel</span>
+        </div>
+
+        <div style="margin-top:1rem;">
+            <h3 style="font-size:0.75rem; font-weight:700; color:#3E3E3C; text-transform:uppercase; letter-spacing:.04em; margin:0 0 0.375rem;">Influence Across the Customer Journey</h3>
+            <div class="eq-journey-bar">
+                <div class="eq-journey-step med">Awareness<div class="eq-journey-label">Educates buyers on product value, initial discovery</div></div>
+                <div class="eq-journey-step high">Consideration<div class="eq-journey-label">Leads technical qualification and solution fit</div></div>
+                <div class="eq-journey-step high">Purchase<div class="eq-journey-label">Designs solutions, configures proposals</div></div>
+                <div class="eq-journey-step med">Onboarding<div class="eq-journey-label">Handoffs to delivery, clarifies expectations</div></div>
+                <div class="eq-journey-step low">Adoption<div class="eq-journey-label">Advises customers on effective use</div></div>
+                <div class="eq-journey-step med">Growth<div class="eq-journey-label">Identifies up-sell/expansion opportunities</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CROSS-PERSONA INSIGHTS ═══ -->
+    <h2 class="eq-ref-section-title">Cross-Persona Implications for Record Page Assembly</h2>
+
+    <div style="background:#fff; border:1px solid #DDDBDA; border-radius:8px; padding:1.25rem; font-size:0.8125rem; color:#3E3E3C; line-height:1.6;">
+        <p style="margin:0 0 1rem;">All three personas share common frustrations that the consistent lego assembly directly addresses:</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+            <div>
+                <h3 style="font-size:0.875rem; font-weight:700; color:#080707; margin:0 0 0.5rem;">Shared Pain Points</h3>
+                <ul style="margin:0; padding-left:1rem; line-height:1.7;">
+                    <li><strong>Fragmented tools and data</strong> — all three roles switch between 5-7 systems daily (Salesforce, Siebel, Excel, portals, email)</li>
+                    <li><strong>No single source of truth</strong> — account data, configurations, and history scattered across systems</li>
+                    <li><strong>Manual admin overhead</strong> — time wasted on re-entry, tracking, and workarounds</li>
+                    <li><strong>Tribal knowledge dependency</strong> — critical process knowledge lives in people's heads, not systems</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="font-size:0.875rem; font-weight:700; color:#080707; margin:0 0 0.5rem;">How the Assembly Pattern Helps</h3>
+                <ul style="margin:0; padding-left:1rem; line-height:1.7;">
+                    <li><strong>Consistent layout</strong> — all roles learn one pattern (Details | Activity | Related), reducing cognitive load</li>
+                    <li><strong>Highlights panel</strong> — "right record?" confirmation in 3 seconds, regardless of role</li>
+                    <li><strong>Activity timeline</strong> — single source for "what happened" replaces email/Siebel checking</li>
+                    <li><strong>Agentforce touchpoints</strong> — AI handles the data consolidation that all three roles currently do manually</li>
+                    <li><strong>Related lists in right column</strong> — cross-object context without switching systems</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</main>
+</div>
+
+<script src="eq-nav.js"></script>
+</body>
+</html>

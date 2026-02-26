@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Order</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-icon">
+                    <svg class="slds-icon slds-icon-standard-orders slds-page-header__icon" aria-hidden="true">
+                        <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                    </svg>
+                </div>
+                <div class="slds-page-header__col-details">
+                    <div class="slds-text-body_small slds-truncate">Order</div>
+                    <h1 class="slds-page-header__title slds-truncate slds-m-top_x-small">ORD-2026-NI1 — The Sacred Order of Shrubbery Hosting</h1>
+                </div>
+            </div>
+            <div class="slds-page-header__row">
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Account</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate"><a href="account.html">The Knights Who Say Ni Ltd</a></dd>
+                    </dl>
+                </div>
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Status</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate"><span class="eq-badge eq-badge--success">Active (and Pure)</span></dd>
+                    </dl>
+                </div>
+                <div class="slds-col">
+                    <dl class="slds-dl_horizontal">
+                        <dt class="slds-dl_horizontal__label"><span class="slds-truncate">Order Start Date</span></dt>
+                        <dd class="slds-dl_horizontal__detail slds-truncate">Mar 1, 2026</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-story-block">
+            Sir Galahad the Pure handles all procurement for the Knights Who Say Ni. He approaches every purchase order with an almost spiritual dedication to accuracy. When the Castle Anthrax sales team tried to lure him with aggressive discounting and "special offers," he nearly succumbed — "It's not a very good deal, is it? I mean, I could stay a while..." — but Sir Lancelot burst in and dragged him back to proper vendor evaluation. The existing order covers their initial deployment: 2 cabs in LD5 plus Fabric ports for the Shrubbery-as-a-Service beta. In the old Salesforce system, this order had 138 fields spread across 5+ screens. Galahad had to open Siebel to see the billing details, then back to Salesforce for the line items, then into a spreadsheet for the rack layout. He called it "the temptation of swivel-chairing."<br><br>
+            <strong>🌳 Design discussion:</strong> Orders are the most field-heavy object at Equinix. Left = order terms and contract details. Center = fulfillment status and provisioning timeline. Right = line items and billing. Key question: <em>which of these 138 fields do users actually need vs. which are system-only audit trails?</em> We propose categorizing every field into: Required, Reference, Audit Trail, System-only — and only showing the first two by default.
+        </div>
+
+        <div class="slds-path">
+            <div class="slds-grid slds-path__track">
+                <div class="slds-grid slds-path__scroller-container">
+                    <div class="slds-path__scroller" role="application">
+                        <ul class="slds-path__nav" role="tablist">
+                            <li class="slds-path__item slds-is-complete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="shrubbery-submitted">
+                                    <span class="slds-path__title">Shrubbery Submitted</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-complete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="po-purified">
+                                    <span class="slds-path__title">PO Purified by Galahad</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-complete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="provisioning">
+                                    <span class="slds-path__title">Provisioning</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-current" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="active">
+                                    <span class="slds-path__title">Active</span>
+                                </a>
+                            </li>
+                            <li class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="renewal">
+                                    <span class="slds-path__title">Renewal / Second Shrubbery</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slds-grid slds-path__action">
+                    <button class="slds-button slds-button_brand slds-path__mark-complete">
+                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>
+                        Mark Status as Complete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path Detail Panels -->
+        <div class="eq-path-detail" id="shrubbery-submitted-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Shrubbery Submitted (Complete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Order received, validated, PO confirmed</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Order ORD-2026-NI1 was submitted on Mar 1, 2026. All line items validated against catalog. Purchase order confirmed and signed by Galahad.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="po-purified-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">PO Purified by Galahad (Complete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Purchase order approved, billing configured</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Sir Galahad reviewed all line items and pricing for purity. Billing address configured to "The Dark Forest, Just Past the Swamp Castle." No discrepancies found. Account marked as credit-clear.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="provisioning-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Provisioning (Complete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Cabinets allocated, cross-connects ordered, power configured</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">LD5 Cage 12 cages allocated and prepared. Shrubbery Rack A and Rack B positioned. Fabric cross-connects ordered and installed. 208V power feeds configured and tested. Shrubberies delivered and installed per specifications.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="active-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Active (Current)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Services live, monitoring enabled, SLA tracking active</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">All line items provisioned and operational. Colocation cabinets in use by Ni! API services. Fabric ports active with full connectivity. Monitoring and alerting enabled. SLA tier: Premium. Uptime: 99.99% (47 seconds of herring-related downtime excluded from SLA calculation).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-path-detail" id="renewal-detail">
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-text-heading_small">Renewal / Second Shrubbery (Incomplete)</h3>
+                </div>
+                <div class="slds-card__body">
+                    <p><strong>Status:</strong> Contract renewal negotiation, upsell review</p>
+                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Current contract term expires Feb 28, 2029. Renewal timeline: renewal discussion to begin Jan 2029. Secondary shrubbery upgrade opportunity identified during current deployment. Head Knight may require additional facilities based on growth projections.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="eq-record-body">
+            <!-- LEFT COLUMN: Related -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-orders">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Order Line Items (3)</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Colocation Cabinet — Full ("Shrubbery Rack A")</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">IBX: <strong>LD5</strong></span>
+                                <span class="eq-related-item-field">Qty: <strong>1</strong></span>
+                                <span class="eq-related-item-field">MRC: <strong>$9,000</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Colocation Cabinet — Full ("Shrubbery Rack B")</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">IBX: <strong>LD5</strong></span>
+                                <span class="eq-related-item-field">Qty: <strong>1</strong></span>
+                                <span class="eq-related-item-field">MRC: <strong>$9,000</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active (herring removed)</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Equinix Fabric — 10G Port (Ni! API Gateway)</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">IBX: <strong>LD5</strong></span>
+                                <span class="eq-related-item-field">Qty: <strong>2</strong></span>
+                                <span class="eq-related-item-field">MRC: <strong>$6,500</strong></span>
+                                <span class="eq-related-item-field">Status: <strong><span class="eq-badge eq-badge--success">Active</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-case">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#case"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Related Cases</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="case.html">CS-4525</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Subject: <strong>Herring Not Compatible with Network Rack</strong></span>
+                                <span class="eq-related-item-field">Priority: <strong><span class="eq-badge eq-badge--warning">Medium</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="case.html">CS-4523</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Subject: <strong>Someone Said "It" on a Support Call</strong></span>
+                                <span class="eq-related-item-field">Priority: <strong><span class="eq-badge eq-badge--error">High (resolved)</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-product">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#product"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Shrubbery Inventory</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Shrubbery #1 (nice, not too expensive)</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Location: <strong>LD5 — Cage 12, beside Rack A</strong></span>
+                                <span class="eq-related-item-field">Condition: <strong><span class="eq-badge eq-badge--success">Thriving</span></strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title">Shrubbery #2 (slightly higher, two-level)</div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Location: <strong>Pending delivery per OPP</strong></span>
+                                <span class="eq-related-item-field">Condition: <strong><span class="eq-badge eq-badge--info">On Order</span></strong></span>
+                            </div>
+                        </div>
+                        <a href="#" class="eq-related-view-all">View All</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN: Details -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-orders">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Order Details</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body">
+                        <div class="eq-field-section-title">Order Information</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Order Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">ORD-2026-NI1</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Account Name</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="account.html">The Knights Who Say Ni Ltd</a></div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">BAN Account Number</span><div class="slds-form-element__control"><div class="slds-form-element__static">BAN-KWSN-NI-001</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Status</span><div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">Active (Pure &amp; Untempted)</span></div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Order Start Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Mar 1, 2026</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract Term</span><div class="slds-form-element__control"><div class="slds-form-element__static">36 months</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Contract End Date</span><div class="slds-form-element__control"><div class="slds-form-element__static">Feb 28, 2029</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Credit Hold</span><div class="slds-form-element__control"><div class="slds-form-element__static">No (Galahad's credit is pure)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Bill To Contact</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Sir Galahad the Pure</a> ("I seek only the purest invoices")</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Customer Project Manager</span><div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Roger the Shrubber</a> (ensures shrubberies arrive with the cabinets)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">COM Support</span><div class="slds-form-element__control"><div class="slds-form-element__static">Premium (The Head Knight demanded it)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Commercial Solutions</span><div class="slds-form-element__control"><div class="slds-form-element__static">Colocation + Interconnection + Shrubbery Hosting</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Purity Score</span><div class="slds-form-element__control"><div class="slds-form-element__static">97% (lost 3% when Galahad glanced at Castle Anthrax pricing)</div></div></div>
+                            <div class="slds-form-element slds-form-element_readonly"><span class="slds-form-element__label">Herring Compliance</span><div class="slds-form-element__control"><div class="slds-form-element__static">N/A (herrings not yet supported in rack mount format)</div></div></div>
+                        </div>
+                        <div class="eq-field-section-title">Billing Address</div>
+                        <div class="eq-detail-grid">
+                            <div class="slds-form-element slds-form-element_readonly eq-full-width"><span class="slds-form-element__label">Billing Address</span><div class="slds-form-element__control"><div class="slds-form-element__static">The Dark Forest, Just Past the Swamp Castle<br>Turn Left at the Gorge of Eternal Peril<br>England (attn: Sir Galahad the Pure, Accounts Payable)</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Activity -->
+            <div>
+                <div class="slds-card">
+                    <div class="slds-card__header">
+                        <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-log_a_call">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">Order Activity</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="slds-timeline">
+                            <div class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <svg class="slds-icon slds-icon-standard-task" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                    </svg>
+                                </div>
+                                <div class="slds-timeline__content">
+                                    <h3 class="slds-text-heading_small">Order Activated — "The Purest Activation"</h3>
+                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Mar 2026</p>
+                                    <p class="slds-m-top_small">All line items provisioned and live. LD5: 2 cabs + 2 Fabric ports. Sir Galahad personally inspected each cable and declared them "pure and untainted by vendor lock-in." A small shrubbery was placed beside Cabinet A as per contract clause 4.2.1.</p>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <svg class="slds-icon slds-icon-standard-email" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                    </svg>
+                                </div>
+                                <div class="slds-timeline__content">
+                                    <h3 class="slds-text-heading_small">Email: Invoice Purity Check</h3>
+                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Feb 2026</p>
+                                    <p class="slds-m-top_small">Galahad reviewed the first invoice with a fine-tooth comb: "This line item for 'Miscellaneous Charges' — what is that? It's not very pure, is it? I demand itemization!" Resolved after breaking $47.50 into 3 sub-items.</p>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <svg class="slds-icon slds-icon-standard-event" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                    </svg>
+                                </div>
+                                <div class="slds-timeline__content">
+                                    <h3 class="slds-text-heading_small">Provisioning Delay: Herring Incident</h3>
+                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Jan 2026</p>
+                                    <p class="slds-m-top_small">Installation was delayed 2 days when Roger the Shrubber attempted to mount a herring in Rack B as a "network topology enhancement." The NOC team gently explained that herrings are not RJ45-compatible.</p>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item">
+                                <div class="slds-timeline__marker">
+                                    <svg class="slds-icon slds-icon-standard-log_a_call" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                    </svg>
+                                </div>
+                                <div class="slds-timeline__content">
+                                    <h3 class="slds-text-heading_small">Call: Castle Anthrax Temptation</h3>
+                                    <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Dec 2025</p>
+                                    <p class="slds-m-top_small">Galahad received a call from Castle Anthrax offering 40% discount on switching providers. He was tempted — "Let me face the peril!" — but The Black Knight intervened: "None shall pass to another vendor!" Order remained intact.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">📄 Agentforce: Auto-Populate from Quote</div>
+                    <div class="eq-agentforce-desc">Automatically create an Order with line items from an approved Quote, mapping products, quantities, shrubbery specifications, and pricing. Includes Galahad's purity seal of approval workflow.</div>
+                    <button class="eq-agentforce-btn">🤖 Create Pure Order from Quote</button>
+                    <div class="eq-agentforce-time">Saves ~15 min of manual data entry per order</div>
+                </div>
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">💰 Agentforce: Price Validation</div>
+                    <div class="eq-agentforce-desc">Cross-check order pricing against current rate cards, approved shrubbery discounts, and contract terms. Flag anything that isn't "pure" before activation. Automatically rejects Castle Anthrax competitive offers.</div>
+                    <button class="eq-agentforce-btn">🤖 Validate Pricing Purity</button>
+                    <div class="eq-agentforce-time">Saves ~8 min; prevents impure billing</div>
+                </div>
+            </div>
+        </div>
+
+</main>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">❌ Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">175–225</strong></div>
+                    <div class="eq-metric-row"><span>Action buttons per page</span><strong style="color:#EA001E;">190–203</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">3–5</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">600–686</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#EA001E;">8–12 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check (swivel chair)</span><strong style="color:#EA001E;">3 (SF + Siebel + Email)</strong></div>
+                    <div class="eq-metric-row"><span>Object count</span><strong style="color:#EA001E;">800+ → 160 (in progress)</strong></div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">✅ After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">4–6 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Primary action buttons</span><strong style="color:#2E844A;">3–5 + overflow menu</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">&lt; 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Related | Details | Activity</strong></div>
+                    <div class="eq-metric-row"><span>Time to find key info</span><strong style="color:#2E844A;">30 sec – 2 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check</span><strong style="color:#2E844A;">1 (Salesforce only)</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce touchpoints</span><strong style="color:#2E844A;">2–3 per object</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /slds-scope -->
+</body>
+</html>

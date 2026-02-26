@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Lead</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+
+        <!-- HIGHLIGHTS PANEL - Using SLDS Page Header Record Home -->
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-lead" title="Lead">
+                                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#lead"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Lead</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="Thurston Livingston III">Thurston Livingston III</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <div class="slds-p-right_small" style="display:inline-block;">
+                                <button class="slds-button slds-button_neutral slds-button_icon slds-button_icon-border-filled" id="toggleComparison" aria-label="Toggle Before/After" title="Toggle Before/After" aria-checked="false">
+                                    <svg class="slds-button__icon" aria-hidden="true">
+                                        <use href="assets/icons/utility-sprite/svg/symbols.svg#compare"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Before/After</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                                <li><button class="slds-button slds-button_neutral">Following</button></li>
+                                <li><button class="slds-button slds-button_neutral">Edit</button></li>
+                                <li><button class="slds-button slds-button_neutral">Change Owner</button></li>
+                                <li>
+                                    <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-label="More Actions" title="More Actions">
+                                        <svg class="slds-button__icon" aria-hidden="true">
+                                            <use href="assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                                        </svg>
+                                        <span class="slds-assistive-text">More Actions</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__row slds-page-header__row_gutters">
+                <div class="slds-page-header__col-details">
+                    <div class="slds-page-header__detail-row">
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Company">Company</p>
+                            <p class="slds-text-body_regular slds-truncate" title="Filthy Lucre Imports Ltd">Filthy Lucre Imports Ltd</p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Title">Title</p>
+                            <p class="slds-text-body_regular slds-truncate" title="CTO">CTO</p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Phone">Phone</p>
+                            <p class="slds-text-body_regular slds-truncate" title="+44 776 192 2187">+44 776 192 2187</p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Email">Email</p>
+                            <p class="slds-text-body_regular slds-truncate" title="t.livingston@filthylucre.co.uk"><a href="mailto:t.livingston@filthylucre.co.uk">t.livingston@filthylucre.co.uk</a></p>
+                        </div>
+                        <div class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate" title="Lead Score">Lead Score</p>
+                            <p class="slds-text-body_regular slds-truncate" title="78 — Hot"><span class="eq-badge eq-badge--success">78 — Hot</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eq-anno">&#9432; Highlights Panel — max 5 fields. Shows compact layout fields from the record. First thing a user sees. Must answer: "Is this the right record? What's the status?"</div>
+        </div>
+
+        <!-- LEAD QUALIFICATION PATH - FULL WIDTH -->
+        <div style="padding: 0.5rem 1rem;">
+            <div class="slds-path">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller" role="application">
+                            <ul class="slds-path__nav" role="tablist">
+                                <li class="slds-path__item slds-is-complete" role="presentation" data-path-detail="new">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">New</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-current" role="presentation" data-path-detail="working">
+                                    <a class="slds-path__link" role="tab" tabindex="0" href="#">
+                                        <span class="slds-path__title">Working</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="nurturing">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Nurturing</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="qualified">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Qualified</span>
+                                    </a>
+                                </li>
+                                <li class="slds-path__item slds-is-incomplete" role="presentation" data-path-detail="converted">
+                                    <a class="slds-path__link" role="tab" tabindex="-1" href="#">
+                                        <span class="slds-path__title">Converted</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-path__action">
+                        <button class="slds-button slds-button_brand slds-path__mark-complete">
+                            <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                <use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                            </svg>
+                            Mark as Qualified
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Path Details -->
+            <div class="eq-path-detail" id="path-detail-new" style="display:none;">
+                <strong>New Stage:</strong> Document lead source, verify contact info, check for duplicates, initial research
+            </div>
+            <div class="eq-path-detail" id="path-detail-working" style="display:block;">
+                <strong>Working Stage:</strong> Schedule discovery call, identify pain points, confirm budget/authority/need/timeline (BANT), log all activities
+            </div>
+            <div class="eq-path-detail" id="path-detail-nurturing" style="display:none;">
+                <strong>Nurturing Stage:</strong> Add to nurture campaign, set follow-up cadence, share relevant content, monitor engagement score
+            </div>
+            <div class="eq-path-detail" id="path-detail-qualified" style="display:none;">
+                <strong>Qualified Stage:</strong> BANT confirmed, decision-maker identified, timeline established, budget allocated, ready to convert
+            </div>
+            <div class="eq-path-detail" id="path-detail-converted" style="display:none;">
+                <strong>Converted Stage:</strong> Create Account + Contact + Opportunity, transfer all notes and activity history
+            </div>
+
+            <div class="eq-anno">&#9432; Path component — shows lead qualification stage. Five key stages reflect the lead qualification process from initial contact through successful conversion.</div>
+        </div>
+
+        <!-- DATA STORY -->
+        <div class="eq-story-block">
+            <strong>&#128218; Chapter 1: "The Import King Who Found His Data Center"</strong><br>
+            Thurston Livingston III runs Filthy Lucre Imports Ltd, a London-based import/export operation handling high-value goods across Europe. With 340 employees and £45M in annual revenue, they've grown from a scrappy family business into a serious player in international trade. Their operations are distributed across the UK and Continent, which means their data infrastructure is a nightmare — servers scattered across legacy co-location facilities, compliance headaches, and bandwidth costs eating into margins. Thurston (who prefers "Mr. Livingston" on formal calls and "Thurston" once you've bought him a drink) downloaded our Colocation Buyer's Guide after finding it through an organic search. He's now in active evaluation mode: technical specs matter, SLA commitments matter, and carrier diversity matters. He's been referred by Roger the Shrubber (who works at The Knights Who Say Ni Ltd) and is comparing us against two other vendors. This deal could be £150K+ annually if we land the technical discovery call and can show him we understand high-security import compliance requirements.<br><br>
+            <strong>&#127793; Design discussion:</strong> This Lead record is the qualification funnel. The three-column layout answers three questions instantly: <em>Who is this prospect?</em> (left), <em>Where are they in qualification?</em> (center/path), and <em>What are their engagement signals?</em> (right/activity). If a rep has to scroll or click elsewhere to answer scoring or BANT status, we've failed.
+        </div>
+
+        <!-- THREE-COLUMN BODY -->
+        <div class="eq-record-body">
+
+            <!-- ===== LEFT: Related Lists + Agentforce ===== -->
+            <div>
+                <div class="eq-anno">&#9432; LEFT COLUMN — Related records and quick actions. This is the "what else?" column. Notes, files, history, campaigns. Everything a rep needs without leaving the record.</div>
+
+                <!-- Notes -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-note" title="Notes">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#note"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Notes (3)</span>
+                                </h2>
+                            </div>
+                        </header>
+                        <div class="slds-no-flex">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.6875rem;">New Note</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Interesting problem they have with legacy infrastructure</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">2/24/2026, 3:15 PM by <strong>Nathan Boles</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Roger the Shrubber mentioned they need carrier diversity</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">2/20/2026, 11:42 AM by <strong>Ryder Booth</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Compliance officer (Margaret Tisdall) is decision-maker for tech side</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">2/19/2026, 2:30 PM by <strong>Nathan Boles</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Files -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-file" title="Files">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#file"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Files (0)</span>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner" style="text-align:center; padding:1.5rem 0.75rem;">
+                        <p style="font-size:0.8125rem; color:#706E6B; margin-bottom:0.5rem;">No files yet</p>
+                        <button class="slds-button slds-button_neutral" style="font-size:0.6875rem;">Upload File</button>
+                    </div>
+                </div>
+
+                <!-- Lead History -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-record" title="Lead History">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#record"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Lead History (3)</span>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Lead Status Changed from "New" to "Working" — 2/23/2026, 9:30 AM by <strong>Ryder Booth</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Note Added — "Confirmed interest in IBX London" — 2/21/2026 by <strong>Nathan Boles</strong></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Lead Created — 2/16/2026 by <strong>Ryder Booth</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign History -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-campaign" title="Campaigns">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#campaign"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Campaign History (2)</span>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Financial Services Segment — Q1 Nurture</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <span class="eq-badge eq-badge--info">Active</span></span>
+                            </div>
+                        </div>
+                        <div class="eq-related-item">
+                            <div class="eq-related-item-title"><a href="#">Colocation Buyer's Guide — Content Download</a></div>
+                            <div class="eq-related-item-fields">
+                                <span class="eq-related-item-field">Status: <span class="eq-badge eq-badge--success">Responded</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agentforce: Lead Qualification -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9888;&#65039; Agentforce: Lead Qualification</div>
+                    <div class="eq-agentforce-desc">Analyze this lead's digital footprint, company financials, and engagement signals to recommend a qualification score and next action.</div>
+                    <button class="eq-agentforce-btn">&#129302; Qualify This Lead</button>
+                    <div class="eq-agentforce-time">Saves ~5 min qualification assessment</div>
+                </div>
+            </div>
+
+            <!-- ===== CENTER: Lead Details ===== -->
+            <div class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-lead" title="Lead">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use href="assets/icons/standard-sprite/svg/symbols.svg#lead"></use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Record Details</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <div class="eq-anno">&#9432; CENTER COLUMN — Required fields + lead scoring. This is the "qualification" column. Users scan here to confirm identity, scoring components, and BANT status. Organized by field section.</div>
+
+                    <!-- Lead Information Section -->
+                    <div class="eq-field-section-title">Lead Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Name</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Mr. Thurston Livingston III</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Company</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Filthy Lucre Imports Ltd</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Title</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">CTO</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Lead Status</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--warning">Working</span></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Lead Source</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Web — Downloaded "Colocation Buyer's Guide"</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Lead Score</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><span class="eq-badge eq-badge--success">78 (Hot)</span></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Rating</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Hot</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Lead Owner</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="contact.html">Ryder Booth</a></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Company Information Section -->
+                    <div class="eq-field-section-title">Company Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Industry</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Financial Services</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Annual Revenue</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">£45M</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Number of Employees</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">340</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Website</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="#">www.filthylucre.co.uk</a></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Lead Scoring Breakdown -->
+                    <div class="eq-field-section-title">Lead Scoring Breakdown</div>
+                    <div style="padding: 0.5rem 0.75rem;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:0.25rem;">
+                            <span>Engagement Score</span><strong>32/40</strong>
+                        </div>
+                        <div style="background:#DDDBDA; border-radius:4px; height:6px; margin-bottom:0.75rem;">
+                            <div style="background:#2E844A; border-radius:4px; height:100%; width:80%;"></div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:0.25rem;">
+                            <span>Fit Score</span><strong>28/30</strong>
+                        </div>
+                        <div style="background:#DDDBDA; border-radius:4px; height:6px; margin-bottom:0.75rem;">
+                            <div style="background:#2E844A; border-radius:4px; height:100%; width:93%;"></div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:0.25rem;">
+                            <span>Behavior Score</span><strong>18/30</strong>
+                        </div>
+                        <div style="background:#DDDBDA; border-radius:4px; height:6px; margin-bottom:0.75rem;">
+                            <div style="background:#FFB81C; border-radius:4px; height:100%; width:60%;"></div>
+                        </div>
+
+                        <div style="border-top:1px solid #DDDBDA; padding-top:0.5rem; margin-top:0.5rem; display:flex; justify-content:space-between; font-size:0.75rem; font-weight:600;">
+                            <span>Total Score</span><strong>78/100</strong>
+                        </div>
+                        <p style="font-size:0.6875rem; color:#706E6B; margin-top:0.5rem;">Downloaded whitepaper, attended webinar, visited pricing page 3x (engagement). Company size, industry, geography match ICP (fit). 2 email opens, 1 reply (behavior).</p>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <div class="eq-field-section-title">Contact Information</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Email</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static"><a href="mailto:t.livingston@filthylucre.co.uk">t.livingston@filthylucre.co.uk</a></div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Phone</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">+44 776 192 2187</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Mobile</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">+44 776 192 2187</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Mailing Street</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">King's Road, Chelsea</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">City</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">London</div></div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly">
+                            <span class="slds-form-element__label">Postal Code</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">SW3 4RY</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Description Section -->
+                    <div class="eq-field-section-title">Description</div>
+                    <div class="eq-detail-grid">
+                        <div class="slds-form-element slds-form-element_readonly eq-full-width" style="padding:0.5rem 0.75rem;">
+                            <span class="slds-form-element__label">Description</span>
+                            <div class="slds-form-element__control"><div class="slds-form-element__static">Thurston Livingston III is the CTO at Filthy Lucre Imports Ltd, a £45M import/export operation with 340 employees across the UK and Continental Europe. He's evaluating colocation solutions to modernize their distributed data infrastructure. Currently running legacy co-location across multiple vendors with compliance headaches. Was referred by Roger the Shrubber after a networking conference. Actively comparing us against two competitors. Technical specs, SLA commitments, and carrier diversity are key evaluation criteria. Margaret Tisdall (Compliance Officer) is the technical decision-maker. Deal size estimated at £150K+/year if we land the technical discovery call.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RIGHT: Activity + Next Best Action ===== -->
+            <div>
+                <div class="eq-anno">&#9432; RIGHT COLUMN — "What's happening now?" Activity timeline, next best actions, and engagement signals. This is the action column — the most dynamic content lives here.</div>
+
+                <!-- Next Best Action Card -->
+                <div class="slds-card" style="margin-bottom:0.75rem;">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container" style="background:#0070D2; border-radius:4px; padding:4px;">
+                                    <svg class="slds-icon slds-icon_small" style="fill:#fff;" aria-hidden="true">
+                                        <use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title"><span>Next Best Action</span></h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <p style="font-size:0.8125rem; margin-bottom:0.5rem;">Schedule a technical discovery call. Lead has high engagement but hasn't spoken with an SE yet. Margaret Tisdall (Compliance Officer) should be invited to discuss SLA and compliance requirements.</p>
+                        <button class="slds-button slds-button_brand" style="width:100%; font-size:0.75rem;">Schedule Discovery Call</button>
+                        <a href="#" style="display:block; text-align:center; font-size:0.75rem; margin-top:0.375rem; color:#706E6B;">No, Thank You</a>
+                    </div>
+                </div>
+
+                <!-- Activity Timeline -->
+                <div class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-log-a-call" title="Activity">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <span>Activity Timeline</span>
+                                </h2>
+                            </div>
+                        </header>
+                        <div style="margin-left:auto;">
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">Log a Call</button>
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Task</button>
+                            <button class="slds-button slds-button_neutral" style="font-size:0.75rem;">New Event</button>
+                        </div>
+                    </div>
+                    <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
+                        <div class="eq-story-block">
+                            <strong>&#128218; The Timeline tells the story:</strong> When Ryder Booth opens this Lead, the timeline should immediately show what's been happening — the whitepaper download, the referral from Roger, and the pending technical discovery call. No swivel-chairing to email. It's all right here.
+                        </div>
+                        <div class="slds-timeline">
+                            <div class="slds-timeline__item_expandable slds-timeline__item_email">
+                                <span class="slds-assistive-text">email</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-1" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-email slds-timeline__icon" title="email">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Email: Downloaded Colocation Buyer's Guide</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">2 days ago</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">Thurston downloaded our Colocation Buyer's Guide via organic search. This is a strong signal — he's self-educating and comparing vendors. The guide triggered an automated email sequence.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_call">
+                                <span class="slds-assistive-text">call</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-2" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-log-a-call slds-timeline__icon" title="call">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Call: Initial screening call with Roger the Shrubber (referral)</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">Last Thursday</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">Roger introduced Thurston directly after discovering their infrastructure challenges at a networking conference. Roger gave us a warm intro, which accelerated qualification. Thurston immediately expressed interest in our London facility specs and carrier options.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_task">
+                                <span class="slds-assistive-text">task</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-3" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon" title="task">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Task: Send follow-up with IBX London specs and compliance docs</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">completed yesterday</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">Sent detailed IBX London facility specs, SLA documentation, and compliance attestations (SOC 2 Type II, ISO 27001) per Thurston's request. Included carrier diversity options and pricing for initial configuration.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_email">
+                                <span class="slds-assistive-text">email</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-4" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-email slds-timeline__icon" title="email">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Email: Re: Capacity planning for Q3 migration</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">this morning</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">Thurston replied this morning expressing interest in a technical discovery call. Confirmed Margaret Tisdall (Compliance Officer) needs to be involved. Targeting a call for next week. High engagement signal.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-timeline__item_expandable slds-timeline__item_event">
+                                <span class="slds-assistive-text">event</span>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <button class="slds-button slds-button_icon" aria-controls="timeline-item-5" aria-expanded="false">
+                                            <svg class="slds-button__icon slds-timeline__details-action-icon" aria-hidden="true">
+                                                <use href="assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Toggle details</span>
+                                        </button>
+                                        <div class="slds-icon_container slds-icon-standard-event slds-timeline__icon" title="event">
+                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3><a href="#">Event: Technical Discovery Call — Scheduled for Next Tuesday</a></h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <p class="slds-timeline__date">scheduled</p>
+                                            </div>
+                                        </div>
+                                        <p class="slds-truncate">Discovery call locked in with Thurston and Margaret Tisdall. Agenda: IBX London fit analysis, carrier diversity options, SLA and compliance deep-dive, timeline/budget/authority confirmation (BANT completion).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agentforce: Personalized Outreach -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#9993; Agentforce: Personalized Outreach</div>
+                    <div class="eq-agentforce-desc">Draft a follow-up email referencing their whitepaper download and infrastructure challenges, with a specific CTA for the technical discovery call.</div>
+                    <button class="eq-agentforce-btn">&#129302; Draft Follow-Up Email</button>
+                    <div class="eq-agentforce-time">Saves ~3 min per personalized outreach</div>
+                </div>
+
+                <!-- Agentforce: Engagement Analytics -->
+                <div class="eq-agentforce">
+                    <div class="eq-agentforce-hdr">&#128200; Agentforce: Engagement Analytics</div>
+                    <div class="eq-agentforce-desc">Analyze Thurston's response patterns, optimal contact windows, and content engagement to recommend timing and channel for maximum conversion probability.</div>
+                    <button class="eq-agentforce-btn">&#129302; Analyze Engagement</button>
+                    <div class="eq-agentforce-time">Replaces ~7 min of manual engagement research</div>
+                </div>
+            </div>
+
+        </div><!-- /eq-record-body -->
+
+</main>
+
+    <!-- BEFORE / AFTER COMPARISON OVERLAY -->
+    <div class="eq-comparison-overlay" id="comparisonOverlay" role="dialog" aria-label="Before and After Comparison">
+        <div class="eq-comparison-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:1.25rem; font-weight:700; color:#080707;">Current State vs. Proposed Design System</h2>
+                <button class="slds-button slds-button_neutral" onclick="document.getElementById('comparisonOverlay').classList.remove('is-visible'); document.getElementById('toggleComparison').classList.remove('is-on'); document.getElementById('toggleComparison').setAttribute('aria-checked','false');">Close</button>
+            </div>
+            <div class="eq-comparison-grid">
+                <div class="eq-before-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">&#10060; Before (Current State)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#EA001E;">120–165</strong></div>
+                    <div class="eq-metric-row"><span>Action buttons per page</span><strong style="color:#EA001E;">140–180</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#EA001E;">2–4</strong></div>
+                    <div class="eq-metric-row"><span>Lightning components loaded</span><strong style="color:#EA001E;">450–520</strong></div>
+                    <div class="eq-metric-row"><span>Time to qualify lead</span><strong style="color:#EA001E;">10–15 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check (swivel chair)</span><strong style="color:#EA001E;">2 (SF + Email)</strong></div>
+                    <div style="margin-top:1rem;">
+                        <p style="font-size:0.75rem; font-weight:600; color:#706E6B; margin-bottom:0.5rem;">Sample fields (Lead — scrolled off screen):</p>
+                        <div class="eq-before-field">Lead Scoring Model Version</div>
+                        <div class="eq-before-field">Secondary Lead Source Detail</div>
+                        <div class="eq-before-field">Last Engagement Date (calculated)</div>
+                        <div class="eq-before-field">Nurture Campaign Status</div>
+                        <div class="eq-before-field">Legacy System ID</div>
+                        <div class="eq-before-field">... and 30+ more fields</div>
+                    </div>
+                </div>
+                <div class="eq-after-col">
+                    <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.75rem;">&#9989; After (Proposed Design System)</h3>
+                    <div class="eq-metric-row"><span>Field sections per page</span><strong style="color:#2E844A;">3–4 grouped sections</strong></div>
+                    <div class="eq-metric-row"><span>Primary action buttons</span><strong style="color:#2E844A;">3–4 + overflow menu</strong></div>
+                    <div class="eq-metric-row"><span>Screens of scrolling</span><strong style="color:#2E844A;">&lt; 2</strong></div>
+                    <div class="eq-metric-row"><span>Three-column layout</span><strong style="color:#2E844A;">Details | Path | Activity</strong></div>
+                    <div class="eq-metric-row"><span>Time to qualify lead</span><strong style="color:#2E844A;">2–3 min</strong></div>
+                    <div class="eq-metric-row"><span>Systems to check</span><strong style="color:#2E844A;">1 (Salesforce only)</strong></div>
+                    <div class="eq-metric-row"><span>Agentforce touchpoints</span><strong style="color:#2E844A;">2–3 per lead</strong></div>
+                    <div style="margin-top:1rem;">
+                        <p style="font-size:0.75rem; font-weight:600; color:#706E6B; margin-bottom:0.5rem;">Layout principle:</p>
+                        <p style="font-size:0.75rem; color:#3E3E3C; line-height:1.5;">
+                            <strong>Left:</strong> Related records + history (who/what)<br>
+                            <strong>Center:</strong> Lead scoring + qualification details (BANT status)<br>
+                            <strong>Right:</strong> Activity timeline + next best action (what's happening)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /slds-scope -->
+<script src="eq-behaviors.js"></script>
+<script src="eq-nav.js"></script>
+</body>
+</html>

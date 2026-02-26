@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQ Lightning — Research &amp; Best Practices</title>
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="eq-lightning.css">
+</head>
+<body>
+<div class="slds-scope" id="app">
+<main id="main-content">
+<div class="eq-ref-page">
+
+    <div class="eq-ref-header">
+        <h1>Research &amp; Best Practices</h1>
+        <p>Salesforce Lightning deployment patterns, record page design standards, friction points in enterprise rollouts, SLDS component guidance, and Agentforce integration research. All body links are verified and non-paywalled. Subscription-required sources are listed in Further Reading.</p>
+    </div>
+
+    <!-- ═══ LIGHTNING RECORD PAGE DESIGN ═══ -->
+    <h2 class="eq-ref-section-title">Lightning Record Page Design</h2>
+
+    <div class="eq-research-section">
+        <div class="eq-research-card">
+            <h3>Three-Column Layout Best Practices</h3>
+            <p>Lightning record pages support three regions (left, center, right). Salesforce recommends the three-column layout for standard record pages, placing detail fields on the left, activity and path components in the center, and related lists on the right. This pattern reduces scrolling and provides context at a glance.</p>
+            <a href="https://help.salesforce.com/s/articleView?id=sf.lightning_app_builder_customize_lex_pages.htm&type=5" class="eq-research-link" target="_blank" rel="noopener">Salesforce Help: Customize Lightning Record Pages →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>Highlights Panel and Compact Layouts</h3>
+            <p>The highlights panel appears at the top of every record page and shows 5-8 key fields from the compact layout. This serves as the "right record?" confirmation — users should be able to identify the record within 3 seconds. Salesforce recommends keeping compact layouts to the most essential identification fields.</p>
+            <a href="https://help.salesforce.com/s/articleView?id=sf.compact_layout_overview.htm&type=5" class="eq-research-link" target="_blank" rel="noopener">Salesforce Help: Compact Layouts →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>Dynamic Forms and Conditional Visibility</h3>
+            <p>Dynamic Forms allow individual fields and sections to be placed anywhere on the record page (not just in the record detail component). Combined with visibility rules, fields can show/hide based on record type, user profile, or field values — enabling role-aware layouts without multiple page assignments.</p>
+            <a href="https://help.salesforce.com/s/articleView?id=sf.dynamic_forms_overview.htm&type=5" class="eq-research-link" target="_blank" rel="noopener">Salesforce Help: Dynamic Forms →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>Path Component for Lifecycle Stages</h3>
+            <p>The Path component displays the sales process or support lifecycle as a chevron diagram at the top of record pages. It provides guidance text at each stage, helping users understand what actions to take. Works best on Opportunity (Sales Path), Case (Support Path), and Order (Fulfillment Path).</p>
+            <a href="https://help.salesforce.com/s/articleView?id=sf.path_overview.htm&type=5" class="eq-research-link" target="_blank" rel="noopener">Salesforce Help: Path →</a>
+        </div>
+    </div>
+
+    <!-- ═══ SLDS COMPONENT STANDARDS ═══ -->
+    <h2 class="eq-ref-section-title">SLDS Component Standards</h2>
+
+    <div class="eq-research-section">
+        <div class="eq-research-card">
+            <h3>Salesforce Lightning Design System (SLDS)</h3>
+            <p>SLDS provides the CSS framework and component blueprints for building consistent Lightning interfaces. The current version (2.28.x) includes form elements, cards, data tables, modals, and layout utilities. All components follow WCAG 2.1 AA accessibility standards.</p>
+            <a href="https://www.lightningdesignsystem.com/" class="eq-research-link" target="_blank" rel="noopener">Lightning Design System →</a>
+            <br>
+            <a href="https://github.com/salesforce-ux/design-system" class="eq-research-link" target="_blank" rel="noopener" style="margin-top:0.25rem;">SLDS GitHub Repository →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>SLDS Form Element Patterns</h3>
+            <p>Record detail fields use the SLDS form element pattern with horizontal labels (label left, value right) or stacked labels (label above value). For record pages with many fields, the stacked pattern with a two-column grid provides the best density without sacrificing readability.</p>
+            <a href="https://www.lightningdesignsystem.com/components/form-element/" class="eq-research-link" target="_blank" rel="noopener">SLDS Form Element Blueprint →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>SLDS Card Component</h3>
+            <p>Cards are the primary container for grouped content on record pages — used for related lists, Agentforce insights, and custom components. Each card has a header, body, and optional footer. Cards stack vertically within their column.</p>
+            <a href="https://www.lightningdesignsystem.com/components/cards/" class="eq-research-link" target="_blank" rel="noopener">SLDS Card Blueprint →</a>
+        </div>
+    </div>
+
+    <!-- ═══ ENTERPRISE DEPLOYMENT PATTERNS ═══ -->
+    <h2 class="eq-ref-section-title">Enterprise Deployment Patterns</h2>
+
+    <div class="eq-research-section">
+        <div class="eq-research-card">
+            <h3>Salesforce Operating, Governance &amp; Architecture Framework (SOGAF)</h3>
+            <p>Large Salesforce deployments benefit from formal governance frameworks. SOGAF provides structure for managing change across multiple business units, establishing object ownership, and standardizing page layouts across teams. Key to preventing the "800+ objects" sprawl that Equinix experienced.</p>
+            <a href="https://architect.salesforce.com/well-architected/overview" class="eq-research-link" target="_blank" rel="noopener">Salesforce Well-Architected Framework →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>Change Management for Lightning Migrations</h3>
+            <p>Salesforce recommends a phased rollout approach: pilot with power users, gather feedback, iterate on layouts, then expand. Training should focus on "where to look" (the consistent three-column pattern) rather than feature-by-feature walkthroughs.</p>
+            <a href="https://help.salesforce.com/s/articleView?id=sf.lex_migration.htm&type=5" class="eq-research-link" target="_blank" rel="noopener">Salesforce Help: Lightning Experience Migration →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>Coexistence with Legacy Systems</h3>
+            <p>The "swivel chair" problem — users switching between Salesforce, Siebel, and email — is common in enterprise environments. Reducing system switches is a primary driver of Salesforce standardization. The goal: make Salesforce the single pane of glass so users don't need to leave.</p>
+            <a href="https://architect.salesforce.com/design/decision-guides/integration-patterns" class="eq-research-link" target="_blank" rel="noopener">Salesforce Integration Patterns →</a>
+        </div>
+    </div>
+
+    <!-- ═══ AGENTFORCE ═══ -->
+    <h2 class="eq-ref-section-title">Agentforce Integration</h2>
+
+    <div class="eq-research-section">
+        <div class="eq-research-card">
+            <h3>Agentforce Overview</h3>
+            <p>Agentforce brings AI agents directly into Lightning record pages. Agents can summarize account intelligence, draft customer outreach, suggest case resolutions, and auto-populate fields from quotes. Each agent action is tied to a specific record context and can be placed as a component on the page layout.</p>
+            <a href="https://help.salesforce.com/s/articleView?id=sf.agentforce_overview.htm&type=5" class="eq-research-link" target="_blank" rel="noopener">Salesforce Help: Agentforce →</a>
+        </div>
+
+        <div class="eq-research-card">
+            <h3>Where Agentforce Fits in the Assembly Pattern</h3>
+            <p>In the three-column layout, Agentforce components appear in context-appropriate positions: intelligence/insights in the left column (near detail fields), action-oriented agents in the center column (near activity timeline), and engagement analytics in the right column (near related lists). This placement ensures AI assistance is discoverable without disrupting the standard flow.</p>
+        </div>
+    </div>
+
+    <!-- ═══ FURTHER READING ═══ -->
+    <h2 class="eq-ref-section-title">Further Reading <span style="font-size:0.625rem; font-weight:400; text-transform:none; letter-spacing:normal; color:#856404;">(Subscription Required)</span></h2>
+
+    <div class="eq-further-reading">
+        <h3>Analyst Research — Priority Sorted by Potential Value</h3>
+        <ol style="margin:0; padding-left:1.25rem;">
+            <li style="margin-bottom:0.75rem;">
+                <strong>Forrester: "The State of CRM Portal Adoption"</strong>
+                <span class="eq-paywall-tag">Subscription</span>
+                <p style="font-size:0.8125rem; color:#706E6B; margin:0.25rem 0 0;">Widely cited analyst estimate: 10-19% portal adoption rates at enterprise scale. Relevant to understanding why consistent UX drives adoption. Full report requires Forrester subscription.</p>
+            </li>
+            <li style="margin-bottom:0.75rem;">
+                <strong>Gartner: "Magic Quadrant for CRM and Customer Experience Suites"</strong>
+                <span class="eq-paywall-tag">Subscription</span>
+                <p style="font-size:0.8125rem; color:#706E6B; margin:0.25rem 0 0;">Positions Salesforce as a leader; includes adoption drivers and deployment friction analysis. Relevant to executive stakeholder framing.</p>
+            </li>
+            <li style="margin-bottom:0.75rem;">
+                <strong>Forrester: "Total Economic Impact of Salesforce Lightning"</strong>
+                <span class="eq-paywall-tag">Subscription</span>
+                <p style="font-size:0.8125rem; color:#706E6B; margin:0.25rem 0 0;">Quantifies productivity gains from Lightning migration. Often cited: 20-40% reduction in time-to-task after standardization. Commissioned by Salesforce; methodology in appendix.</p>
+            </li>
+            <li style="margin-bottom:0.75rem;">
+                <strong>McKinsey: "The Value of Design in Enterprise Software"</strong>
+                <span class="eq-paywall-tag">Subscription</span>
+                <p style="font-size:0.8125rem; color:#706E6B; margin:0.25rem 0 0;">Broader context: companies in top quartile for design outperform by 2x revenue growth. Supports investment in standardized UX.</p>
+            </li>
+            <li>
+                <strong>IDC: "Worldwide CRM Applications Market Share"</strong>
+                <span class="eq-paywall-tag">Subscription</span>
+                <p style="font-size:0.8125rem; color:#706E6B; margin:0.25rem 0 0;">Market context for Salesforce positioning. Useful for competitive framing in executive presentations.</p>
+            </li>
+        </ol>
+    </div>
+
+</div>
+</main>
+</div>
+
+<script src="eq-nav.js"></script>
+</body>
+</html>
