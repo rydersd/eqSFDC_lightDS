@@ -19,108 +19,8 @@
             <strong>🌳 Design discussion:</strong> Orders are the most field-heavy object at Equinix. Left = order terms and contract details. Center = fulfillment status and provisioning timeline. Right = line items and billing. Key question: <em>which of these 138 fields do users actually need vs. which are system-only audit trails?</em> We propose categorizing every field into: Required, Reference, Audit Trail, System-only — and only showing the first two by default.
         </div>
 
-        <div class="slds-path">
-            <div class="slds-grid slds-path__track">
-                <div class="slds-grid slds-path__scroller-container">
-                    <div class="slds-path__scroller" role="application">
-                        <ul class="slds-path__nav" role="tablist">
-                            <li class="slds-path__item slds-is-complete" role="presentation">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="shrubbery-submitted">
-                                    <span class="slds-path__title">Shrubbery Submitted</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-complete" role="presentation">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="po-purified">
-                                    <span class="slds-path__title">PO Purified by Galahad</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-complete" role="presentation">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="provisioning">
-                                    <span class="slds-path__title">Provisioning</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-current" role="presentation">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="active">
-                                    <span class="slds-path__title">Active</span>
-                                </a>
-                            </li>
-                            <li class="slds-path__item slds-is-incomplete" role="presentation">
-                                <a class="slds-path__link" role="tab" tabindex="-1" href="#" data-path-detail="renewal">
-                                    <span class="slds-path__title">Renewal / Second Shrubbery</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="slds-grid slds-path__action">
-                    <button class="slds-button slds-button_brand slds-path__mark-complete">
-                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true"><use href="assets/icons/utility-sprite/svg/symbols.svg#check"></use></svg>
-                        Mark Status as Complete
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Path Detail Panels -->
-        <div class="eq-path-detail" id="shrubbery-submitted-detail">
-            <div class="slds-card">
-                <div class="slds-card__header">
-                    <h3 class="slds-text-heading_small">Shrubbery Submitted (Complete)</h3>
-                </div>
-                <div class="slds-card__body">
-                    <p><strong>Status:</strong> Order received, validated, PO confirmed</p>
-                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Order ORD-2026-NI1 was submitted on Mar 1, 2026. All line items validated against catalog. Purchase order confirmed and signed by Galahad.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="eq-path-detail" id="po-purified-detail">
-            <div class="slds-card">
-                <div class="slds-card__header">
-                    <h3 class="slds-text-heading_small">PO Purified by Galahad (Complete)</h3>
-                </div>
-                <div class="slds-card__body">
-                    <p><strong>Status:</strong> Purchase order approved, billing configured</p>
-                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Sir Galahad reviewed all line items and pricing for purity. Billing address configured to "The Dark Forest, Just Past the Swamp Castle." No discrepancies found. Account marked as credit-clear.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="eq-path-detail" id="provisioning-detail">
-            <div class="slds-card">
-                <div class="slds-card__header">
-                    <h3 class="slds-text-heading_small">Provisioning (Complete)</h3>
-                </div>
-                <div class="slds-card__body">
-                    <p><strong>Status:</strong> Cabinets allocated, cross-connects ordered, power configured</p>
-                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">LD5 Cage 12 cages allocated and prepared. Shrubbery Rack A and Rack B positioned. Fabric cross-connects ordered and installed. 208V power feeds configured and tested. Shrubberies delivered and installed per specifications.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="eq-path-detail" id="active-detail">
-            <div class="slds-card">
-                <div class="slds-card__header">
-                    <h3 class="slds-text-heading_small">Active (Current)</h3>
-                </div>
-                <div class="slds-card__body">
-                    <p><strong>Status:</strong> Services live, monitoring enabled, SLA tracking active</p>
-                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">All line items provisioned and operational. Colocation cabinets in use by Ni! API services. Fabric ports active with full connectivity. Monitoring and alerting enabled. SLA tier: Premium. Uptime: 99.99% (47 seconds of herring-related downtime excluded from SLA calculation).</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="eq-path-detail" id="renewal-detail">
-            <div class="slds-card">
-                <div class="slds-card__header">
-                    <h3 class="slds-text-heading_small">Renewal / Second Shrubbery (Incomplete)</h3>
-                </div>
-                <div class="slds-card__body">
-                    <p><strong>Status:</strong> Contract renewal negotiation, upsell review</p>
-                    <p style="margin-top:0.75rem; font-size:0.875rem; color:#706E6B;">Current contract term expires Feb 28, 2029. Renewal timeline: renewal discussion to begin Jan 2029. Secondary shrubbery upgrade opportunity identified during current deployment. Head Knight may require additional facilities based on growth projections.</p>
-                </div>
-            </div>
-        </div>
+        <!-- PATH — rendered by EQ.renderPath() -->
+        <div id="eq-path"></div>
 
         <div class="eq-record-body">
             <!-- LEFT COLUMN: Related -->
@@ -288,161 +188,86 @@
             </div>
         </div>
 
-        <!-- OLD TAB CONTENT (PRESERVE FOR REFERENCE) -->
-        <div style="display:none;">
-                    <!-- Activity Tab -->
-                    <div id="tab-activity" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-activity-link">
-                        <div class="eq-activity-filters" role="toolbar" aria-label="Filter activities">
-                            <button class="eq-activity-filter is-active" data-filter="all">All</button>
-                            <button class="eq-activity-filter" data-filter="calls">Calls</button>
-                            <button class="eq-activity-filter" data-filter="emails">Emails</button>
-                            <button class="eq-activity-filter" data-filter="tasks">Tasks</button>
-                            <button class="eq-activity-filter" data-filter="events">Events</button>
-                        </div>
-                        <div class="slds-card">
-                            <div class="slds-card__header">
-                                <div class="slds-media slds-media_small">
-                                    <div class="slds-media__figure">
-                                        <span class="slds-icon_container slds-icon-standard-log_a_call">
-                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="slds-media__body">
-                                        <h2 class="slds-card__header-title slds-text-heading_small">Order Activity</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slds-card__body" style="padding:0 0.75rem 0.75rem;">
-                                <div class="slds-timeline">
-                                    <div class="slds-timeline__item">
-                                        <div class="slds-timeline__marker">
-                                            <svg class="slds-icon slds-icon-standard-task" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#task"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="slds-timeline__content">
-                                            <h3 class="slds-text-heading_small">Order Activated — "The Purest Activation"</h3>
-                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Mar 2026</p>
-                                            <p class="slds-m-top_small">All line items provisioned and live. LD5: 2 cabs + 2 Fabric ports. Sir Galahad personally inspected each cable and declared them "pure and untainted by vendor lock-in." A small shrubbery was placed beside Cabinet A as per contract clause 4.2.1.</p>
-                                        </div>
-                                    </div>
-                                    <div class="slds-timeline__item">
-                                        <div class="slds-timeline__marker">
-                                            <svg class="slds-icon slds-icon-standard-email" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#email"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="slds-timeline__content">
-                                            <h3 class="slds-text-heading_small">Email: Invoice Purity Check</h3>
-                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Feb 2026</p>
-                                            <p class="slds-m-top_small">Galahad reviewed the first invoice with a fine-tooth comb: "This line item for 'Miscellaneous Charges' — what is that? It's not very pure, is it? I demand itemization!" Resolved after breaking $47.50 into 3 sub-items.</p>
-                                        </div>
-                                    </div>
-                                    <div class="slds-timeline__item">
-                                        <div class="slds-timeline__marker">
-                                            <svg class="slds-icon slds-icon-standard-event" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#event"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="slds-timeline__content">
-                                            <h3 class="slds-text-heading_small">Provisioning Delay: Herring Incident</h3>
-                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Jan 2026</p>
-                                            <p class="slds-m-top_small">Installation was delayed 2 days when Roger the Shrubber attempted to mount a herring in Rack B as a "network topology enhancement." The NOC team gently explained that herrings are not RJ45-compatible.</p>
-                                        </div>
-                                    </div>
-                                    <div class="slds-timeline__item">
-                                        <div class="slds-timeline__marker">
-                                            <svg class="slds-icon slds-icon-standard-log_a_call" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#log_a_call"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="slds-timeline__content">
-                                            <h3 class="slds-text-heading_small">Call: Castle Anthrax Temptation</h3>
-                                            <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">Dec 2025</p>
-                                            <p class="slds-m-top_small">Galahad received a call from Castle Anthrax offering 40% discount on switching providers. He was tempted — "Let me face the peril!" — but The Black Knight intervened: "None shall pass to another vendor!" Order remained intact.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chatter Tab -->
-                    <div id="tab-chatter" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-chatter-link">
-                        <div class="slds-card">
-                            <div class="slds-card__header">
-                                <div class="slds-media slds-media_small">
-                                    <div class="slds-media__figure">
-                                        <span class="slds-icon_container slds-icon-standard-feed">
-                                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                                                <use href="assets/icons/standard-sprite/svg/symbols.svg#feed"></use>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="slds-media__body">
-                                        <h2 class="slds-card__header-title slds-text-heading_small">Chatter</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slds-card__body" style="padding:0.75rem;">
-                                <p style="color:#706E6B; font-size:0.8125rem; margin-bottom:0.75rem;">Team discussion about this order.</p>
-                                <div style="padding:0.75rem; background:#F3F3F3; border-radius:4px; font-size:0.8125rem; color:#3E3E3C;">
-                                    <div style="margin-bottom:0.75rem;">
-                                        <strong>Sir Galahad</strong> — Today<br>
-                                        <span style="color:#706E6B;">All line items provisioned and live. I personally inspected each cable and they are pure and untainted. The shrubbery in Cabinet A meets clause 4.2.1 specifications.</span>
-                                    </div>
-                                    <div>
-                                        <strong>Roger the Shrubber</strong> — Yesterday<br>
-                                        <span style="color:#706E6B;">The herring incident has been resolved. NOC team confirmed all non-standard items removed from Rack B. RJ45 connections restored to full purity.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Agentforce Tab -->
-                    <div id="tab-agentforce" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-agentforce-link">
-                        <div class="eq-agentforce">
-                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#page"></use></svg> Agentforce: Auto-Populate from Quote</div>
-                            <div class="eq-agentforce-desc">Automatically create an Order with line items from an approved Quote, mapping products, quantities, shrubbery specifications, and pricing. Includes Galahad's purity seal of approval workflow.</div>
-                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Create Pure Order from Quote</button>
-                            <div class="eq-agentforce-time">Saves ~15 min of manual data entry per order</div>
-                        </div>
-                        <div class="eq-agentforce">
-                            <div class="eq-agentforce-hdr"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#moneybag"></use></svg> Agentforce: Price Validation</div>
-                            <div class="eq-agentforce-desc">Cross-check order pricing against current rate cards, approved shrubbery discounts, and contract terms. Flag anything that isn't "pure" before activation. Automatically rejects Castle Anthrax competitive offers.</div>
-                            <button class="eq-agentforce-btn"><svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill: currentColor; width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"><use href="assets/icons/utility-sprite/svg/symbols.svg#einstein"></use></svg> Validate Pricing Purity</button>
-                            <div class="eq-agentforce-time">Saves ~8 min; prevents impure billing</div>
-                        </div>
-                    </div>
-        </div>
-        <!-- /OLD TAB CONTENT -->
+        <!-- old tab content removed — now component-driven via EQ.renderActivityTabs() -->
 
         <!-- DESIGN NOTES SECTION -->
         <section class="eq-design-notes" aria-label="Design Notes">
             <button class="eq-design-notes-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); this.nextElementSibling.classList.toggle('slds-hide');">
-                <svg class="slds-icon slds-icon_xx-small" aria-hidden="true" style="fill:currentColor;width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                    <use href="assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                </svg>
-                Design Notes &amp; Feedback
+                &#x2139;&#xFE0E; Design Notes &amp; Feedback
             </button>
             <div class="slds-hide eq-design-notes-content">
+
                 <h3>Assembly Decisions</h3>
                 <ul>
-                    <li><strong>Left column (Related):</strong> Order Line Items with provisioning status, Related Cases linked to this order, and Shrubbery Inventory tracking. Compact related lists surface order fulfillment details at a glance.</li>
-                    <li><strong>Center column (Details):</strong> Order information (number, status, dates), shipping and billing addresses, and key terms. Path component shows order lifecycle: Draft, Activated, Provisioning, Complete.</li>
-                    <li><strong>Right column (Activity):</strong> Tabbed interface with Order Activity timeline (provisioning events, invoice checks, incidents), Chatter for order team discussion, and Agentforce tab with Auto-Populate from Quote and Price Validation cards.</li>
+                    <li><strong>Left column (Related):</strong> Order Line Items with provisioning status badges, Related Cases, and Shrubbery Inventory. Compact related lists surface fulfillment details at a glance.</li>
+                    <li><strong>Center column (Details):</strong> Order information (number, status, dates, billing), key terms, and contract references. The Path component above shows the order lifecycle stage-gate.</li>
+                    <li><strong>Right column (Activity):</strong> Component-driven tabbed interface: Activity (with sub-tabs, input module, filters, timeline), Agentforce (auto-populate &amp; price validation cards), Community, and Chatter. Agentforce "Best Next Step" card sits above the tabs.</li>
+                    <li><strong>Path component:</strong> Now uses <code>EQ.renderPath()</code> with field-based exit criteria per stage. Toggle is text-based (no SVG dependency). Each stage shows label/value pairs with CSS-only status circles.</li>
                 </ul>
+
+                <h3>Order Lifecycle Stages &mdash; Research &amp; Rationale</h3>
+                <p>The order stages used in this prototype are grounded in industry best practices across three domains: Salesforce platform conventions, enterprise order-to-cash (O2C) process standards, and Equinix-specific colocation fulfillment workflows. Below is a deep decomposition of each stage, its exit criteria rationale, and the source material that informed it.</p>
+
+                <h3>Stage Decomposition</h3>
+
+                <p><strong>Stage 1: Order Submitted (Draft)</strong><br>
+                Maps to Salesforce's default <em>Draft</em> status, where orders are created but not yet validated. Salesforce requires a Draft status code on order creation, and CPQ enforces that a Primary Quote with Approved status exists before order generation. In the Equinix Customer Portal, this corresponds to the "Submitted" status &mdash; the request is in the system and pending review. Exit criteria focus on PO confirmation, line-item catalog validation, and credit check &mdash; these are the minimum gates before any downstream work begins. In O2C literature, this maps to "Order Entry and Validation," where accuracy of product specs, quantities, pricing, and delivery needs are confirmed before processing.</p>
+
+                <p><strong>Stage 2: Validated &amp; Approved</strong><br>
+                Combines Equinix's "Pending Approval" and "Accepted" statuses into a single user-facing gate. Salesforce documentation recommends that custom status values be assigned a status category (Draft or Activated); this stage represents the last Draft-category gate before activation. Exit criteria include billing address configuration, credit clearance, deal desk sign-off on pricing, and legal review of contract terms. In Oracle's COM/SOM/TOM architecture, this is where the Central Order Management layer validates commercial terms before decomposing into service and technical orders. The O2C framework calls this the bridge between "Order Entry" and "Processing &amp; Fulfillment" &mdash; specifically the credit management and pricing validation step.</p>
+
+                <p><strong>Stage 3: Provisioning</strong><br>
+                The most complex stage from a decomposition perspective. This is where order decomposition occurs &mdash; the commercial order (what the customer bought) is broken into technical fulfillment tasks (what needs to happen in the data center). Equinix documentation shows statuses "In Configuration," "In Review," and "Pending Space" during this phase, reflecting the multi-step nature of colocation provisioning: cabinet allocation, power configuration, cross-connect installation, and network testing. In Salesforce Industries Order Management, this is where the orchestration plan is generated &mdash; it identifies which functions to perform on each order item, which external systems fulfill each item, and dependencies between items. Oracle's OSM model decomposes this further into SOM (Service Order Management) and TOM (Technical Order Management) layers. Exit criteria are intentionally granular &mdash; space allocated, power configured, cross-connects installed, acceptance testing passed &mdash; because these are the physical fulfillment milestones that operations teams track.</p>
+
+                <p><strong>Stage 4: Active</strong><br>
+                Maps to Salesforce's built-in "Activated" status category. Equinix shows "Completed" in their portal when provisioning is done and services are live. This is the steady-state operational stage where SLA tracking, monitoring, and billing are active. Exit criteria here are unusual because they represent ongoing operational health rather than one-time gates: SLA compliance, monitoring enabled, first invoice generated, and customer acceptance signed. The O2C framework captures this as the intersection of "Invoicing" and "Accounts Receivable Management" &mdash; the order is fulfilled, and the focus shifts to ongoing revenue recognition and cash collection.</p>
+
+                <p><strong>Stage 5: Renewal / Expansion</strong><br>
+                Not a standard Salesforce order status, but represents a critical business process. In B2B colocation, the renewal discussion typically begins 6&ndash;12 months before contract expiration. This stage serves as a forward-looking checklist that bridges Order Management and Opportunity Management &mdash; renewal criteria met triggers a new opportunity or contract amendment. Exit criteria include renewal timeline established, upsell opportunities identified, contract terms reviewed, and customer success engagement confirmed. This maps to the O2C "Performance Measurement" stage, where cycle-time analytics and customer health scores inform the renewal approach.</p>
+
+                <h3>Decomposition Deep Dive</h3>
+
+                <p>Order decomposition is the process of converting a commercial order (customer-facing products) into technical fulfillment tasks (resource-facing services). This concept comes from telecom order management but applies directly to colocation:</p>
+
+                <p><strong>Commercial Layer (what the customer sees):</strong> "2 colocation cabinets + 2 Fabric 10G ports in LD5." This is the order as it appears in CPQ and on the Order record.</p>
+
+                <p><strong>Technical Decomposition (what operations does):</strong> Each line item decomposes into sub-tasks routed to different teams:</p>
+                <ul>
+                    <li><em>Cabinet line item</em> &rarr; Space allocation (facilities team) + Power provisioning (electrical team) + Physical installation (smart hands) + Environmental monitoring setup (NOC)</li>
+                    <li><em>Fabric port line item</em> &rarr; Port allocation (network engineering) + Cross-connect ordering (interconnection team) + BGP/peering configuration (network ops) + Bandwidth testing (QA)</li>
+                </ul>
+
+                <p><strong>Orchestration:</strong> These sub-tasks have dependencies. Power must be configured before cabinet installation. Cross-connects require both physical port allocation and logical network configuration. Salesforce Industries OM handles this through orchestration plans that sequence and parallelize tasks, monitoring completion and escalating blockers. Oracle's OSM model formalizes this as COM &rarr; SOM &rarr; TOM, where each layer owns a different scope of fulfillment.</p>
+
+                <p><strong>Why this matters for the UI:</strong> The exit criteria in our Path component are the user-facing summary of this decomposition. Each criterion (e.g., "Space Allocated: LD5 Cage 12") represents the completion of a sub-order that may involve multiple teams and systems. The Path gives sales, operations, and customer success a single view of where the order stands without needing to check provisioning systems, billing platforms, or NOC dashboards separately.</p>
+
+                <h3>Sources &amp; Further Reading</h3>
+                <ul>
+                    <li><a href="https://docs.equinix.com/colocation/managing-orders/order-statuses/" target="_blank">Equinix: Order Statuses</a> &mdash; Official Equinix Customer Portal documentation listing all colocation order statuses (Submitted, Pending Approval, In Configuration, In Progress, Completed, etc.).</li>
+                    <li><a href="https://trailhead.salesforce.com/content/learn/modules/industries-order-management-decomposition-foundations/meet-industries-order-management-decomposition" target="_blank">Salesforce Trailhead: Order Management Decomposition Foundations</a> &mdash; Explains how Industries OM decomposes commercial products into technical fulfillment tasks and orchestration plans.</li>
+                    <li><a href="https://trailhead.salesforce.com/content/learn/modules/industries-cpq-orders/submit-and-monitor-orders" target="_blank">Salesforce Trailhead: Submit and Monitor Orders</a> &mdash; Guide to order submission validation, status transitions, and monitoring within Industries CPQ.</li>
+                    <li><a href="https://www.salesforceben.com/implement-salesforce-path/" target="_blank">Salesforce Ben: Enable Path in 6 Steps</a> &mdash; Best practices for configuring Salesforce Path, including max 5 fields per stage and guidance text best practices.</li>
+                    <li><a href="https://trailhead.salesforce.com/content/learn/modules/om-salesforce-order-management/om-get-started-order-management" target="_blank">Salesforce Trailhead: Order Lifecycle Management</a> &mdash; Full order lifecycle from capture through fulfillment, delivery, and service.</li>
+                    <li><a href="https://docs.oracle.com/communications/E96856-01/doc.74/e96918/cpt_order_process.htm" target="_blank">Oracle OSM: How OSM Processes Orders</a> &mdash; Deep technical reference on the COM/SOM/TOM three-tier order architecture, decomposition into order components, and orchestration plan generation.</li>
+                    <li><a href="https://conexiom.com/blog/what-is-the-order-to-cash-process-and-what-are-its-8-stages/" target="_blank">Conexiom: 8 Stages of Order-to-Cash</a> &mdash; Industry-standard O2C process: Order Entry &amp; Validation, Processing &amp; Fulfillment, Shipping &amp; Delivery, Invoicing, AR Management, Cash Application, Credit Management, Performance Analytics.</li>
+                    <li><a href="https://trailhead.salesforce.com/content/learn/modules/industries-order-management-foundations/dive-into-industries-order-management" target="_blank">Salesforce Trailhead: Industries Order Management Foundations</a> &mdash; Decomposition and orchestration concepts for B2B and B2C order fulfillment.</li>
+                    <li><a href="https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packagingGuide/coa_order_status.htm" target="_blank">Salesforce Developer: Order Status Values</a> &mdash; Technical reference for Draft/Activated status categories and how custom values map to status codes.</li>
+                    <li><a href="https://www.ksolves.com/blog/salesforce/order-management-system-guide" target="_blank">Ksolves: Salesforce Order Management System Guide 2025</a> &mdash; Overview of Salesforce OMS capabilities for enterprise order management.</li>
+                    <li><a href="https://trailhead.salesforce.com/content/learn/projects/customize-a-sales-path-for-your-team/customize-a-sales-path" target="_blank">Salesforce Trailhead: Customize a Sales Path</a> &mdash; Hands-on project for configuring Path with key fields and guidance at each stage.</li>
+                </ul>
+
                 <h3>Open Questions</h3>
                 <ul>
-                    <li>Should Order Line Items show provisioning progress bars per item, or just status badges?</li>
+                    <li>Should Order Line Items show per-item provisioning progress bars, or are status badges sufficient?</li>
+                    <li>Should the "Validated &amp; Approved" stage be split into two stages (Credit Review + Deal Desk Approval) for orders above a certain threshold?</li>
+                    <li>Should the Provisioning stage dynamically decompose its exit criteria based on line-item types (e.g., cabinet criteria vs. Fabric port criteria)?</li>
                     <li>For orders linked to Solutions, should there be a "Related Solutions" card in the left column?</li>
-                    <li>Should the Auto-Populate from Quote Agentforce action be a one-click button on the order header instead of nested in the tab?</li>
+                    <li>Should Auto-Populate from Quote be a one-click header button rather than an Agentforce tab card?</li>
+                    <li>Should the Renewal stage auto-create an Opportunity when renewal criteria are met?</li>
                 </ul>
+
                 <h3>Feedback</h3>
-                <p>Have feedback on this page's layout? Submit via Slack or annotate directly using the Annotations toggle above.</p>
+                <p>Have feedback on this page's layout or the stage decomposition? Submit via Slack or annotate directly using the Annotations toggle above.</p>
             </div>
         </section>
 
@@ -496,7 +321,7 @@
 <script src="eq-behaviors.js"></script>
 <script src="eq-nav.js"></script>
 <script>
-// Initialize header and activity tabs for Order
+// Initialize header
 EQ.renderHeader({
   objectType: 'orders',
   objectLabel: 'Order',
@@ -510,7 +335,125 @@ EQ.renderHeader({
     {label: 'Total Amount', value: '$580,000.00'}
   ]
 });
-EQ.renderActivityTabs();
+
+// Initialize order lifecycle path (industry-aligned stages)
+EQ.renderPath({
+  target: 'eq-path',
+  advanceLabel: 'Mark Status as Complete',
+  stages: [
+    { id:'submitted', label:'Order Submitted', status:'complete',
+      exitCriteria: [
+        {label:'Purchase Order', value:'PO-NI-2026-001 confirmed', done:true},
+        {label:'Line Items Validated', value:'3 of 3 against catalog', done:true},
+        {label:'Credit Check', value:'Passed (Galahad\'s credit is pure)', done:true},
+        {label:'Primary Quote', value:'QT-2026-NI1 — Approved', done:true},
+        {label:'Billing Contact', value:'Sir Galahad the Pure', done:true}
+      ],
+      guidance: [
+        'Verify all line items match the approved quote before submission',
+        'Confirm PO number and billing contact with customer procurement',
+        'Credit check must pass before order can advance — escalate holds to finance',
+        'CPQ requires Primary Quote status = Approved for order generation'
+      ]
+    },
+    { id:'validated', label:'Validated & Approved', status:'complete',
+      exitCriteria: [
+        {label:'Billing Address', value:'The Dark Forest, past Swamp Castle', done:true},
+        {label:'Deal Desk Sign-off', value:'Approved — Mar 1, 2026', done:true},
+        {label:'Contract Terms', value:'36 months, Premium SLA', done:true},
+        {label:'Pricing Validation', value:'Matches rate card RC-2026-Q1', done:true},
+        {label:'Credit Hold', value:'None', done:true}
+      ],
+      guidance: [
+        'Billing address must be confirmed before activation — errors here delay invoicing',
+        'Deal desk approval required for any non-standard pricing or discount > 10%',
+        'Verify contract term matches the opportunity close terms',
+        'Pricing validation cross-checks order amounts against current rate cards'
+      ]
+    },
+    { id:'provisioning', label:'Provisioning', status:'complete',
+      exitCriteria: [
+        {label:'Space Allocated', value:'LD5 Cage 12 — Racks A & B', done:true},
+        {label:'Power Configured', value:'208V feeds tested', done:true},
+        {label:'Cross-Connects', value:'2x Fabric 10G installed', done:true},
+        {label:'Acceptance Testing', value:'Passed — all ports active', done:true},
+        {label:'Shrubbery Installed', value:'Per clause 4.2.1', done:true}
+      ],
+      guidance: [
+        'Provisioning decomposes into sub-tasks: space, power, network, and physical install',
+        'Cross-connects require both port allocation (network eng) and physical install (smart hands)',
+        'Power must be configured before cabinet installation can begin',
+        'Customer acceptance testing is the final gate before activation'
+      ]
+    },
+    { id:'active', label:'Active', status:'current',
+      exitCriteria: [
+        {label:'Services Live', value:'All 3 line items operational', done:true},
+        {label:'SLA Tracking', value:'Premium — 99.99% uptime', done:true},
+        {label:'Monitoring', value:'Enabled — alerts configured', done:true},
+        {label:'First Invoice', value:'Generated — Mar 2026', done:true},
+        {label:'Customer Acceptance', value:'Signed by Galahad', done:true}
+      ],
+      guidance: [
+        'Monitor SLA compliance — any breach triggers automatic case creation',
+        'First invoice must generate within 30 days of activation',
+        'Customer acceptance signature confirms handoff from provisioning to operations',
+        'Ongoing: watch for capacity utilization > 80% to trigger expansion conversation'
+      ],
+      advanceBtn: {label:'Advance to Renewal', disabled:true}
+    },
+    { id:'renewal', label:'Renewal / Expansion', status:'incomplete',
+      exitCriteria: [
+        {label:'Renewal Timeline', value:'Jan 2029 (6 months before expiry)', done:false},
+        {label:'Upsell Review', value:'Second shrubbery opportunity identified', done:false, badge:'info'},
+        {label:'Contract Terms Review', value:'Pending — due Q4 2028', done:false},
+        {label:'Customer Success', value:'QBR cadence active', done:false, badge:'warning'},
+        {label:'Renewal Opportunity', value:'Not yet created', done:false}
+      ],
+      guidance: [
+        'Begin renewal discussions 6-12 months before contract expiration',
+        'Review capacity utilization and growth projections for upsell opportunities',
+        'Customer success QBR should surface renewal readiness signals',
+        'Auto-create renewal opportunity when timeline criteria are met'
+      ],
+      advanceBtn: {label:'Create Renewal Opportunity', disabled:true}
+    }
+  ]
+});
+
+// Initialize activity tabs with order-specific data
+EQ.renderActivityTabs({
+  agentforce: {
+    title: 'Best Next Step: Review Upcoming Invoice',
+    description: 'Next invoice generates in 5 days. Review line-item charges against rate card RC-2026-Q1 to catch discrepancies before customer receives it.',
+    btnLabel: 'Preview Invoice',
+    timeSaved: 'Suggested based on billing cycle and order terms'
+  },
+  timeline: [
+    { icon:'task', title:'Order Activated — The Purest Activation', href:'#', meta:'Mar 2026',
+      body:'All line items provisioned and live. LD5: 2 cabs + 2 Fabric ports. Sir Galahad personally inspected each cable and declared them pure and untainted by vendor lock-in.' },
+    { icon:'email', title:'Email: Invoice Purity Check', href:'#', meta:'Feb 2026',
+      body:'Galahad reviewed the first invoice. The line item for Miscellaneous Charges demanded itemization. Resolved after breaking $47.50 into 3 sub-items.' },
+    { icon:'event', title:'Provisioning Delay: Herring Incident', href:'#', meta:'Jan 2026',
+      body:'Installation was delayed 2 days when Roger the Shrubber attempted to mount a herring in Rack B as a network topology enhancement. NOC confirmed herrings are not RJ45-compatible.' },
+    { icon:'log_a_call', title:'Call: Castle Anthrax Temptation', href:'#', meta:'Dec 2025',
+      body:'Galahad received a call from Castle Anthrax offering 40% discount on switching providers. The Black Knight intervened. Order remained intact.' }
+  ],
+  agentforceCards: [
+    { title:'Agentforce: Auto-Populate from Quote',
+      description:'Automatically create an Order with line items from an approved Quote, mapping products, quantities, and pricing. Includes purity seal of approval workflow.',
+      btnLabel:'Create Pure Order from Quote', timeSaved:'Saves ~15 min of manual data entry per order' },
+    { title:'Agentforce: Price Validation',
+      description:'Cross-check order pricing against current rate cards, approved discounts, and contract terms. Flag discrepancies before activation.',
+      btnLabel:'Validate Pricing Purity', timeSaved:'Saves ~8 min; prevents billing errors' }
+  ],
+  chatter: [
+    { author:'Sir Galahad', time:'Today',
+      body:'All line items provisioned and live. I personally inspected each cable and they are pure and untainted. The shrubbery in Cabinet A meets clause 4.2.1 specifications.' },
+    { author:'Roger the Shrubber', time:'Yesterday',
+      body:'The herring incident has been resolved. NOC team confirmed all non-standard items removed from Rack B. RJ45 connections restored to full purity.' }
+  ]
+});
 </script>
 </body>
 </html>
